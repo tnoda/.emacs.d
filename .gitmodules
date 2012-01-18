@@ -1,0 +1,21 @@
+[submodule "src/org"]
+	path = src/org
+	url = git://orgmode.org/org-mode.git
+[submodule "src/popwin-el"]
+	path = src/popwin-el
+	url = https://github.com/m2ym/popwin-el
+[submodule "plugins/yasnippet"]
+	path = plugins/yasnippet
+	url = https://github.com/capitaomorte/yasnippet
+[submodule "src/auto-complete"]
+	path = src/auto-complete
+	url = https://github.com/m2ym/auto-complete.git
+[submodule "src/markdown-mode"]
+	path = src/markdown-mode
+	url = git://jblevins.org/git/markdown-mode.git
+[submodule "src/zencoding"]
+	path = src/zencoding
+	url = https://github.com/rooney/zencoding
+[submodule "src/twittering-mode"]
+	path = src/twittering-mode
+	url = https://github.com/hayamiz/twittering-mode

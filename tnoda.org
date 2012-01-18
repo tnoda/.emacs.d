@@ -1,0 +1,1674 @@
+#+TITLE: Emacs 初期化ファイルの本体
+#+STARTUP: content
+#+STARTUP: hidestars
+#+STARTUP: indent
+#+PROPERTY: padline no
+#+PROPERTY: results silent
+#+TAGS:  key(k) command(c) autoinstall(a) marmalade(m) git(g) rubikitch(r)
+
+* ユーティリティ
+** ディレクトリ構成
+*** prefix
+#+NAME: tnoda-dotfiles-dir
+#+BEGIN_SRC emacs-lisp :tangle no :exports yes
+  (eval tnoda/dotfiles-dir)
+#+END_SRC
+
+*** elisp\_dir
+#+NAME: tnoda-elisp-dir
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (eval (defconst tnoda/elisp-dir (expand-file-name "elisp" tnoda/dotfiles-dir)))
+#+END_SRC
+
+*** info\_dir
+#+NAME: tnoda-info-dir
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (eval (defconst tnoda/info-dir (expand-file-name "share/info" tnoda/dotfiles-dir)))
+#+END_SRC
+
+*** src\_dir
+#+NAME: tnoda-src-dir
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (eval (defconst tnoda/src-dir (expand-file-name "src" tnoda/dotfiles-dir)))
+#+END_SRC
+
+*** bin\_dir
+#+NAME: tnoda-bin-dir
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defconst tnoda/bin-dir (expand-file-name "bin" tnoda/dotfiles-dir))
+#+END_SRC
+
+*** emacs
+#+NAME: emacs-app
+#+BEGIN_EXAMPLE
+  /Applications/Emacs.app/Contents/MacOS/Emacs
+#+END_EXAMPLE
+
+* パッケージ管理
+** =~/.emacs.d/elisp= とそのサブディレクトリを =load-path= に追加する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (let ((default-directory tnoda/elisp-dir))
+    (add-to-list 'load-path default-directory)
+    (normal-top-level-add-subdirs-to-load-path))
+#+END_SRC
+
+** auto-install.el
+*** インストール
+#+BEGIN_SRC sh :tangle install-auto-install.sh :var eliep_dir=tnoda-elisp-dir
+  curl http://www.emacswiki.org/emacs/download/auto-install.el -o $elisp_dir/auto-install.el
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "auto-install.el")
+#+END_SRC
+
+*** auto-install を =~/.emacs.d/auto-install= で使う設定
+ 
+auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
+ 
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'load-path "~/.emacs.d/auto-install")
+  (require 'auto-install)
+  (auto-install-compatibility-setup)
+#+END_SRC
+
+** Marmalade/ELPA
++ ELPA ではなく Marmalade の package.el をインストールする
+  - Marmalade も ELPA 互換なので問題ない．
++ インストール
+  #+BEGIN_SRC emacs-lisp :tangle install.el
+    (auto-install-from-url "http://repo.or.cz/w/emacs.git/blob_plain/1a0a666f941c99882093d7bd08ced15033bc3f0c:/lisp/emacs-lisp/package.el")
+  #+END_SRC
++ 設定
+  - Marmalade も使えるようにする
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'package)
+    (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+    (package-initialize)
+  #+END_SRC
+  
+* Emacs
+** Emacs 起動したらすぐ eshell を使えるようにする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'emacs-startup-hook 'eshell)
+#+END_SRC
+
+** メール
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (load "~/.mail.el")
+#+END_SRC
+
+** 日本語
++ 日本語で使う
++ UTF-8 で使う
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (set-language-environment "Japanese")
+  (require 'ucs-normalize)
+  (prefer-coding-system 'utf-8)
+  (setq file-name-coding-system 'utf-8-hfs)
+#+END_SRC
+
+** 表示
+*** 起動時にウィンドウを擬似最大化する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq initial-frame-alist `((top . 1) (left . 1)
+                              (width . 1000) (height . 1000)))
+#+END_SRC
+
+*** フォント
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when window-system
+    (set-face-attribute 'default nil
+                        :family "Menlo"
+                        :height 140)
+    (set-fontset-font
+     (frame-parameter nil 'font)
+     'japanese-jisx0208
+     (font-spec :family "Hiragino Maru Gothic ProN"))
+    (setq face-font-rescale-alist
+          '(("^-apple-hiragino.*" . 1.2)
+            (".*Menro.*" . 1.0)
+            ("-cdac$" . 1.3))))
+#+END_SRC
+
+*** 色
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when window-system
+    (set-foreground-color "gray")
+    (set-background-color "#023")
+    (set-cursor-color "gray48")
+    (set-face-background 'region "blue"))
+#+END_SRC
+
+*** ツールバーなどを表示しない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (tooltip-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1)
+#+END_SRC
+
+*** 現在行に色をつける．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when window-system
+    (global-hl-line-mode 1)
+    (set-face-background 'hl-line "black"))
+#+END_SRC
+
+*** 起動画面を表示しない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq inhibit-startup-message t)
+#+END_SRC
+
+*** =font-lock= を有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-font-lock-mode t)
+#+END_SRC
+
+*** 対応する括弧を表示させる．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (show-paren-mode 1)
+  (set-face-background 'show-paren-match-face "darkgreen")
+#+END_SRC．
+
+*** モードラインに時刻を表示させる．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (display-time)
+#+END_SRC
+
+*** モードラインに行番号・列番号を表示させる．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (line-number-mode 1)
+  (column-number-mode 1)
+#+END_SRC
+
+*** リージョンに色をつける．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (transient-mark-mode 1)
+#+END_SRC
+
+*** カーソルを点滅させない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (blink-cursor-mode -1)
+#+END_SRC
+
+*** Ediff 関連のバッファを一つにまとめる．                        :rubikitch:
+
+きっと auto-install.el で便利．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+END_SRC
+
+** Mac OS X
+*** バッテリー残量を表示する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (display-battery-mode t)
+#+END_SRC
+
+*** =browse-url= で Firefox を開く．                              :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "open"
+        browse-url-generic-args '("-a" "Firefox"))
+#+END_SRC
+
+*** =<M-f1>= で Dictionary.app 起動．                                 :key:
+
+http://sakito.jp/mac/dictionary.html の方法そのまま．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/dictionary ()
+    "dictionary.app"
+    (interactive)
+    (let ((editable (not buffer-read-only))
+          (pt (save-excursion (mouse-set-point last-nonmenu-event)))
+          beg end)
+      (if (and mark-active
+               (<= (region-beginning) pt) (<= pt (region-end)) )
+          (setq beg (region-beginning)
+                end (region-end))
+        (save-excursion
+          (goto-char pt)
+          (setq end (progn (forward-word) (point)))
+          (setq beg (progn (backward-word) (point)))
+          ))
+      (browse-url
+       (concat "dict:///"
+               (url-hexify-string (buffer-substring-no-properties beg end))))))
+  (global-set-key (kbd "<M-f1>") 'tnoda/dictionary)
+#+END_SRC
+
+*** コマンドキーを =meta= キーにする．                                  :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mac-command-modifier 'meta)
+#+END_SRC
+
+*** =Opt= キーを =super= キーにする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mac-option-modifier 'super)
+#+END_SRC
+
+** キーバインド
+*** =s-q= を無効に．誤爆したときのダメージが大きすぎる (=save-buffers-kill-emacs=) :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-unset-key (kbd "s-q"))
+#+END_SRC
+
+*** =C-h= で =delete-backward-char=.                                    :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key "\C-h" 'delete-backward-char)
+#+END_SRC
+
+*** =C-x o= を無効に．                                                :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-unset-key (kbd "C-x o"))
+#+END_SRC
+
+*** =C-x C-b= で =buffer-menu=.                                         :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key "\C-x\C-b" 'buffer-menu)
+#+END_SRC
+
+*** =M-/= で =hippie-expand=.                                           :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "M-/") 'hippie-expand)
+#+END_SRC
+
+*** =C-z= で =eshell=.                                                :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-z") 'eshell)
+#+END_SRC
+
+*** =C-x C-c= で =server-edit=. 代わりに =M-x ZZ= で Emacs を終了．     :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-x C-c") 'server-edit)
+  (defalias 'ZZ 'save-buffers-kill-emacs)
+#+END_SRC
+
+*** =dired-mode= で =W= を押すと =wdired-mode= になる．                 :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key dired-mode-map "W" 'wdired-change-to-wdired-mode)
+#+END_SRC
+
+*** =C-;= でウィンドウ切替か水平分割． =C-:= で垂直分割．   :key:rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/other-window-or-split-window-horizontally ()
+    (interactive)
+    (when (one-window-p) (split-window-horizontally))
+    (other-window 1))
+  (global-set-key (kbd "C-;") 'tnoda/other-window-or-split-window-horizontally)
+  (global-set-key (kbd "C-:") 'split-window-vertically)
+#+END_SRC
+
+*** =C-M-;= で =follow-mode=                                :key:rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-M-;") 'follow-delete-other-windows-and-split)
+#+END_SRC
+
+*** =<f5>= で =compile= か =executable-interpret=                     :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/script-p ()
+      (and (>= (buffer-size) 2)
+           (save-restriction
+             (widen)
+             (string= "#!" (buffer-substring (point-min) (+ 2 (point-min)))))))
+  (defun tnoda/compile-or-executable-interpret ()
+    (interactive)
+    (cond ((tnoda/script-p)
+           (call-interactively 'executable-interpret))
+          (t
+           (call-interactively 'compile))))
+  (global-set-key (kbd "<f5>") 'tnoda/compile-or-executable-interpret)
+#+END_SRC
+
+*** =C-m= で改行してインデント．                                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-m") 'newline-and-indent)
+#+END_SRC
+
+** ログと履歴
+*** ログの記録行数を増やす．                                    :rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq message-log-max 10000)
+#+END_SRC
+
+*** ミニバッファを再帰的に呼び出せるようにする．                :rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq enable-recursive-minibuffers t)
+#+END_SRC
+
+*** 履歴を沢山保存する．                                        :rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq history-length 1000)
+#+END_SRC
+
+*** ミニバッファで入力を取り消しても履歴に残す．                :rubikitch:
+
+誤取消で入力が失われるのを防ぐため．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defadvice abort-recursive-edit (before minibuffer-save activate)
+    (when (eq (selected-window) (active-minibuffer-window))
+      (add-to-history minibuffer-history-variable (minibuffer-contents))))
+#+END_SRC
+
+*** ファイル内のカーソル位置を記憶する．                          :rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq-default save-place t)
+  (require 'saveplace)
+#+END_SRC
+
+** カレンダー
+*** 現在位置を設定する．
++ =calendar-latitude=
++ =calendar-longitude=
++ =calendar-location-name=
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (load "~/.calendar-location.el")
+#+END_SRC
+
+*** 日本の祝日
++ japanese-holidays.el のインストール
+  #+BEGIN_SRC emacs-lisp :tangle install.el
+    (auto-install-from-url "http://www.meadowy.org/meadow/netinstall/export/799/branches/3.00/pkginfo/japanese-holidays/japanese-holidays.el")
+  #+END_SRC
+  
++ 設定
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'japanese-holidays)
+    (setq calendar-holidays japanese-holidays)
+    (setq calendar-mark-holidays-flag t)
+    (add-hook 'today-visible-calendar-hook 'calendar-mark-today)
+  #+END_SRC
+
+** スクリプトファイルを保存するときには，モードを実行可能に設定する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'after-save-hook
+            'executable-make-buffer-file-executable-if-script-p)
+#+END_SRC
+
+** =exec-path=
+*** =exec-path= に =~/.emacs.d/bin= を追加する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'exec-path tnoda/bin-dir)
+#+END_SRC
+
+*** =exec-path= に Homebrew を追加する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'exec-path "/opt/homebrew/bin")
+#+END_SRC
+
+** スペルチェック (ispell/aspell)
++ aspell を使う．
++ 英語日本語混じりの文章でエラーが出ないようなおまじない (ispell-skip-region-alist).
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq-default ispell-program-name "aspell")
+  (eval-after-load "ispell"
+    '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+#+END_SRC
+
+** GC を減らして軽くする．                                       :rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq gc-cons-threshold (* 16 gc-cons-threshold))
+#+END_SRC
+
+** yes/no の代わりに y/n.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (fset 'yes-or-no-p 'y-or-n-p)  
+#+END_SRC
+
+** 新規ファイルを確認無しに作成する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq confirm-nonexistent-file-or-buffer nil)
+#+END_SRC
+
+** ダイアログボックスを使わないようにする．                      :rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq use-dialog-box nil)
+  (defalias 'message-box 'message)
+#+END_SRC
+
+** キーストロークをエコーエリアに素早く表示する．                 :rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq echo-keystrokes 0.1)
+#+END_SRC
+
+** 大きいファイルを開くときの警告を 32 MB 以上にする．             :rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq large-file-warning-threshold (* 25 1025 1024))
+#+END_SRC
+
+** emacsclient
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (server-start)
+#+END_SRC
+
+** midnight: 深夜に不急と思われるバッファを消す．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'midnight)
+#+END_SRC
+
+** =shell-mode= のバッファを消すときに確認しない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq kill-buffer-query-functions
+        (remq 'process-kill-buffer-query-function
+              kill-buffer-query-functions))
+#+END_SRC
+
+** インデントにタブを使わない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq-default indent-tabs-mode nil)
+#+END_SRC
+
+** 圧縮ファイルを読み書きできるようにする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (auto-compression-mode t)
+#+END_SRC
+
+** Narrowing: (=C-x n n=), (=C-x n p=) を有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (put 'narrow-to-region 'disabled nil)
+#+END_SRC
+
+** シェルと同じ =PATH= を使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setenv "PATH" (shell-command-to-string "echo -n $PATH"))
+#+END_SRC
+
+** シェルと同じ =MANPATH= を使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setenv "MANPATH" (shell-command-to-string "echo -n $MANPATH"))
+#+END_SRC
+
+** =~/.emacs.d/share/info= を優先する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/set-info-dir ()
+    (setq Info-directory-list
+          (list tnoda/info-dir "/Applications/Emacs.app/Contents/Resources/info")))
+  (add-hook 'Info-mode-hook 'tnoda/set-info-dir)
+#+END_SRC
+
+** Unified diff を表示する．                                     :rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq diff-switches "-u")
+#+END_SRC
+
+** =hi-lock-mode= を有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-hi-lock-mode 1)
+#+END_SRC
+
+* Global
+** bm.el                                             :autoinstall:rubikitch:
+*** インストール
+  #+BEGIN_SRC emacs-lisp :tangle install.el
+    (auto-install-from-url "http://cvs.savannah.gnu.org/viewvc/*checkout*/bm/bm/bm.el")
+  #+END_SRC
+
+*** =bm.el= ロード時にマークを復元する．Emacs を終了してもマークを復元できるようにする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq bm-restore-repository-on-load t)
+  (load "bm")
+  (add-hook 'find-file-hook 'bm-buffer-restore)
+  (add-hook 'kill-buffer-hook 'bm-buffer-save)
+  (add-hook 'after-save-hook 'bm-buffer-save)
+  (add-hook 'after-revert-hook 'bm-buffer-restore)
+  (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+#+END_SRC
+
+=bm-restore-repository-on-load= は =bm= ロード前に設定する必要がある．
+
+*** デフォルトではブックマークを永続化しない． =M-x bm-toggle-buffer-persistence= すること．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq-default bm-buffer-persistence nil)
+#+END_SRC
+
+*** マークを湘南色に．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (set-face-foreground 'bm-face "darkgreen")
+  (set-face-background 'bm-face "darkorange")
+#+END_SRC
+
+*** =s-SPC= で現在行をマーク (=bm-toggle=).                             :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "s-SPC") 'bm-toggle)
+#+END_SRC
+
+*** =s-<= で前のマーク行に (=bm-previous=).                             :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "s-<") 'bm-previous)
+#+END_SRC
+
+*** =s->= で次のマーク行に (=bm-next=).                                 :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "s->") 'bm-next)
+#+END_SRC
+
+** sequencial-command.el                             :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-batch "sequential-command")
+#+END_SRC
+*** =M-a=, =M-e=, =M-u=, =M-d=, =M-c= の挙動が変わり，連打が有効になる．        :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'sequential-command-config)
+  (sequential-command-setup-keys)
+#+END_SRC
+
+** key-chord.el                                      :autoinstall:rubikitch:
+
+キーボード同時押し時のコマンドを指定する =key-chord-define= が使えるようになる．
+
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "key-chord.el")
+#+END_SRC
+
+*** 全てのバッファで =key-chord-mode= を有効に．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'key-chord)
+  (key-chord-mode 1)
+#+END_SRC
+
+*** 同時押し判定は 0.3 秒以内．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq key-chord-two-keys-delay 0.03)
+#+END_SRC
+
+** redo+.el                                          :autoinstall:rubikitch:
+
+=redo.el= を使うとバッファが壊れるので注意する．
+
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "redo+.el")
+#+END_SRC
+
+*** 過去の undo が redo されないようにする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'redo+)
+  (setq undo-no-redo t)
+#+END_SRC
+
+*** 大量の undo に耐えられるようにする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq undo-limit 600000)
+  (setq undo-strong-limit 900000)
+#+END_SRC
+
+*** =C-?= で =redo=.                                                  :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-?") 'redo)
+#+END_SRC
+
+** uniquify.el                                                   :rubikitch:
+
+ファイル名が同じファイルを複数開いたときに，
+バッファ名にディレクトリ名を含めて区別しやすくする．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+  (setq uniquify-ignore-buffers-re "*[^*]+*")
+#+END_SRC名
+
+** ido.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (setq ido-slow-ftp-hosts '("ssh"))
+  (setq ido-create-new-buffer 'always)
+  (setq ido-file-extensions-order '(".org" ".rb"))
+  (setq ido-enable-flex-matching t)
+#+END_SRC
+
+*** =C-x C-f= で URL を開く (ido-use-url-at-pint).
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq ido-use-url-at-point t)
+#+END_SRC
+
+** recentf-ext.el                                    :autoinstall:rubikitch:
+
+最近使ったファイルを表示する =recentf.el= をもっと便利に．
+
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "recentf-ext.el")
+#+END_SRC
+
+*** =recentf-exclude= に履歴に含めないファイルを設定．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'recentf-ext)
+  (setq recentf-max-saved-items 3000)
+  (setq recentf-exclude '("/TAGS$" "/tmp/$" "\.html$" "/work/$" "/\.emacs\.bmk$" "~$"))
+  (setq tnoda/recentf-exclude-org 
+        (list
+         "org_archive$"
+         "/mobileorg.org$"
+         (expand-file-name "~/diary")
+         (expand-file-name "~/org/main\.org")
+         (expand-file-name "~/org/notes\.org")))
+  (setq recentf-exclude (append recentf-exclude tnoda/recentf-exclude-org))
+#+END_SRC
+
+*** =C-@= で =recentf-open-files=                                     :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-@") 'recentf-open-files)
+#+END_SRC
+
+** bookmark.el                                                   :rubikitch:
+ファイル内の特定位置をマークする．
++ ブックマークに変更があれば即保存 (bookmark-save-flag).
++ 最近使ったブックマークを燁に持ってくる (tnoda/bookmark-arrange).
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq bookmark-save-flag 1)
+  (setq bookmark-sort-flag nil)
+  (defun tnoda/bookmark-arrange ()
+    (let ((latest (bookmark-get-bookmark bookmark)))
+      (setq bookmark-alist (cons latest (delq latest bookmark-alist))))
+    (bookmark-save))
+  (add-hook 'bookmark-after-jump-hook 'tnoda/bookmark-arrange)
+#+END_SRC
+
+** auto-save-buffers.el                              :autoinstall:rubikitch:
++ インストール
+  #+BEGIN_SRC emacs-lisp :tangle install.el
+    (auto-install-from-url "http://homepage3.nifty.com/oatu/emacs/archives/auto-save-buffers.el")
+  #+END_SRC
+
++ 2 秒何もしなければセーブ
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'auto-save-buffers)
+    (run-with-idle-timer 2 t 'auto-save-buffers)
+  #+END_SRC
+
+** sense-region.el                               :key:autoinstall:rubikitch:
+
+=C-SPC= 連打で選択範囲が広がっていく．マークとポイントが対角線の矩形を選択できる．
+
+*** インストール
+  #+BEGIN_SRC emacs-lisp :tangle install.el
+    (auto-install-from-url "http://taiyaki.org/elisp/sense-region/src/sense-region.el")
+  #+END_SRC
+
+*** すべてのバッファで sence-region を有効に．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'sense-region)
+  (sense-region-on)
+#+END_SRC
+
+*** =C-SPC= 連打で =mark-word= できるので，=M-@= を無効にする．あまり使わないし．
+- Note taken on [2012-01-18 Wed 10:21] \\
+  =M-@= は特等席すぎるので，他で使うことにする．anything にしようかな．．．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-unset-key (kbd "M-@"))
+#+END_SRC
+
+
+** cycle-buffers.el                                  :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "cycle-buffer.el")
+#+END_SRC
+
+*** =autoload= ではなく =require= する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'cycle-buffer)
+#+END_SRC
+
+*** =M-<= で前のバッファに移動 (=cycle-buffer-backward=).               :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "M-<")   'cycle-buffer-backward)
+#+END_SRC
+
+*** =M->= で次のバッファに移動 (=cycle-buffer=).                        :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "M->")   'cycle-buffer)
+#+END_SRC
+
+** popwin.el                                                           :git:
++ github のリポジトリを submodule にして使う．
+  - https://github.com/m2ym/popwin-el
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'load-path (expand-file-name "popwin-el" tnoda/src-dir))
+  (require 'popwin)
+  (setq display-buffer-function 'popwin:display-buffer)
+#+END_SRC
+
+** yasnippet.el                                                        :git:
+*** github のリポジトリを submodule にして使う．
+
+https://github.com/capitaomorte/yasnippet
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'load-path (expand-file-name "plugins/yasnippet" tnoda/dotfiles-dir))
+  (require 'yasnippet)
+  (yas/global-mode 1)
+#+END_SRC
+
+*** メジャーモードが =TAB= キーをインデントに使っているときの回避策．
+
+http://capitaomorte.github.com/yasnippet/faq.html
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun yas/advise-indent-function (function-symbol)
+    (eval `(defadvice ,function-symbol (around yas/try-expand-first activate)
+             ,(format
+               "Try to expand a snippet before point, then call `%s' as usual"
+               function-symbol)
+             (let ((yas/fallback-behavior nil))
+               (unless (and (interactive-p)
+                            (yas/expand))
+                 ad-do-it)))))
+#+END_SRC
+
+この =yas/advice-indent-function= は，
+
+#+BEGIN_EXAMPLE
+  (yas/advise-indent-function 'ruby-indent-line)
+#+END_EXAMPLE
+
+のように使う．
+
+** point-undo.el                                     :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "point-undo.el")
+#+END_SRC
+
+*** Require
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'point-undo)
+#+END_SRC
+
+*** =C-,== でカーソルをコマンド実行前の位置に戻す (=point-undo=)        :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-,") 'point-undo)
+#+END_SRC
+
+*** =C-.= でカーソルを次のコマンド実行位置に進める (=point-redo=)       :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-.") 'point-redo)
+#+END_SRC
+
+** goto-chg.el                                       :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "goto-chg.el")
+#+END_SRC
+
+*** Require
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'goto-chg)
+#+END_SRC
+
+*** =C-<= でカーソルを最後の編集場所に戻す (=goto-last-change=).            :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-<") 'goto-last-change)
+#+END_SRC
+
+*** =C->= でカーソルを次の編集場所に進める (=goto-last-change-reverse=). :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C->") 'goto-last-change-reverse)
+#+END_SRC
+
+** eldoc-extension.el                                          :autoinstall:
++ インストール
+  #+BEGIN_SRC emacs-lisp :tangle install.el
+    (auto-install-from-emacswiki "eldoc-extension.el")
+  #+END_SRC
++ 設定
+  - =emacs-lisp-mode= と =ielm-mode= で有効にする．
+  - =lisp-interaction-mode= は Clojure にとっておく．
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'eldoc)
+    (require 'eldoc-extension)
+    (setq eldoc-idle-delay 0.1)
+    (setq eldoc-echo-area-use-multiline-p t)
+    (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+    (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+  #+END_SRC
+
+** tempbuf.el                                        :autoinstall:rubikitch:
++ =tempbuf.el= は =tempbuf-mode= マイナーモードを提供する．
+  + =tempbuf-mode= はバッファごとに作用し，不要と思われるバッファを自動削除．
++ インストール
+  #+BEGIN_SRC emacs-lisp :tangle install.el
+    (auto-install-from-emacswiki "tempbuf.el")
+  #+END_SRC
++ 設定
+  - =dired-mode= でだけ =tempbuf-mode= を有効にする．
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (require 'tempbuf)
+      (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
+    #+END_SRC
+    
+** auto-complete.el                                          :git:rubikitch:
+*** https://github.com/m2ym/auto-complete.git を submodule として使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq tnoda/ac-prefix (expand-file-name "auto-complete" tnoda/src-dir))
+  (add-to-list 'load-path tnoda/ac-prefix)
+  (require 'auto-complete-config)
+  (add-to-list 'ac-dictionary-directories (expand-file-name "dict" tnoda/ac-prefix))
+  (ac-config-default)
+#+END_SRC
+
+*** 4 文字以上にならないと補完を開始しない (=ac-auto-start=).
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq ac-auto-start 4)
+#+END_SRC
+  
+** col-highlight.el                                  :autoinstall:rubikitch:
+
+現在桁をハイライトする．
+
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-batch "col-highlight")
+#+END_SRC
+
+*** =M-x column-highlight-mode= で桁ハイライト切替．              :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'col-highlight)
+#+END_SRC
+
+** paredit.el                                                  :autoinstall:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "http://mumble.net/~campbell/emacs/paredit.el")
+#+END_SRC
+
+*** LISP 関係のモードで有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'paredit)
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook 'enable-paredit-mode)
+#+END_SRC
+
+** rainbow-delimiters.el                                       :autoinstall:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "rainbow-delimiters.el")
+#+END_SRC
+
+*** とりあえず =emacs-lisp-mode= と =ielm=mode= で有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'rainbow-delimiters)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)
+#+END_SRC
+
+** open-junk-file.el                                 :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "open-junk-file.el")
+#+END_SRC
+
+*** =~/.junk/= に保存，ファイル名は =%Y%m%d-%H%M%S."．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'open-junk-file)
+  (setq open-junk-file-format "~/.junk/%Y%m%d-%H%M%S.")
+#+END_SRC
+
+*** =C-x f= で =open-junk-file=. =set-fill-column= は使わない．                     :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-x f") 'open-junk-file)
+#+END_SRC
+
+** lispxmp.el                                        :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "lispxmp.el")
+#+END_SRC
+
+*** =<S-f5>= で =lispxmp=.                                            :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'lispxmp)
+  (global-set-key (kbd "<S-f5>") 'lispxmp)
+#+END_SRC
+
+* Org Mode                                                              :git:
+** インストール
++ git://orgmode.org/org-mode.git をサブモジュールにする．
++ git submodule init/update  後に次のスクリプトを実行してコンパイル・ info インストール．
+  #+BEGIN_SRC sh :tangle setup-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir emacs=emacs-app
+    cd $src_dir/org
+    make EMACS=$emacs compile
+    make EMACS=$emacs prefix=$prefix install-info
+  #+END_SRC
+
+** Common
+*** Require
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'org-install)
+  (require 'org-habit)
+#+END_SRC
+
+*** =~/org= で Org を使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-directory "~/org")
+#+END_SRC
+
+*** =C-,== と =C-'== に割り当てられる =org-cycle-agenda-files= を無効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (rassq-delete-all 'org-cycle-agenda-files org-mode-map)
+#+END_SRC
+
+*** =org-edit-special= 中は auto-save-buffers を停止する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (lexical-let ((previous-active-p))
+    (defadvice org-edit-src-code (before tnoda/auto-save-buffers-toggle activate)
+      "Disable auto-save-buffers."
+      (setq previous-active-p  auto-save-buffers-active-p)
+      (setq auto-save-buffers-active-p nil))
+    (defadvice org-edit-src-exit (after tndoa/auto-save-buffers-toggle activate)
+      "Recover auto-save-buffers."
+      (setq auto-save-buffers-active-p previous-active-p)))
+#+END_SRC
+
+停止しないと，src ブロックを編集している最中に，
+
+#+BEGIN_QUOTE
+foo.org has changed since visited or saved.  Save anyway? (y or n) !
+foo.org changed on disk; really edit the buffer? (y, n, r or C-h) 
+File on disk now will become a backup file if you save these changes.
+#+END_QUOTE
+
+と怒られる．
+
+** Link
+*** =M-L= で org-store-link.                                            :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "M-L") 'org-store-link)
+#+END_SRC
+
+** Refile
+main.org のトップレベルに refile できるようにする．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-refile-targets
+        '(("main.org" . (:level . 1))))
+#+END_SRC
+
+** To-Do
+*** =TODO= キーワードは各ファイルで共通のものを使うことにする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "APPT(a)" "|"
+                    "DONE(d!)" "CANCELLED(c@)" "DEFERRED(f@)" "DELEGATED(g@/!)")))
+#+END_SRC
+
+*** =TODO= ステータスが =STARTED= に変化したらクロックを開始する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun sacha/org-clock-in-if-starting ()
+    "Clock in when the task is marked STARTED."
+    (when (and (string= state "STARTED")
+               (not (string= last-state state)))
+      (org-clock-in)))
+  (add-hook 'org-after-todo-state-change-hook
+            'sacha/org-clock-in-if-starting)
+  ;; (defadvice org-clock-in (after sacha activate)
+  ;;   "Set this task's status to 'STARTED'."
+  ;;   (org-todo "STARTED"))
+  (defun sacha/org-clock-out-if-waiting ()
+    "Clock in when the task is marked STARTED."
+    (when (and (string= state "WAITING")
+               (not (string= last-state state)))
+      (org-clock-out)))
+  (add-hook 'org-after-todo-state-change-hook
+            'sacha/org-clock-out-if-waiting)
+#+END_SRC
+
+** Capture
++ ノートファイルには notes.org だけを使う．Capture は常にこのファイルに保存．
++ テンプレートは 2 種類だけ
+  - Note
+    - 基本的にはこれを使う
+    - カレントタスクのクロックは止めない (:clock-keep)
+    - notes.org を開いていなければ，notes.org バッファを残さない (:kill-buffer)
+  - Away
+    - 席を離れるとき
+    - カレントタスクのクロックを停止 (:clock-in)
+    - Capture 終了時に元タスクのクロックを再開 (:clock-resume)
+    - notes.org を開いていなければ，notes.org バッファを残さない (:kill-buffer)
+   
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+  (setq org-capture-templates
+        '(("n" "Note" entry (file "") "* %?\n  %U\n  %i\n  %a"
+           :clock-keep t
+           :kill-buffer t)
+          ("a" "Away" entry (file "") "* %? :away:"
+           :clock-in t
+           :clock-resume t
+           :kill-buffer t)))
+#+END_SRC
+
+*** =M-N= で Capture Note 開始．                                        :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-capture-note ()
+      (interactive)
+      (org-capture nil "n"))
+    (global-set-key (kbd "M-N") 'tnoda/org-capture-note)
+#+END_SRC
+
+*** =M-A= で Capture Away 開始．                                        :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-capture-away ()
+      (interactive)
+      (org-capture nil "a"))
+    (global-set-key (kbd "M-A") 'tnoda/org-capture-away)
+#+END_SRC
+
+** GTD
+*** =M-x gtd= で =main.org= を開く．                              :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defconst tnoda/gtd-file (expand-file-name "main.org" org-directory))
+    (defun gtd ()
+      (interactive)
+      (find-file tnoda/gtd-file))
+#+END_SRC
+
+*** =M-x notes= で =notes.org= を開く．                           :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun notes ()
+    (interactive)
+    (find-file org-default-notes-file))
+#+END_SRC
+  
+** Agenda
+*** Agenda に含めるファイルは， =main.org= と =notes.org=  の 2つ．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-agenda-files (list tnoda/gtd-file org-default-notes-file))
+#+END_SRC
+
+*** =<S-f7>= と =<f7>= に Org Agenda を開くコマンドを割り当てる．     :key:
+- 一日の始まり→ =<S-f7>= ... Home Lists
+- タスクの確認→ =<f7>= ... Daily Action List
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-agenda-custom-commands
+        '(("H" "Home Lists"
+           ((agenda "")
+            (tags-todo "@home")
+            (tags-todo "@univ")
+            (tags-todo "errands")
+            (tags-todo "emacs")))
+          ("D" "Daily Action List"
+           ((agenda "" ((org-agenda-ndays 1)
+                        (org-agenda-sorting-strategy
+                         (quote ((agenda time-up priority-down tag-up) )))
+                        (org-deadline-warning-days 0)))))))
+  (defun tnoda/org-agenda-home-lists ()
+    (interactive)
+    (org-agenda nil "H"))
+  (global-set-key (kbd "<S-f7>") 'tnoda/org-agenda-home-lists)
+  (defun tnoda/org-agenda-daily-action-list ()
+    (interactive)
+    (org-agenda nil "D"))
+  (global-set-key (kbd "<f7>") 'tnoda/org-agenda-daily-action-list)
+#+END_SRC
+
+*** そのほかの設定
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-agenda-include-diary t)
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-start-on-weekday nil)
+#+END_SRC
+
+** Mobile
+*** DropBox を利用する．
++ DropBox を利用して，MobileOrg と sync する (org-mobile-directory).
++ MobileOrg の Capture は flagged.org に (org-mobile-index-for-pull).
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-mobile-inbox-for-pull "~/org/flagged.org")
+  (setq org-mobile-directory "~/Dropbox/MobileOrg")
+#+END_SRC
+
+*** 暗号化する．パスワードは別ファイルに保存．
++ 暗号化する (org-mobile-use-encryption).
+  - パスワードを設定 (org-mobile-encryption-password).
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-mobile-use-encryption t)
+  (load "~/.org-mobile-encryption-password.el")
+#+END_SRC
+
+** Babel
+*** Emacs Lisp 以外の言語も有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (R . t)
+     (clojure . t)
+     (haskell . t)
+     (latex . t)
+     (org . t)
+     (ruby . t)
+     (sh . t)))
+#+END_SRC
+
+*** コードブロックのフォント修飾は，Emacs が重くなるのでやめる．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-src-fontify-natively nil)
+#+END_SRC
+
+** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-babel-demarcate-block-as-elisp ()
+    (interactive)
+    (insert "#+BEGIN_SRC emacs-lisp :tangle yes\n\n#+END_SRC")
+    (org-indent-line-function)
+    (org-edit-special))
+  (key-chord-define org-mode-map "el" 'tnoda/org-babel-demarcate-block-as-elisp)
+#+END_SRC
+
+** Easy Templates
++ =<s= で =#+STARTUP: =
++ =<S= で =#+SETUPFILE: =
++ =<p= で =#+PROPERTY: =
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-structure-template-alist
+        (remove-if #'(lambda (x) (member (car x) '("s" "S" "p")))
+                   org-structure-template-alist))
+  (push '("s" "#+STARTUP: ") org-structure-template-alist)
+  (push '("S" "#+SETUPFILE: %file ?") org-structure-template-alist)
+  (push '("p" "#+PROPERTY: ") org-structure-template-alist)
+#+END_SRC
+
+* SKK
+** インストール
+#+BEGIN_SRC sh :tangle install-skk.sh :var prefix=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir info_dir=tnoda-info-dir emacs=emacs-app
+  cd src
+  curl http://www.ring.gr.jp/archives/elisp/skk/maintrunk/ddskk-14.4.tar.gz | tar zxf -
+  cd ddskk-14.4
+  echo "(setq PREFIX \"${prefix}\")
+  (setq SKK_DATADIR \"${prefix}/share/skk\")
+  (setq SKK_INFODIR \"${info_dir}\")
+  (setq SKK_LISPDIR \"${elisp_dir}/skk\")
+  (setq SKK_SET_JISYO t)" > SKK-CFG
+  make EMACS=$emacs install
+#+END_SRC
+
+** =C-x C-j= で =skk-mode=.                                            :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'skk-autoloads)
+  (global-set-key "\C-x\C-j" 'skk-mode)
+#+END_SRC
+
+** =skk-mode= なバッファで =isearch= するときにはミニバッファでも SKK.
+
+=(require 'skk-setup)= すると，=C-x j= と =C-x t= にそれぞれ
+=skk-auto-fill=mode= と =skk-tutorial= が割り当てられるので，
+=skk-setup.el= は使わないことにする．代わりに =skk-setup.el=
+で定義されている関数をコピペする．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun skk-isearch-setup-maybe ()
+    (require 'skk-vars)
+    (when (or (eq skk-isearch-mode-enable 'always)
+              (and (boundp 'skk-mode)
+                   skk-mode
+                   skk-isearch-mode-enable))
+      (skk-isearch-mode-setup)))
+  
+  (defun skk-isearch-cleanup-maybe ()
+    (require 'skk-vars)
+    (when (and (featurep 'skk-isearch)
+               skk-isearch-mode-enable)
+      (skk-isearch-mode-cleanup)))
+  
+  (add-hook 'isearch-mode-hook #'skk-isearch-setup-maybe)
+  (add-hook 'isearch-mode-end-hook #'skk-isearch-cleanup-maybe)
+#+END_SRC
+
+** =~/.skk.el= の設定
++ =skk-large-jisyo=
++ =skk-server-host=
++ =skk-server-portnum=
++ =skk-today= / =skk-clock= で西暦表示 (=skk-data-ad=).
++ 読点句点の代わりに，「，」「．」を使う (=skk-rom-kana-rule-list=).
++ アノテーションを表示する (=skk-show-annotation=).
++ 見出し語と送り仮名が一致した候補を優先表示 (=skk-henkan-strict-okuri-precedence=).
++ 半角カナの入力規則を有効に (=skk-use-jisx0201-input-method=).
+
+* Mail/News/WWW
+** APEL/FLIM/SEMI のインストール．
+:PROPERTIES:
+:var: src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app prefix=tnoda-dotfiles-dir
+:END:
++ APEL
+  #+BEGIN_SRC sh :tangle install-apel.sh
+    cd $src_dir
+    curl http://www.ring.gr.jp/archives/elisp/apel/apel-10.8.tar.gz | tar zxf -
+    cd apel-10.8
+    echo "(setq APEL_DIR \"${elisp_dir}/apel\")
+    (setq EMU_DIR \"${elisp_dir}/emu\")" > APEL-CFG
+    make EMACS=$emacs install
+  #+END_SRC
+  
++ FLIM
+  #+BEGIN_SRC sh :tangle install-flim.sh
+    cd src
+    curl http://www.ring.gr.jp/archives/elisp/flim/flim-1.14/flim-1.14.9.tar.gz | tar zxf -
+    cd flim-1.14.9
+    echo "(add-to-list 'load-path \"${elisp_dir}/apel\")
+    (add-to-list 'load-path \"${elisp_dir}/emu\")
+    (require 'install)
+    (defvar default-load-path load-path)
+    (add-latest-path \"custom\")
+    (add-path default-directory)
+    (setq PREFIX \"${prefix}\")
+    (setq FLIM_PREFIX \"flim\")
+    (setq LISPDIR \"${elisp_dir}\")
+    (setq FLIM_DIR (expand-file-name FLIM_PREFIX LISPDIR))
+    (setq VERSION_SPECIFIC_LISPDIR \"${elisp_dir}\")" > FLIM-CFG
+    make EMACS=$emacs install
+  #+END_SRC
+
++ SEMI
+  #+BEGIN_SRC sh :tangle install-semi.sh
+    cd src
+    curl http://www.ring.gr.jp/archives/elisp/semi/semi-1.14-for-flim-1.14/semi-1.14.6.tar.gz | tar zxf -
+    cd semi-1.14.6
+    echo "(add-to-list 'load-path \"${elisp_dir}/apel\")
+    (add-to-list 'load-path \"${elisp_dir}/emu\")
+    (add-to-list 'load-path \"${elisp_dir}/flim\")
+    (add-to-list 'load-path (expand-file-name \".\"))
+    (require 'install)
+    (defvar default-load-path load-path)
+    (add-latest-path \"custom\")
+    (add-path default-directory)
+    (add-path \"bitmap-mule\")
+    (add-path \"flim\")
+    (setq PREFIX \"${prefix}\")
+    (setq LISPDIR \"${elisp_dir}\")
+    (setq METHOD_DIR \"${prefix}/share/semi\")
+    (setq SEMI_KERNEL_DIR \"${elisp_dir}/semi\")
+    (setq SETUP_FILE_DIR SEMI_KERNEL_DIR)
+    (setq METHOD_SRC_DIR \"methods\")
+    (setq METHODS
+        '(\"tm-au\" \"tm-file\" \"tm-html\" \"tm-image\" \"tm-mpeg\"
+          \"tm-plain\" \"tm-ps\"
+          \"tmdecode\"))" > SEMI-CFG
+    make EMACS=$emacs install
+  #+END_SRC
+
+** Wanderlust                                                          :cvs:
++ インストール
+  #+BEGIN_SRC sh :tangle install-wl.sh :var src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app info_dir=tnoda-info-dir prefix=tnoda-dotfiles-dir
+    cd $src_dir
+    cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root login
+    cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root checkout wanderlust
+    cd wanderlust
+    echo "(setq load-path (append
+                     (list \"$elisp_dir/apel\"
+                           \"$elisp_dir/emu\"
+                           \"$elisp_dir/flim\"
+                           \"$elisp_dir/semi\")
+                     load-path))
+    (setq wl-install-utils t)
+    (setq wl-info-lang \"ja\")
+    " > WL-CFG
+    make EMACS=$emacs LISPDIR=$elisp_dir install PIXMAPDIR=$prefix/share/wl
+    make EMACS=$emacs LISPDIR=$elisp_dir install PIXMAPDIR=$prefix/share/wl
+    make EMACS=$emacs info
+    make EMACS=$emacs INFODIR=$info_dir install-info
+  #+END_SRC
+
++ 設定
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (autoload 'wl "wl" "Wanderlust" t)
+    (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
+    (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+  #+END_SRC
+
++ =.wl.el= の設定
+  - =wl-init-hook= と =wl-exit-hook= で，ssh port forwarding を開始・終了する
+    設定を追加している．
+
+** emacs-w3m                                                           :cvs:
+*** インストール
+#+BEGIN_SRC sh :tangle install-emacs-w3m.sh :var src_dir=tnoda-src-dir prefx=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app
+  cd $src_dir
+  cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot login
+  cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot co emacs-w3m
+  cd emacs-w3m
+  autoconf
+  ./configure --prefix=$prefix --with-lispdir=${elisp_dir}/emacs-w3m \
+      --with-emacs=$emacs --with-icondir=${prefix}/share/emacs-w3m \
+      --with-addpath=${elisp_dir}/apel:${elisp_dir}/emu:${elisp_dir}/flim
+  make
+  make install-ja
+  make install-icons
+#+END_SRC
+
+*** 設定
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'w3m-load)
+#+END_SRC
+
+面倒なことは全て =~/.emacs-w3m.el= に書いてある．
+
+** Mew
+*** インストール
+#+NAME: install-mew(prefix = tnoda-dotfiles-dir, elisp_dir = tnoda-elisp-dir, emacs = emacs-app)
+#+BEGIN_SRC sh :tangle install-mew.sh
+  cd src
+  curl http://www.mew.org/Release/mew-6.4.tar.gz | tar zxf -
+  cd mew-6.4
+  autoconf
+  ./configure --prefix=${prefix} \
+          --with-elispdir=${elisp_dir}/mew \
+          --with-emacs=$emacs --with-etcdir=${prefix}/share/mew
+  make
+  make install
+  make install-info
+  make install-jinfo
+#+END_SRC
+
+*** 最小限の設定
+
+=mail-user-agent= は =simple.el= で，=define-mail-user-agent= は =subr.el= で，それぞれ定義されている．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'mew)
+  (require 'simple)
+  (setq mail-user-agent 'mew-user-agent)
+  (define-mail-user-agent
+    'mew-user-agent
+    'mew-user-agent-compose
+    'mew-draft-send-message
+    'mew-draft-kill
+    'mew-send-hook)
+#+END_SRC
+
+*** 起動時にくるくる回らない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-demo nil)
+#+END_SRC
+
+*** 起動時にメールを取得しない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-auto-get nil)
+#+END_SRC
+
+*** 引用ラベルを簡潔にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-cite-fields '("From:"))
+  (setq mew-cite-format "%s writes:\n")
+#+END_SRC
+
+*** Summary モードでは本文は不要なので，その分 subject を広くとる．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-summary-form '(type (5 date) " " (18 from) " " t (0 subj)))
+#+END_SRC
+
+*** 転送時に =Received:= と =Return-Path:= をヘッダから削る．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-field-delete-for-forwarding '("Received:" "Return-Path:"))
+#+END_SRC
+
+*** GnuPG を使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-prog-pgp "gpg")
+#+END_SRC
+
+*** 証明書の検証に失敗したり，証明書が無かったりする場合には SSL/TLS 接続しない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-ssl-verify-level 2)
+#+END_SRC
+
+*** 添付ファイルのデフォルトの保存先は =~/tmp=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-save-dir "~/tmp/")
+#+END_SRC
+
+*** 用事が済んだらすぐに SSH 接続を切る．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-ssh-keep-connection nil)
+#+END_SRC
+
+*** マスターパスワードを使う．PGP を使ってパスワードを保存．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-use-master-passwd t)
+#+END_SRC
+
+*** Hyper Estraier で検索する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mew-search-method 'est)
+#+END_SRC
+
+*** =draft= と =message= とでは行間を広く表示する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/mew-increase-line-spacing ()
+    (setq line-spacing 4))
+  (add-hook 'mew-draft-mode-hook 'tnoda/mew-increase-line-spacing)
+  (add-hook 'mew-message-mode-hook 'tnoda/mew-increase-line-spacing)
+#+END_SRC
+
+*** =draft-mode= で Org のテーブル記法と箇条書きを有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'mew-draft-mode-hook 'turn-on-orgstruct++)
+  (add-hook 'mew-draft-mode-hook 'turn-on-orgtbl)
+#+END_SRC
+
+*** =.mew.el= の設定．
++ =mew-refile-guess-alist=
++ =mew-config-alist=
+
+* Lang
+** Clojure                                                       :marmalade:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (package-install 'clojure-mode)
+  (package-install 'slime)
+  (package-install 'slime-repl)
+#+END_SRC
+
+=package-install= すると，  =(require 'clojure-mode)= しなくてもいいみたい．
+
+*** =M-x run-lisp= で Clojure の REPL.                              :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq inferior-lisp-program "lein repl")
+#+END_SRC
+
+*** paredit
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+#+END_SRC
+
+*** Rainbow Delimiters
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+#+END_SRC
+
+** CoffeeScript                                                  :marmalade:
++ インストール
+  #+BEGIN_SRC emacs-lisp :tangle install.el
+    (package-install 'coffee-mode)
+    (package-install 'flymake-coffee)
+  #+END_SRC
+
++ =coffee-mode= で flymake を有効にする．
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (add-hook 'coffee-mode-hook 'flymake-coffee-load)
+  #+END_SRC
+  
+** Ruby
+*** インストール
++ =ruby-mode.el= などは GitHub から最新ものを入手したい．
+  #+BEGIN_SRC emacs-lisp :tangle install.el
+    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-mode.el")
+    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-electric.el")
+    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/inf-ruby.el")
+    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-style.el")
+    (package-install 'yari)
+    (package-install 'flymake-ruby)
+  #+END_SRC
+
+*** =autoload= ではなく =require= する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'ruby-mode)
+  (require 'inf-ruby)
+  (require 'ruby-electric)
+  (require 'ruby-style)
+#+END_SRC
+
+*** =~/.rbenv/shims= を =exec-path= に追加する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'load-path (expand-file-name "~/.rbenv/shims"))
+#+END_SRC
+
+*** =<f1> r= で yari 起動．                                           :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "<f1> r") 'yari)
+#+END_SRC
+
+*** 拡張子への関連づけ (=.rb .rake .gemspec .ru Rakefile Gemfile ... ==).
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
+#+END_SRC
+
+*** Ruby-mode を =interpreter-mode-alist= に追加する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+#+END_SRC
+
+*** スタイルの設定．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq ruby-use-encoding-map nil)
+  (setq ruby-deep-indent-paren-style nil)
+  (setq ruby-insert-encoding-magic-comment nil)
+#+END_SRC
+
+*** =C-m= を =reindent-then-newline-and-indent= に設定．              :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+#+END_SRC
+
+*** =ruby-electric= を有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/ruby-electric-activate ()
+     (ruby-electric-mode t))
+  (add-hook 'ruby-mode-hook 'tnoda/ruby-electric-activate)
+#+END_SRC
+
+*** flymake-ruby を使う．
+
+flymake-ruby で使う Ruby は rbenv のもの．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq flymake-ruby-executable "~/.rbenv/shims/ruby")
+  (add-hook 'ruby-mode-hook 'flymake-ruby-load)
+#+END_SRC
+
+*** inf-ruby で pry を使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq ruby-program-name "~/.rbenv/shims/pry")
+  (setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
+  (setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
+#+END_SRC
+
+*** =ruby-mode-map= で =TAB= を =ruby-indent-command= に割り当てているので yasnippet と競合するのを回避する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (yas/advise-indent-function 'ruby-indent-command)
+#+END_SRC
+
+** Markdown                                                             :git:
+*** git://jblevins.org/git/markdown-mode.git を submodule にして使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'load-path (expand-file-name "markdown-mode" tnoda/src-dir))
+  (require 'markdown-mode)
+#+END_SRC
+
+*** =.text= なファイルは =markdown-mode= で開く．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'auto-mode-alist '("\\.text" . markdown-mode))
+#+END_SRC
+
+*** =.md= なファイルは =gfm-mode= で開く．
+
+=gfm-mode= なファイルには，特製の =bin/gfm= を使う．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'auto-mode-alist '("\\.md" . gfm-mode))
+  (defun tnoda/gfm-custom ()
+    "gfm-mode-hook"
+    (setq markdown-command (expand-file-name "gfm" tnoda/bin-dir)))
+  (add-hook 'gfm-mode-hook 'tnoda/gfm-custom)
+#+END_SRC
+
+** Zencoding                                                           :git:
++ https://github.com/rooney/zencoding を submodule にして使う．
++ HTML モードで使う
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (add-to-list 'load-path (expand-file-name "zencoding" tnoda/dotfiles-dir))
+  (require 'zencoding-mode)
+  (add-hook 'html-mode-hook 'zencoding-mode)
+#+END_SRC
+
+** C/C++
+
+そういえば最近 Ruby の拡張モジュール以外書いていない．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'ruby-style) ; Documentation-purposes only: actually loaded in the Ruby section.
+  (add-hook 'c-mode-hook 'ruby-style-c-mode)  
+  (add-hook 'c++-mode-hook 'ruby-style-c-mode)
+#+END_SRC
+
+* Twitter                                                     :git:rubikitch:
+
+twittering-mode.el を使う．
+
+** インストール
+
+https://github.com/hayamiz/twittering-mode を submodule に．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'load-path (expand-file-name "twittering-mode" tnoda/src-dir))
+#+END_SRC
+
+** =M-x twit= で =twittering-mode=.                                 :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'twittering-mode)
+#+END_SRC
+
+** ユーザ名とパスワードは， =~/.twitter.el= に保存
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (load "~/.twitter.el")
+  (setq twittering-status-format
+        "%C{%Y-%m-%d %H:%M:%S} %s > %T // from %f%L%r%R")
+#+END_SRC
+
+* Network
+** Proxy 設定                                                      :command:
++ =M-x start-proxy= でプロキシサーバへのポートフォワーディング開始．
++ =M-x stop-proxy= で停止．
++ =start-proxy= で =url-proxy-services= も設定する．=stop-proxy= で設定解除．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (load "~/.ssh-proxy.el")
+#+END_SRC
+
+

@@ -53,16 +53,17 @@
 #+END_SRC
 
 ** auto-install.el
-*** インストール
+*** 初回のインストール（インストーラが実行する）．
 #+BEGIN_SRC sh :tangle install-auto-install.sh :var elisp_dir=tnoda-elisp-dir
   curl http://www.emacswiki.org/emacs/download/auto-install.el -o $elisp_dir/auto-install.el
 #+END_SRC
 
+*** 二回目からは =auto-install= で自身を更新する．
 #+BEGIN_SRC emacs-lisp :tangle install.el
   (auto-install-from-emacswiki "auto-install.el")
 #+END_SRC
 
-*** auto-install を =~/.emacs.d/auto-install= で使う設定
+*** auto-install を =~/.emacs.d/auto-install= で使う．
  
 auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
  

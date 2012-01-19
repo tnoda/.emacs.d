@@ -53,16 +53,17 @@
 #+END_SRC
 
 ** auto-install.el
-*** インストール
-#+BEGIN_SRC sh :tangle install-auto-install.sh :var eliep_dir=tnoda-elisp-dir
+*** 初回のインストール（インストーラが実行する）．
+#+BEGIN_SRC sh :tangle install-auto-install.sh :var elisp_dir=tnoda-elisp-dir
   curl http://www.emacswiki.org/emacs/download/auto-install.el -o $elisp_dir/auto-install.el
 #+END_SRC
 
+*** 二回目からは =auto-install= で自身を更新する．
 #+BEGIN_SRC emacs-lisp :tangle install.el
   (auto-install-from-emacswiki "auto-install.el")
 #+END_SRC
 
-*** auto-install を =~/.emacs.d/auto-install= で使う設定
+*** auto-install を =~/.emacs.d/auto-install= で使う．
  
 auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
  
@@ -936,14 +937,17 @@ http://capitaomorte.github.com/yasnippet/faq.html
 #+END_SRC
 
 * Org Mode                                                              :git:
-** インストール
-+ git://orgmode.org/org-mode.git をサブモジュールにする．
-+ git submodule init/update  後に次のスクリプトを実行してコンパイル・ info インストール．
-  #+BEGIN_SRC sh :tangle setup-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir emacs=emacs-app
-    cd $src_dir/org
-    make EMACS=$emacs compile
-    make EMACS=$emacs prefix=$prefix install-info
-  #+END_SRC
+** Git のサブモジュールになっている > git://orgmode.org/org-mode.git
+** =src/org= を変更したら =update-org.sh= を実行する．
+
+=src/org/lisp/org-install.el= と info ファイルとを作り直す．
+
+#+BEGIN_SRC sh :tangle update-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir emacs=emacs-app
+  cd $src_dir/org
+  make EMACS=$emacs lisp/org-install.el
+  make EMACS=$emacs compile
+  make EMACS=$emacs prefix=$prefix install-info
+#+END_SRC
 
 ** Common
 *** Require
@@ -1163,6 +1167,11 @@ main.org のトップレベルに refile できるようにする．
   (setq org-src-fontify-natively nil)
 #+END_SRC
 
+*** コードブロックを確認無しに実行する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
 ** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-babel-demarcate-block-as-elisp ()
@@ -1309,7 +1318,12 @@ main.org のトップレベルに refile できるようにする．
 + インストール
   #+BEGIN_SRC sh :tangle install-wl.sh :var src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app info_dir=tnoda-info-dir prefix=tnoda-dotfiles-dir
     cd $src_dir
-    cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root login
+    expect -c "set timeout 10
+    spawn cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root login
+    expect \"CVS password:\" {
+      send \"\n\"
+    }
+    "
     cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root checkout wanderlust
     cd wanderlust
     echo "(setq load-path (append
@@ -1342,7 +1356,12 @@ main.org のトップレベルに refile できるようにする．
 *** インストール
 #+BEGIN_SRC sh :tangle install-emacs-w3m.sh :var src_dir=tnoda-src-dir prefx=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app
   cd $src_dir
-  cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot login
+  expect -c "set timeout 10
+  spawn cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot login
+  expect \"CVS password:\" {
+    send \"\n\"
+  }
+  "
   cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot co emacs-w3m
   cd emacs-w3m
   autoconf
@@ -1670,5 +1689,4 @@ https://github.com/hayamiz/twittering-mode を submodule に．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (load "~/.ssh-proxy.el")
 #+END_SRC
-
 

@@ -1163,6 +1163,11 @@ main.org のトップレベルに refile できるようにする．
   (setq org-src-fontify-natively nil)
 #+END_SRC
 
+*** コードブロックを確認無しに実行する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
 ** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-babel-demarcate-block-as-elisp ()

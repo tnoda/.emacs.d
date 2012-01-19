@@ -1,0 +1,36 @@
+# Clone the repository and activate submodules.
+cd $HOME
+git clone https://github.com/tnoda/.emacs.d.git .emacs.d
+cd .emacs.d
+git submodule init
+git submodule update
+
+# Setup Org.
+cd $HOME/.emacs.d/src/org
+make EMACS=${emacs:=/Applications/Emacs.app/Contents/MacOS/Emacs} lisp/org-install.el
+make EMACS=$emacs compile
+make EMACS=$emacs prefix=$HOME/.emacs.d install-info
+cd $HOME/.emacs.d
+
+# Tangle tnoda.org.
+$emacs -Q --batch -l "$HOME/.emacs.d/src/org/lisp/org-install.el" --eval "(progn
+(add-to-list 'load-path (expand-file-name \"$HOME/.emacs.d/src/org/lisp/\"))
+(add-to-list 'load-path (expand-file-name \"$HOME/.emacs.d/src/org/contrib/lisp/\"))
+(require 'org)
+(require 'org-exp)
+(require 'ob)
+(require 'ob-tangle)
+(setq tnoda/dotfiles-dir \"$HOME/.emacs.d\")
+(setq org-confirm-babel-evaluate nil)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t) (sh . t)))
+(find-file \"$HOME/.emacs.d/tnoda.org\")
+(org-babel-tangle)
+(kill-buffer))"
+
+# Install some packages.
+for pkg in auto-install apel flim semi wl emacs-w3m mew skk
+do
+    sh install-${pkg}.sh
+done

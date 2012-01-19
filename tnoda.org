@@ -1309,7 +1309,12 @@ main.org のトップレベルに refile できるようにする．
 + インストール
   #+BEGIN_SRC sh :tangle install-wl.sh :var src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app info_dir=tnoda-info-dir prefix=tnoda-dotfiles-dir
     cd $src_dir
-    cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root login
+    expect -c "set timeout 10
+    spawn cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root login
+    expect \"CVS password:\" {
+      send \"\n\"
+    }
+    "
     cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root checkout wanderlust
     cd wanderlust
     echo "(setq load-path (append
@@ -1342,7 +1347,12 @@ main.org のトップレベルに refile できるようにする．
 *** インストール
 #+BEGIN_SRC sh :tangle install-emacs-w3m.sh :var src_dir=tnoda-src-dir prefx=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app
   cd $src_dir
-  cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot login
+  expect -c "set timeout 10
+  spawn cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot login
+  expect \"CVS password:\" {
+    send \"\n\"
+  }
+  "
   cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot co emacs-w3m
   cd emacs-w3m
   autoconf
@@ -1670,5 +1680,4 @@ https://github.com/hayamiz/twittering-mode を submodule に．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (load "~/.ssh-proxy.el")
 #+END_SRC
-
 

@@ -936,6 +936,29 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (global-set-key (kbd "<S-f5>") 'lispxmp)
 #+END_SRC
 
+* Eshell
+** プロンプトに Git のブランチ名を表示．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/eshell-git-branch ()
+    "Return the branch name surrounded by square brackets, 
+  or nil if the current directory is not in a Git repsitory."
+    (let ((branch (vc-git-working-revision (eshell/pwd))))
+      (if (< 0 (length branch))
+          (format "[%s]" branch))))
+  
+  (defun tnoda/eshell-prompt-function ()
+    (mapconcat 'identity
+               (delq nil (list
+                          (abbreviate-file-name (eshell/pwd))
+                          (tnoda/eshell-git-branch)
+                          (if (= 0 (user-uid))
+                              "# "
+                            "$ ")))
+               " "))
+  
+  (setq eshell-prompt-function 'tnoda/eshell-prompt-function)
+#+END_SRC
+
 * Org Mode                                                              :git:
 ** Git のサブモジュールになっている > git://orgmode.org/org-mode.git
 ** =src/org= を変更したら =update-org.sh= を実行する．

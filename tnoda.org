@@ -936,14 +936,17 @@ http://capitaomorte.github.com/yasnippet/faq.html
 #+END_SRC
 
 * Org Mode                                                              :git:
-** インストール
-+ git://orgmode.org/org-mode.git をサブモジュールにする．
-+ git submodule init/update  後に次のスクリプトを実行してコンパイル・ info インストール．
-  #+BEGIN_SRC sh :tangle setup-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir emacs=emacs-app
-    cd $src_dir/org
-    make EMACS=$emacs compile
-    make EMACS=$emacs prefix=$prefix install-info
-  #+END_SRC
+** Git のサブモジュールになっている > git://orgmode.org/org-mode.git
+** =src/org= を変更したら =update-org.sh= を実行する．
+
+=src/org/lisp/org-install.el= と info ファイルとを作り直す．
+
+#+BEGIN_SRC sh :tangle update-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir emacs=emacs-app
+  cd $src_dir/org
+  make EMACS=$emacs lisp/org-install.el
+  make EMACS=$emacs compile
+  make EMACS=$emacs prefix=$prefix install-info
+#+END_SRC
 
 ** Common
 *** Require

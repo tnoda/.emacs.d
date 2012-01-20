@@ -412,6 +412,11 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
     '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 #+END_SRC
 
+*** =C-M-$= で =ispell-buffer=.                                       :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-M-$") 'ispell-buffer)
+#+END_SRC
+
 ** GC を減らして軽くする．                                       :rubikitch:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq gc-cons-threshold (* 16 gc-cons-threshold))

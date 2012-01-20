@@ -710,7 +710,6 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (global-unset-key (kbd "M-@"))
 #+END_SRC
 
-
 ** cycle-buffers.el                                  :autoinstall:rubikitch:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

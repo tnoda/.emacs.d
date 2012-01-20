@@ -939,6 +939,7 @@ http://capitaomorte.github.com/yasnippet/faq.html
 * Eshell
 ** プロンプトに Git のブランチ名を表示．
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'vc-git)
   (defun tnoda/eshell-git-branch ()
     "Return the branch name surrounded by square brackets, 
   or nil if the current directory is not in a Git repsitory."

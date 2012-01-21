@@ -988,8 +988,8 @@ http://capitaomorte.github.com/yasnippet/faq.html
     "Return the branch name surrounded by square brackets, 
   or nil if the current directory is not in a Git repsitory."
     (let ((branch (vc-git-working-revision (eshell/pwd))))
-      (if (< 0 (length branch))
-          (format "[%s]" branch))))
+      (when (< 0 (length branch))
+        (format "[%s]" branch))))
   
   (defun tnoda/eshell-prompt-function ()
     (mapconcat 'identity

@@ -1031,6 +1031,20 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (grep-a-lot-setup-keys)
 #+END_SRC
 
+** grep-edit.el                                      :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "grep-edit.el")
+#+END_SRC
+
+*** Require
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'grep-edit)
+#+END_SRC
+*** =*grep*= で =C-c C-e= すると変更を反映．                          :key:
+*** =*grep*= で =C-c C-r= するとリージョンの変更を破棄．              :key:
+*** =*grep*= で =C-c C-u= するとバッファへの変更を破棄．              :key:
+
 * Eshell
 ** プロンプトに Git のブランチ名を表示．
 #+BEGIN_SRC emacs-lisp :tangle yes

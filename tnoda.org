@@ -991,6 +991,60 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (global-set-key (kbd "M-q") 'tnoda/text-adjust-and-fill-paragraph)
 #+END_SRC
 
+** igrep.el                                          :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "igrep.el")
+#+END_SRC
+*** =M-x igrep= で =grep= コマンドラインを対話的に編集．
++ 正規表現のデフォルトは現在位置の単語．
++ ファイルは現在のバッファと拡張子が同じもの．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'igrep)
+#+END_SRC
+
+** grep-a-lot.el                                     :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "grep-a-lot.el")
+#+END_SRC
+
+*** =*grep*= バッファを複数もつことができる．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'grep-a-lot)
+#+END_SRC
+
+*** =igrep.el= でも grep-a-lot する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (grep-a-lot-advise igrep)
+#+END_SRC
+
+*** =M-g =/]/[/-/_= で =*grep*= バッファ操作．                        :key:
++ =M-g == ... 最後の grep バッファを開く．
++ =M-g ]= ... 次の grep バッファを開く．
++ =M-g [= ... 前の grep バッファを開く．
++ =M-g -= ... 最後の grep バッファを削除する．
++ =M-g _= ... すべての grep バッファを削除する．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (grep-a-lot-setup-keys)
+#+END_SRC
+
+** grep-edit.el                                      :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "grep-edit.el")
+#+END_SRC
+
+*** Require
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'grep-edit)
+#+END_SRC
+*** =*grep*= で =C-c C-e= すると変更を反映．                          :key:
+*** =*grep*= で =C-c C-r= するとリージョンの変更を破棄．              :key:
+*** =*grep*= で =C-c C-u= するとバッファへの変更を破棄．              :key:
+
 * Eshell
 ** プロンプトに Git のブランチ名を表示．
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -991,6 +991,19 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (global-set-key (kbd "M-q") 'tnoda/text-adjust-and-fill-paragraph)
 #+END_SRC
 
+** igrep.el                                          :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "igrep.el")
+#+END_SRC
+*** =M-x igrep= で =grep= コマンドラインを対話的に編集．
++ 正規表現のデフォルトは現在位置の単語．
++ ファイルは現在のバッファと拡張子が同じもの．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'igrep)
+#+END_SRC
+
 * Eshell
 ** プロンプトに Git のブランチ名を表示．
 #+BEGIN_SRC emacs-lisp :tangle yes

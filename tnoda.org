@@ -527,7 +527,7 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
       (goto-char (point-min))
       (when (re-search-forward smerge-begin-re nil t)
         (smerge-mode 1))))
-  (add-hook 'find-file-hook 'tnoda/try-smerge t)
+  (add-hook 'find-file-hook 'tnoda/try-smerge)
 #+END_SRC
 
 * Global

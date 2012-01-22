@@ -44,6 +44,12 @@
   /Applications/Emacs.app/Contents/MacOS/Emacs
 #+END_EXAMPLE
 
+** Mac OS X の Network Location を取得する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/get-current-location ()
+    (substring (shell-command-to-string "/usr/sbin/networksetup -getcurrentlocation") 0 -1))
+#+END_SRC
+
 * パッケージ管理
 ** =~/.emacs.d/elisp= とそのサブディレクトリを =load-path= に追加する．
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -519,6 +519,17 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (find-function-setup-keys)
 #+END_SRC
 
+** Conflict したマージファイルを開くときには =smerg-mode= を有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'smerge-mode)
+  (defun tnoda/try-smerge ()
+    (save-excursion
+      (goto-char (point-min))
+      (when (re-search-forward smerge-begin-re nil t)
+        (smerge-mode 1))))
+  (add-hook 'find-file-hook 'tnoda/try-smerge t)
+#+END_SRC
+
 * Global
 ** bm.el                                             :autoinstall:rubikitch:
 *** インストール

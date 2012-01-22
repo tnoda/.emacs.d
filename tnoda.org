@@ -1121,6 +1121,24 @@ File on disk now will become a backup file if you save these changes.
 
 と怒られる．
 
+** 見出し入力の改善．
+*** =C-M-RET= で =org-insert-substring=                                 :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key org-mode-map (kbd "<C-M-return>") 'org-insert-subheading)
+#+END_SRC
+
+*** =C-u C-RET= で一レベル下の見出し， =C-u C-u C-RET= で一レベル上の見出し． :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-insert-heading-respect-content (arg)
+    (interactive "p")
+    (org-insert-heading-respect-content)
+    (case arg
+      (4 (org-do-demote))
+      (16 (org-do-promote))))
+  
+  (define-key org-mode-map (kbd "<C-return>") 'tnoda/org-insert-heading-respect-content)
+#+END_SRC
+
 ** Link
 *** =M-L= で org-store-link.                                            :key:
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -1428,7 +1428,7 @@ main.org のトップレベルに refile できるようにする．
 
 ** emacs-w3m                                                           :cvs:
 *** インストール
-#+BEGIN_SRC sh :tangle install-emacs-w3m.sh :var src_dir=tnoda-src-dir prefx=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app
+#+BEGIN_SRC sh :tangle install-emacs-w3m.sh :var src_dir=tnoda-src-dir prefx=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app info_dir=tnoda-info-dir
   cd $src_dir
   expect -c "set timeout 10
   spawn cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot login
@@ -1441,7 +1441,8 @@ main.org のトップレベルに refile できるようにする．
   autoconf
   ./configure --prefix=$prefix --with-lispdir=${elisp_dir}/emacs-w3m \
       --with-emacs=$emacs --with-icondir=${prefix}/share/emacs-w3m \
-      --with-addpath=${elisp_dir}/apel:${elisp_dir}/emu:${elisp_dir}/flim
+      --with-addpath=${elisp_dir}/apel:${elisp_dir}/emu:${elisp_dir}/flim \
+      --infodir=$info_dir
   make
   make install-ja
   make install-icons

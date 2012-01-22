@@ -514,6 +514,11 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (global-hi-lock-mode 1)
 #+END_SRC
 
+** =C-x F=, =C-x K=, =C-x V=                                  :key:rubikitch:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (find-function-setup-keys)
+#+END_SRC
+
 * Global
 ** bm.el                                             :autoinstall:rubikitch:
 *** インストール

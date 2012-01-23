@@ -273,9 +273,9 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (global-unset-key (kbd "C-x o"))
 #+END_SRC
 
-*** =C-x C-b= で =buffer-menu=.                                         :key:
+*** =C-x C-b= で =ibuffer=.                                             :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key "\C-x\C-b" 'buffer-menu)
+  (global-set-key "\C-x\C-b" 'ibuffer)
 #+END_SRC
 
 *** =M-/= で =hippie-expand=.                                           :key:

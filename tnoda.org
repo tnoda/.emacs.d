@@ -1805,13 +1805,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'gfm-mode-hook 'tnoda/gfm-custom)
 #+END_SRC
 
-*** Orgstruct minor mode を有効にする．
-=turn-on-orgstruct++= はインデントと =auto-fill= も有効にする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'markdown-mode-hook 'turn-on-orgstruct++)
-  (add-hook 'gfm-mode 'turn-on-orgstruct++)
-#+END_SRC
-
 ** Zencoding                                                           :git:
 + https://github.com/rooney/zencoding を submodule にして使う．
 + HTML モードで使う

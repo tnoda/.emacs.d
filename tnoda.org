@@ -335,6 +335,16 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (global-set-key (kbd "C-m") 'newline-and-indent)
 #+END_SRC
 
+*** =C-x 4 q= で =tnoda/View-quit-other-window=.                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/View-quit-other-window ()
+    (interactive)
+    (save-selected-window
+      (other-window 1)
+      (call-interactively 'View-quit)))
+  (define-key ctl-x-4-map (kbd "q") 'tnoda/View-quit-other-window)
+#+END_SRC
+
 ** ログと履歴
 *** ログの記録行数を増やす．                                    :rubikitch:
 #+BEGIN_SRC emacs-lisp :tangle yes

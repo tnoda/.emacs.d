@@ -795,6 +795,11 @@ Eshell から =emacsclient= したときに，違うフレームで表示した�
   (push '("COMMIT_EDITMSG" :position top) popwin:special-display-config)
 #+END_SRC
 
+*** Git の =git-rebase-todo= を上に表示する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (push '("git-rebase-todo" :position top) popwin:special-display-config)
+#+END_SRC
+
 ** yasnippet.el                                                        :git:
 *** github のリポジトリを submodule にして使う．
 

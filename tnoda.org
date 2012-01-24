@@ -1023,6 +1023,11 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (setq adaptive-fill-mode t)
 #+END_SRC
 
+*** ？と！とを半角へ変換しないようにする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq text-adjust-hankaku-except "？！＠ー〜、，。．")
+#+END_SRC
+
 ** igrep.el                                          :autoinstall:rubikitch:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

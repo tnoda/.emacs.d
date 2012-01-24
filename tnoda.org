@@ -1017,6 +1017,12 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (global-set-key (kbd "M-q") 'tnoda/text-adjust)
 #+END_SRC
 
+*** 左マージンを考慮する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq adaptive-fill-regexp "[ \t]*")
+  (setq adaptive-fill-mode t)
+#+END_SRC
+
 ** igrep.el                                          :autoinstall:rubikitch:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

@@ -759,12 +759,14 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (global-set-key (kbd "M->")   'cycle-buffer)
 #+END_SRC
 
-** popwin.el                                                           :git:
-+ github のリポジトリを submodule にして使う．
-  - https://github.com/m2ym/popwin-el
+** popwin.el                                                   :autoinstall:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "https://raw.github.com/m2ym/popwin-el/v0.3/popwin.el")
+#+END_SRC
 
+*** 設定
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path (expand-file-name "popwin-el" tnoda/src-dir))
   (require 'popwin)
   (setq display-buffer-function 'popwin:display-buffer)
 #+END_SRC

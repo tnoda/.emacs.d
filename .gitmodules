@@ -1,9 +1,6 @@
 [submodule "src/org"]
 	path = src/org
 	url = git://orgmode.org/org-mode.git
-[submodule "src/popwin-el"]
-	path = src/popwin-el
-	url = https://github.com/m2ym/popwin-el
 [submodule "plugins/yasnippet"]
 	path = plugins/yasnippet
 	url = https://github.com/capitaomorte/yasnippet

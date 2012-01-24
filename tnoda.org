@@ -991,15 +991,30 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (auto-install-from-url "http://taiyaki.org/elisp/mell/src/mell.el")
   (auto-install-from-url "http://taiyaki.org/elisp/text-adjust/src/text-adjust.el")
 #+END_SRC
-
-*** =M-q= で =tnoda/text-adjust-and-fill-paragraph=                   :key:
+*** =kinsoku-ascii= がいつのまにか =kinsoku.el= から無くなっているので定義．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'text-adjust)
-  (defun tnoda/text-adjust-and-fill-paragraph ()
-    (interactive)
-    (call-interactively 'text-adjust)
-    (call-interactively 'fill-paragraph))
-  (global-set-key (kbd "M-q") 'tnoda/text-adjust-and-fill-paragraph)
+  (defvar kinsoku-ascii t "Do kinsoku-shori for ASCII.")
+#+END_SRC
+
+*** =M-q= で =text-adjust-*= する．=C-u M-q= で =*-buffer=. =C-u C-u M-q= で =fill= だけ． :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/text-adjust (arg)
+    (interactive "p")
+    (case arg
+      (16
+       (call-interactively 'text-adjust-fill))
+      (4
+       (call-interactively 'text-adjust-codecheck-buffer)
+       (call-interactively 'text-adjust-hankaku-buffer)
+       (call-interactively 'text-adjust-space-buffer)
+       (call-interactively 'text-adjust-fill-buffer))
+      (t
+       (call-interactively 'text-adjust-codecheck)
+       (call-interactively 'text-adjust-hankaku)
+       (call-interactively 'text-adjust-space)
+       (call-interactively 'text-adjust-fill))))
+  (global-set-key (kbd "M-q") 'tnoda/text-adjust)
 #+END_SRC
 
 ** igrep.el                                          :autoinstall:rubikitch:

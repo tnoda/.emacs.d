@@ -1057,6 +1057,15 @@ http://capitaomorte.github.com/yasnippet/faq.html
 *** =*grep*= で =C-c C-u= するとバッファへの変更を破棄．              :key:
 
 * Eshell
+** Plan 9 Smart Shell
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'eshell)
+  (require 'em-smart)
+  (setq eshell-where-to-jump 'begin)
+  (setq eshell-review-quick-commands nil)
+  (setq eshell-smart-space-goes-to-end t)
+#+END_SRC
+
 ** プロンプトに Git のブランチ名を表示．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'vc-git)

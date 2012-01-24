@@ -769,14 +769,45 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (global-set-key (kbd "M->")   'cycle-buffer)
 #+END_SRC
 
-** popwin.el                                                           :git:
-+ github のリポジトリを submodule にして使う．
-  - https://github.com/m2ym/popwin-el
+** popwin.el                                                   :autoinstall:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "https://raw.github.com/m2ym/popwin-el/v0.3/popwin.el")
+#+END_SRC
+
+*** =special-display-function= で使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'popwin)
+  (setq special-display-function 'popwin:special-display-popup-window)
+#+END_SRC
+
+*** emacsclient で編集するバッファを =tnoda/server-window= で表示．
+
+Eshell から =emacsclient= したときに，違うフレームで表示したい．
+
++ popwin できるバッファなら =popwin:display-buffer= で表示．
++ popwin できないバッファなら =pop-to-buffer= で表示．
+  - これでも， =server-edit= 後にポイントが別フレームに行ったままになる
+    ので =C-;= で戻らないといけなくて，ちょっとだけ面倒．
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path (expand-file-name "popwin-el" tnoda/src-dir))
-  (require 'popwin)
-  (setq display-buffer-function 'popwin:display-buffer)
+  (defun tnoda/server-window (buf)
+    (if (some (lambda (x)
+                (equal (buffer-name buf) (car x)))
+              popwin:special-display-config)
+        (popwin:display-buffer buf)
+      (pop-to-buffer buf)))
+  (setq server-window 'tnoda/server-window)
+#+END_SRC
+
+*** Git の =COMMIT_EDITMSG= を上に表示する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (push '("COMMIT_EDITMSG" :position top) popwin:special-display-config)
+#+END_SRC
+
+*** Git の =git-rebase-todo= を上に表示する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (push '("git-rebase-todo" :position top) popwin:special-display-config)
 #+END_SRC
 
 ** yasnippet.el                                                        :git:

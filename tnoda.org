@@ -765,10 +765,10 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (auto-install-from-url "https://raw.github.com/m2ym/popwin-el/v0.3/popwin.el")
 #+END_SRC
 
-*** 設定
+*** =special-display-function= で使う．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'popwin)
-  (setq display-buffer-function 'popwin:display-buffer)
+  (setq special-display-function 'popwin:special-display-popup-window)
 #+END_SRC
 
 ** yasnippet.el                                                        :git:

@@ -677,6 +677,7 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
         (list
          "org_archive$"
          "/mobileorg.org$"
+         "/COMMIT_EDITMSG$"
          (expand-file-name "~/diary")
          (expand-file-name "~/org/main\.org")
          (expand-file-name "~/org/notes\.org")))
@@ -1285,7 +1286,7 @@ main.org のトップレベルに refile できるようにする．
     (find-file org-default-notes-file))
 #+END_SRC
   
-*** =M-J= で =org-clock-goto=                                         :key:
+*** =M-J= で =org-clock-goto=.                                        :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "M-J") 'org-clock-goto)
 #+END_SRC

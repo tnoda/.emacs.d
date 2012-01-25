@@ -1218,6 +1218,14 @@ File on disk now will become a backup file if you save these changes.
 
 と怒られる．
 
+*** ~=code=~ の face を org-code から =font-lock-constant-face= に変更する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-emphasis-alist
+        (cons '("=" font-lock-constant-face "<code>" "</code>" verbatim)
+              (remove-if (lambda (x)
+                           (equal "=" (car x)))
+                         org-emphasis-alist)))
+#+END_SRC
 ** 見出し入力の改善．
 *** =C-M-RET= で =org-insert-substring=                                 :key:
 #+BEGIN_SRC emacs-lisp :tangle yes

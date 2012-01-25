@@ -1863,10 +1863,14 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (yas/advise-indent-function 'ruby-indent-command)
 #+END_SRC
 
-** Markdown                                                             :git:
-*** git://jblevins.org/git/markdown-mode.git を submodule にして使う．
+** Markdown                                                    :autoinstall:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "http://jblevins.org/git/markdown-mode.git/plain/markdown-mode.el")
+#+END_SRC
+
+*** Require
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path (expand-file-name "markdown-mode" tnoda/src-dir))
   (require 'markdown-mode)
 #+END_SRC
 

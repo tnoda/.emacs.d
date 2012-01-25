@@ -345,6 +345,15 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (define-key ctl-x-4-map (kbd "q") 'tnoda/View-quit-other-window)
 #+END_SRC
 
+*** =s-a= で =tnoda/kill-ring-save-whole-buffer=.                     :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/kill-ring-save-whole-buffer ()
+    (interactive)
+    (save-excursion
+      (copy-region-as-kill (point-min) (point-max))))
+  (global-set-key (kbd "s-a") 'tnoda/kill-ring-save-whole-buffer)
+#+END_SRC
+
 ** ログと履歴
 *** ログの記録行数を増やす．                                    :rubikitch:
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -1312,6 +1312,10 @@ main.org のトップレベルに refile できるようにする．
           ("a" "Away" entry (file "") "* %? :away:"
            :clock-in t
            :clock-resume t
+           :kill-buffer t)
+          ("t" "Task" entry (file+headline tnoda/gtd-file "Tasks")
+           "* TODO %?\n %i\n %a"
+           :clock-keep t
            :kill-buffer t)))
 #+END_SRC
 
@@ -1329,6 +1333,14 @@ main.org のトップレベルに refile できるようにする．
       (interactive)
       (org-capture nil "a"))
     (global-set-key (kbd "M-A") 'tnoda/org-capture-away)
+#+END_SRC
+
+*** =M-T= で Capture Task 開始．                                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-capture-task ()
+    (interactive)
+    (org-capture nil "t"))
+  (global-set-key (kbd "M-T") 'tnoda/org-capture-task)
 #+END_SRC
 
 ** GTD

@@ -1191,6 +1191,12 @@ http://capitaomorte.github.com/yasnippet/faq.html
       (split-string (shell-command-to-string "git branch | sed -e 's/[ *]*//'")))
 #+END_SRC
 
+** Git でステータス変更があったファイルのリストを返す関数 =tnoda/git-modified-files=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/git-modified-files ()
+      (split-string (shell-command-to-string "git status -s | sed -e 's/^.. *//'")))
+#+END_SRC
+
 ** =m= (=git merge= へのエイリアス) を補完する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun pcomplete/m ()

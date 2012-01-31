@@ -1184,6 +1184,75 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (setq eshell-prompt-function 'tnoda/eshell-prompt-function)
 #+END_SRC
 
+* Pcomplete
+** Git ブランチのリストを返す関数 =tnoda/git-branches=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/git-branches ()
+      (split-string (shell-command-to-string "git branch | sed -e 's/[ *]*//'")))
+#+END_SRC
+
+** Git でステータス変更があったファイルのリストを返す関数 =tnoda/git-modified-files=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/git-modified-files ()
+      (split-string (shell-command-to-string "git status -s | sed -e 's/^.. *//'")))
+#+END_SRC
+
+** =m= (=git merge= へのエイリアス) を補完する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun pcomplete/m ()
+    "Completion for `m' (`git merge')"
+    (pcomplete-here* (tnoda/git-branches)))
+#+END_SRC
+
+** =co= (=git checkout= へのエイリアス) を補完する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun pcomplete/co ()
+    "Completion for `co' (`git checkout')"
+    (pcomplete-here* (tnoda/git-branches)))
+#+END_SRC
+
+** =bd= (=git branch -d= へのエイリアス) を補完する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun pcomplete/bd ()
+    "Completion for `bd' (`git branch -d')"
+    (pcomplete-here* (tnoda/git-branches)))
+#+END_SRC
+
+** =a= (=git add -p= へのエイリアス) を補完する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun pcomplete/a ()
+    "Completion for `a' (`git add -p')"
+    (while (pcomplete-here (tnoda/git-modified-files))))
+#+END_SRC
+
+** =git add= と =git rm= とをを補完する．
+
+=git add= は新規ファイルの追加にのみ使用する．既存ファイルのステージングは =a=.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/git-untracked-files ()
+    (split-string (shell-command-to-string "git status -s -u | sed -e 's/^...//'")))
+  
+  (defconst pcmpl-git-commands
+    '("add" "bisect" "branch" "checkout" "clone"
+      "commit" "diff" "fetch" "grep"
+      "init" "log" "merge" "mv" "pull" "push" "rebase"
+      "reset" "rm" "show" "status" "tag" )
+    "List of `git' commands")
+  
+  (defun pcomplete/git ()
+    "Completion for `git'"
+    ;; Completion for the command argument.
+    (pcomplete-here* pcmpl-git-commands)  
+    ;; complete files/dirs forever if the command is `add' or `rm'
+    (cond
+     ((pcomplete-match (regexp-opt '("add") ))
+      (while (pcomplete-here (tnoda/git-untracked-files))))
+     ((pcomplete-match (regexp-opt '("rm")) 1)
+      (while (pcomplete-here (pcomplete-entries))))))
+#+END_SRC
+
+
 * Org Mode                                                              :git:
 
 本家ではなく，[[http://repo.or.cz/w/org-mode.git][repo.or.cz の mirror]] を Git のサブモジュールにしている．

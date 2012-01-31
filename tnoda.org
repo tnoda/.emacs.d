@@ -768,6 +768,24 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (require 'cycle-buffer)
 #+END_SRC
 
+*** Mew の summary mode を対象外にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'cycle-buffer-filter
+               '(not (string-match "^\\+.+" (buffer-name))))
+#+END_SRC
+
+*** gtd 関連ファイルを対象外にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'cycle-buffer-filter
+               '(not (member (buffer-name) '("main.org" "notes.org" "diary"))))
+#+END_SRC
+
+*** Org の archive ファイルを対象外にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'cycle-buffer-filter
+               '(not (string-match "_archive$" (buffer-name))))
+#+END_SRC
+
 *** =M-<= で前のバッファに移動 (=cycle-buffer-backward=).               :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "M-<")   'cycle-buffer-backward)

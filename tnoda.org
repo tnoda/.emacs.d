@@ -1205,6 +1205,13 @@ http://capitaomorte.github.com/yasnippet/faq.html
     (pcomplete-here* (tnoda/git-branches)))
 #+END_SRC
 
+** =bd= (=git branch -d= へのエイリアス) を補完する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun pcomplete/bd ()
+    "Completion for `bd' (`git branch -d')"
+    (pcomplete-here* (tnoda/git-branches)))
+#+END_SRC
+
 * Org Mode                                                              :git:
 
 本家ではなく，[[http://repo.or.cz/w/org-mode.git][repo.or.cz の mirror]] を Git のサブモジュールにしている．

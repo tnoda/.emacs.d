@@ -90,6 +90,7 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
   - Marmalade も使えるようにする
   #+BEGIN_SRC emacs-lisp :tangle yes
     (require 'package)
+    (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
     (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
     (package-initialize)
   #+END_SRC

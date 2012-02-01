@@ -1990,6 +1990,22 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (package-install 'rinari)
 #+END_SRC
 
+*** Fix rinari-root
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'rinari)
+  (defun tnoda/rinari-root (&optional dir home)
+    "Return the Rails root directory."
+    (or dir (setq dir default-directory))
+    (if (file-exists-p (expand-file-name
+                        "rails" (expand-file-name "script" dir)))
+        dir
+      (let ((new-dir (expand-file-name (file-name-as-directory "..") dir)))
+        ;; regexp to match windows roots, tramp roots, or regular posix roots
+        (unless (string-match "\\(^[[:alpha:]]:/$\\|^/[^\/]+:/?$\\|^/$\\)" dir)
+          (rinari-root new-dir)))))
+  (fset 'rinari-root 'tnoda/rinari-root)
+#+END_SRC
+
 ** Markdown                                                    :autoinstall:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

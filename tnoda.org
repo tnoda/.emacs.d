@@ -1900,9 +1900,10 @@ main.org のトップレベルに refile できるようにする．
 *** インストール
 + =ruby-mode.el= などは GitHub から最新ものを入手したい．
   #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-mode.el")
-    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-electric.el")
-    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/inf-ruby.el")
+    (package-install 'ruby-mode)
+    (package-install 'ruby-electric)
+    (package-install 'inf-ruby)
+    (package-install 'ruby-compilation)
     (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-style.el")
     (package-install 'yari)
     (package-install 'flymake-ruby)

@@ -1984,6 +1984,15 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (yas/advise-indent-function 'ruby-indent-line)
 #+END_SRC
 
+*** =M-x align= でハッシュのキーと値をを揃える．                  :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'align)
+  (add-to-list 'align-rules-list
+               '(ruby-hash
+                 (regexp . "\\(\\s-*\\)=>")
+                 (modes  . '(ruby-mode))))
+#+END_SRC
+
 ** Rinari
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

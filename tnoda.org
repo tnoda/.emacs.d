@@ -1919,7 +1919,7 @@ main.org のトップレベルに refile できるようにする．
 
 *** =~/.rbenv/shims= を =exec-path= に追加する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path (expand-file-name "~/.rbenv/shims"))
+  (add-to-list 'exec-path (expand-file-name "~/.rbenv/shims"))
 #+END_SRC
 
 *** =<f1> r= で yari 起動．                                           :key:

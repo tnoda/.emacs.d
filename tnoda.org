@@ -1162,6 +1162,12 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (setq eshell-smart-space-goes-to-end t)
 #+END_SRC
 
+** プロンプトの色を変える．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'em-prompt)
+  (set-face-foreground 'eshell-prompt "cyan")
+#+END_SRC
+
 ** プロンプトに Git のブランチ名を表示．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'vc-git)

@@ -90,6 +90,7 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
   - Marmalade も使えるようにする
   #+BEGIN_SRC emacs-lisp :tangle yes
     (require 'package)
+    (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
     (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
     (package-initialize)
   #+END_SRC
@@ -1921,9 +1922,10 @@ main.org のトップレベルに refile できるようにする．
 *** インストール
 + =ruby-mode.el= などは GitHub から最新ものを入手したい．
   #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-mode.el")
-    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-electric.el")
-    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/inf-ruby.el")
+    (package-install 'ruby-mode)
+    (package-install 'ruby-electric)
+    (package-install 'inf-ruby)
+    (package-install 'ruby-compilation)
     (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-style.el")
     (package-install 'yari)
     (package-install 'flymake-ruby)
@@ -1939,7 +1941,7 @@ main.org のトップレベルに refile できるようにする．
 
 *** =~/.rbenv/shims= を =exec-path= に追加する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path (expand-file-name "~/.rbenv/shims"))
+  (add-to-list 'exec-path (expand-file-name "~/.rbenv/shims"))
 #+END_SRC
 
 *** =<f1> r= で yari 起動．                                           :key:
@@ -2001,7 +2003,38 @@ flymake-ruby で使う Ruby は rbenv のもの．
 
 *** =ruby-mode-map= で =TAB= を =ruby-indent-command= に割り当てているので yasnippet と競合するのを回避する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (yas/advise-indent-function 'ruby-indent-command)
+  (yas/advise-indent-function 'ruby-indent-line)
+#+END_SRC
+
+*** =M-x align= でハッシュのキーと値をを揃える．                  :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'align)
+  (add-to-list 'align-rules-list
+               '(ruby-hash
+                 (regexp . "\\(\\s-*\\)=>")
+                 (modes  . '(ruby-mode))))
+#+END_SRC
+
+** Rinari
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (package-install 'rinari)
+#+END_SRC
+
+*** Fix rinari-root
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'rinari)
+  (defun tnoda/rinari-root (&optional dir home)
+    "Return the Rails root directory."
+    (or dir (setq dir default-directory))
+    (if (file-exists-p (expand-file-name
+                        "rails" (expand-file-name "script" dir)))
+        dir
+      (let ((new-dir (expand-file-name (file-name-as-directory "..") dir)))
+        ;; regexp to match windows roots, tramp roots, or regular posix roots
+        (unless (string-match "\\(^[[:alpha:]]:/$\\|^/[^\/]+:/?$\\|^/$\\)" dir)
+          (rinari-root new-dir)))))
+  (fset 'rinari-root 'tnoda/rinari-root)
 #+END_SRC
 
 ** Markdown                                                    :autoinstall:

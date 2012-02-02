@@ -1263,6 +1263,17 @@ http://capitaomorte.github.com/yasnippet/faq.html
     (while (pcomplete-here (tnoda/git-unstaged-files))))
 #+END_SRC
 
+** =dc= (=git diff --cached= へのエイリアス) を補完する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/git-staged-files ()
+    "Return a list of staged files."
+    (split-string (shell-command-to-string "git status -s | egrep '^M' | sed -e 's/^M.//'")))
+  
+  (defun pcomplete/dc ()
+    "Completion for `dc' (`git diff')."
+    (while (pcomplete-here (tnoda/git-staged-files))))
+#+END_SRC
+
 
 * Org Mode                                                              :git:
 

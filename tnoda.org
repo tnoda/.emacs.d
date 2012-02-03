@@ -873,6 +873,25 @@ http://capitaomorte.github.com/yasnippet/faq.html
 
 のように使う．
 
+*** スニペット用のヘルパー関数を定義．
+**** =tnoda/classify=. ActiveSupport の =String#classify= と同等．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/classify (str)
+    "Return rails-classified string."
+    (replace-regexp-in-string "_" "" (capitalize str)))
+#+END_SRC
+
+**** =tnoda/guess-ruby-class-name=. ファイル名から Ruby のクラス名を推測する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/guess-ruby-class-name ()
+    "Return the Ruby class name associating with the current buffer."
+    (tnoda/classify (file-name-sans-extension
+                     (file-name-nondirectory
+                      (or (buffer-file-name)
+                          (buffer-name (current-buffer)))))))
+#+END_SRC
+
+
 ** point-undo.el                                     :autoinstall:rubikitch:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

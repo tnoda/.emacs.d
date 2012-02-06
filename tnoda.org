@@ -2062,6 +2062,16 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (fset 'rinari-root 'tnoda/rinari-root)
 #+END_SRC
 
+*** =rinari-test= で Spork-testunit の =testdrb= を使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/rinari-test ()
+    "Test the current function using Spork-testunit."
+    (interactive)
+    (let ((ruby-compilation-executable "testdrb"))
+      (call-interactively 'rinari-test)))
+  (define-key rinari-minor-mode-map (kbd "C-c ; t") 'tnoda/rinari-test)
+#+END_SRC
+
 ** Markdown                                                    :autoinstall:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

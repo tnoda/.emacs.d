@@ -2133,6 +2133,11 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-to-list 'rinari-minor-mode-hook 'tnoda/rinari-tags-update)
 #+END_SRC
 
+*** =rinari-minor-mode= の =C-c ; T= に =tnoda/rinari-tags-update= を割り当てる． :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key rinari-minor-mode-map (kbd "C-c ; T") 'tnoda/rinari-tags-update)
+#+END_SRC
+
 ** Markdown                                                    :autoinstall:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

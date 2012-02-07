@@ -2062,13 +2062,48 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (fset 'rinari-root 'tnoda/rinari-root)
 #+END_SRC
 
+*** Spork サーバを =*spork*= バッファに起動するコマンド =tnoda/spork-start=. :command:
+
++ =tnoda/spork-stop= で停止する．
++ エイリアスとして =spork-start=, =spork-stop= を用意．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/spork-start ()
+    "Start the Spork server."
+    (interactive)
+    (setq tnoda/spork-command (format "cd %s && spork testunit" (rinari-root)))
+    (setq tnoda/spork-process (start-process-shell-command "spork-server" "*spork*"
+                                                           tnoda/spork-command))
+    (set-process-sentinel tnoda/spork-process
+                          (lambda (proc msg) (message "%s %s" proc msg))))
+  
+  (defun tnoda/spork-stop ()
+    "Stop the Spork server."
+    (interactive)
+    (kill-buffer "*spork*")
+    (interrupt-process tnoda/spork-process))
+  
+  (defalias 'spork-start 'tnoda/spork-start)
+  (defalias 'spork-stop 'tnoda/spork-stop)
+#+END_SRC
+
 *** =rinari-test= で Spork-testunit の =testdrb= を使う．
+
+このとき，=*spork*= バッファが無ければ =tnoda/spork-start= で Spork サーバを起動する．
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/rinari-test ()
     "Test the current function using Spork-testunit."
     (interactive)
+    (when (not (get-buffer "*spork*"))
+      (tnoda/spork-start)
+      (sit-for 5))
     (let ((ruby-compilation-executable "testdrb"))
       (call-interactively 'rinari-test)))
+#+END_SRC
+
+*** =rinari-minor-mode= の =C-c ; t= を =tnoda/rinari-test= に置き換える． :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
   (define-key rinari-minor-mode-map (kbd "C-c ; t") 'tnoda/rinari-test)
 #+END_SRC
 

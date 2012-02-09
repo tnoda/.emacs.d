@@ -1383,9 +1383,9 @@ File on disk now will become a backup file if you save these changes.
 #+END_SRC
 
 ** Link
-*** =M-L= で org-store-link.                                            :key:
+*** =C-c l= で org-store-link.                                          :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "M-L") 'org-store-link)
+  (global-set-key (kbd "C-c l") 'org-store-link)
 #+END_SRC
 
 ** Refile

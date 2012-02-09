@@ -742,7 +742,7 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
 
 *** インストール
   #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "http://taiyaki.org/elisp/sense-region/src/sense-region.el")
+    (auto-install-from-url "https://raw.github.com/gist/1776988/63a04b9b81bc5dbeef2d3878994639fd81ddc276/sense-region.el")
   #+END_SRC
 
 *** すべてのバッファで sence-region を有効に．
@@ -1383,9 +1383,9 @@ File on disk now will become a backup file if you save these changes.
 #+END_SRC
 
 ** Link
-*** =M-L= で org-store-link.                                            :key:
+*** =C-c l= で org-store-link.                                          :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "M-L") 'org-store-link)
+  (global-set-key (kbd "C-c l") 'org-store-link)
 #+END_SRC
 
 ** Refile
@@ -1454,28 +1454,28 @@ main.org のトップレベルに refile できるようにする．
            :kill-buffer t)))
 #+END_SRC
 
-*** =M-N= で Capture Note 開始．                                        :key:
+*** =C-c n= で Capture Note 開始．                                      :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-capture-note ()
       (interactive)
       (org-capture nil "n"))
-    (global-set-key (kbd "M-N") 'tnoda/org-capture-note)
+    (global-set-key (kbd "C-c n") 'tnoda/org-capture-note)
 #+END_SRC
 
-*** =M-A= で Capture Away 開始．                                        :key:
+*** =C-c a= で Capture Away 開始．                                      :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-capture-away ()
       (interactive)
       (org-capture nil "a"))
-    (global-set-key (kbd "M-A") 'tnoda/org-capture-away)
+    (global-set-key (kbd "C-c a") 'tnoda/org-capture-away)
 #+END_SRC
 
-*** =M-T= で Capture Task 開始．                                      :key:
+*** =C-c t= で Capture Task 開始．                                      :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-capture-task ()
     (interactive)
     (org-capture nil "t"))
-  (global-set-key (kbd "M-T") 'tnoda/org-capture-task)
+  (global-set-key (kbd "C-c t") 'tnoda/org-capture-task)
 #+END_SRC
 
 ** GTD
@@ -1494,9 +1494,9 @@ main.org のトップレベルに refile できるようにする．
     (find-file org-default-notes-file))
 #+END_SRC
   
-*** =M-J= で =org-clock-goto=.                                        :key:
+*** =C-c g= で =org-clock-goto=.                                        :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "M-J") 'org-clock-goto)
+  (global-set-key (kbd "C-c g") 'org-clock-goto)
 #+END_SRC
 
 ** Agenda
@@ -1621,10 +1621,10 @@ main.org のトップレベルに refile できるようにする．
   make EMACS=$emacs install
 #+END_SRC
 
-** =C-x C-j= で =skk-mode=.                                            :key:
+** =C-x C-j= で =skk-mode=.                                             :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'skk-autoloads)
-  (global-set-key "\C-x\C-j" 'skk-mode)
+  (define-key ctl-x-map (kbd "C-j") 'skk-mode)
 #+END_SRC
 
 ** =skk-mode= なバッファで =isearch= するときにはミニバッファでも SKK.

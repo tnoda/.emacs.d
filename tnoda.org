@@ -1462,12 +1462,12 @@ main.org のトップレベルに refile できるようにする．
     (global-set-key (kbd "C-c n") 'tnoda/org-capture-note)
 #+END_SRC
 
-*** =M-A= で Capture Away 開始．                                        :key:
+*** =C-c a= で Capture Away 開始．                                      :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-capture-away ()
       (interactive)
       (org-capture nil "a"))
-    (global-set-key (kbd "M-A") 'tnoda/org-capture-away)
+    (global-set-key (kbd "C-c a") 'tnoda/org-capture-away)
 #+END_SRC
 
 *** =M-T= で Capture Task 開始．                                      :key:

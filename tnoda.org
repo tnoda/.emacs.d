@@ -1470,12 +1470,12 @@ main.org のトップレベルに refile できるようにする．
     (global-set-key (kbd "C-c a") 'tnoda/org-capture-away)
 #+END_SRC
 
-*** =M-T= で Capture Task 開始．                                      :key:
+*** =C-c t= で Capture Task 開始．                                      :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-capture-task ()
     (interactive)
     (org-capture nil "t"))
-  (global-set-key (kbd "M-T") 'tnoda/org-capture-task)
+  (global-set-key (kbd "C-c t") 'tnoda/org-capture-task)
 #+END_SRC
 
 ** GTD

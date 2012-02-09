@@ -1454,12 +1454,12 @@ main.org のトップレベルに refile できるようにする．
            :kill-buffer t)))
 #+END_SRC
 
-*** =M-N= で Capture Note 開始．                                        :key:
+*** =C-c n= で Capture Note 開始．                                      :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-capture-note ()
       (interactive)
       (org-capture nil "n"))
-    (global-set-key (kbd "M-N") 'tnoda/org-capture-note)
+    (global-set-key (kbd "C-c n") 'tnoda/org-capture-note)
 #+END_SRC
 
 *** =M-A= で Capture Away 開始．                                        :key:

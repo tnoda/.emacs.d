@@ -1494,9 +1494,9 @@ main.org のトップレベルに refile できるようにする．
     (find-file org-default-notes-file))
 #+END_SRC
   
-*** =M-J= で =org-clock-goto=.                                        :key:
+*** =C-c g= で =org-clock-goto=.                                        :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "M-J") 'org-clock-goto)
+  (global-set-key (kbd "C-c g") 'org-clock-goto)
 #+END_SRC
 
 ** Agenda

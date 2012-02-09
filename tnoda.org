@@ -704,6 +704,20 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (setq recentf-exclude (append recentf-exclude tnoda/recentf-exclude-org))
 #+END_SRC
 
+*** =recentf= でディレクトリを扱わない．
+
+=recentf-ext.el= が
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (add-hook 'dired-mode-hook 'recentf-add-dired-directory)
+#+END_SRC
+
+しているので， =remove-hook= する．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (remove-hook 'dired-mode-hook 'recentf-add-dired-directory)
+#+END_SRC
+
 *** =C-@= で =recentf-open-files=                                     :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "C-@") 'recentf-open-files)

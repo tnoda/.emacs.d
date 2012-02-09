@@ -742,7 +742,7 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
 
 *** インストール
   #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "http://taiyaki.org/elisp/sense-region/src/sense-region.el")
+    (auto-install-from-url "https://raw.github.com/gist/1776988/63a04b9b81bc5dbeef2d3878994639fd81ddc276/sense-region.el")
   #+END_SRC
 
 *** すべてのバッファで sence-region を有効に．

@@ -2200,6 +2200,17 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'c++-mode-hook 'ruby-style-c-mode)
 #+END_SRC
 
+* ESS で R を使う．
+** インストール                                                        :svn:
+#+BEGIN_SRC sh :tangle install-ess.sh :var src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir info_dir=tnoda-info-dir prefix=tnoda-dotfiles-dir emacs=emacs-app
+  cd $src_dir
+  svn checkout https://svn.r-project.org/ESS/trunk ess
+  cd $src_dir/ess
+  make -C lisp EMACS=$emacs LISPDIR=$elisp_dir/ess INFODIR=$info_dir ETCDIR=$elisp_dir/ess/etc install
+  make -C doc EMACS=$emacs LISPDIR=$elisp_dir/ess INFODIR=$info_dir ETCDIR=$elisp_dir/ess/etc install-info
+  make -C etc EMACS=$emacs LISPDIR=$elisp_dir/ess INFODIR=$info_dir ETCDIR=$elisp_dir/ess/etc install
+#+END_SRC
+
 * Twitter                                                     :git:rubikitch:
 
 twittering-mode.el を使う．

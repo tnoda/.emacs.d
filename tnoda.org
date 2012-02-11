@@ -2211,6 +2211,11 @@ flymake-ruby で使う Ruby は rbenv のもの．
   make -C etc EMACS=$emacs LISPDIR=$elisp_dir/ess INFODIR=$info_dir ETCDIR=$elisp_dir/ess/etc install
 #+END_SRC
 
+** =M-x R RET= で ESS (R) 開始．                                   :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'ess-site)
+#+END_SRC
+
 * Twitter                                                     :git:rubikitch:
 
 twittering-mode.el を使う．

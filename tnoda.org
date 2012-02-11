@@ -4,7 +4,7 @@
 #+STARTUP: indent
 #+PROPERTY: padline no
 #+PROPERTY: results silent
-#+TAGS:  key(k) command(c) autoinstall(a) marmalade(m) git(g) rubikitch(r)
+#+TAGS:  key(k) command(c) autoinstall(a) marmalade(m) git(g) svn(s) rubikitch(r)
 
 * ユーティリティ
 ** ディレクトリ構成

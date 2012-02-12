@@ -1613,6 +1613,16 @@ main.org のトップレベルに refile できるようにする．
   (key-chord-define org-mode-map "el" 'tnoda/org-babel-demarcate-block-as-elisp)
 #+END_SRC
 
+** =dm= 同時押しで markdown の src ブロック挿入．                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-babel-demarcate-block-as-markdown ()
+    (interactive)
+    (insert "#+BEGIN_SRC markdown :tangle yes\n\n#+END_SRC")
+    (org-indent-line-function)
+    (org-edit-special))
+  (key-chord-define org-mode-map "dm" 'tnoda/org-babel-demarcate-block-as-markdown)
+#+END_SRC
+
 ** Easy Templates
 + =<s= で =#+STARTUP: =
 + =<S= で =#+SETUPFILE: =

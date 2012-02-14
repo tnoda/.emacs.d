@@ -2249,11 +2249,15 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (require 'twittering-mode)
 #+END_SRC
 
-** ユーザ名とパスワードは， =~/.twitter.el= に保存
+** 各 tweet 一行で表示．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (load "~/.twitter.el")
   (setq twittering-status-format
         "%C{%Y-%m-%d %H:%M:%S} %s > %T // from %f%L%r%R")
+#+END_SRC
+
+** 認証済み OAuth トークンを PGP で暗号化して保存．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq twittering-use-master-password t)
 #+END_SRC
 
 * Network

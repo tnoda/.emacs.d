@@ -1693,6 +1693,10 @@ main.org のトップレベルに refile できるようにする．
 + 見出し語と送り仮名が一致した候補を優先表示 (=skk-henkan-strict-okuri-precedence=).
 + 半角カナの入力規則を有効に (=skk-use-jisx0201-input-method=).
 
+* Migemo
+
++ cmigemo を https://gist.github.com/1824249 の formula で =brew install= する．
+
 * Mail/News/WWW
 ** APEL/FLIM/SEMI のインストール．
 :PROPERTIES:

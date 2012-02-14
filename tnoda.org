@@ -2270,3 +2270,8 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (load "~/.ssh-proxy.el")
 #+END_SRC
 
+* Anything
+** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-batch "anything")
+#+END_SRC

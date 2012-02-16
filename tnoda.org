@@ -1936,10 +1936,10 @@ main.org のトップレベルに refile できるようにする．
 
 *** =draft= と =message= とでは行間を広く表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/mew-increase-line-spacing ()
+  (defun tnoda/increase-line-spacing ()
     (setq line-spacing 4))
-  (add-hook 'mew-draft-mode-hook 'tnoda/mew-increase-line-spacing)
-  (add-hook 'mew-message-mode-hook 'tnoda/mew-increase-line-spacing)
+  (add-hook 'mew-draft-mode-hook 'tnoda/increase-line-spacing)
+  (add-hook 'mew-message-mode-hook 'tnoda/increase-line-spacing)
 #+END_SRC
 
 *** =draft-mode= で Org のテーブル記法と箇条書きを有効にする．

@@ -124,20 +124,46 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
                               (width . 1000) (height . 1000)))
 #+END_SRC
 
-*** フォント
+*** フォント                                                          :key:
+
++ デフォルトは Ricty Ascii + ヒラギノ丸ゴ
++ プログラミング時は Ricty
++ =s-f= で切り替え
+
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (when window-system
-    (set-face-attribute 'default nil
-                        :family "Menlo"
-                        :height 140)
+  (defvar tnoda/current-fontset 'default)
+  
+  (defun tnoda/fontset-set-default ()
     (set-fontset-font
      (frame-parameter nil 'font)
      'japanese-jisx0208
-     (font-spec :family "Hiragino Maru Gothic ProN"))
-    (setq face-font-rescale-alist
-          '(("^-apple-hiragino.*" . 1.2)
-            (".*Menro.*" . 1.0)
-            ("-cdac$" . 1.3))))
+     (font-spec :family "Hiragino Maru Gothic ProN" :size 16))
+    (setq tnoda/current-fontset 'default))
+  
+  (defun tnoda/fontset-set-programming ()
+    (set-fontset-font
+     (frame-parameter nil 'font)
+     'japanese-jisx0208
+     (font-spec :family "Ricty" :size 16))
+    (setq tnoda/current-fontset 'programming))
+  
+  (defun tnoda/fontset-toggle ()
+    (interactive)
+    (case tnoda/current-fontset
+      ('default
+        (tnoda/fontset-set-programming))
+      ('programming
+       (tnoda/fontset-set-default))
+      (t
+       (error "invalid fontset"))))
+  
+  (when window-system
+    (set-face-attribute 'default nil
+                        :family "Ricty Ascii"
+                        :height 160)
+    (tnoda/fontset-set-default))
+  
+  (global-set-key (kbd "s-f") 'tnoda/fontset-toggle)
 #+END_SRC
 
 *** 色

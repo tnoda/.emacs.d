@@ -2284,3 +2284,8 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (global-set-key (kbd "<f5>") 'tnoda/compile-or-executable-interpret)
 #+END_SRC
 
+** デフォルト設定が遅い．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq anything-input-idle-delay 0.03)
+#+END_SRC
+

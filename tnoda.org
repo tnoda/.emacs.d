@@ -2275,3 +2275,12 @@ https://github.com/hayamiz/twittering-mode を submodule に．
 #+BEGIN_SRC emacs-lisp :tangle install.el
   (auto-install-batch "anything")
 #+END_SRC
+
+** =anything-config.el= が =<f5> a= を prefix-key にしていることへの応急処置．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-unset-key (kbd "<f5>"))
+  (setq anything-read-string-mode-flags nil)
+  (require 'anything-startup)
+  (global-set-key (kbd "<f5>") 'tnoda/compile-or-executable-interpret)
+#+END_SRC
+

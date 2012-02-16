@@ -2315,11 +2315,7 @@ https://github.com/hayamiz/twittering-mode を submodule に．
 #+END_SRC
 
 * Network
-** Proxy 設定                                                      :command:
-+ =M-x start-proxy= でプロキシサーバへのポートフォワーディング開始．
-+ =M-x stop-proxy= で停止．
-+ =start-proxy= で =url-proxy-services= も設定する． =stop-proxy= で設定解除．
-
+** =s-p= でプロキシサーバへの SSH フォワーディング開始・停止．         :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (load "~/.ssh-proxy.el")
 #+END_SRC

@@ -1844,9 +1844,10 @@ main.org のトップレベルに refile できるようにする．
   make install-icons
 #+END_SRC
 
-*** 設定
+*** 行間を広くする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'w3m-load)
+  (add-hook 'w3m-mode-hook 'tnoda/increase-line-spacing)
 #+END_SRC
 
 面倒なことは全て =~/.emacs-w3m.el= に書いてある．

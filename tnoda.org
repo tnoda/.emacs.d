@@ -50,6 +50,12 @@
     (substring (shell-command-to-string "/usr/sbin/networksetup -getcurrentlocation") 0 -1))
 #+END_SRC
 
+** 行間を広くする関数 =tnoda/increase-line-spacing=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/increase-line-spacing ()
+    (setq line-spacing 4))
+#+END_SRC
+
 * パッケージ管理
 ** =~/.emacs.d/elisp= とそのサブディレクトリを =load-path= に追加する．
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1838,9 +1844,10 @@ main.org のトップレベルに refile できるようにする．
   make install-icons
 #+END_SRC
 
-*** 設定
+*** 行間を広くする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'w3m-load)
+  (add-hook 'w3m-mode-hook 'tnoda/increase-line-spacing)
 #+END_SRC
 
 面倒なことは全て =~/.emacs-w3m.el= に書いてある．
@@ -1936,10 +1943,8 @@ main.org のトップレベルに refile できるようにする．
 
 *** =draft= と =message= とでは行間を広く表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/mew-increase-line-spacing ()
-    (setq line-spacing 4))
-  (add-hook 'mew-draft-mode-hook 'tnoda/mew-increase-line-spacing)
-  (add-hook 'mew-message-mode-hook 'tnoda/mew-increase-line-spacing)
+  (add-hook 'mew-draft-mode-hook 'tnoda/increase-line-spacing)
+  (add-hook 'mew-message-mode-hook 'tnoda/increase-line-spacing)
 #+END_SRC
 
 *** =draft-mode= で Org のテーブル記法と箇条書きを有効にする．

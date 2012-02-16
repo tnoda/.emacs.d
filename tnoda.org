@@ -50,6 +50,12 @@
     (substring (shell-command-to-string "/usr/sbin/networksetup -getcurrentlocation") 0 -1))
 #+END_SRC
 
+** 行間を広くする関数 =tnoda/increase-line-spacing=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/increase-line-spacing ()
+    (setq line-spacing 4))
+#+END_SRC
+
 * パッケージ管理
 ** =~/.emacs.d/elisp= とそのサブディレクトリを =load-path= に追加する．
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1936,8 +1942,6 @@ main.org のトップレベルに refile できるようにする．
 
 *** =draft= と =message= とでは行間を広く表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/increase-line-spacing ()
-    (setq line-spacing 4))
   (add-hook 'mew-draft-mode-hook 'tnoda/increase-line-spacing)
   (add-hook 'mew-message-mode-hook 'tnoda/increase-line-spacing)
 #+END_SRC

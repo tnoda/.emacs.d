@@ -2289,3 +2289,7 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (setq anything-input-idle-delay 0.03)
 #+END_SRC
 
+** =C-c f= で =anything-for-files=.                                     :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-c f") 'anything-for-files)
+#+END_SRC

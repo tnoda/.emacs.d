@@ -130,7 +130,7 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
                               (width . 1000) (height . 1000)))
 #+END_SRC
 
-*** フォント                                                          :key:
+*** =s-f= でフォント切り替え．                                            :key:
 
 + デフォルトは Ricty Ascii + ヒラギノ丸ゴ
 + プログラミング時は Ricty

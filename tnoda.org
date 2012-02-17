@@ -1217,6 +1217,21 @@ http://capitaomorte.github.com/yasnippet/faq.html
 *** =*grep*= で =C-c C-r= するとリージョンの変更を破棄．              :key:
 *** =*grep*= で =C-c C-u= するとバッファへの変更を破棄．              :key:
 
+** shell-history.el                                  :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "shell-history.el")
+#+END_SRC
+
+*** =M-x shell-add-to-history= を使えるようにする．               :command:
+
+このコマンドは，シェルコマンドを実行せずに履歴に追加する．
+rubikitch 先生曰く「コマンドの『カラ実行』」．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'shell-history)
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1508,12 +1523,12 @@ main.org のトップレベルに refile できるようにする．
     (global-set-key (kbd "C-c n") 'tnoda/org-capture-note)
 #+END_SRC
 
-*** =C-c a= で Capture Away 開始．                                      :key:
+*** =C-c w= で Capture Away 開始．                                      :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-capture-away ()
-      (interactive)
-      (org-capture nil "a"))
-    (global-set-key (kbd "C-c a") 'tnoda/org-capture-away)
+    (interactive)
+    (org-capture nil "a"))
+  (global-set-key (kbd "C-c w") 'tnoda/org-capture-away)
 #+END_SRC
 
 *** =C-c t= で Capture Task 開始．                                      :key:
@@ -1687,6 +1702,11 @@ main.org のトップレベルに refile できるようにする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'skk-autoloads)
   (define-key ctl-x-map (kbd "C-j") 'skk-mode)
+#+END_SRC
+
+** =C-\= でも =skk-mode=.                                              :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-\\") 'skk-mode)
 #+END_SRC
 
 ** =skk-mode= なバッファで =isearch= するときにはミニバッファでも SKK.
@@ -2320,3 +2340,84 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (load "~/.ssh-proxy.el")
 #+END_SRC
 
+* Anything
+** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-batch "anything")
+#+END_SRC
+
+** Anything で使うプレフィクスキーを =M-@= にする．                     :key:
+
++ anything-config.el で設定されるデフォルトは =<f5> a= だが，
+  =<f5>= を =tnoda/compile-or-executable-interpret= に割り当てているため，
+  =(require 'anything-startup)= でエラーになる．
++ =M-@= はデフォルトでは =mark-word= に割り当てられてる．しかし，
+  sense-region.el の導入により =C-SPC= 連打で =mark-word=
+  できるようになったので，Anything で有り難く使う．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq anything-command-map-prefix-key "M-@")
+  (require 'anything-startup)
+#+END_SRC
+
+** Anything が =ctl-x-map= を上書きする？ので再度 =C-x C-j= を =skk-mode= に． :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key ctl-x-map (kbd "C-j") 'skk-mode)
+#+END_SRC
+
+** ido と喧嘩させない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (anything-read-string-mode 0)
+#+END_SRC
+
+** デフォルト設定が遅い．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq anything-input-idle-delay 0.03)
+#+END_SRC
+
+** =C-x b= を =anything-for-files= に．                                :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key ctl-x-map (kbd "b") 'anything-for-files)
+#+END_SRC
+
+** =M-!=, =M-|= で =C-o= を押すとシェルコマンド履歴から補完する．      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (anything-complete-shell-history-setup-key (kbd "C-o"))
+#+END_SRC
+
+** =M-y= を anything-show-kill-ring に．キルリングの補完と絞り込み．   :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "M-y") 'anything-show-kill-ring)
+#+END_SRC
+
+** anything-c-moccur.el
+
+color-moccur.el に依存している．
+
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
+#+END_SRC
+
+*** =C-c o= で =anything-c-moccur-occur-by-moccur=.                     :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'anything-c-moccur)
+  (global-set-key (kbd "C-c o") 'anything-c-moccur-occur-by-moccur)
+#+END_SRC
+
+*** isearch 中に =M-o= で anything-c-moccur に移行．                    :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key isearch-mode-map (kbd "M-o") 'anything-c-moccur-from-isearch)
+#+END_SRC
+
+** anything-project.el
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "https://raw.github.com/imakado/anything-project/master/anything-project.el")
+#+END_SRC
+
+*** =C-c f= で =anything-project=.                                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'anything-project)
+  (global-set-key (kbd "C-c f") 'anything-project)
+#+END_SRC

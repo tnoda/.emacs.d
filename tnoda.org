@@ -2390,3 +2390,22 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 #+END_SRC
 
+** anything-c-moccur.el
+
+color-moccur.el に依存している．
+
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
+#+END_SRC
+
+*** =M-o= で =anything-c-moccur-occur-by-moccur=.                     :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur)
+#+END_SRC
+
+*** isearch 中に =C-o= で anything-c-moccur に移行．                  :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
+#+END_SRC
+

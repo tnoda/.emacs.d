@@ -1689,6 +1689,11 @@ main.org のトップレベルに refile できるようにする．
   (define-key ctl-x-map (kbd "C-j") 'skk-mode)
 #+END_SRC
 
+** =C-\= でも =skk-mode=.                                              :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-\\") 'skk-mode)
+#+END_SRC
+
 ** =skk-mode= なバッファで =isearch= するときにはミニバッファでも SKK.
 
 =(require 'skk-setup)= すると，=C-x j= と =C-x t= にそれぞれ

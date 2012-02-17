@@ -2334,6 +2334,11 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (global-set-key (kbd "<f5>") 'tnoda/compile-or-executable-interpret)
 #+END_SRC
 
+** Anything が =ctl-x-map= を上書きする？ので再度 =C-x C-j= を =skk-mode= に． :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key ctl-x-map (kbd "C-j") 'skk-mode)
+#+END_SRC
+
 ** デフォルト設定が遅い．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq anything-input-idle-delay 0.03)

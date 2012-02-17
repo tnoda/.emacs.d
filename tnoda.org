@@ -2343,6 +2343,11 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (define-key ctl-x-map (kbd "C-j") 'skk-mode)
 #+END_SRC
 
+** ido と喧嘩させない．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (anything-read-string-mode 0)
+#+END_SRC
+
 ** デフォルト設定が遅い．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq anything-input-idle-delay 0.03)

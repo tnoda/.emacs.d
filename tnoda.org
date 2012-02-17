@@ -1217,6 +1217,21 @@ http://capitaomorte.github.com/yasnippet/faq.html
 *** =*grep*= で =C-c C-r= するとリージョンの変更を破棄．              :key:
 *** =*grep*= で =C-c C-u= するとバッファへの変更を破棄．              :key:
 
+** shell-history.el                                  :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "shell-history.el")
+#+END_SRC
+
+*** =M-x shell-add-to-history= を使えるようにする．               :command:
+
+このコマンドは，シェルコマンドを実行せずに履歴に追加する．
+rubikitch 先生曰く「コマンドの『カラ実行』」．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'shell-history)
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

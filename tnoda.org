@@ -2375,11 +2375,6 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (setq anything-input-idle-delay 0.03)
 #+END_SRC
 
-** =C-c f= で =anything-for-files=.                                     :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "C-c f") 'anything-for-files)
-#+END_SRC
-
 ** =M-!=, =M-|= で =C-o= を押すとシェルコマンド履歴から補完する．      :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (anything-complete-shell-history-setup-key (kbd "C-o"))
@@ -2409,3 +2404,14 @@ color-moccur.el に依存している．
   (define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
 #+END_SRC
 
+** anything-project.el
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "https://raw.github.com/imakado/anything-project/master/anything-project.el")
+#+END_SRC
+
+*** =C-c f= で =anything-project=.                                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'anything-project)
+  (global-set-key (kbd "C-c f") 'anything-project)
+#+END_SRC

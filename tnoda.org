@@ -2379,3 +2379,9 @@ https://github.com/hayamiz/twittering-mode を submodule に．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "C-c f") 'anything-for-files)
 #+END_SRC
+
+** =M-!=, =M-|= で =C-o= を押すとシェルコマンド履歴から補完する．      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (anything-complete-shell-history-setup-key (kbd "C-o"))
+#+END_SRC
+

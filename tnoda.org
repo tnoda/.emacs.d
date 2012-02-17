@@ -2385,3 +2385,8 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (anything-complete-shell-history-setup-key (kbd "C-o"))
 #+END_SRC
 
+** =M-y= を anything-show-kill-ring に．キルリングの補完と絞り込み．   :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "M-y") 'anything-show-kill-ring)
+#+END_SRC
+

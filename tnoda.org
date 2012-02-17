@@ -2375,6 +2375,11 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (setq anything-input-idle-delay 0.03)
 #+END_SRC
 
+** =C-x b= を =anything-for-files= に．                                :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key ctl-x-map (kbd "b") 'anything-for-files)
+#+END_SRC
+
 ** =M-!=, =M-|= で =C-o= を押すとシェルコマンド履歴から補完する．      :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (anything-complete-shell-history-setup-key (kbd "C-o"))

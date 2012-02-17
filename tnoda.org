@@ -2401,6 +2401,7 @@ color-moccur.el に依存している．
 
 *** =C-c o= で =anything-c-moccur-occur-by-moccur=.                     :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'anything-c-moccur)
   (global-set-key (kbd "C-c o") 'anything-c-moccur-occur-by-moccur)
 #+END_SRC
 

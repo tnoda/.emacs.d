@@ -2331,11 +2331,18 @@ https://github.com/hayamiz/twittering-mode を submodule に．
   (auto-install-batch "anything")
 #+END_SRC
 
-** =anything-config.el= が =<f5> a= を prefix-key にしていることへの応急処置．
+** Anything で使うプレフィクスキーを =M-@= にする．                     :key:
+
++ anything-config.el で設定されるデフォルトは =<f5> a= だが，
+  =<f5>= を =tnoda/compile-or-executable-interpret= に割り当てているため，
+  =(require 'anything-startup)= でエラーになる．
++ =M-@= はデフォルトでは =mark-word= に割り当てられてる．しかし，
+  sense-region.el の導入により =C-SPC= 連打で =mark-word=
+  できるようになったので，Anything で有り難く使う．
+
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (global-unset-key (kbd "<f5>"))
+  (setq anything-command-map-prefix-key "M-@")
   (require 'anything-startup)
-  (global-set-key (kbd "<f5>") 'tnoda/compile-or-executable-interpret)
 #+END_SRC
 
 ** Anything が =ctl-x-map= を上書きする？ので再度 =C-x C-j= を =skk-mode= に． :key:

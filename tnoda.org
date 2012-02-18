@@ -2290,6 +2290,33 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'c++-mode-hook 'ruby-style-c-mode)
 #+END_SRC
 
+** Haskell
+*** haskell-mode のインストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (package-install 'haskell-mode)
+#+END_SRC
+
+*** ghc-mod インストール
++ 事前に Cabal でインストール．
+  - ghc-mod
+  - hlint
++ =ghc*.el= のコンパイルとインストール
+  #+BEGIN_SRC sh :tangle install-ghc-mod.sh :var emacs=emacs-app elisp_dir=tnoda-elisp-dir
+    cabal update
+    cabal install ghc-mod
+    cabal install hlint
+    make -C ~/Library/Haskell/ghc-7.0.3/lib/ghc-mod-1.10.6/share EMACS=$emacs
+    mkdir -p $elisp_dir/ghc-mod
+    cp ~/Library/Haskell/ghc-7.0.3/lib/ghc-mod-1.10.6/share/*.elc $elisp_dir/ghc-mod
+  #+END_SRC
+
+*** flymake を有効に
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (add-to-list 'exec-path (expand-file-name "~/.cabal/bin/"))
+    (autoload 'ghc-init "ghc" nil t)
+    (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
+#+END_SRC
+
 * ESS で R を使う．
 ** インストール                                                        :svn:
 #+BEGIN_SRC sh :tangle install-ess.sh :var src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir info_dir=tnoda-info-dir prefix=tnoda-dotfiles-dir emacs=emacs-app

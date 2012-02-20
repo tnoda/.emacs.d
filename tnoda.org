@@ -2159,12 +2159,14 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (fset 'rinari-root 'tnoda/rinari-root)
 #+END_SRC
 
-*** Spork サーバを =*spork*= バッファに起動するコマンド =tnoda/spork-start=. :command:
+*** =s-s= で Spork サーバを起動・停止する．                   :key:command:
 
-+ =tnoda/spork-stop= で停止する．
-+ エイリアスとして =spork-start=, =spork-stop= を用意．
++ =tnoda/spork-start= コマンドで起動する．
++ =tnoda/spork-stop= コマンドで停止する．
 
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (defvar tnoda/spork-start-p nil)
+  
   (defun tnoda/spork-start ()
     "Start the Spork server."
     (interactive)
@@ -2172,16 +2174,24 @@ flymake-ruby で使う Ruby は rbenv のもの．
     (setq tnoda/spork-process (start-process-shell-command "spork-server" "*spork*"
                                                            tnoda/spork-command))
     (set-process-sentinel tnoda/spork-process
-                          (lambda (proc msg) (message "%s %s" proc msg))))
+                          (lambda (proc msg) (message "%s %s" proc msg)))
+    (setq tnoda/spork-start-p t))
   
   (defun tnoda/spork-stop ()
     "Stop the Spork server."
     (interactive)
+    (setq tnoda/spork-start-p nil)
     (kill-buffer "*spork*")
     (interrupt-process tnoda/spork-process))
   
-  (defalias 'spork-start 'tnoda/spork-start)
-  (defalias 'spork-stop 'tnoda/spork-stop)
+  (defun tnoda/spork-toggle ()
+    "Start and stop the Spork server."
+    (interactive)
+    (if tnoda/spork-start-p
+        (tnoda/spork-stop)
+      (tnoda/spork-start)))
+  
+  (global-set-key (kbd "s-s") 'tnoda/spork-toggle)
 #+END_SRC
 
 *** =rinari-test= で Spork-testunit の =testdrb= を使う．

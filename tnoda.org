@@ -2123,13 +2123,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 #+END_SRC
 
-*** inf-ruby で pry を使う．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq ruby-program-name "~/.rbenv/shims/pry")
-  (setq inferior-ruby-first-prompt-pattern  "^\\[[0-9]+\\] pry\\((.*)\\)> *")
-  (setq inferior-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
-#+END_SRC
-
 *** =ruby-mode-map= で =TAB= を =ruby-indent-command= に割り当てているので yasnippet と競合するのを回避する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (yas/advise-indent-function 'ruby-indent-line)

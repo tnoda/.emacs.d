@@ -2138,6 +2138,12 @@ flymake-ruby で使う Ruby は rbenv のもの．
                  (modes  . '(ruby-mode))))
 #+END_SRC
 
+*** =.rdoc= なファイルを =rdoc-mode= で開く．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'rdoc-mode)
+  (add-to-list 'auto-mode-alist '("\\.rdoc$" . rdoc-mode))
+#+END_SRC
+
 ** Rinari
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

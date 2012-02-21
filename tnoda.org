@@ -2056,6 +2056,7 @@ main.org のトップレベルに refile できるようにする．
     (package-install 'inf-ruby)
     (package-install 'ruby-compilation)
     (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-style.el")
+    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/rdoc-mode.el")
     (package-install 'yari)
     (package-install 'flymake-ruby)
   #+END_SRC

@@ -2067,6 +2067,7 @@ main.org のトップレベルに refile できるようにする．
   (require 'inf-ruby)
   (require 'ruby-electric)
   (require 'ruby-style)
+  (require 'ruby-compilation)
 #+END_SRC
 
 *** =~/.rbenv/shims= を =exec-path= に追加する．
@@ -2142,6 +2143,11 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'rdoc-mode)
   (add-to-list 'auto-mode-alist '("\\.rdoc$" . rdoc-mode))
+#+END_SRC
+
+*** =ruby-mode= の =C-c C-c= で =ruby-compilation-this-buffer=.       :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key ruby-mode-map (kbd "C-c C-c") 'ruby-compilation-this-buffer)
 #+END_SRC
 
 ** Rinari

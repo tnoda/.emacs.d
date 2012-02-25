@@ -2261,6 +2261,18 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (define-key rinari-minor-mode-map (kbd "C-c ; T") 'tnoda/rinari-tags-update)
 #+END_SRC
 
+** rcodetools
+*** インストール
+#+BEGIN_SRC sh :tangle install-rcodetools.sh :var elisp_dir=tnoda-elisp-dir emacs=emacs-app
+  gem install rcodetools
+  for el in `gem content rcodetools | grep \.el$`
+  do
+      cp $el $elisp_dir
+      cd $elisp_dir
+      $emacs -batch -f batch-byte-compile *rcodetools.el
+  done
+#+END_SRC
+
 ** Markdown                                                    :autoinstall:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

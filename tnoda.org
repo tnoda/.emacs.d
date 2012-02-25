@@ -1330,7 +1330,7 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
     (cond
      ((pcomplete-match (regexp-opt '("add") ))
       (while (pcomplete-here (tnoda/git-untracked-files))))
-     ((pcomplete-match (regexp-opt '("rm")) 1)
+     ((pcomplete-match (regexp-opt '("rm" "reset" "mv")) 1)
       (while (pcomplete-here (pcomplete-entries))))))
 #+END_SRC
 

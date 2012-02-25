@@ -2071,11 +2071,6 @@ main.org のトップレベルに refile できるようにする．
   (add-to-list 'exec-path (expand-file-name "~/.rbenv/shims"))
 #+END_SRC
 
-*** =<f1> r= で yari 起動．                                           :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "<f1> r") 'yari)
-#+END_SRC
-
 *** 拡張子への関連づけ (=.rb .rake .gemspec .ru Rakefile Gemfile ... ==).
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
@@ -2497,4 +2492,12 @@ color-moccur.el に依存している．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'anything-project)
   (global-set-key (kbd "C-c f") 'anything-project)
+#+END_SRC
+
+** =ruby-mode= の =C-c C-y= で =yari-anything=.                         :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/ri-bind-key ()
+    (local-set-key (kbd "C-c C-y") 'yari-anything))
+  
+  (add-hook 'ruby-mode-hook 'tnoda/ri-bind-key)
 #+END_SRC

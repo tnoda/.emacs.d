@@ -2281,6 +2281,12 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (define-key ruby-mode-map (kbd "C-c C-t") 'ruby-toggle-buffer)
 #+END_SRC
 
+*** =anything-rcodetools.el=
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'anything-rcodetools)
+  (setq rct-get-all-methods-command "PAGER=cat fri -l")
+#+END_SRC
+
 ** Markdown                                                    :autoinstall:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

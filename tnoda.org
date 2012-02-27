@@ -2369,6 +2369,20 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'gfm-mode-hook 'tnoda/gfm-custom)
 #+END_SRC
 
+*** =<S-tab>= で =markdown-shifttab=.                                   :key:
+
+デフォルトでは =markdown-shifttab= が =<S-iso-lefttab>= に割り当てられ
+ているため．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/markdown-shifttab-fix ()
+    "Bind `markdown-shifttab' to <S-tab>"
+    (local-set-key (kbd "<S-tab>") 'markdown-shifttab))
+  
+  (add-hook 'markdown-mode-hook 'tnoda/markdown-shifttab-fix)
+  (add-hook 'gfm-mode-hook 'tnoda/markdown-shifttab-fix)
+#+END_SRC
+
 ** Zencoding                                                           :git:
 + https://github.com/rooney/zencoding を submodule にして使う．
 + HTML モードで使う

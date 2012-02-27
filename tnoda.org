@@ -2157,12 +2157,18 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (yas/advise-indent-function 'ruby-indent-line)
 #+END_SRC
 
-*** =M-x align= でハッシュのキーと値をを揃える．                  :command:
+*** =align-rules-list=. =M-x align= でコンマ区切りとハッシュを整列． :command:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'align)
   (add-to-list 'align-rules-list
-               '(ruby-hash
-                 (regexp . "\\(\\s-*\\)=>")
+               '(ruby-comma-delimiter
+                 (regexp . ",\\(\\s-*\\)[^# \t\n]")
+                 (repeat . t)
+                 (modes  . '(ruby-mode))))
+  (add-to-list 'align-rules-list
+               '(ruby-hash-literal
+                 (regexp . "\\(\\s-*\\)=>\\s-*[^# \t\n]")
+                 (repeat . t)
                  (modes  . '(ruby-mode))))
 #+END_SRC
 

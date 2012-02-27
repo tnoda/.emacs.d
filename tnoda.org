@@ -583,6 +583,17 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
 #+END_SRC
 
 * Global
+** minor-mode-hack.el                                :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "minor-mode-hack.el")
+#+END_SRC
+
+*** Require
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'minor-mode-hack)
+#+END_SRC
+
 ** bm.el                                             :autoinstall:rubikitch:
 *** インストール
   #+BEGIN_SRC emacs-lisp :tangle install.el

@@ -2195,11 +2195,11 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'ruby-mode-hook 'tnoda/hs-org/minor-mode-activate)
   (add-to-list 'hs-special-modes-alist
                (list 'ruby-mode
-                     (concat "\\(^\\s-*"
-                             ruby-electric-simple-keywords-re
-                             "\\|{\\|\\[\\)")
-                     "end\\|\\]\\|}" "#"
-                     'ruby-forward-sexp nil))
+                     ruby-electric-simple-keywords-re
+                     "end"
+                     "#"
+                     'ruby-forward-sexp
+                     nil))
 #+END_SRC
 
 ** Rinari

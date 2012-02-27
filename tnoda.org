@@ -1238,6 +1238,31 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
   (require 'shell-history)
 #+END_SRC
 
+** hideshow-org.el                                             :autoinstall:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "https://raw.github.com/secelis/hideshow-org/master/hideshow-org.el")
+#+END_SRC
+
+*** =tnoda/hs-org/minor-mode-activate=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'hideshow-org)
+  (defun tnoda/hs-org/minor-mode-activate ()
+    "Activate hideshow-org"
+    (interactive)
+    (hs-org/minor-mode 1)
+    (raise-minor-mode-map-alist 'hs-org/minor-mode))
+#+END_SRC
+
+*** 折りたたみ部分をハイライトする =tnoda/highlight-overlay=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/highlight-overlay (ov)
+    "Self-explanatory!"
+    (overlay-put ov 'display (propertize (format "...") 'face 'highlight)))
+  
+  (setq hs-set-up-overlay 'tnoda/highlight-overlay)
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

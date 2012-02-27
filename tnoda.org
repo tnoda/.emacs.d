@@ -583,6 +583,17 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
 #+END_SRC
 
 * Global
+** minor-mode-hack.el                                :autoinstall:rubikitch:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-emacswiki "minor-mode-hack.el")
+#+END_SRC
+
+*** Require
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'minor-mode-hack)
+#+END_SRC
+
 ** bm.el                                             :autoinstall:rubikitch:
 *** インストール
   #+BEGIN_SRC emacs-lisp :tangle install.el
@@ -1225,6 +1236,31 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'shell-history)
+#+END_SRC
+
+** hideshow-org.el                                             :autoinstall:
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "https://raw.github.com/secelis/hideshow-org/master/hideshow-org.el")
+#+END_SRC
+
+*** =tnoda/hs-org/minor-mode-activate=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'hideshow-org)
+  (defun tnoda/hs-org/minor-mode-activate ()
+    "Activate hideshow-org"
+    (interactive)
+    (hs-org/minor-mode 1)
+    (raise-minor-mode-map-alist 'hs-org/minor-mode))
+#+END_SRC
+
+*** 折りたたみ部分をハイライトする =tnoda/highlight-overlay=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/highlight-overlay (ov)
+    "Self-explanatory!"
+    (overlay-put ov 'display (propertize (format "...") 'face 'highlight)))
+  
+  (setq hs-set-up-overlay 'tnoda/highlight-overlay)
 #+END_SRC
 
 * Eshell
@@ -2146,6 +2182,18 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (require 'ruby-block)
   (ruby-block-mode t)
   (setq ruby-block-highlight-toggle 't)
+#+END_SRC
+
+*** =hideshow-org= を有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'ruby-mode-hook 'tnoda/hs-org/minor-mode-activate)
+  (add-to-list 'hs-special-modes-alist
+               (list 'ruby-mode
+                     (concat "\\(^\\s-*"
+                             ruby-electric-simple-keywords-re
+                             "\\|{\\|\\[\\)")
+                     "end\\|\\]\\|}" "#"
+                     'ruby-forward-sexp nil))
 #+END_SRC
 
 ** Rinari

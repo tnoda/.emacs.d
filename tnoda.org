@@ -538,9 +538,17 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (put 'narrow-to-region 'disabled nil)
 #+END_SRC
 
-** シェルと同じ =PATH= を使う．
+** 環境変数 =PATH= を設定する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setenv "PATH" (shell-command-to-string "echo -n $PATH"))
+  (setenv "PATH" (mapconcat 'identity
+                            (list tnoda/bin-dir
+                                  (expand-file-name "~/.rbenv/shims")
+                                  (expand-file-name "~/Library/Haskell/bin")
+                                  "/opt/homebrew/sbin" "/opt/homebrew/bin"
+                                  "/Applications/Emacs.app/Contents/MacOS/bin"
+                                  "/Developer/usr/bin" "/Developer/usr/sbin"
+                                  "/bin" "/usr/bin" "/usr/X11R6/bin")
+                            ":"))
 #+END_SRC
 
 ** シェルと同じ =MANPATH= を使う．

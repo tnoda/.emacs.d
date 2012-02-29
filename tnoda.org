@@ -2142,6 +2142,51 @@ main.org のトップレベルに refile できるようにする．
   (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
 #+END_SRC
 
+*** =ruby-mode= の =C-M-a= で =tnoda/ruby-beginning-of-defun=.        :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/ruby-beginning-of-defun ()
+    "Move backward to the beginning of the current defun"
+    (interactive)
+    (and (re-search-backward "\\bdef\\b" nil t)
+         (beginning-of-line)))
+  
+  (define-key ruby-mode-map (kbd "C-M-a") 'tnoda/ruby-beginning-of-defun)
+#+END_SRC
+
+*** =ruby-mode= の =C-M-e= で =tnoda/ruby-end-of-defun=.              :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/ruby-beginning-of-defun-indent-level ()
+    (save-excursion
+      (end-of-line)
+      (when (re-search-backward "^\\( *\\)def\\b" nil t)
+        (length (match-string 1)))))
+  
+  (defun tnoda/ruby-end-of-defun ()
+    "Move forward to the end of the current defun"
+    (interactive)
+    (let ((current-indent-level (tnoda/ruby-beginning-of-defun-indent-level)))
+      (and current-indent-level
+           (re-search-forward (concat "^"
+                                      (make-string current-indent-level 32)
+                                      "end\\b")
+                              nil t)
+           (forward-line 1))))
+  
+  (define-key ruby-mode-map (kbd "C-M-e") 'tnoda/ruby-end-of-defun)
+#+END_SRC
+
+*** =ruby-mode= の =C-M-h= で =tnoda/ruby-mark-defun=.                :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/ruby-mark-defun ()
+    "Put mark at the end of the current defun, point at the beginning"
+    (interactive)
+    (flet ((ruby-beginning-of-defun (&optional arg) (tnoda/ruby-beginning-of-defun))
+           (ruby-end-of-defun (&optional arg) (tnoda/ruby-end-of-defun)))
+      (call-interactively 'ruby-mark-defun)))
+  
+  (define-key ruby-mode-map (kbd "C-M-h") 'tnoda/ruby-mark-defun)
+#+END_SRC
+
 *** =ruby-electric= を有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/ruby-electric-activate ()

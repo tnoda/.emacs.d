@@ -2175,6 +2175,18 @@ main.org のトップレベルに refile できるようにする．
   (define-key ruby-mode-map (kbd "C-M-e") 'tnoda/ruby-end-of-defun)
 #+END_SRC
 
+*** =ruby-mode= の =C-M-h= で =tnoda/ruby-mark-defun=.                :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/ruby-mark-defun ()
+    "Put mark at the end of the current defun, point at the beginning"
+    (interactive)
+    (flet ((ruby-beginning-of-defun (&optional arg) (tnoda/ruby-beginning-of-defun))
+           (ruby-end-of-defun (&optional arg) (tnoda/ruby-end-of-defun)))
+      (call-interactively 'ruby-mark-defun)))
+  
+  (define-key ruby-mode-map (kbd "C-M-h") 'tnoda/ruby-mark-defun)
+#+END_SRC
+
 *** =ruby-electric= を有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/ruby-electric-activate ()

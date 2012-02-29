@@ -2142,6 +2142,17 @@ main.org のトップレベルに refile できるようにする．
   (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
 #+END_SRC
 
+*** =ruby-mode= の =C-M-a= で =tnoda/ruby-beginning-of-defun=.        :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/ruby-beginning-of-defun ()
+    "Move backward to the beginning of the current defun"
+    (interactive)
+    (and (re-search-backward "\\bdef\\b" nil t)
+         (beginning-of-line)))
+  
+  (define-key ruby-mode-map (kbd "C-M-a") 'tnoda/ruby-beginning-of-defun)
+#+END_SRC
+
 *** =ruby-electric= を有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/ruby-electric-activate ()

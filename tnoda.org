@@ -551,9 +551,15 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
                             ":"))
 #+END_SRC
 
-** シェルと同じ =MANPATH= を使う．
+** 環境変数 =MANPATH= を設定する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setenv "MANPATH" (shell-command-to-string "echo -n $MANPATH"))
+  (setenv "MANPATH" (mapconcat 'identity
+                               (list (expand-file-name "shrea/man" tnoda/dotfiles-dir)
+                                     "/opt/homebrew/share/man"
+                                     "/Developer/usr/share/man"
+                                     "/usr/share/man"
+                                     "/usr/X11R6/man")
+                               ":"))
 #+END_SRC
 
 ** =~/.emacs.d/share/info= を優先する．

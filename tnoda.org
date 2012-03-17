@@ -2626,3 +2626,30 @@ color-moccur.el に依存している．
   
   (add-hook 'ruby-mode-hook 'tnoda/ri-bind-key)
 #+END_SRC
+
+* SDIC
+** インストール
+#+BEGIN_SRC sh :tangle install-sdic.sh :var src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app info_dir=tnoda-info-dir prefix=tnoda-dotfiles-dir
+  cd $src_dir
+  curl http://www.namazu.org/~tsuchiya/sdic/sdic-2.1.3.tar.gz | tar zxf -
+  cd sdic-2.1.3
+  curl -O http://www.namazu.org/~tsuchiya/sdic/data/gene95.tar.gz
+  curl -O http://www.namazu.org/~tsuchiya/sdic/data/edict.gz
+  ./configure --prefix=$prefix --infodir=$info_dir --with-emacs=$emacs  --with-lispdir=$elisp_dir --with-dictdir=$prefix/share/dict
+  make install
+  make install-info
+  make dict
+  make install-dict
+#+END_SRC
+
+** =C-c w= で SDIC 辞書検索．                                          :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'sdic)
+  (global-set-key (kbd "C-c w") 'sdic-describe-word-at-point)
+#+END_SRC
+
+** popwin を使って，SDIC の検索結果を下に表示する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'special-display-buffer-names "*sdic*")
+  (push '("*sdic*" :position bottom) popwin:special-display-config)
+#+END_SRC

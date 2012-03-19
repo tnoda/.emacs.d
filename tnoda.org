@@ -2292,7 +2292,7 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (defun tnoda/spork-start ()
     "Start the Spork server."
     (interactive)
-    (setq tnoda/spork-command (format "cd %s && spork testunit" (rinari-root)))
+    (setq tnoda/spork-command (format "cd %s && bundle exec spork testunit" (rinari-root)))
     (setq tnoda/spork-process (start-process-shell-command "spork-server" "*spork*"
                                                            tnoda/spork-command))
     (set-process-sentinel tnoda/spork-process

@@ -2053,12 +2053,13 @@ main.org のトップレベルに refile できるようにする．
 #+END_SRC
 
 * Lang
-** Clojure                                                       :marmalade:
+** Clojure                                           :autoinstall:marmalade:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el
   (package-install 'clojure-mode)
   (package-install 'slime)
   (package-install 'slime-repl)
+  (auto-install-from-url "https://raw.github.com/gist/1551858/6d55e35f9fecd462c68684f0b40930379bfe8be9/cljdoc.el")
 #+END_SRC
 
 =package-install= すると，  =(require 'clojure-mode)= しなくてもいいみたい．
@@ -2077,6 +2078,12 @@ main.org のトップレベルに refile できるようにする．
 *** Rainbow Delimiters
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+#+END_SRC
+
+*** cljdoc.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'cljdoc)
+  (add-hook 'inferior-lisp-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 
 ** CoffeeScript                                                  :marmalade:

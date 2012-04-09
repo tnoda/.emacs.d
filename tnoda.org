@@ -2071,6 +2071,7 @@ main.org のトップレベルに refile できるようにする．
 *** paredit
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+  (add-hook 'inferior-lisp-mode-hook 'enable-paredit-mode)
 #+END_SRC
 
 *** Rainbow Delimiters

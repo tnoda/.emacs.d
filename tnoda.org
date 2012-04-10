@@ -2072,11 +2072,27 @@ main.org のトップレベルに refile できるようにする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'clojure-mode-hook 'enable-paredit-mode)
   (add-hook 'inferior-lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
 #+END_SRC
 
 *** Rainbow Delimiters
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'slime-repl-mode-hook 'rainbow-delimiters-mode)
+#+END_SRC
+
+*** Syntax highlighting in repl buffers
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/clojure-mode-slime-font-lock-setup ()
+    (let (font-lock-mode)
+      (clojure-mode-font-lock-setup)))
+  (add-hook 'slime-repl-mode-hook 'tnoda/clojure-mode-slime-font-lock-setup)
+#+END_SRC
+
+*** Enable eldoc in slime-repl-mode
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'slime-repl-mode-hook 'clojure-localize-documentation-function)
+  (add-hook 'slime-repl-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 
 ** CoffeeScript                                                  :marmalade:

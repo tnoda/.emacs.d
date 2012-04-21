@@ -460,6 +460,11 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (add-to-list 'exec-path "/opt/homebrew/bin")
 #+END_SRC
 
+*** =exec-path= に =/usr/texbin= を追加する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'exec-path "/usr/texbin")
+#+END_SRC
+
 ** スペルチェック (ispell/aspell)
 + aspell を使う．
 + 英語日本語混じりの文章でエラーが出ないようなおまじない (ispell-skip-region-alist).

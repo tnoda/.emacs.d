@@ -544,6 +544,7 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
                             (list tnoda/bin-dir
                                   (expand-file-name "~/.rbenv/shims")
                                   (expand-file-name "~/Library/Haskell/bin")
+                                  "/usr/texbin"
                                   "/opt/homebrew/sbin" "/opt/homebrew/bin"
                                   "/Applications/Emacs.app/Contents/MacOS/bin"
                                   "/Developer/usr/bin" "/Developer/usr/sbin"

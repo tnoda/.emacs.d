@@ -460,6 +460,11 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
   (add-to-list 'exec-path "/opt/homebrew/bin")
 #+END_SRC
 
+*** =exec-path= に =/usr/texbin= を追加する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'exec-path "/usr/texbin")
+#+END_SRC
+
 ** スペルチェック (ispell/aspell)
 + aspell を使う．
 + 英語日本語混じりの文章でエラーが出ないようなおまじない (ispell-skip-region-alist).
@@ -544,6 +549,7 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
                             (list tnoda/bin-dir
                                   (expand-file-name "~/.rbenv/shims")
                                   (expand-file-name "~/Library/Haskell/bin")
+                                  "/usr/texbin"
                                   "/opt/homebrew/sbin" "/opt/homebrew/bin"
                                   "/Applications/Emacs.app/Contents/MacOS/bin"
                                   "/Developer/usr/bin" "/Developer/usr/sbin"

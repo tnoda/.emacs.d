@@ -1063,14 +1063,20 @@ http://capitaomorte.github.com/yasnippet/faq.html
       (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
     #+END_SRC
     
-** auto-complete.el                                          :git:rubikitch:
-*** https://github.com/m2ym/auto-complete.git を submodule として使う．
+** auto-complete.el                                        :elget:rubikitch:
+*** Install via el-get.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq tnoda/ac-prefix (expand-file-name "auto-complete" tnoda/src-dir))
-  (add-to-list 'load-path tnoda/ac-prefix)
-  (require 'auto-complete-config)
-  (add-to-list 'ac-dictionary-directories (expand-file-name "dict" tnoda/ac-prefix))
+  (el-get 'sync '(auto-complete))
   (ac-config-default)
+#+END_SRC
+
+*** ac-slime
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync '(ac-slime))
+  (require 'ac-slime)
+  (add-hook 'slime-mode-hook 'set-up-slime-ac)
+  (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+  (add-to-list 'ac-modes 'slime-repl-mode)
 #+END_SRC
 
 *** 4 文字以上にならないと補完を開始しない (=ac-auto-start=).

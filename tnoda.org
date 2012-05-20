@@ -2108,11 +2108,37 @@ main.org のトップレベルに refile できるようにする．
 #+END_SRC
 
 *** paredit
+**** =clojure-mode= で paredit を有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'clojure-mode-hook 'enable-paredit-mode)
-  (add-hook 'inferior-lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
 #+END_SRC
+
+**** =slime-repl-mode= と =inferior-lisp-mode= とで paredit に =[]= と ={}= も括弧扱いさせる．
+via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-swank-clojure-repl
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/setup-slime-repl-paredit ()
+    (define-key slime-repl-mode-map
+      (kbd "DEL") 'paredit-backward-delete)
+    (define-key slime-repl-mode-map
+      (kbd "{") 'paredit-open-curly)
+    (define-key slime-repl-mode-map
+      (kbd "}") 'paredit-close-curly)
+    (modify-syntax-entry ?\{ "(}")
+    (modify-syntax-entry ?\} "){")
+    (modify-syntax-entry ?\[ "(]")
+    (modify-syntax-entry ?\] ")[")
+    (modify-syntax-entry ?~ "'   ")
+    (modify-syntax-entry ?, "    ")
+    (modify-syntax-entry ?^ "'")
+    (modify-syntax-entry ?= "'"))
+  
+  (add-hook 'slime-repl-mode-hook 'tnoda/setup-slime-repl-paredit)
+  (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
+  (add-hook 'inferior-lisp-mode-hook 'tnoda/setup-slime-repl-paredit)
+  (add-hook 'inferior-lisp-mode-hook 'enable-paredit-mode)
+#+END_SRC
+
 
 *** Rainbow Delimiters
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -2543,6 +2543,12 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+END_SRC
 
 ** Haskell
+*** =$HOME/Library/Haskell/bin= と =$HOME/.cabal/bin= とを =exec-path= に追加．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'exec-path (expand-file-name "~/Library/Haskell/bin"))
+  (add-to-list 'exec-path (expand-file-name "~/.cabal/bin"))
+#+END_SRC
+
 *** haskell-mode のインストール
 #+BEGIN_SRC emacs-lisp :tangle install.el
   (package-install 'haskell-mode)
@@ -2564,7 +2570,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
 
 *** flymake を有効に
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (add-to-list 'exec-path (expand-file-name "~/.cabal/bin/"))
     (autoload 'ghc-init "ghc" nil t)
     (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
 #+END_SRC

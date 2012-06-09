@@ -2102,9 +2102,15 @@ main.org のトップレベルに refile できるようにする．
 
 =package-install= すると，  =(require 'clojure-mode)= しなくてもいいみたい．
 
+*** =clojure-jack-in= で =lein2= を使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq clojure-swank-command
+        (concat (expand-file-name "~/.lein/lein2") " jack-in %s"))
+#+END_SRC
+
 *** =M-x run-lisp= で Clojure の REPL.                              :command:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq inferior-lisp-program "lein repl")
+  (setq inferior-lisp-program (expand-file-name "~/.lein/lein2 repl"))
 #+END_SRC
 
 *** paredit

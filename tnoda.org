@@ -2102,6 +2102,14 @@ main.org のトップレベルに refile できるようにする．
 
 =package-install= すると，  =(require 'clojure-mode)= しなくてもいいみたい．
 
+*** =clojure-mode= は =<f5>= で =clojure-jack-in=.              :key:command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/clojure-mode-f5-key ()
+    (define-key clojure-mode-map (kbd "<f5>") 'clojure-jack-in))
+  
+  (add-hook 'clojure-mode-hook 'tnoda/clojure-mode-f5-key)
+#+END_SRC
+
 *** =clojure-jack-in= で =lein2= を使う．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq clojure-swank-command

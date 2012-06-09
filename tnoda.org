@@ -2135,7 +2135,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   
   (add-hook 'slime-repl-mode-hook 'tnoda/setup-slime-repl-paredit)
   (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
-  (add-hook 'inferior-lisp-mode-hook 'tnoda/setup-slime-repl-paredit)
   (add-hook 'inferior-lisp-mode-hook 'enable-paredit-mode)
 #+END_SRC
 

@@ -1985,8 +1985,8 @@ main.org のトップレベルに refile できるようにする．
 #+NAME: install-mew(prefix = tnoda-dotfiles-dir, elisp_dir = tnoda-elisp-dir, emacs = emacs-app)
 #+BEGIN_SRC sh :tangle install-mew.sh
   cd src
-  curl http://www.mew.org/Release/mew-6.4.tar.gz | tar zxf -
-  cd mew-6.4
+  curl http://www.mew.org/Release/mew-6.5.tar.gz | tar zxf -
+  cd mew-6.5
   autoconf
   ./configure --prefix=${prefix} \
           --with-elispdir=${elisp_dir}/mew \

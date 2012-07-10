@@ -2126,6 +2126,24 @@ main.org のトップレベルに refile できるようにする．
         (concat (expand-file-name "~/.lein/lein2") " jack-in %s"))
 #+END_SRC
 
+*** Leiningen utility functions.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/lein-root (&optional dir)
+    (interactive)
+    (setq dir (or dir default-directory))
+    (if (file-exists-p (expand-file-name "project.clj" dir))
+        (expand-file-name dir)
+      (let ((new-dir (expand-file-name (file-name-as-directory "..") dir)))
+        (unless (string-match "\\(^[[:alpha:]]:/$\\|^/[^\/]+:/?$\\|^/$\\)" dir)
+          (tnoda/lein-root new-dir)))))
+  
+  (defun tnoda/lein-guess-namespace ()
+    "Return the clojure namespace assiatted with the current buffer."
+    (interactive)
+    (replace-regexp-in-string "_" "-" (replace-regexp-in-string "/" "." (substring (file-name-sans-extension buffer-file-name)
+                                                                                   (+ 4 (length (tnoda/lein-root)))))))
+#+END_SRC
+
 *** =M-x run-lisp= で Clojure の REPL.                              :command:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq inferior-lisp-program (expand-file-name "~/.lein/lein2 repl"))

@@ -2107,6 +2107,11 @@ main.org のトップレベルに refile できるようにする．
   (require 'clojure-mode)
 #+END_SRC
 
+*** Disable =C-c t= of =clojure-mode-map=.                            :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key clojure-mode-map (kbd "C-c t") nil)
+#+END_SRC
+
 *** =clojure-mode= は =<f5>= で =clojure-jack-in=.              :key:command:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/clojure-mode-f5-key ()

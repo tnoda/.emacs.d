@@ -2095,12 +2095,17 @@ main.org のトップレベルに refile できるようにする．
 ** Clojure                                                       :marmalade:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el
-  (package-install 'clojure-mode)
   (package-install 'slime)
   (package-install 'slime-repl)
 #+END_SRC
 
 =package-install= すると，  =(require 'clojure-mode)= しなくてもいいみたい．
+
+*** Install clojure-mode using el-get.                              :elget:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync '(clojure-mode))
+  (require 'clojure-mode)
+#+END_SRC
 
 *** =clojure-mode= は =<f5>= で =clojure-jack-in=.              :key:command:
 #+BEGIN_SRC emacs-lisp :tangle yes

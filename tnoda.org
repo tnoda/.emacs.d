@@ -1472,6 +1472,13 @@ Git プロトコルではなく HTTP を使うため．
   (setq org-directory "~/org")
 #+END_SRC
 
+*** =org-extend-today-until=
+My day really ends at two o'clock in the morning.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-extend-today-until 2)
+#+END_SRC
+
 *** =C-,== と =C-'== に割り当てられる =org-cycle-agenda-files= を無効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (rassq-delete-all 'org-cycle-agenda-files org-mode-map)

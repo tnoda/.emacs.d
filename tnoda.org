@@ -1055,6 +1055,7 @@ http://capitaomorte.github.com/yasnippet/faq.html
 *** Install via el-get.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'auto-complete)
+  (require 'auto-complete-config)
   (ac-config-default)
 #+END_SRC
 

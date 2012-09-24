@@ -1054,7 +1054,7 @@ http://capitaomorte.github.com/yasnippet/faq.html
 ** auto-complete.el                                        :elget:rubikitch:
 *** Install via el-get.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(auto-complete))
+  (el-get 'sync 'auto-complete)
   (ac-config-default)
 #+END_SRC
 

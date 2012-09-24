@@ -1715,7 +1715,8 @@ main.org のトップレベルに refile できるようにする．
      (org . t)
      (ruby . t)
      (sh . t)
-     (markdown . t)))
+     (markdown . t)
+     (latex . t)))
 #+END_SRC
 
 *** コードブロックのフォント修飾は，Emacs が重くなるのでやめる．

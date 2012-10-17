@@ -1633,6 +1633,13 @@ main.org のトップレベルに refile できるようにする．
     (find-file org-default-notes-file))
 #+END_SRC
   
+*** =M-x flagged= で =flagged.org= を開く．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun flagged ()
+    (interactive)
+    (find-file (expand-file-name "flagged.org" org-directory)))
+#+END_SRC
+
 *** =C-c g= で =org-clock-goto=.                                        :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "C-c g") 'org-clock-goto)

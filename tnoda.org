@@ -1738,6 +1738,25 @@ main.org のトップレベルに refile できるようにする．
   (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
+** Beamer
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-export-latex-date-format "%Y-%m-%d")
+  (setq org-export-latex-classes nil)
+  (add-to-list 'org-export-latex-classes
+    '("jsarticle"
+      "\\documentclass[a4j]{jsarticle}"
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+      ("\\paragraph{%s}" . "\\paragraph*{%s}")
+      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+  ))
+  (add-to-list 'org-export-latex-classes
+    '("beamer"
+      "\\documentclass[compress,dvipdfm]{beamer}"
+      org-beamer-sectioning
+  ))
+#+END_SRC
 ** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-babel-demarcate-block-as-elisp ()

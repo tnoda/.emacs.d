@@ -1717,6 +1717,8 @@ main.org のトップレベルに refile できるようにする．
    '((emacs-lisp . t)
      (R . t)
      (clojure . t)
+     (ditaa . t)
+     (dot . t)
      (haskell . t)
      (latex . t)
      (org . t)

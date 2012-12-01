@@ -1720,6 +1720,8 @@ main.org のトップレベルに refile できるようにする．
      (ditaa . t)
      (dot . t)
      (haskell . t)
+     (java . t)
+     (js . t)
      (latex . t)
      (org . t)
      (ruby . t)

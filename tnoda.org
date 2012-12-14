@@ -2631,9 +2631,9 @@ flymake-ruby で使う Ruby は rbenv のもの．
     cabal update
     cabal install ghc-mod
     cabal install hlint
-    make -C ~/Library/Haskell/ghc-7.0.4/lib/ghc-mod-1.10.15/share EMACS=$emacs
+    make -C ~/Library/Haskell/ghc-7.4.2/lib/ghc-mod-1.11.2/share EMACS=$emacs
     mkdir -p $elisp_dir/ghc-mod
-    cp ~/Library/Haskell/ghc-7.0.4/lib/ghc-mod-1.10.15/share/*.elc $elisp_dir/ghc-mod
+    cp ~/Library/Haskell/ghc-7.4.2/lib/ghc-mod-1.11.2/share/*.elc $elisp_dir/ghc-mod
   #+END_SRC
 
 *** flymake を有効に

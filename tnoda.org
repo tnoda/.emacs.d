@@ -1579,6 +1579,7 @@ main.org のトップレベルに refile できるようにする．
    
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+  (setq org-reverse-note-order t)
   (setq org-capture-templates
         '(("n" "Note" entry (file "") "* %?\n  %U\n  %i\n  %a"
            :clock-keep t

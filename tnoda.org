@@ -2410,9 +2410,15 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+END_SRC
 
 ** Rinari
-*** インストール
+*** COMMENT インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el
   (package-install 'rinari)
+#+END_SRC
+
+*** Install via el-get                                              :elget:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync '(rinari))
+  (el-get 'sync '(rspec-mode))
 #+END_SRC
 
 *** Fix rinari-root

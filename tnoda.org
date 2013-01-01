@@ -1583,10 +1583,12 @@ main.org のトップレベルに refile できるようにする．
   (setq org-capture-templates
         '(("n" "Note" entry (file "") "* %?\n  %U\n  %i\n  %a"
            :clock-keep t
+           :empty-lines 1
            :kill-buffer t)
           ("a" "Away" entry (file "") "* %? :away:"
            :clock-in t
            :clock-resume t
+           :empty-lines 1
            :kill-buffer t)
           ("t" "Task" entry (file+headline tnoda/gtd-file "Tasks")
            "* TODO %?\n %i\n %a"

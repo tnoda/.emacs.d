@@ -2125,40 +2125,26 @@ main.org のトップレベルに refile できるようにする．
 
 * Lang
 ** Clojure                                                       :marmalade:
-*** インストール
+*** Install elisps using el-get.                                      :elget:
 #+BEGIN_SRC emacs-lisp :tangle install.el
-  (package-install 'slime)
-  (package-install 'slime-repl)
+  (el-get 'sync '(clojure-mode nrepl ac-nrepl))
 #+END_SRC
 
-=package-install= すると，  =(require 'clojure-mode)= しなくてもいいみたい．
-
-*** Install clojure-mode using el-get.                              :elget:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(clojure-mode))
-  (require 'clojure-mode)
-#+END_SRC
-
-*** Disable =C-c t= of =clojure-mode-map=.                            :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (define-key clojure-mode-map (kbd "C-c t") nil)
-#+END_SRC
-
-*** =clojure-mode= は =<f5>= で =clojure-jack-in=.              :key:command:
+*** clojure-mode
+**** =clojure=mode= の =<f5>= で =nrepl-jack-in=.               :key:command:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/clojure-mode-f5-key ()
-    (define-key clojure-mode-map (kbd "<f5>") 'clojure-jack-in))
+    (define-key clojure-mode-map (kbd "<f5>") 'nrepl-jack-in))
   
   (add-hook 'clojure-mode-hook 'tnoda/clojure-mode-f5-key)
 #+END_SRC
 
-*** =clojure-jack-in= で =lein2= を使う．
+**** =clojure-mode= で paredit を有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq clojure-swank-command
-        (concat (expand-file-name "~/.lein/lein2") " jack-in %s"))
+  (add-hook 'clojure-mode-hook 'enable-paredit-mode)
 #+END_SRC
 
-*** Leiningen utility functions.
+**** Leiningen utility functions.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/lein-root (&optional dir)
     (interactive)
@@ -2176,61 +2162,72 @@ main.org のトップレベルに refile できるようにする．
                                                                                    (+ 4 (length (tnoda/lein-root)))))))
 #+END_SRC
 
-*** =M-x run-lisp= で Clojure の REPL.                              :command:
+**** Disable =C-c t= of =clojure-mode-map=.                          :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq inferior-lisp-program (expand-file-name "~/.lein/lein2 repl"))
+  (define-key clojure-mode-map (kbd "C-c t") nil)
 #+END_SRC
 
-*** paredit
-**** =clojure-mode= で paredit を有効にする．
+*** nrepl
+**** Enable subword-mode.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+  (defun tnoda/subword-mode-enable ()
+    (subword-mode 1))
+  
+  (add-hook 'nrepl-mode-hook 'tnoda/subword-mode-enable)
 #+END_SRC
 
-**** =slime-repl-mode= と =inferior-lisp-mode= とで paredit に =[]= と ={}= も括弧扱いさせる．
+**** Enable Rainbow Delimiters.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode-enable)
+#+END_SRC
+
+**** Enable eldoc.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+#+END_SRC
+
+**** Enable =paredit-mode= in nrepl.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'nrepl-mode-hook 'enable-paredit-mode)
+#+END_SRC
+
+**** Enable syntax highliting.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'nrepl-mode-hook 'clojure-mode-font-lock-setup)
+#+END_SRC
+
+*** Inferior Lisp Mode
+**** =M-x run-lisp= で Clojure の REPL.                          :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq inferior-lisp-program (expand-file-name "~/.lein/lein repl"))
+#+END_SRC
+
+**** =inferior-lisp-mode= で paredit に =[]= と ={}= も括弧扱いさせる．
 via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-swank-clojure-repl
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/setup-slime-repl-paredit ()
-    (define-key slime-repl-mode-map
-      (kbd "DEL") 'paredit-backward-delete)
-    (define-key slime-repl-mode-map
-      (kbd "{") 'paredit-open-curly)
-    (define-key slime-repl-mode-map
-      (kbd "}") 'paredit-close-curly)
+  (defun tnoda/curly-brace-matching-fix ()
     (modify-syntax-entry ?\{ "(}")
     (modify-syntax-entry ?\} "){")
     (modify-syntax-entry ?\[ "(]")
+    (define-key inferior-lisp-mode-map
+      (kbd "DEL") 'paredit-backward-delete)
+    (define-key inferior-lisp-mode-map
+      (kbd "{") 'paredit-open-curly)
+    (define-key inferior-lisp-mode-map
+      (kbd "}") 'paredit-close-curly)
     (modify-syntax-entry ?\] ")[")
     (modify-syntax-entry ?~ "'   ")
     (modify-syntax-entry ?, "    ")
     (modify-syntax-entry ?^ "'")
     (modify-syntax-entry ?= "'"))
   
-  (add-hook 'slime-repl-mode-hook 'tnoda/setup-slime-repl-paredit)
-  (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
-  (add-hook 'inferior-lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'inferior-lisp-mode-hook 'tnoda/curly-brace-matching-fix)
 #+END_SRC
 
-
-*** Rainbow Delimiters
+**** Syntax highlighting
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'slime-repl-mode-hook 'rainbow-delimiters-mode)
-#+END_SRC
-
-*** Syntax highlighting in repl buffers
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/clojure-mode-slime-font-lock-setup ()
-    (let (font-lock-mode)
-      (clojure-mode-font-lock-setup)))
-  (add-hook 'slime-repl-mode-hook 'tnoda/clojure-mode-slime-font-lock-setup)
-#+END_SRC
-
-*** Enable eldoc in slime-repl-mode
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'slime-repl-mode-hook 'clojure-localize-documentation-function)
-  (add-hook 'slime-repl-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'inferior-lisp-mode-hook 'clojure-mode-font-lock-setup)
 #+END_SRC
 
 ** CoffeeScript                                                  :marmalade:

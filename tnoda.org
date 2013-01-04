@@ -1539,29 +1539,18 @@ main.org のトップレベルに refile できるようにする．
 *** =TODO= キーワードは各ファイルで共通のものを使うことにする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "APPT(a)" "|"
+        '((sequence "TODO(t)" "STARTED" "PENDING" "WAITING(w@/!)" "APPT(a)" "|"
                     "DONE(d!)" "CANCELLED(c@)" "DEFERRED(f@)" "DELEGATED(g@/!)")))
 #+END_SRC
 
-*** =TODO= ステータスが =STARTED= に変化したらクロックを開始する．
+*** クロックを開始したタスクはステータスを =STARTED= に変更する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun sacha/org-clock-in-if-starting ()
-    "Clock in when the task is marked STARTED."
-    (when (and (string= state "STARTED")
-               (not (string= last-state state)))
-      (org-clock-in)))
-  (add-hook 'org-after-todo-state-change-hook
-            'sacha/org-clock-in-if-starting)
-  ;; (defadvice org-clock-in (after sacha activate)
-  ;;   "Set this task's status to 'STARTED'."
-  ;;   (org-todo "STARTED"))
-  (defun sacha/org-clock-out-if-waiting ()
-    "Clock in when the task is marked STARTED."
-    (when (and (string= state "WAITING")
-               (not (string= last-state state)))
-      (org-clock-out)))
-  (add-hook 'org-after-todo-state-change-hook
-            'sacha/org-clock-out-if-waiting)
+  (setq org-clock-in-switch-to-state "STARTED")
+#+END_SRC
+
+*** クロックを停止したタスクはステータスを =PENDING= に変更する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-clock-out-switch-to-state "PENDING")
 #+END_SRC
 
 ** Capture

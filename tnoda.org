@@ -115,6 +115,7 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
        (let (el-get-master-branch)
          (goto-char (point-max))
          (eval-print-last-sexp)))))
+  (add-to-list 'el-get-recipe-path (expand-file-name "el-get-recipes" tnoda/dotfiles-dir))
   (el-get 'sync)
 #+END_SRC
 

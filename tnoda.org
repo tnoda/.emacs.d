@@ -2196,6 +2196,14 @@ main.org のトップレベルに refile できるようにする．
   (add-hook 'nrepl-mode-hook 'clojure-mode-font-lock-setup)
 #+END_SRC
 
+**** Enable ac-nrepl.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
+  (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
+  (eval-after-load "auto-complete"
+    '(add-to-list 'ac-modes 'nrepl-mode))
+#+END_SRC
+
 *** Inferior Lisp Mode
 **** =M-x run-lisp= で Clojure の REPL.                          :command:
 #+BEGIN_SRC emacs-lisp :tangle yes

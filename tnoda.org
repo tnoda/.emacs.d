@@ -2138,7 +2138,7 @@ main.org のトップレベルに refile できるようにする．
 #+END_SRC
 
 *** clojure-mode
-**** =clojure=mode= の =<f5>= で =nrepl-jack-in=.               :key:command:
+**** =clojure-mode= の =<f5>= で =nrepl-jack-in=.               :key:command:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/clojure-mode-f5-key ()
     (define-key clojure-mode-map (kbd "<f5>") 'nrepl-jack-in))

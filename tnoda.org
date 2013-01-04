@@ -102,9 +102,11 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
   #+END_SRC
   
 ** el-get                                                            :elget:
-*** Install
+*** Install & Setup
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq el-get-dir "/opt/el-get")
+  (let ((default-directory el-get-dir))
+    (normal-top-level-add-subdirs-to-load-path))
   (add-to-list 'load-path "/opt/el-get/el-get")
   (unless (require 'el-get nil t)
     (url-retrieve

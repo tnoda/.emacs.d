@@ -259,6 +259,12 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 #+END_SRC
 
+*** Warn useless whitespaces.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq-default show-trailing-whitespace t)
+  (setq-default indicate-empty-lines t)
+#+END_SRC
+
 ** Mac OS X
 *** バッテリー残量を表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes

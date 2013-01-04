@@ -1547,8 +1547,8 @@ main.org のトップレベルに refile できるようにする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun sacha/org-clock-in-if-starting ()
     "Clock in when the task is marked STARTED."
-    (when (and (string= state "STARTED")
-               (not (string= last-state state)))
+    (when (and (string= org-state "STARTED")
+               (not (string= org-last-state org-state)))
       (org-clock-in)))
   (add-hook 'org-after-todo-state-change-hook
             'sacha/org-clock-in-if-starting)
@@ -1557,8 +1557,8 @@ main.org のトップレベルに refile できるようにする．
   ;;   (org-todo "STARTED"))
   (defun sacha/org-clock-out-if-waiting ()
     "Clock in when the task is marked STARTED."
-    (when (and (string= state "WAITING")
-               (not (string= last-state state)))
+    (when (and (string= org-state "WAITING")
+               (not (string= org-last-state org-state)))
       (org-clock-out)))
   (add-hook 'org-after-todo-state-change-hook
             'sacha/org-clock-out-if-waiting)

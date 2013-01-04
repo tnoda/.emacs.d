@@ -1767,7 +1767,7 @@ main.org のトップレベルに refile できるようにする．
   (defun tnoda/org-babel-demarcate-block-as-elisp ()
     (interactive)
     (insert "#+BEGIN_SRC emacs-lisp :tangle yes\n\n#+END_SRC")
-    (org-indent-line-function)
+    (org-indent-line)
     (org-edit-special))
   (key-chord-define org-mode-map "el" 'tnoda/org-babel-demarcate-block-as-elisp)
 #+END_SRC
@@ -1777,7 +1777,7 @@ main.org のトップレベルに refile できるようにする．
   (defun tnoda/org-babel-demarcate-block-as-markdown ()
     (interactive)
     (insert "#+BEGIN_SRC markdown :tangle yes\n\n#+END_SRC")
-    (org-indent-line-function)
+    (org-indent-line)
     (org-edit-special))
   (key-chord-define org-mode-map "dm" 'tnoda/org-babel-demarcate-block-as-markdown)
 #+END_SRC

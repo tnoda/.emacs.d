@@ -1435,18 +1435,18 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
 
 * Org Mode                                                              :git:
 
-本家ではなく，[[http://repo.or.cz/w/org-mode.git][repo.or.cz の mirror]] を Git のサブモジュールにしている．
-Git プロトコルではなく HTTP を使うため．
-
-** =src/org= を変更したら =update-org.sh= を実行する．
-
-=src/org/lisp/org-install.el= と info ファイルとを作り直す．
-
-#+BEGIN_SRC sh :tangle update-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir emacs=emacs-app
-  cd $src_dir/org
-  make EMACS=$emacs lisp/org-install.el
+** Install
+#+BEGIN_SRC sh :tangle install-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir info_dir=tnoda-info-dir emacs=emacs-app
+  cd $src_dir
+  curl -O http://orgmode.org/org-7.9.2.tar.gz
+  tar zxf org-7.9.2.tar.gz
+  ln -s org-7.9.2 org
+  cd org
   make EMACS=$emacs compile
-  make EMACS=$emacs prefix=$prefix install-info
+  make EMACS=$emacs info
+  cd $info_dir
+  rm -f org
+  ln -s $src_dir/org/doc/org .
 #+END_SRC
 
 ** Common

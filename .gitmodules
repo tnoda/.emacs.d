@@ -1,6 +1,3 @@
-[submodule "src/org"]
-	path = src/org
-	url = http://repo.or.cz/r/org-mode.git
 [submodule "plugins/yasnippet"]
 	path = plugins/yasnippet
 	url = https://github.com/capitaomorte/yasnippet

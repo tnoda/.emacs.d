@@ -1448,9 +1448,10 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
 ** Install
 #+BEGIN_SRC sh :tangle install-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir info_dir=tnoda-info-dir emacs=emacs-app
   cd $src_dir
-  curl -O http://orgmode.org/org-7.9.2.tar.gz
-  tar zxf org-7.9.2.tar.gz
-  ln -s org-7.9.2 org
+  curl -O http://orgmode.org/org-7.9.3a.tar.gz
+  tar zxf org-7.9.3a.tar.gz
+  rm -f org
+  ln -s org-7.9.3a org
   cd org
   make EMACS=$emacs compile
   make EMACS=$emacs info

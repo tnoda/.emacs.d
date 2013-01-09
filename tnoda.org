@@ -1778,6 +1778,7 @@ main.org のトップレベルに refile できるようにする．
     (interactive)
     (insert "#+BEGIN_SRC emacs-lisp :tangle yes\n\n#+END_SRC")
     (org-indent-line)
+    (previous-line)
     (org-edit-special))
   (key-chord-define org-mode-map "el" 'tnoda/org-babel-demarcate-block-as-elisp)
 #+END_SRC

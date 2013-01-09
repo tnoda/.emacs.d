@@ -20,7 +20,7 @@
                           (or load-path nil))))
 
 ;; load up Org-mode and Org-babel
-(require 'org-install)
+(require 'org)
 (require 'ob-tangle)
 
 ;; load up all literate org-mode files in this directory

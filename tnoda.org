@@ -1463,7 +1463,6 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
 ** Common
 *** Require
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'org-install)
   (require 'org-habit)
 #+END_SRC
 

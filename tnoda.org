@@ -259,6 +259,13 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 #+END_SRC
 
+*** Define a command to notify trailing whitespaces.                :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/enable-show-trailing-whitespaces ()
+    (interactive)
+    (setq show-trailing-whitespace t))
+#+END_SRC
+
 ** Mac OS X
 *** バッテリー残量を表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes

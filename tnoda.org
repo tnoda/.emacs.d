@@ -2175,6 +2175,11 @@ main.org のトップレベルに refile できるようにする．
   (define-key clojure-mode-map (kbd "C-c t") nil)
 #+END_SRC
 
+**** Notify trailing whitespaces.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'clojure-mode-hook 'tnoda/enable-show-trailing-whitespaces)
+#+END_SRC
+
 *** nrepl
 **** Enable subword-mode.
 #+BEGIN_SRC emacs-lisp :tangle yes

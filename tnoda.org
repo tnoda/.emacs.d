@@ -2674,15 +2674,16 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+END_SRC
 
 * ESS で R を使う．
-** インストール                                                        :svn:
-#+BEGIN_SRC sh :tangle install-ess.sh :var src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir info_dir=tnoda-info-dir prefix=tnoda-dotfiles-dir emacs=emacs-app
-  cd $src_dir
-  svn checkout https://svn.r-project.org/ESS/trunk ess
-  cd $src_dir/ess
-  make -C lisp EMACS=$emacs LISPDIR=$elisp_dir/ess INFODIR=$info_dir ETCDIR=$elisp_dir/ess/etc install
-  make -C doc EMACS=$emacs LISPDIR=$elisp_dir/ess INFODIR=$info_dir ETCDIR=$elisp_dir/ess/etc install-info
-  make -C etc EMACS=$emacs LISPDIR=$elisp_dir/ess INFODIR=$info_dir ETCDIR=$elisp_dir/ess/etc install
+** Install using a local recipe to install the stable version.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'ess-12-09-1)
 #+END_SRC
+
+#+begin_src sh :var info_dir=tnoda-info-dir
+  cd $info_dir
+  rm -f ess.info
+  ln -s /opt/el-get/ess-12-09-1/doc/info/ess.info .
+#+end_src
 
 ** =M-x R RET= で ESS (R) 開始．                                   :command:
 #+BEGIN_SRC emacs-lisp :tangle yes

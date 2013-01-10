@@ -935,15 +935,16 @@ Eshell から =emacsclient= したときに，違うフレームで表示した�
   (push '("git-rebase-todo" :position top) popwin:special-display-config)
 #+END_SRC
 
-** yasnippet.el                                                        :git:
-*** github のリポジトリを submodule にして使う．
-
-https://github.com/capitaomorte/yasnippet
-
+** yasnippet.el                                                      :elget:
+*** Install
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path (expand-file-name "plugins/yasnippet" tnoda/dotfiles-dir))
+  (el-get 'sync 'yasnippet)
+#+END_SRC
+
+*** Enable Yas minor mode in every possible buffer.
+#+BEGIN_SRC emacs-lisp :tangle yes
   (require 'yasnippet)
-  (yas/global-mode 1)
+  (yas-global-mode 1)
 #+END_SRC
 
 *** メジャーモードが =TAB= キーをインデントに使っているときの回避策．

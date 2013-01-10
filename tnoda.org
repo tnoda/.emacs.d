@@ -2693,7 +2693,7 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (require 'ess-site)
 #+END_SRC
 
-* Twitter                                                     :git:rubikitch:
+* Twitter                                                   :elget:rubikitch:
 
 twittering-mode.el を使う．
 

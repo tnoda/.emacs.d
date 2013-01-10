@@ -2694,12 +2694,9 @@ flymake-ruby で使う Ruby は rbenv のもの．
 
 twittering-mode.el を使う．
 
-** インストール
-
-https://github.com/hayamiz/twittering-mode を submodule に．
-
+** Install
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path (expand-file-name "twittering-mode" tnoda/src-dir))
+  (el-get 'sync 'twittering-mode)
 #+END_SRC
 
 ** =M-x twit= で =twittering-mode=.                                 :command:

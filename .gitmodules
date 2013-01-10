@@ -4,6 +4,3 @@
 [submodule "src/zencoding"]
 	path = src/zencoding
 	url = https://github.com/rooney/zencoding
-[submodule "src/twittering-mode"]
-	path = src/twittering-mode
-	url = https://github.com/hayamiz/twittering-mode

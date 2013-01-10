@@ -1,6 +1,3 @@
 [submodule "plugins/yasnippet"]
 	path = plugins/yasnippet
 	url = https://github.com/capitaomorte/yasnippet
-[submodule "src/zencoding"]
-	path = src/zencoding
-	url = https://github.com/rooney/zencoding

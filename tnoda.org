@@ -2221,6 +2221,12 @@ main.org のトップレベルに refile できるようにする．
 #+END_SRC
 
 *** Inferior Lisp Mode
+
+**** Enable paredit-mode in inferior-lisp-mode.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'inferior-lisp-mode-hook 'enable-paredit-mode)
+#+END_SRC
+
 **** =M-x run-lisp= で Clojure の REPL.                          :command:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq inferior-lisp-program (expand-file-name "~/.lein/lein repl"))

@@ -2592,6 +2592,14 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (require 'markdown-mode)
 #+END_SRC
 
+*** Use the =markdown= command located in =/opt/homebew/bin=
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/markdown-custom ()
+    "markdown-mode-hook"
+    (setq markdown-command (expand-file-name "markdown" "/opt/homebrew/bin")))
+  (add-hook 'markdown-mode-hook 'tnoda/markdown-custom)
+#+END_SRC
+
 *** =.text= なファイルは =markdown-mode= で開く．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'auto-mode-alist '("\\.text" . markdown-mode))

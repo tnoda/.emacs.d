@@ -2286,27 +2286,21 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   #+END_SRC
   
 ** Ruby
-*** インストール
-+ =ruby-mode.el= などは GitHub から最新ものを入手したい．
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (package-install 'ruby-mode)
-    (package-install 'ruby-electric)
-    (package-install 'inf-ruby)
-    (package-install 'ruby-compilation)
-    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-style.el")
-    (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/rdoc-mode.el")
-    (package-install 'yari)
-    (package-install 'flymake-ruby)
-    (auto-install-from-emacswiki "ruby-block.el")
-  #+END_SRC
 
-*** =autoload= ではなく =require= する．
+*** Install elisps using el-get.
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync '(ruby-mode ruby-electric inf-ruby ruby-compilation yari flymake-ruby ruby-block))
   (require 'ruby-mode)
   (require 'inf-ruby)
   (require 'ruby-electric)
-  (require 'ruby-style)
   (require 'ruby-compilation)
+  (require 'ruby-style)
+#+END_SRC
+
+*** インストール
+#+BEGIN_SRC emacs-lisp :tangle no
+  (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-style.el")
+  (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/rdoc-mode.el")
 #+END_SRC
 
 *** =~/.rbenv/shims= を =exec-path= に追加する．
@@ -2314,7 +2308,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (add-to-list 'exec-path (expand-file-name "~/.rbenv/shims"))
 #+END_SRC
 
-*** 拡張子への関連づけ (=.rb .rake .gemspec .ru Rakefile Gemfile ... ==).
+*** =ruby-mode=
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
@@ -2324,18 +2318,16 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
-#+END_SRC
-
-*** Ruby-mode を =interpreter-mode-alist= に追加する．
-#+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
-#+END_SRC
-
-*** スタイルの設定．
-#+BEGIN_SRC emacs-lisp :tangle yes
   (setq ruby-use-encoding-map nil)
   (setq ruby-deep-indent-paren-style nil)
   (setq ruby-insert-encoding-magic-comment nil)
+#+END_SRC
+
+*** =inf-ruby=
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'inf-ruby-implementations '("pry" . "pry -Ilib"))
+  (setq inf-ruby-default-implementation "pry")
 #+END_SRC
 
 *** =C-m= を =reindent-then-newline-and-indent= に設定．              :key:

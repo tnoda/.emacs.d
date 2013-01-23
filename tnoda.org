@@ -1604,6 +1604,11 @@ main.org のトップレベルに refile できるようにする．
           ("t" "Task" entry (file+headline tnoda/gtd-file "Tasks")
            "* TODO %?\n %i\n %a"
            :clock-keep t
+           :kill-buffer t)
+          ("m" "Meditation" entry (file "") "* Meditation%?rlll"
+           :clock-in t
+           :clock-resume t
+           :empty-lines 1
            :kill-buffer t)))
 #+END_SRC
 
@@ -1629,6 +1634,14 @@ main.org のトップレベルに refile できるようにする．
     (interactive)
     (org-capture nil "t"))
   (global-set-key (kbd "C-c t") 'tnoda/org-capture-task)
+#+END_SRC
+
+*** Bind =C-c m= to =tnoda/org-capture-meditation=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-capture-meditation ()
+    (interactive)
+    (org-capture nil "m"))
+  (global-set-key (kbd "C-c m") 'tnoda/org-capture-meditation)
 #+END_SRC
 
 ** GTD

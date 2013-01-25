@@ -2714,6 +2714,14 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (setq ess-ask-for-ess-directory nil)
 #+END_SRC
 
+** =auto-pair+.el=
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'auto-pair-plus)
+  (require 'auto-pair+)
+  (add-hook 'R-mode-hook 'autopair-on)
+  (add-hook 'inferior-ess-mode-hook 'autopair-on)
+#+END_SRC
+
 * Twitter                                                   :elget:rubikitch:
 
 twittering-mode.el を使う．

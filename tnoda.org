@@ -2723,7 +2723,7 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+END_SRC
 
 ** =lambda-mode.el=
-http://www.emacswiki.org/emacs-de/PrettyLambda
+http://www.emacswiki.org/PrettyLambda
 
 #+BEGIN_SRC emacs-lisp :tangle install.el
   (auto-install-from-url "http://dishevelled.net/elisp/lambda-mode.el")

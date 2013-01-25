@@ -158,17 +158,17 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
   (defvar tnoda/current-fontset 'default)
   
   (defun tnoda/fontset-set-default ()
-    (set-fontset-font
-     (frame-parameter nil 'font)
-     'japanese-jisx0208
-     (font-spec :family "Hiragino Maru Gothic ProN" :size 16))
+    (set-fontset-font (frame-parameter nil 'font)
+                      'japanese-jisx0208
+                      (font-spec :family "Hiragino Maru Gothic ProN" :size 16))
+    (set-fontset-font nil '(#x0370 . #x03FF) "Helvetica")
     (setq tnoda/current-fontset 'default))
   
   (defun tnoda/fontset-set-programming ()
-    (set-fontset-font
-     (frame-parameter nil 'font)
-     'japanese-jisx0208
-     (font-spec :family "Ricty" :size 16))
+    (set-fontset-font (frame-parameter nil 'font)
+                      'japanese-jisx0208
+                      (font-spec :family "Ricty" :size 16))
+    (set-fontset-font nil '(#x0370 . #x03FF) "Helvetica")
     (setq tnoda/current-fontset 'programming))
   
   (defun tnoda/fontset-toggle ()

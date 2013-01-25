@@ -2722,6 +2722,21 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'inferior-ess-mode-hook 'autopair-on)
 #+END_SRC
 
+** =lambda-mode.el=
+http://www.emacswiki.org/emacs-de/PrettyLambda
+
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "http://dishevelled.net/elisp/lambda-mode.el")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'lambda-mode)
+  (setq lambda-regex "function")
+  (setq lambda-symbol "λ")
+  (add-hook 'R-mode-hook 'lambda-mode)
+  (add-hook 'inferior-ess-mode-hook 'lambda-mode)
+#+END_SRC
+
 * Twitter                                                   :elget:rubikitch:
 
 twittering-mode.el を使う．

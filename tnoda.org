@@ -2714,6 +2714,13 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (setq ess-ask-for-ess-directory nil)
 #+END_SRC
 
+** =ess-tracebug=
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq ess-use-tracebug t)
+  (setq ess-long+replacement "+.")
+  (setq inferior-ess-split-long-prompt t)
+#+END_SRC
+
 ** =auto-pair+.el=
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'auto-pair-plus)

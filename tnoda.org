@@ -2704,6 +2704,13 @@ flymake-ruby で使う Ruby は rbenv のもの．
   ln -s /opt/el-get/ess-12-09-1/doc/info/ess.info .
 #+end_src
 
+** =C-c C-d C-e= pops up the object inspection.                         :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq ess-describe-at-point-method nil)
+  (add-to-list 'special-display-buffer-names "*ess-describe*")
+  (push '("*ess-describe*" :height 10) popwin:special-display-config)
+#+END_SRC
+
 ** ESS does not wait for the R process.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq ess-eval-visibly nil)

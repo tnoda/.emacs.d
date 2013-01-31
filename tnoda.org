@@ -2380,13 +2380,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (define-key ruby-mode-map (kbd "C-M-h") 'tnoda/ruby-mark-defun)
 #+END_SRC
 
-*** =ruby-electric= を有効にする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/ruby-electric-activate ()
-     (ruby-electric-mode t))
-  (add-hook 'ruby-mode-hook 'tnoda/ruby-electric-activate)
-#+END_SRC
-
 *** flymake-ruby を使う．
 
 flymake-ruby で使う Ruby は rbenv のもの．

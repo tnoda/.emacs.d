@@ -2690,6 +2690,12 @@ flymake-ruby で使う Ruby は rbenv のもの．
     (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
 #+END_SRC
 
+** Java
+*** auto-pair+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'java-mode-hook 'autopair-on)
+#+END_SRC
+
 * ESS                                                                 :elget:
 ** Install using a local recipe to install the stable version.
 #+BEGIN_SRC emacs-lisp :tangle yes

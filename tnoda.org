@@ -2700,6 +2700,19 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'java-mode-hook 'autopair-on)
 #+END_SRC
 
+*** ajc-java-complete
+#+BEGIN_SRC sh :tangle setup-tags-for-ajc.sh :var prefix=el-get-dir
+  cd ${prefix}/ajc-java-complete
+  javac Tags.java
+  java -cp ~/clojure.jar:/System/Library/Frameworks/JavaVM.framework/Classes/classes.jar:. Tags
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'ajc-java-complete)
+  (require 'ajc-java-complete-config)
+  (add-hook 'java-mode-hook 'ajc-java-complete-mode)
+#+END_SRC
+
 * ESS                                                                 :elget:
 ** Install using a local recipe to install the stable version.
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -2713,6 +2713,12 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 #+END_SRC
 
+** CSV
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'csv-mode)
+  (require 'csv-mode)
+#+END_SRC
+
 * ESS                                                                 :elget:
 ** Install using a local recipe to install the stable version.
 #+BEGIN_SRC emacs-lisp :tangle yes

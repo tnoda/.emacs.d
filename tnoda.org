@@ -632,6 +632,13 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
 #+END_SRC
 
 * Global
+** smartrep.el                                                       :elget:
+http://sheephead.homelinux.org/2012/01/30/6934/
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'smartrep)
+  (require 'smartrep)
+#+END_SRC
+
 ** minor-mode-hack.el                                :autoinstall:rubikitch:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

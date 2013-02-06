@@ -639,6 +639,16 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (require 'smartrep)
 #+END_SRC
 
+*** =M-g n n n ...=                                                   :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (smartrep-define-key
+      global-map "M-g" '(("n"   . 'next-error)
+                         ("p"   . 'previous-error)))
+#+END_SRC
++ =M-g n= and =M-g p= are bound to =next-error= and =previous-error=
+  using smartrep.el.
+  - Pressing =M-g n n n ...=, you can visit the corresponding lines.
+
 ** minor-mode-hack.el                                :autoinstall:rubikitch:
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el

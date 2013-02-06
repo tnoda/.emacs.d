@@ -1,0 +1,4 @@
+(:name all-ext
+       :type emacswiki
+       :depends all
+       :description "Extension of M-x all")

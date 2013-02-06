@@ -1345,6 +1345,26 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
                            ("l" . hi-lock-mode)))
 #+END_SRC
 
+** all-ext.el                                                    :key:elget:
++ http://www.emacswiki.org/emacs/all-ext.el
++ http://d.hatena.ne.jp/rubikitch/20130202/all
++ http://d.hatena.ne.jp/tam5917/20130202/1359767007
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'all-ext)
+  (require 'all-ext)
+  (require 'view)
+  
+  (defun tnoda/all-mode-quit ()
+    (interactive)
+    (view-mode 1)
+    (View-kill-and-leave))
+  
+  (define-key all-mode-map (kbd "C-x C-c") 'tnoda/all-mode-quit)
+#+END_SRC
+
++ =C-x C-c= in all-mode closes the all-mode buffer.
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

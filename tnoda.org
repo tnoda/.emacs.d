@@ -2319,7 +2319,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 *** Install elisps using el-get.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(ruby-mode ruby-electric inf-ruby ruby-compilation yari flymake-ruby ruby-block))
+  (el-get 'sync '(ruby-mode ruby-electric inf-ruby ruby-compilation yari flymake-ruby))
   (require 'ruby-mode)
   (require 'inf-ruby)
   (require 'ruby-electric)
@@ -2448,13 +2448,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
 *** =ruby-mode= の =C-c C-c= で =ruby-compilation-this-buffer=.       :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (define-key ruby-mode-map (kbd "C-c C-c") 'ruby-compilation-this-buffer)
-#+END_SRC
-
-*** =ruby-block.el=
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'ruby-block)
-  (ruby-block-mode t)
-  (setq ruby-block-highlight-toggle 't)
 #+END_SRC
 
 *** =hideshow-org= を有効にする．

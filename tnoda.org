@@ -1332,6 +1332,19 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
   (require 'auto-pair+)
 #+END_SRC
 
+** highlight-symbol.el                                               :elget:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'highlight-symbol)
+  (require 'highlight-symbol)
+  (define-prefix-command 'highlight-symbol-mode-map)
+  (global-set-key (kbd "C-c h") 'highlight-symbol-mode-map)
+  (smartrep-define-key
+      global-map "C-c h" '(("h" . highlight-symbol-at-point)
+                           ("n" . highlight-symbol-next)
+                           ("p" . highlight-symbol-prev)
+                           ("l" . hi-lock-mode)))
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

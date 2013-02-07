@@ -2492,11 +2492,16 @@ flymake-ruby で使う Ruby は rbenv のもの．
                      nil))
 #+END_SRC
 
+*** rspec-mode.el                                                     :elget:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync '(rspec-mode))
+  (require 'rspec-mode)
+#+END_SRC
+
 ** Rinari
 *** Install via el-get                                              :elget:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync '(rinari))
-  (el-get 'sync '(rspec-mode))
 #+END_SRC
 
 *** Fix rinari-root

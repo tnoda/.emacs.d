@@ -2582,21 +2582,24 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/rinari-tags-command ()
     "Return a command to update the TAGS file."
-    (format "cd %s && etags -a -o TAGS app/**/*.rb lib/**/*.rb"
-            (rinari-root)))
+    (let ((rinari-root (tnoda/rinari-root)))
+      (when rinari-root
+        (format "cd %s && /opt/homebrew/bin/ctags -e -a -o TAGS app/**/*.rb lib/**/*.rb"
+                rinari-root))))
   
   (defun tnoda/rinari-tags-update ()
     "Update the TAGS file asynchronously."
     (interactive)
-    (let ((etags-process (start-process-shell-command "etags" "*etags*"
-                                                      (tnoda/rinari-tags-command))))
-      (message "Updating the TAGS file ...")
-      (set-process-sentinel etags-process
-                            (lambda (proc msg)
-                              (cond ((equal "finished\n" msg)
-                                     (message "done."))
-                                    (t
-                                     (message "%s %s" proc msg)))))))
+    (let ((command (tnoda/rinari-tags-command)))
+      (and command
+           (let ((etags-process (start-process-shell-command "etags" "*etags*" command)))
+             (message "Updating the TAGS file ...")
+             (set-process-sentinel etags-process
+                                   (lambda (proc msg)
+                                     (cond ((equal "finished\n" msg)
+                                            (message "done."))
+                                           (t
+                                            (message "%s %s" proc msg)))))))))
   
   (add-to-list 'rinari-minor-mode-hook 'tnoda/rinari-tags-update)
 #+END_SRC

@@ -2388,6 +2388,8 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'inf-ruby-implementations '("pry" . "pry -Ilib"))
   (setq inf-ruby-default-implementation "pry")
+  (setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
+  (setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
 #+END_SRC
 
 *** =C-m= を =reindent-then-newline-and-indent= に設定．              :key:

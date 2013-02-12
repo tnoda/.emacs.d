@@ -2870,17 +2870,14 @@ twittering-mode.el を使う．
   (auto-install-batch "anything")
 #+END_SRC
 
-** Anything で使うプレフィクスキーを =M-@= にする．                     :key:
+** Anything で使うプレフィクスキーを =C-c a= にする．                   :key:
 
 + anything-config.el で設定されるデフォルトは =<f5> a= だが，
   =<f5>= を =tnoda/compile-or-executable-interpret= に割り当てているため，
   =(require 'anything-startup)= でエラーになる．
-+ =M-@= はデフォルトでは =mark-word= に割り当てられてる．しかし，
-  sense-region.el の導入により =C-SPC= 連打で =mark-word=
-  できるようになったので，Anything で有り難く使う．
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq anything-command-map-prefix-key "M-@")
+  (setq anything-command-map-prefix-key "C-c a")
   (require 'anything-startup)
 #+END_SRC
 
@@ -2923,10 +2920,10 @@ color-moccur.el に依存している．
   (auto-install-from-url "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
 #+END_SRC
 
-*** =C-c o= で =anything-c-moccur-occur-by-moccur=.                     :key:
+*** =C-c a o= で =anything-c-moccur-occur-by-moccur=.                   :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'anything-c-moccur)
-  (global-set-key (kbd "C-c o") 'anything-c-moccur-occur-by-moccur)
+  (define-key anything-command-map (kbd "o") 'anything-c-moccur-occur-by-moccur)
 #+END_SRC
 
 *** isearch 中に =M-o= で anything-c-moccur に移行．                    :key:

@@ -2385,6 +2385,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (setq ruby-use-encoding-map nil)
   (setq ruby-deep-indent-paren-style nil)
   (setq ruby-insert-encoding-magic-comment nil)
+  (add-hook 'ruby-mode-hook 'tnoda/subword-mode-enable)
 #+END_SRC
 
 *** =inf-ruby=

@@ -632,6 +632,12 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
 #+END_SRC
 
 * Global
+** subword-mode
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/subword-mode-enable ()
+    (subword-mode 1))
+#+END_SRC
+
 ** smartrep.el                                                       :elget:
 http://sheephead.homelinux.org/2012/01/30/6934/
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2259,9 +2265,6 @@ main.org のトップレベルに refile できるようにする．
 *** nrepl
 **** Enable subword-mode.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/subword-mode-enable ()
-    (subword-mode 1))
-  
   (add-hook 'nrepl-mode-hook 'tnoda/subword-mode-enable)
 #+END_SRC
 

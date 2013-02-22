@@ -2353,9 +2353,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (require 'ruby-mode)
   (require 'inf-ruby)
   (require 'ruby-electric)
-  (defun tnoda/ruby-electric-on ()
-    (ruby-electric-mode 1))
-  (add-hook 'ruby-mode-hook 'tnoda/ruby-electric-on)
   (require 'ruby-compilation)
   (require 'ruby-style)
 #+END_SRC

@@ -632,6 +632,12 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
 #+END_SRC
 
 * Global
+** imenu.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'imenu)
+  (setq imenu-max-item-length 80)
+#+END_SRC
+
 ** subword-mode
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/subword-mode-enable ()

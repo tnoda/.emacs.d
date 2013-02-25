@@ -2223,14 +2223,14 @@ main.org のトップレベルに refile できるようにする．
 ** Clojure                                                       :marmalade:
 *** Install elisps using el-get.                                      :elget:
 #+BEGIN_SRC emacs-lisp :tangle install.el
-  (el-get 'sync '(clojure-mode nrepl ac-nrepl))
+  (el-get 'sync '(clojure-mode nrepl nrepl-ritz ac-nrepl))
 #+END_SRC
 
 *** clojure-mode
-**** =clojure-mode= の =<f5>= で =nrepl-jack-in=.               :key:command:
+**** =clojure-mode= の =<f5>= で =nrepl-ritz-jack-in=.          :key:command:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/clojure-mode-f5-key ()
-    (define-key clojure-mode-map (kbd "<f5>") 'nrepl-jack-in))
+    (define-key clojure-mode-map (kbd "<f5>") 'nrepl-ritz-jack-in))
   
   (add-hook 'clojure-mode-hook 'tnoda/clojure-mode-f5-key)
 #+END_SRC
@@ -2300,6 +2300,14 @@ main.org のトップレベルに refile できるようにする．
   (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
   (eval-after-load "auto-complete"
     '(add-to-list 'ac-modes 'nrepl-mode))
+#+END_SRC
+
+**** nrepl-ritz.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'nrepl-ritz)
+  (add-to-list 'nrepl-javadoc-local-paths
+               (expand-file-name "jdk-6u30-apidocs" "~/Documents"))
+  
 #+END_SRC
 
 *** Inferior Lisp Mode

@@ -2304,7 +2304,6 @@ main.org のトップレベルに refile できるようにする．
 
 **** nrepl-ritz.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'nrepl-ritz)
   (add-to-list 'nrepl-javadoc-local-paths
                (expand-file-name "jdk-6u30-apidocs" "~/Documents"))
   

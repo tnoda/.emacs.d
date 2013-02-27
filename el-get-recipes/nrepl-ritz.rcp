@@ -2,5 +2,5 @@
        :description "A nREPL extension for Ritz."
        :type http
        :url "https://raw.github.com/pallet/ritz/develop/nrepl/elisp/nrepl-ritz.el"
-       :depends nrepl
+       :depends (nrepl fringe-helper)
        :website "https://github.com/pallet/ritz/tree/develop/nrepl")

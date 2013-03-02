@@ -577,6 +577,7 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setenv "PATH" (mapconcat 'identity
                             (list tnoda/bin-dir
+                                  (expand-file-name "~/.lein")
                                   (expand-file-name "~/.rbenv/shims")
                                   (expand-file-name "~/Library/Haskell/bin")
                                   "/usr/texbin"
@@ -2225,6 +2226,11 @@ main.org のトップレベルに refile できるようにする．
 *** Install elisps using el-get.                                      :elget:
 #+BEGIN_SRC emacs-lisp :tangle install.el
   (el-get 'sync '(clojure-mode nrepl nrepl-ritz ac-nrepl))
+#+END_SRC
+
+*** Leiningen has been installed in =~/lein=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'exec-path (expand-file-name ".lein" "~/"))
 #+END_SRC
 
 *** clojure-mode

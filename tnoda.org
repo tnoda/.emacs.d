@@ -1399,6 +1399,16 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
   (setq eshell-smart-space-goes-to-end t)
 #+END_SRC
 
+** Bind =cycle-buffer= to =C-z= in eshell-mode.                    :key:
+
+Pressing =C-z= toggles between an eshell buffer and another.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/eshell-toggle-key ()
+    (define-key eshell-mode-map (kbd "C-z") 'cycle-buffer))
+  (add-hook 'eshell-mode-hook 'tnoda/eshell-toggle-key)
+#+END_SRC
+
 ** プロンプトの色を変える．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'em-prompt)

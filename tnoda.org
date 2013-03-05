@@ -2091,25 +2091,15 @@ main.org のトップレベルに refile できるようにする．
     設定を追加している．
 
 ** emacs-w3m                                                           :cvs:
-*** インストール
-#+BEGIN_SRC sh :tangle install-emacs-w3m.sh :var src_dir=tnoda-src-dir prefx=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app info_dir=tnoda-info-dir
-  cd $src_dir
-  expect -c "set timeout 10
-  spawn cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot login
-  expect \"CVS password:\" {
-    send \"\n\"
-  }
-  "
-  cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot co emacs-w3m
-  cd emacs-w3m
-  autoconf
-  ./configure --prefix=$prefix --with-lispdir=${elisp_dir}/emacs-w3m \
-      --with-emacs=$emacs --with-icondir=${prefix}/share/emacs-w3m \
-      --with-addpath=${elisp_dir}/apel:${elisp_dir}/emu:${elisp_dir}/flim \
-      --infodir=$info_dir
-  make
-  make install-ja
-  make install-icons
+*** Install emacs-w3m using el-get.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'emacs-w3m)
+#+END_SRC
+
+#+BEGIN_SRC sh :tangle no :var info_dir=tnoda-info-dir
+  cd $info_dir
+  rm -f emacs-w3m-ja.info
+  ln -s /opt/el-get/emacs-w3m/doc/emacs-w3m-ja.info .
 #+END_SRC
 
 *** 行間を広くする．

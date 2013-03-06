@@ -2702,7 +2702,7 @@ File on disk now will become a backup file if you save these changes.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-insert-heading-respect-content (arg)
     (interactive "p")
-    (org-insert-heading-respect-content)
+    (org-insert-heading-respect-content arg)
     (case arg
       (4 (org-do-demote))
       (16 (org-do-promote))))

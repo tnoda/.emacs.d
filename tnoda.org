@@ -1528,384 +1528,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
     (while (pcomplete-here (tnoda/git-staged-files))))
 #+END_SRC
 
-* Org Mode                                                              :git:
-
-** Install
-#+BEGIN_SRC sh :tangle install-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir info_dir=tnoda-info-dir emacs=emacs-app
-  cd $src_dir
-  curl -O http://orgmode.org/org-7.9.3a.tar.gz
-  tar zxf org-7.9.3a.tar.gz
-  rm -f org
-  ln -s org-7.9.3a org
-  cd org
-  make EMACS=$emacs compile
-  make EMACS=$emacs info
-  cd $info_dir
-  rm -f org
-  ln -s $src_dir/org/doc/org .
-#+END_SRC
-
-** Common
-*** Require
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'org-habit)
-#+END_SRC
-
-*** =~/org= で Org を使う．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-directory "~/org")
-#+END_SRC
-
-*** =org-extend-today-until=
-My day really ends at two o'clock in the morning.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-extend-today-until 2)
-#+END_SRC
-
-*** =C-,== と =C-'== に割り当てられる =org-cycle-agenda-files= を無効にする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (rassq-delete-all 'org-cycle-agenda-files org-mode-map)
-#+END_SRC
-
-*** =org-edit-special= 中は auto-save-buffers を停止する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (lexical-let ((previous-active-p))
-    (defadvice org-edit-src-code (before tnoda/auto-save-buffers-toggle activate)
-      "Disable auto-save-buffers."
-      (setq previous-active-p  auto-save-buffers-active-p)
-      (setq auto-save-buffers-active-p nil))
-    (defadvice org-edit-src-exit (after tndoa/auto-save-buffers-toggle activate)
-      "Recover auto-save-buffers."
-      (setq auto-save-buffers-active-p previous-active-p)))
-#+END_SRC
-
-停止しないと，src ブロックを編集している最中に，
-
-#+BEGIN_QUOTE
-foo.org has changed since visited or saved.  Save anyway? (y or n) !
-foo.org changed on disk; really edit the buffer? (y, n, r or C-h) 
-File on disk now will become a backup file if you save these changes.
-#+END_QUOTE
-
-と怒られる．
-
-*** ~=code=~ の face を org-code から =font-lock-constant-face= に変更する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-emphasis-alist
-        (cons '("=" font-lock-constant-face "<code>" "</code>" verbatim)
-              (remove-if (lambda (x)
-                           (equal "=" (car x)))
-                         org-emphasis-alist)))
-#+END_SRC
-** 見出し入力の改善．
-*** =C-M-RET= で =org-insert-substring=                                 :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (define-key org-mode-map (kbd "<C-M-return>") 'org-insert-subheading)
-#+END_SRC
-
-*** =C-u C-RET= で一レベル下の見出し， =C-u C-u C-RET= で一レベル上の見出し． :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-insert-heading-respect-content (arg)
-    (interactive "p")
-    (org-insert-heading-respect-content)
-    (case arg
-      (4 (org-do-demote))
-      (16 (org-do-promote))))
-  
-  (define-key org-mode-map (kbd "<C-return>") 'tnoda/org-insert-heading-respect-content)
-#+END_SRC
-
-** Link
-*** =C-c l= で org-store-link.                                          :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "C-c l") 'org-store-link)
-#+END_SRC
-
-** Refile
-main.org のトップレベルに refile できるようにする．
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-refile-targets
-        '(("main.org" . (:level . 1))))
-#+END_SRC
-
-** To-Do
-*** =TODO= キーワードは各ファイルで共通のものを使うことにする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "APPT(a)" "|"
-                    "DONE(d!)" "CANCELLED(c@)" "DEFERRED(f@)" "DELEGATED(g@/!)")))
-#+END_SRC
-
-*** =TODO= ステータスが =STARTED= に変化したらクロックを開始する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun sacha/org-clock-in-if-starting ()
-    "Clock in when the task is marked STARTED."
-    (when (and (string= org-state "STARTED")
-               (not (string= org-last-state org-state)))
-      (org-clock-in)))
-  (add-hook 'org-after-todo-state-change-hook
-            'sacha/org-clock-in-if-starting)
-  ;; (defadvice org-clock-in (after sacha activate)
-  ;;   "Set this task's status to 'STARTED'."
-  ;;   (org-todo "STARTED"))
-  (defun sacha/org-clock-out-if-waiting ()
-    "Clock in when the task is marked STARTED."
-    (when (and (string= org-state "WAITING")
-               (not (string= org-last-state org-state)))
-      (org-clock-out)))
-  (add-hook 'org-after-todo-state-change-hook
-            'sacha/org-clock-out-if-waiting)
-#+END_SRC
-
-** Capture
-+ ノートファイルには notes.org だけを使う．Capture は常にこのファイルに保存．
-+ テンプレートは 2 種類だけ
-  - Note
-    - 基本的にはこれを使う
-    - カレントタスクのクロックは止めない (:clock-keep)
-    - notes.org を開いていなければ，notes.org バッファを残さない (:kill-buffer)
-  - Away
-    - 席を離れるとき
-    - カレントタスクのクロックを停止 (:clock-in)
-    - Capture 終了時に元タスクのクロックを再開 (:clock-resume)
-    - notes.org を開いていなければ，notes.org バッファを残さない (:kill-buffer)
-   
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
-  (setq org-reverse-note-order t)
-  (setq org-capture-templates
-        '(("n" "Note" entry (file "") "* %?\n  %U\n  %i\n  %a"
-           :clock-keep t
-           :empty-lines 1
-           :kill-buffer t)
-          ("a" "Away" entry (file "") "* %? :away:"
-           :clock-in t
-           :clock-resume t
-           :empty-lines 1
-           :kill-buffer t)
-          ("t" "Task" entry (file+headline tnoda/gtd-file "Tasks")
-           "* TODO %?\n %i\n %a"
-           :clock-keep t
-           :kill-buffer t)
-          ("m" "Meditation" entry (file "") "* Meditation%?"
-           :clock-in t
-           :clock-resume t
-           :empty-lines 1
-           :kill-buffer t)))
-#+END_SRC
-
-*** =C-c n= で Capture Note 開始．                                      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-capture-note ()
-      (interactive)
-      (org-capture nil "n"))
-    (global-set-key (kbd "C-c n") 'tnoda/org-capture-note)
-#+END_SRC
-
-*** =C-c z= で Capture Away 開始．                                      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-capture-away ()
-    (interactive)
-    (org-capture nil "a"))
-  (global-set-key (kbd "C-c z") 'tnoda/org-capture-away)
-#+END_SRC
-
-*** =C-c t= で Capture Task 開始．                                      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-capture-task ()
-    (interactive)
-    (org-capture nil "t"))
-  (global-set-key (kbd "C-c t") 'tnoda/org-capture-task)
-#+END_SRC
-
-*** Bind =C-c m= to =tnoda/org-capture-meditation=.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-capture-meditation ()
-    (interactive)
-    (org-capture nil "m"))
-  (global-set-key (kbd "C-c m") 'tnoda/org-capture-meditation)
-#+END_SRC
-
-** GTD
-*** =M-x gtd= で =main.org= を開く．                              :command:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defconst tnoda/gtd-file (expand-file-name "main.org" org-directory))
-    (defun gtd ()
-      (interactive)
-      (find-file tnoda/gtd-file))
-#+END_SRC
-
-*** =M-x notes= で =notes.org= を開く．                           :command:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun notes ()
-    (interactive)
-    (find-file org-default-notes-file))
-#+END_SRC
-  
-*** =M-x flagged= で =flagged.org= を開く．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun flagged ()
-    (interactive)
-    (find-file (expand-file-name "flagged.org" org-directory)))
-#+END_SRC
-
-*** =C-c g= で =org-clock-goto=.                                        :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "C-c g") 'org-clock-goto)
-#+END_SRC
-
-** Agenda
-*** Agenda に含めるファイルは， =main.org= と =notes.org=  の 2つ．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-agenda-files (list tnoda/gtd-file org-default-notes-file))
-#+END_SRC
-
-*** =<S-f7>= と =<f7>= に Org Agenda を開くコマンドを割り当てる．     :key:
-- 一日の始まり→ =<S-f7>= ... Home Lists
-- タスクの確認→ =<f7>= ... Daily Action List
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-agenda-custom-commands
-        '(("H" "Home Lists"
-           ((agenda "")
-            (tags-todo "@home")
-            (tags-todo "@univ")
-            (tags-todo "errands")
-            (tags-todo "emacs")))
-          ("D" "Daily Action List"
-           ((agenda "" ((org-agenda-ndays 1)
-                        (org-agenda-sorting-strategy
-                         (quote ((agenda time-up priority-down tag-up) )))
-                        (org-deadline-warning-days 0)))))))
-  (defun tnoda/org-agenda-home-lists ()
-    (interactive)
-    (org-agenda nil "H"))
-  (global-set-key (kbd "<S-f7>") 'tnoda/org-agenda-home-lists)
-  (defun tnoda/org-agenda-daily-action-list ()
-    (interactive)
-    (org-agenda nil "D"))
-  (global-set-key (kbd "<f7>") 'tnoda/org-agenda-daily-action-list)
-#+END_SRC
-
-*** そのほかの設定
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-agenda-include-diary t)
-  (setq org-agenda-skip-deadline-if-done t)
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-start-on-weekday nil)
-#+END_SRC
-
-** Mobile
-*** DropBox を利用する．
-+ DropBox を利用して，MobileOrg と sync する (org-mobile-directory).
-+ MobileOrg の Capture は flagged.org に (org-mobile-index-for-pull).
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-mobile-inbox-for-pull "~/org/flagged.org")
-  (setq org-mobile-directory "~/Dropbox/MobileOrg")
-#+END_SRC
-
-*** 暗号化する．パスワードは別ファイルに保存．
-+ 暗号化する (org-mobile-use-encryption).
-  - パスワードを設定 (org-mobile-encryption-password).
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-mobile-use-encryption t)
-  (load "~/.org-mobile-encryption-password.el")
-#+END_SRC
-
-** Babel
-*** ob-markdown のインストール．
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-url "https://raw.github.com/tnoda/ob-markdown/master/ob-markdown.el")
-#+END_SRC
-
-*** Emacs Lisp 以外の言語も有効にする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (R . t)
-     (clojure . t)
-     (ditaa . t)
-     (dot . t)
-     (haskell . t)
-     (java . t)
-     (js . t)
-     (latex . t)
-     (org . t)
-     (ruby . t)
-     (sh . t)
-     (markdown . t)
-     (latex . t)))
-#+END_SRC
-
-*** コードブロックのフォント修飾は，Emacs が重くなるのでやめる．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-src-fontify-natively nil)
-#+END_SRC
-
-*** コードブロックを確認無しに実行する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-confirm-babel-evaluate nil)
-#+END_SRC
-
-** Beamer
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-export-latex-date-format "%Y-%m-%d")
-  (setq org-export-latex-classes nil)
-  (add-to-list 'org-export-latex-classes
-    '("jsarticle"
-      "\\documentclass[a4j]{jsarticle}"
-      ("\\section{%s}" . "\\section*{%s}")
-      ("\\subsection{%s}" . "\\subsection*{%s}")
-      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-      ("\\paragraph{%s}" . "\\paragraph*{%s}")
-      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-  ))
-  (add-to-list 'org-export-latex-classes
-    '("beamer"
-      "\\documentclass[compress,dvipdfm]{beamer}"
-      org-beamer-sectioning
-  ))
-#+END_SRC
-** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-babel-demarcate-block-as-elisp ()
-    (interactive)
-    (insert "#+BEGIN_SRC emacs-lisp :tangle yes\n\n#+END_SRC")
-    (org-indent-line)
-    (previous-line)
-    (org-edit-special))
-  (key-chord-define org-mode-map "el" 'tnoda/org-babel-demarcate-block-as-elisp)
-#+END_SRC
-
-** =dm= 同時押しで markdown の src ブロック挿入．                      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-babel-demarcate-block-as-markdown ()
-    (interactive)
-    (insert "#+BEGIN_SRC markdown :tangle yes\n\n#+END_SRC")
-    (org-indent-line)
-    (previous-line)
-    (org-edit-special))
-  (key-chord-define org-mode-map "dm" 'tnoda/org-babel-demarcate-block-as-markdown)
-#+END_SRC
-
-** Easy Templates
-+ =<s= で =#+STARTUP: =
-+ =<S= で =#+SETUPFILE: =
-+ =<p= で =#+PROPERTY: =
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-structure-template-alist
-        (remove-if #'(lambda (x) (member (car x) '("s" "S" "p")))
-                   org-structure-template-alist))
-  (push '("s" "#+STARTUP: ") org-structure-template-alist)
-  (push '("S" "#+SETUPFILE: %file ?") org-structure-template-alist)
-  (push '("p" "#+PROPERTY: ") org-structure-template-alist)
-#+END_SRC
-
 * SKK
 ** インストール
 #+BEGIN_SRC sh :tangle install-skk.sh :var prefix=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir info_dir=tnoda-info-dir emacs=emacs-app
@@ -2998,4 +2620,382 @@ color-moccur.el に依存している．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'special-display-buffer-names "*sdic*")
   (push '("*sdic*" :position bottom) popwin:special-display-config)
+#+END_SRC
+
+* Org Mode                                                              :git:
+
+** Install
+#+BEGIN_SRC sh :tangle install-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir info_dir=tnoda-info-dir emacs=emacs-app
+  cd $src_dir
+  curl -O http://orgmode.org/org-7.9.3f.tar.gz
+  tar zxf org-7.9.3f.tar.gz
+  rm -f org
+  ln -s org-7.9.3f org
+  cd org
+  make EMACS=$emacs compile
+  make EMACS=$emacs info
+  cd $info_dir
+  rm -f org
+  ln -s $src_dir/org/doc/org .
+#+END_SRC
+
+** Common
+*** Require
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'org-habit)
+#+END_SRC
+
+*** =~/org= で Org を使う．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-directory "~/org")
+#+END_SRC
+
+*** =org-extend-today-until=
+My day really ends at two o'clock in the morning.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-extend-today-until 2)
+#+END_SRC
+
+*** =C-,== と =C-'== に割り当てられる =org-cycle-agenda-files= を無効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (rassq-delete-all 'org-cycle-agenda-files org-mode-map)
+#+END_SRC
+
+*** =org-edit-special= 中は auto-save-buffers を停止する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (lexical-let ((previous-active-p))
+    (defadvice org-edit-src-code (before tnoda/auto-save-buffers-toggle activate)
+      "Disable auto-save-buffers."
+      (setq previous-active-p  auto-save-buffers-active-p)
+      (setq auto-save-buffers-active-p nil))
+    (defadvice org-edit-src-exit (after tndoa/auto-save-buffers-toggle activate)
+      "Recover auto-save-buffers."
+      (setq auto-save-buffers-active-p previous-active-p)))
+#+END_SRC
+
+停止しないと，src ブロックを編集している最中に，
+
+#+BEGIN_QUOTE
+foo.org has changed since visited or saved.  Save anyway? (y or n) !
+foo.org changed on disk; really edit the buffer? (y, n, r or C-h) 
+File on disk now will become a backup file if you save these changes.
+#+END_QUOTE
+
+と怒られる．
+
+*** ~=code=~ の face を org-code から =font-lock-constant-face= に変更する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-emphasis-alist
+        (cons '("=" font-lock-constant-face "<code>" "</code>" verbatim)
+              (remove-if (lambda (x)
+                           (equal "=" (car x)))
+                         org-emphasis-alist)))
+#+END_SRC
+** 見出し入力の改善．
+*** =C-M-RET= で =org-insert-substring=                                 :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (define-key org-mode-map (kbd "<C-M-return>") 'org-insert-subheading)
+#+END_SRC
+
+*** =C-u C-RET= で一レベル下の見出し， =C-u C-u C-RET= で一レベル上の見出し． :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-insert-heading-respect-content (arg)
+    (interactive "p")
+    (org-insert-heading-respect-content)
+    (case arg
+      (4 (org-do-demote))
+      (16 (org-do-promote))))
+  
+  (define-key org-mode-map (kbd "<C-return>") 'tnoda/org-insert-heading-respect-content)
+#+END_SRC
+
+** Link
+*** =C-c l= で org-store-link.                                          :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-c l") 'org-store-link)
+#+END_SRC
+
+** Refile
+main.org のトップレベルに refile できるようにする．
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-refile-targets
+        '(("main.org" . (:level . 1))))
+#+END_SRC
+
+** To-Do
+*** =TODO= キーワードは各ファイルで共通のものを使うことにする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "APPT(a)" "|"
+                    "DONE(d!)" "CANCELLED(c@)" "DEFERRED(f@)" "DELEGATED(g@/!)")))
+#+END_SRC
+
+*** =TODO= ステータスが =STARTED= に変化したらクロックを開始する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun sacha/org-clock-in-if-starting ()
+    "Clock in when the task is marked STARTED."
+    (when (and (string= org-state "STARTED")
+               (not (string= org-last-state org-state)))
+      (org-clock-in)))
+  (add-hook 'org-after-todo-state-change-hook
+            'sacha/org-clock-in-if-starting)
+  ;; (defadvice org-clock-in (after sacha activate)
+  ;;   "Set this task's status to 'STARTED'."
+  ;;   (org-todo "STARTED"))
+  (defun sacha/org-clock-out-if-waiting ()
+    "Clock in when the task is marked STARTED."
+    (when (and (string= org-state "WAITING")
+               (not (string= org-last-state org-state)))
+      (org-clock-out)))
+  (add-hook 'org-after-todo-state-change-hook
+            'sacha/org-clock-out-if-waiting)
+#+END_SRC
+
+** Capture
++ ノートファイルには notes.org だけを使う．Capture は常にこのファイルに保存．
++ テンプレートは 2 種類だけ
+  - Note
+    - 基本的にはこれを使う
+    - カレントタスクのクロックは止めない (:clock-keep)
+    - notes.org を開いていなければ，notes.org バッファを残さない (:kill-buffer)
+  - Away
+    - 席を離れるとき
+    - カレントタスクのクロックを停止 (:clock-in)
+    - Capture 終了時に元タスクのクロックを再開 (:clock-resume)
+    - notes.org を開いていなければ，notes.org バッファを残さない (:kill-buffer)
+   
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+  (setq org-reverse-note-order t)
+  (setq org-capture-templates
+        '(("n" "Note" entry (file "") "* %?\n  %U\n  %i\n  %a"
+           :clock-keep t
+           :empty-lines 1
+           :kill-buffer t)
+          ("a" "Away" entry (file "") "* %? :away:"
+           :clock-in t
+           :clock-resume t
+           :empty-lines 1
+           :kill-buffer t)
+          ("t" "Task" entry (file+headline tnoda/gtd-file "Tasks")
+           "* TODO %?\n %i\n %a"
+           :clock-keep t
+           :kill-buffer t)
+          ("m" "Meditation" entry (file "") "* Meditation%?"
+           :clock-in t
+           :clock-resume t
+           :empty-lines 1
+           :kill-buffer t)))
+#+END_SRC
+
+*** =C-c n= で Capture Note 開始．                                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-capture-note ()
+      (interactive)
+      (org-capture nil "n"))
+    (global-set-key (kbd "C-c n") 'tnoda/org-capture-note)
+#+END_SRC
+
+*** =C-c z= で Capture Away 開始．                                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-capture-away ()
+    (interactive)
+    (org-capture nil "a"))
+  (global-set-key (kbd "C-c z") 'tnoda/org-capture-away)
+#+END_SRC
+
+*** =C-c t= で Capture Task 開始．                                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-capture-task ()
+    (interactive)
+    (org-capture nil "t"))
+  (global-set-key (kbd "C-c t") 'tnoda/org-capture-task)
+#+END_SRC
+
+*** Bind =C-c m= to =tnoda/org-capture-meditation=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-capture-meditation ()
+    (interactive)
+    (org-capture nil "m"))
+  (global-set-key (kbd "C-c m") 'tnoda/org-capture-meditation)
+#+END_SRC
+
+** GTD
+*** =M-x gtd= で =main.org= を開く．                              :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defconst tnoda/gtd-file (expand-file-name "main.org" org-directory))
+    (defun gtd ()
+      (interactive)
+      (find-file tnoda/gtd-file))
+#+END_SRC
+
+*** =M-x notes= で =notes.org= を開く．                           :command:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun notes ()
+    (interactive)
+    (find-file org-default-notes-file))
+#+END_SRC
+  
+*** =M-x flagged= で =flagged.org= を開く．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun flagged ()
+    (interactive)
+    (find-file (expand-file-name "flagged.org" org-directory)))
+#+END_SRC
+
+*** =C-c g= で =org-clock-goto=.                                        :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-c g") 'org-clock-goto)
+#+END_SRC
+
+** Agenda
+*** Agenda に含めるファイルは， =main.org= と =notes.org=  の 2つ．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-agenda-files (list tnoda/gtd-file org-default-notes-file))
+#+END_SRC
+
+*** =<S-f7>= と =<f7>= に Org Agenda を開くコマンドを割り当てる．     :key:
+- 一日の始まり→ =<S-f7>= ... Home Lists
+- タスクの確認→ =<f7>= ... Daily Action List
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-agenda-custom-commands
+        '(("H" "Home Lists"
+           ((agenda "")
+            (tags-todo "@home")
+            (tags-todo "@univ")
+            (tags-todo "errands")
+            (tags-todo "emacs")))
+          ("D" "Daily Action List"
+           ((agenda "" ((org-agenda-ndays 1)
+                        (org-agenda-sorting-strategy
+                         (quote ((agenda time-up priority-down tag-up) )))
+                        (org-deadline-warning-days 0)))))))
+  (defun tnoda/org-agenda-home-lists ()
+    (interactive)
+    (org-agenda nil "H"))
+  (global-set-key (kbd "<S-f7>") 'tnoda/org-agenda-home-lists)
+  (defun tnoda/org-agenda-daily-action-list ()
+    (interactive)
+    (org-agenda nil "D"))
+  (global-set-key (kbd "<f7>") 'tnoda/org-agenda-daily-action-list)
+#+END_SRC
+
+*** そのほかの設定
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-agenda-include-diary t)
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-start-on-weekday nil)
+#+END_SRC
+
+** Mobile
+*** DropBox を利用する．
++ DropBox を利用して，MobileOrg と sync する (org-mobile-directory).
++ MobileOrg の Capture は flagged.org に (org-mobile-index-for-pull).
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-mobile-inbox-for-pull "~/org/flagged.org")
+  (setq org-mobile-directory "~/Dropbox/MobileOrg")
+#+END_SRC
+
+*** 暗号化する．パスワードは別ファイルに保存．
++ 暗号化する (org-mobile-use-encryption).
+  - パスワードを設定 (org-mobile-encryption-password).
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-mobile-use-encryption t)
+  (load "~/.org-mobile-encryption-password.el")
+#+END_SRC
+
+** Babel
+*** ob-markdown のインストール．
+#+BEGIN_SRC emacs-lisp :tangle install.el
+  (auto-install-from-url "https://raw.github.com/tnoda/ob-markdown/master/ob-markdown.el")
+#+END_SRC
+
+*** Emacs Lisp 以外の言語も有効にする．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (R . t)
+     (clojure . t)
+     (ditaa . t)
+     (dot . t)
+     (haskell . t)
+     (java . t)
+     (js . t)
+     (latex . t)
+     (org . t)
+     (ruby . t)
+     (sh . t)
+     (markdown . t)
+     (latex . t)))
+#+END_SRC
+
+*** コードブロックのフォント修飾は，Emacs が重くなるのでやめる．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-src-fontify-natively nil)
+#+END_SRC
+
+*** コードブロックを確認無しに実行する．
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
+** Beamer
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-export-latex-date-format "%Y-%m-%d")
+  (setq org-export-latex-classes nil)
+  (add-to-list 'org-export-latex-classes
+    '("jsarticle"
+      "\\documentclass[a4j]{jsarticle}"
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+      ("\\paragraph{%s}" . "\\paragraph*{%s}")
+      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+  ))
+  (add-to-list 'org-export-latex-classes
+    '("beamer"
+      "\\documentclass[compress,dvipdfm]{beamer}"
+      org-beamer-sectioning
+  ))
+#+END_SRC
+** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-babel-demarcate-block-as-elisp ()
+    (interactive)
+    (insert "#+BEGIN_SRC emacs-lisp :tangle yes\n\n#+END_SRC")
+    (org-indent-line)
+    (previous-line)
+    (org-edit-special))
+  (key-chord-define org-mode-map "el" 'tnoda/org-babel-demarcate-block-as-elisp)
+#+END_SRC
+
+** =dm= 同時押しで markdown の src ブロック挿入．                      :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/org-babel-demarcate-block-as-markdown ()
+    (interactive)
+    (insert "#+BEGIN_SRC markdown :tangle yes\n\n#+END_SRC")
+    (org-indent-line)
+    (previous-line)
+    (org-edit-special))
+  (key-chord-define org-mode-map "dm" 'tnoda/org-babel-demarcate-block-as-markdown)
+#+END_SRC
+
+** Easy Templates
++ =<s= で =#+STARTUP: =
++ =<S= で =#+SETUPFILE: =
++ =<p= で =#+PROPERTY: =
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-structure-template-alist
+        (remove-if #'(lambda (x) (member (car x) '("s" "S" "p")))
+                   org-structure-template-alist))
+  (push '("s" "#+STARTUP: ") org-structure-template-alist)
+  (push '("S" "#+SETUPFILE: %file ?") org-structure-template-alist)
+  (push '("p" "#+PROPERTY: ") org-structure-template-alist)
 #+END_SRC

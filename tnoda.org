@@ -2909,6 +2909,13 @@ main.org のトップレベルに refile できるようにする．
   (load "~/.org-mobile-encryption-password.el")
 #+END_SRC
 
+** Latex
+*** Use platex and dvipdfmx to process a LaTeX file to a PDF file.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'org-latex)
+  (setq org-latex-to-pdf-process '("platex %b" "platex %b" "dvipdfmx %b"))
+#+END_SRC
+
 ** Babel
 *** ob-markdown のインストール．
 #+BEGIN_SRC emacs-lisp :tangle install.el
@@ -2960,7 +2967,7 @@ main.org のトップレベルに refile できるようにする．
   ))
   (add-to-list 'org-export-latex-classes
     '("beamer"
-      "\\documentclass[compress,dvipdfm]{beamer}"
+      "\\documentclass[compress,dvipdfmx]{beamer}"
       org-beamer-sectioning
   ))
 #+END_SRC

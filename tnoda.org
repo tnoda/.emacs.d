@@ -1613,20 +1613,16 @@ Pressing =C-z= toggles between an eshell buffer and another.
 #+END_SRC
 
 * Mail/News/WWW
-** APEL/FLIM/SEMI のインストール．
+** Install APEL using el-get.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'apel)
+#+END_SRC
+
+** FLIM/SEMI のインストール．
 :PROPERTIES:
 :var: src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app prefix=tnoda-dotfiles-dir
 :END:
-+ APEL
-  #+BEGIN_SRC sh :tangle install-apel.sh
-    cd $src_dir
-    curl http://www.ring.gr.jp/archives/elisp/apel/apel-10.8.tar.gz | tar zxf -
-    cd apel-10.8
-    echo "(setq APEL_DIR \"${elisp_dir}/apel\")
-    (setq EMU_DIR \"${elisp_dir}/emu\")" > APEL-CFG
-    make EMACS=$emacs install
-  #+END_SRC
-  
+
 + FLIM
   #+BEGIN_SRC sh :tangle install-flim.sh
     cd src

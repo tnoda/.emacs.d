@@ -2007,6 +2007,21 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (add-hook 'ruby-mode-hook 'tnoda/ruby-mode-hook)
 #+END_SRC
 
+*** Bind =ruby-interpolate= to =#=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun ruby-interpolate ()
+    "In a double quoted string, interpolate."
+    (interactive)
+    (insert "#")
+    (when (and
+           (looking-back "\".*")
+           (looking-at ".*\""))
+      (insert "{}")
+      (backward-char 1)))
+  
+  (define-key ruby-mode-map (kbd "#") 'ruby-interpolate)
+#+END_SRC
+
 *** =inf-ruby=
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'inf-ruby-implementations '("pry" . "pry -Ilib"))

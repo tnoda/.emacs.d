@@ -2098,18 +2098,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (define-key ruby-mode-map (kbd "C-c C-c") 'ruby-compilation-this-buffer)
 #+END_SRC
 
-*** =hideshow-org= を有効にする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'ruby-mode-hook 'tnoda/hs-org/minor-mode-activate)
-  (add-to-list 'hs-special-modes-alist
-               (list 'ruby-mode
-                     ruby-electric-simple-keywords-re
-                     "end"
-                     "#"
-                     'ruby-forward-sexp
-                     nil))
-#+END_SRC
-
 *** rspec-mode.el                                                     :elget:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync '(rspec-mode))

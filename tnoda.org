@@ -1990,7 +1990,9 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
     (electric-indent-mode 1)
     (electric-layout-mode 1)
     (subword-mode 1)
-    (setq show-trailing-whitespace t))
+    (setq show-trailing-whitespace t)
+    (outline-minor-mode 1)
+    (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)"))
   
   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))

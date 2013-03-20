@@ -1826,17 +1826,19 @@ Pressing =C-z= toggles between an eshell buffer and another.
 #+END_SRC
 
 *** clojure-mode
-**** =clojure-mode= の =<f5>= で =nrepl-ritz-jack-in=.          :key:command:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/clojure-mode-f5-key ()
-    (define-key clojure-mode-map (kbd "<f5>") 'nrepl-ritz-jack-in))
+  (require 'clojure-mode)
+  (define-key clojure-mode-map (kbd "<f5>") 'nrepl-ritz-jack-in)
+  (define-key clojure-mode-map (kbd "C-c t") nil)
   
-  (add-hook 'clojure-mode-hook 'tnoda/clojure-mode-f5-key)
-#+END_SRC
-
-**** =clojure-mode= で paredit を有効にする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+  (defun tnoda/clojure-mode-hook ()
+    (enable-paredit-mode)
+    (rainbow-delimiters-mode 1)
+    (subword-mode 1)
+    (setq show-trailing-whitespace t)
+    (setq buffer-save-without-query t))
+  
+  (add-hook 'clojure-mode-hook 'tnoda/clojure-mode-hook)
 #+END_SRC
 
 **** Leiningen utility functions.
@@ -1857,51 +1859,33 @@ Pressing =C-z= toggles between an eshell buffer and another.
                                                                                    (+ 4 (length (tnoda/lein-root)))))))
 #+END_SRC
 
-**** Disable =C-c t= of =clojure-mode-map=.                          :key:
+*** nrepl.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (define-key clojure-mode-map (kbd "C-c t") nil)
+  (require 'nrepl)
+  
+  (defun tnoda/nrepl-mode-hook ()
+    (nrepl-turn-on-eldoc-mode)
+    (enable-paredit-mode)
+    (rainbow-delimiters-mode 1)
+    (subword-mode 1)
+    (font-lock-mode -1)
+    (clojure-mode-font-lock-setup)
+    (font-lock-mode 1))
+  
+  (add-hook 'nrepl-mode-hook 'tnoda/nrepl-mode-hook)
 #+END_SRC
 
-**** Notify trailing whitespaces.
+*** ac-nrepl.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'clojure-mode-hook 'tnoda/enable-show-trailing-whitespaces)
-#+END_SRC
-
-*** nrepl
-**** Enable subword-mode.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'nrepl-mode-hook 'tnoda/subword-mode-enable)
-#+END_SRC
-
-**** Enable Rainbow Delimiters.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode-enable)
-#+END_SRC
-
-**** Enable eldoc.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
-#+END_SRC
-
-**** Enable =paredit-mode= in nrepl.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'nrepl-mode-hook 'enable-paredit-mode)
-#+END_SRC
-
-**** Enable syntax highliting.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'nrepl-mode-hook 'clojure-mode-font-lock-setup)
-#+END_SRC
-
-**** Enable ac-nrepl.
-#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'ac-nrepl)
+  
   (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
   (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
   (eval-after-load "auto-complete"
     '(add-to-list 'ac-modes 'nrepl-mode))
 #+END_SRC
 
-**** nrepl-ritz.el
+*** nrepl-ritz.el
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'nrepl-javadoc-local-paths
                (expand-file-name "jdk-6u30-apidocs" "~/Documents"))

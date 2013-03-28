@@ -2406,6 +2406,29 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'scala-mode-hook 'tnoda/scala-mode-hook)
 #+END_SRC
 
+*** ENSIME
+
+ENSIME would be installed rather manually than automatically by el-get.
+Because its distribution files come with both elisp files and binaries
+that depends on specific Scala version.  Manual ENSIME installation
+would be done by the following steps:
+
++ Download the ENSIME distribution from the [[https://www.dropbox.com/sh/ryd981hq08swyqr/V9o9rDvxkS/ENSIME%2520Releases][release page]].
++ Extract that distribution archive under =tnoda/dotfiles-dir=.
+  - Currently =tnoda/dotfiles-dir= is set to =~/.emacs.d=.
++ Symlink =ensime= to the extracted directory named =ensime_X.YY.ZZ-P.Q.R.S=.
+
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'load-path (expand-file-name "ensime/elisp" tnoda/dotfiles-dir))
+  (require 'ensime)
+  
+  ;; This step causes the ensime-mode to be started whenever
+  ;; scala-mode is started for a buffer. You may have to customize this step
+  ;; if you're not using the standard scala mode.
+  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+#+END_SRC
+
 * ESS                                                                 :elget:
 ** Install using a local recipe to install the stable version.
 #+BEGIN_SRC emacs-lisp :tangle yes

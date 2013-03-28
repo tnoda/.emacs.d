@@ -2395,8 +2395,10 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (setq scala-indent:align-parameters t)
   (setq scala-indent:align-forms t)
   
-  ;;; Retrieved from https://github.com/hvesalai/scala-mode2#whitespace
   (defun tnoda/scala-mode-hook ()
+    (subword-mode 1)
+  
+    ;; Retrieved from https://github.com/hvesalai/scala-mode2#whitespace
     (require 'whitespace)
   
     ;; clean-up whitespace at save

@@ -2384,6 +2384,28 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (require 'csv-mode)
 #+END_SRC
 
+** Scala
+
+*** scala-mode2
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'scala-mode2)
+  
+  (setq scala-indent:default-run-on-strategy 0)
+  (setq scala-indent:indent-value-expression t)
+  (setq scala-indent:align-parameters t)
+  (setq scala-indent:align-forms t)
+  
+  ;;; Retrieved from https://github.com/hvesalai/scala-mode2#whitespace
+  (defun tnoda/scala-mode-hook ()
+    (require 'whitespace)
+  
+    ;; clean-up whitespace at save
+    (make-local-variable 'before-save-hook)
+    (add-hook 'before-save-hook 'whitespace-cleanup))
+  
+  (add-hook 'scala-mode-hook 'tnoda/scala-mode-hook)
+#+END_SRC
+
 * ESS                                                                 :elget:
 ** Install using a local recipe to install the stable version.
 #+BEGIN_SRC emacs-lisp :tangle yes

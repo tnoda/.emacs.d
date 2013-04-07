@@ -2397,14 +2397,7 @@ flymake-ruby で使う Ruby は rbenv のもの．
   
   (defun tnoda/scala-mode-hook ()
     (subword-mode 1)
-    (electric-pair-mode 1)
-  
-    ;; Retrieved from https://github.com/hvesalai/scala-mode2#whitespace
-    (require 'whitespace)
-  
-    ;; clean-up whitespace at save
-    (make-local-variable 'before-save-hook)
-    (add-hook 'before-save-hook 'whitespace-cleanup))
+    (electric-pair-mode 1))
   
   (add-hook 'scala-mode-hook 'tnoda/scala-mode-hook)
 #+END_SRC

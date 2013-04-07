@@ -2974,7 +2974,7 @@ main.org のトップレベルに refile できるようにする．
   ))
   (add-to-list 'org-export-latex-classes
     '("beamer"
-      "\\documentclass[compress,dvipdfmx]{beamer}"
+      "\\documentclass[compress,dvipdfmx,presentation,bigger]{beamer}"
       org-beamer-sectioning
   ))
 #+END_SRC

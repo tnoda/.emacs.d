@@ -2957,6 +2957,12 @@ main.org のトップレベルに refile できるようにする．
      (latex . t)))
 #+END_SRC
 
+*** Use graphviz-dot-mode when editing dot blocks.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'graphviz-dot-mode)
+  (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+#+END_SRC
+
 *** コードブロックのフォント修飾は，Emacs が重くなるのでやめる．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-src-fontify-natively nil)

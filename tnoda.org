@@ -2425,6 +2425,12 @@ would be done by the following steps:
   (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 #+END_SRC
 
+
+** Graphviz
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'graphviz-dot-mode)
+#+END_SRC
+
 * ESS                                                                 :elget:
 ** Install using a local recipe to install the stable version.
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -2957,6 +2957,12 @@ main.org のトップレベルに refile できるようにする．
      (latex . t)))
 #+END_SRC
 
+*** Use graphviz-dot-mode when editing dot blocks.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'graphviz-dot-mode)
+  (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+#+END_SRC
+
 *** コードブロックのフォント修飾は，Emacs が重くなるのでやめる．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-src-fontify-natively nil)
@@ -2969,8 +2975,8 @@ main.org のトップレベルに refile できるようにする．
 
 ** Beamer
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'org-latex)
   (setq org-export-latex-date-format "%Y-%m-%d")
-  (setq org-export-latex-classes nil)
   (add-to-list 'org-export-latex-classes
     '("jsarticle"
       "\\documentclass[a4j]{jsarticle}"
@@ -2979,11 +2985,6 @@ main.org のトップレベルに refile できるようにする．
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
       ("\\paragraph{%s}" . "\\paragraph*{%s}")
       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-  ))
-  (add-to-list 'org-export-latex-classes
-    '("beamer"
-      "\\documentclass[compress,dvipdfmx]{beamer}"
-      org-beamer-sectioning
   ))
 #+END_SRC
 ** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:
@@ -3012,6 +3013,7 @@ main.org のトップレベルに refile できるようにする．
 + =<s= で =#+STARTUP: =
 + =<S= で =#+SETUPFILE: =
 + =<p= で =#+PROPERTY: =
++ =<b= で beamer
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-structure-template-alist
@@ -3020,6 +3022,18 @@ main.org のトップレベルに refile できるようにする．
   (push '("s" "#+STARTUP: ") org-structure-template-alist)
   (push '("S" "#+SETUPFILE: %file ?") org-structure-template-alist)
   (push '("p" "#+PROPERTY: ") org-structure-template-alist)
+  (push '("b" "#+STARTUP: beamer
+  ,#+LaTeX_CLASS: beamer
+  ,#+LaTeX_CLASS_OPTIONS: [presentation]
+  ,#+BEAMER_FRAME_LEVEL: 2
+  ,#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+  ,#+OPTIONS: toc:nil
+  ,#+BEAMER_HEADER_EXTRA: \\usepackage{tnoda-beamer}
+  ,#+AUTHOR: Takahiro Noda
+  ,#+DATE: 2013-04-01
+  ,#+EMAIL: foo@example.com
+  ,#+TITLE: 
+  # (org-beamer-mode)?") org-structure-template-alist)
 #+END_SRC
 
 ** Patch ob-clojure to work with nrepl

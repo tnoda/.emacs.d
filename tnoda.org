@@ -2967,8 +2967,8 @@ main.org のトップレベルに refile できるようにする．
 
 ** Beamer
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'org-latex)
   (setq org-export-latex-date-format "%Y-%m-%d")
-  (setq org-export-latex-classes nil)
   (add-to-list 'org-export-latex-classes
     '("jsarticle"
       "\\documentclass[a4j]{jsarticle}"
@@ -2977,11 +2977,6 @@ main.org のトップレベルに refile できるようにする．
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
       ("\\paragraph{%s}" . "\\paragraph*{%s}")
       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-  ))
-  (add-to-list 'org-export-latex-classes
-    '("beamer"
-      "\\documentclass[compress,dvipdfmx]{beamer}"
-      org-beamer-sectioning
   ))
 #+END_SRC
 ** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:

@@ -2397,7 +2397,11 @@ flymake-ruby で使う Ruby は rbenv のもの．
   
   (defun tnoda/scala-mode-hook ()
     (subword-mode 1)
-    (electric-pair-mode 1))
+    (electric-pair-mode 1)
+    (setq imenu-generic-expression
+          '((nil "^\\(abstract \\)?\\(class\\|object\\) \\w+\\( extends [^\\{}]+\\)?" 0)
+            (nil "^ *\\(override \\|implicit \\)?def .*" 0)
+            (nil "\\( *trait .*\\){" 1))))
   
   (add-hook 'scala-mode-hook 'tnoda/scala-mode-hook)
 #+END_SRC

@@ -1841,7 +1841,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (add-hook 'clojure-mode-hook 'tnoda/clojure-mode-hook)
 #+END_SRC
 
-**** Leiningen utility functions.
+**** Yasnippet helper functions.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/lein-root (&optional dir)
     (interactive)

@@ -1853,7 +1853,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
           (tnoda/lein-root new-dir)))))
   
   (defun tnoda/lein-guess-namespace ()
-    "Return the clojure namespace assiatted with the current buffer."
+    "Return the clojure namespace associated with the current buffer."
     (interactive)
     (replace-regexp-in-string "_" "-" (replace-regexp-in-string "/" "." (substring (file-name-sans-extension buffer-file-name)
                                                                                    (+ 4 (length (tnoda/lein-root)))))))

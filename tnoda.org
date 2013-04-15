@@ -1116,6 +1116,7 @@ http://capitaomorte.github.com/yasnippet/faq.html
 *** LISP 関係のモードで有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'paredit)
+  (setq parens-require-spaces nil)
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-mode-hook 'enable-paredit-mode)

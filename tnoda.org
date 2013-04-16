@@ -2400,7 +2400,7 @@ flymake-ruby で使う Ruby は rbenv のもの．
     (subword-mode 1)
     (electric-pair-mode 1)
     (setq imenu-generic-expression
-          '((nil "^\\(abstract \\)?\\(class\\|object\\) \\w+\\( extends [^\\{}]+\\)?" 0)
+          '((nil "^ *\\(abstract \\|case \\)?\\(class\\|object\\) \\w+\\( extends [^\\{}]+\\)?.*" 0)
             (nil "^ *\\(override \\|implicit \\)?def .*" 0)
             (nil "\\( *trait .*\\){" 1))))
   

@@ -2379,6 +2379,16 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 #+END_SRC
 
+*** Leiningen support
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/java-mode-hook ()
+    (set (make-local-variable 'compile-command) "lein javac")
+    (set (make-local-variable 'compilation-read-command) nil)
+    (define-key java-mode-map (kbd "C-c C-c") 'compile))
+  
+  (add-hook 'java-mode-hook 'tnoda/java-mode-hook)
+#+END_SRC
+
 ** CSV
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'csv-mode)

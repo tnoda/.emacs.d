@@ -2401,7 +2401,7 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'scala-mode2)
   
-  (setq scala-indent:default-run-on-strategy 0)
+  (setq scala-indent:default-run-on-strategy 1)
   (setq scala-indent:indent-value-expression t)
   (setq scala-indent:align-parameters t)
   (setq scala-indent:align-forms t)

@@ -1585,6 +1585,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (setq migemo-coding-system 'utf-8-unix)
   (load-library "migemo")
   (migemo-init)
+  (setq search-whitespace-regexp nil)
 #+END_SRC
 
 * Mail/News/WWW

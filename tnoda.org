@@ -2377,7 +2377,15 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'ajc-java-complete)
   (require 'ajc-java-complete-config)
-  (add-hook 'java-mode-hook 'ajc-java-complete-mode)
+  
+  (eval-after-load "auto-complete"
+    '(add-to-list 'ac-modes 'java-mode))
+  
+  (defun tnoda/enable-ajc-java-complete-mode
+    ()
+    (ajc-java-complete-mode 1))
+  
+  (add-hook 'java-mode-hook 'tnoda/enable-ajc-java-complete-mode)
 #+END_SRC
 
 *** Leiningen support

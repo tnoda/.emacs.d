@@ -2970,7 +2970,7 @@ main.org のトップレベルに refile できるようにする．
 *** Use platex and dvipdfmx to process a LaTeX file to a PDF file.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'org-latex)
-  (setq org-latex-to-pdf-process '("platex %b" "platex %b" "dvipdfmx %b"))
+  (setq org-latex-pdf-process '("platex %b" "platex %b" "dvipdfmx %b"))
 #+END_SRC
 
 ** Babel

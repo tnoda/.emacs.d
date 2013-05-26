@@ -2682,7 +2682,7 @@ color-moccur.el に依存している．
 
 ** Install
 #+BEGIN_SRC sh :tangle install-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir info_dir=tnoda-info-dir emacs=emacs-app
-  ORG_VERSION=7.9.4
+  ORG_VERSION=8.0.3
   cd $src_dir
   curl -O http://orgmode.org/org-${ORG_VERSION}.tar.gz
   tar zxf org-${ORG_VERSION}.tar.gz

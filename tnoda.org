@@ -2398,6 +2398,19 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'java-mode-hook 'tnoda/java-mode-hook)
 #+END_SRC
 
+*** flymake
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'flymake)
+  (add-hook 'java-mode-hook 'flymake-mode-on)
+  
+  (defun tnoda/java-flymake-init ()
+    (list "javac" (list (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-with-folder-structure))))
+  
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.java$" tnoda/java-flymake-init flymake-simple-cleanup))
+#+END_SRC
+
 ** CSV
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'csv-mode)

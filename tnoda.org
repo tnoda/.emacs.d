@@ -480,6 +480,12 @@ http://sakito.jp/mac/dictionary.html の方法そのまま．
 #+END_SRC
 
 ** =exec-path=
+
+*** Add =/Developer/usr/bin= to =exec-path=.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'exec-path "/Developer/usr/bin")
+#+END_SRC
+
 *** =exec-path= に =~/.emacs.d/bin= を追加する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'exec-path tnoda/bin-dir)

@@ -2368,6 +2368,12 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+END_SRC
 
 ** Java
+
+*** Use Oracle Java 1.7.0_21.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setenv "JAVA_HOME" "/Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home")
+#+END_SRC
+
 *** auto-pair+
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'java-mode-hook 'autopair-on)

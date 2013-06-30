@@ -2966,7 +2966,7 @@ main.org のトップレベルに refile できるようにする．
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-mobile-inbox-for-pull "~/org/flagged.org")
-  (setq org-mobile-directory "~/Dropbox/MobileOrg")
+  (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 #+END_SRC
 
 *** 暗号化する．パスワードは別ファイルに保存．

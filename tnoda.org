@@ -2958,6 +2958,19 @@ main.org のトップレベルに refile できるようにする．
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-start-on-weekday nil)
 #+END_SRC
+*** Faces
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (set-face-attribute 'org-column nil
+                      :background "gray16"
+                      :strike-through nil
+                      :underline nil
+                      :height 160
+                      :family "Ricty")
+  (set-face-attribute 'org-column-title nil
+                      :background "grey30"
+                      :underline t
+                      :family "Ricty")
+#+END_SRC
 
 ** Mobile
 *** DropBox を利用する．

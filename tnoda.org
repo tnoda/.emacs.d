@@ -147,10 +147,24 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
 #+END_SRC
 
 ** 表示
-*** 起動時にウィンドウを擬似最大化する．
+*** Full Screen; M-F toggles fullscreen.                                :key:
+
+Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 2013-07-07
+
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq initial-frame-alist `((top . 1) (left . 1)
-                              (width . 237) (height . 67)))
+  (defun tnoda/toggle-fullscreen ()
+    "Toggle full screen"
+    (interactive)
+    (if (frame-parameter nil 'fullscreen)
+        (progn
+          (set-frame-parameter nil 'fullscreen nil)
+          (set-frame-position (selected-frame) 1 1)
+          (set-frame-size (selected-frame) 80 42))
+        (set-frame-parameter nil 'fullscreen 'fullboth)))
+  
+  (global-set-key (kbd "M-F") 'tnoda/toggle-fullscreen)
+  
+  (set-frame-parameter nil 'fullscreen 'fullboth)
 #+END_SRC
 
 *** =s-f= でフォント切り替え．                                            :key:

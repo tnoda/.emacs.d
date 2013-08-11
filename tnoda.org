@@ -2722,6 +2722,11 @@ color-moccur.el に依存している．
   ln -s $src_dir/org/doc/org .
 #+END_SRC
 
+** org-mew.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'org-mew)
+#+END_SRC
+
 ** Common
 *** Require
 #+BEGIN_SRC emacs-lisp :tangle yes

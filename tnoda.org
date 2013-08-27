@@ -1099,15 +1099,6 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (ac-config-default)
 #+END_SRC
 
-*** ac-slime
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(ac-slime))
-  (require 'ac-slime)
-  (add-hook 'slime-mode-hook 'set-up-slime-ac)
-  (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-  (add-to-list 'ac-modes 'slime-repl-mode)
-#+END_SRC
-
 *** 4 文字以上にならないと補完を開始しない (=ac-auto-start=).
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq ac-auto-start 4)

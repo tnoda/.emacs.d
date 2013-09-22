@@ -2390,12 +2390,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
                '("\\.java$" tnoda/java-flymake-init flymake-simple-cleanup))
 #+END_SRC
 
-** CSV
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'csv-mode)
-  (require 'csv-mode)
-#+END_SRC
-
 ** Scala
 
 *** scala-mode2

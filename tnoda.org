@@ -2604,18 +2604,6 @@ color-moccur.el に依存している．
   (define-key isearch-mode-map (kbd "M-o") 'anything-c-moccur-from-isearch)
 #+END_SRC
 
-** anything-project.el
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-url "https://raw.github.com/imakado/anything-project/master/anything-project.el")
-#+END_SRC
-
-*** =C-c f= で =anything-project=.                                      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'anything-project)
-  (global-set-key (kbd "C-c f") 'anything-project)
-#+END_SRC
-
 ** =ruby-mode= の =C-c C-y= で =yari-anything=.                         :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/ri-bind-key ()

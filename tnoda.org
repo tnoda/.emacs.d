@@ -2996,18 +2996,9 @@ main.org のトップレベルに refile できるようにする．
 
 ** Beamer
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'org-latex)
-  (setq org-export-latex-date-format "%Y-%m-%d")
-  (add-to-list 'org-export-latex-classes
-    '("jsarticle"
-      "\\documentclass[a4j]{jsarticle}"
-      ("\\section{%s}" . "\\section*{%s}")
-      ("\\subsection{%s}" . "\\subsection*{%s}")
-      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-      ("\\paragraph{%s}" . "\\paragraph*{%s}")
-      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-  ))
+  (add-to-list 'org-export-backends 'beamer)
 #+END_SRC
+
 ** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/org-babel-demarcate-block-as-elisp ()
@@ -3049,7 +3040,7 @@ main.org のトップレベルに refile できるようにする．
   ,#+BEAMER_FRAME_LEVEL: 2
   ,#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
   ,#+OPTIONS: toc:nil
-  ,#+BEAMER_HEADER_EXTRA: \\usepackage{tnoda-beamer}
+  ,#+BEAMER_HEADER: \\usepackage{tnoda-beamer}
   ,#+AUTHOR: Takahiro Noda
   ,#+DATE: 2013-04-01
   ,#+EMAIL: foo@example.com

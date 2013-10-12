@@ -2953,6 +2953,7 @@ main.org のトップレベルに refile できるようにする．
 *** Latex
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-latex-pdf-process '("platex %b" "platex %b" "dvipdfmx %b"))
+  (setq org-latex-default-class "jsarticle")
 #+END_SRC
 
 ** Babel

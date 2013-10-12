@@ -2956,6 +2956,11 @@ main.org のトップレベルに refile できるようにする．
   (setq org-latex-default-class "jsarticle")
 #+END_SRC
 
+*** Beamer
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-beamer-frame-level 2)
+#+END_SRC
+
 ** Babel
 *** ob-markdown のインストール．
 #+BEGIN_SRC emacs-lisp :tangle install.el

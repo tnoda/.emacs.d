@@ -2041,7 +2041,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
     (interactive)
     (flet ((ruby-beginning-of-defun (&optional arg) (tnoda/ruby-beginning-of-defun))
            (ruby-end-of-defun (&optional arg) (tnoda/ruby-end-of-defun)))
-      (call-interactively 'ruby-mark-defun)))
+      (call-interactively 'mark-defun)))
   
   (define-key ruby-mode-map (kbd "C-M-h") 'tnoda/ruby-mark-defun)
 #+END_SRC

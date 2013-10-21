@@ -1953,6 +1953,8 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
     (electric-pair-mode 1)
     (electric-indent-mode 1)
     (electric-layout-mode 1)
+    (make-local-variable 'electric-pair-pairs)
+    (setq-local electric-pair-pairs '((?\| . ?\|)))
     (subword-mode 1)
     (setq show-trailing-whitespace t)
     (outline-minor-mode 1)

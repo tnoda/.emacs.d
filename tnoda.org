@@ -1953,6 +1953,8 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
     (electric-pair-mode 1)
     (electric-indent-mode 1)
     (electric-layout-mode 1)
+    (make-local-variable 'electric-pair-pairs)
+    (setq-local electric-pair-pairs '((?\| . ?\|)))
     (subword-mode 1)
     (setq show-trailing-whitespace t)
     (outline-minor-mode 1)
@@ -2041,7 +2043,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
     (interactive)
     (flet ((ruby-beginning-of-defun (&optional arg) (tnoda/ruby-beginning-of-defun))
            (ruby-end-of-defun (&optional arg) (tnoda/ruby-end-of-defun)))
-      (call-interactively 'ruby-mark-defun)))
+      (call-interactively 'mark-defun)))
   
   (define-key ruby-mode-map (kbd "C-M-h") 'tnoda/ruby-mark-defun)
 #+END_SRC
@@ -2090,6 +2092,56 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync '(rspec-mode))
   (require 'rspec-mode)
+#+END_SRC
+
+*** Rsense
+
+**** Install via Homebrew
+
+#+BEGIN_EXAMPLE
+  ~ % brew install rsense
+  ==> Downloading http://cx4a.org/pub/rsense/rsense-0.3.tar.bz2
+  ################################################################### 100.0%
+  ==> Caveats
+  If this is your first install, create default config file:
+      ruby /opt/homebrew/Cellar/rsense/0.3/libexec/etc/config.rb > ~/.rsense
+  
+  You will also need to setup Emacs and/or Vim to use Rsense. Please
+  refer to the User Manual: http://cx4a.org/software/rsense/manual.html
+  ==> Summary
+  🍺  /opt/homebrew/Cellar/rsense/0.3: 115 files, 9.9M, built in 36 seconds
+  ~ % ruby /opt/homebrew/Cellar/rsense/0.3/libexec/etc/config.rb > ~/.rsense
+#+END_EXAMPLE
+
+**** Configuration
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defconst rsense-home "/opt/homebrew/Cellar/rsense/0.3/libexec")
+  (add-to-list 'load-path (expand-file-name "etc" rsense-home))
+  (require 'rsense)
+  
+  ;;; Ruby Reference Manual
+  (setq rsense-rurema-home "/Users/tnoda/.rbenv/shims")
+  (setq rsense-rurema-refe "refe")
+  
+  ;;; C-c .
+  (define-prefix-command 'tnoda/rsense-map)
+  (define-key ruby-mode-map (kbd "C-c .") 'tnoda/rsense-map)
+  (define-key tnoda/rsense-map (kbd ".") 'ac-complete-rsense)
+  (define-key tnoda/rsense-map (kbd "t") 'rsense-type-help)
+  (define-key tnoda/rsense-map (kbd "j") 'rsense-jump-to-definition)
+  (define-key tnoda/rsense-map (kbd "w") 'rsense-where-is)
+  (define-key tnoda/rsense-map (kbd "v") 'rsense-version)
+  (define-key tnoda/rsense-map (kbd "o") 'rsense-open-project)
+  (define-key tnoda/rsense-map (kbd "c") 'rsense-close-project)
+  (define-key tnoda/rsense-map (kbd "l") 'rsense-clear)
+  (define-key tnoda/rsense-map (kbd "x") 'rsense-exit)
+  
+  ;;; Start completion automatically after inserting . or ::.
+  (defun tnoda/ac-complete-rsense-automatically ()
+    (add-to-list 'ac-sources 'ac-source-rsense-method)
+    (add-to-list 'ac-sources 'ac-source-rsense-constant))
+  (add-hook 'ruby-mode-hook 'tnoda/ac-complete-rsense-automatically)
 #+END_SRC
 
 ** Rinari

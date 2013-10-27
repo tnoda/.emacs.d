@@ -1802,7 +1802,8 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 *** clojure-mode
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'clojure-mode)
+  (el-get 'sync 'clojure-mode)
+  
   (define-key clojure-mode-map (kbd "<f5>") 'nrepl-ritz-jack-in)
   (define-key clojure-mode-map (kbd "C-c t") nil)
   

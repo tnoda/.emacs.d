@@ -1795,11 +1795,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 * Lang
 ** Clojure                                                       :marmalade:
-*** Install elisps using el-get.                                      :elget:
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (el-get 'sync '(clojure-mode nrepl nrepl-ritz ac-nrepl))
-#+END_SRC
-
 *** Leiningen has been installed in =~/lein=.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'exec-path (expand-file-name ".lein" "~/"))

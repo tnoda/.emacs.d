@@ -1853,7 +1853,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 *** ac-nrepl.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'ac-nrepl)
+  (el-get 'sync 'ac-nrepl)
   
   (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
   (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)

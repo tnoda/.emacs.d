@@ -1835,12 +1835,12 @@ Pressing =C-z= toggles between an eshell buffer and another.
                                                                                    (+ 4 (length (tnoda/lein-root)))))))
 #+END_SRC
 
-*** nrepl.el
+*** CIDER
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'nrepl)
+  (el-get 'sync 'cider)
   
-  (defun tnoda/nrepl-mode-hook ()
-    (nrepl-turn-on-eldoc-mode)
+  (defun tnoda/cider-mode-hook ()
+    (cider-turn-on-eldoc-mode)
     (enable-paredit-mode)
     (rainbow-delimiters-mode 1)
     (subword-mode 1)
@@ -1848,7 +1848,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
     (clojure-mode-font-lock-setup)
     (font-lock-mode 1))
   
-  (add-hook 'nrepl-mode-hook 'tnoda/nrepl-mode-hook)
+  (add-hook 'cider-mode-hook 'tnoda/cider-mode-hook)
 #+END_SRC
 
 *** ac-nrepl.el

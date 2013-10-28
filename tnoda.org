@@ -1852,14 +1852,14 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (add-hook 'cider-repl-mode-hook 'tnoda/cider-repl-mode-hook)
 #+END_SRC
 
-*** ac-nrepl.el
+*** COMMENT ac-nrepl.el
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'ac-nrepl)
   
-  (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-  (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
+  (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
   (eval-after-load "auto-complete"
-    '(add-to-list 'ac-modes 'nrepl-mode))
+    '(add-to-list 'ac-modes 'cider-repl-mode))
 #+END_SRC
 
 *** Inferior Lisp Mode

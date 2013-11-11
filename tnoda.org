@@ -1795,11 +1795,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 * Lang
 ** Clojure                                                       :marmalade:
-*** Install elisps using el-get.                                      :elget:
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (el-get 'sync '(clojure-mode nrepl nrepl-ritz ac-nrepl))
-#+END_SRC
-
 *** Leiningen has been installed in =~/lein=.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'exec-path (expand-file-name ".lein" "~/"))
@@ -1807,7 +1802,8 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 *** clojure-mode
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'clojure-mode)
+  (el-get 'sync 'clojure-mode)
+  
   (define-key clojure-mode-map (kbd "<f5>") 'nrepl-ritz-jack-in)
   (define-key clojure-mode-map (kbd "C-c t") nil)
   
@@ -1839,12 +1835,13 @@ Pressing =C-z= toggles between an eshell buffer and another.
                                                                                    (+ 4 (length (tnoda/lein-root)))))))
 #+END_SRC
 
-*** nrepl.el
+*** CIDER
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'nrepl)
+  (el-get 'sync 'cider)
   
-  (defun tnoda/nrepl-mode-hook ()
-    (nrepl-turn-on-eldoc-mode)
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  
+  (defun tnoda/cider-repl-mode-hook ()
     (enable-paredit-mode)
     (rainbow-delimiters-mode 1)
     (subword-mode 1)
@@ -1852,24 +1849,17 @@ Pressing =C-z= toggles between an eshell buffer and another.
     (clojure-mode-font-lock-setup)
     (font-lock-mode 1))
   
-  (add-hook 'nrepl-mode-hook 'tnoda/nrepl-mode-hook)
+  (add-hook 'cider-repl-mode-hook 'tnoda/cider-repl-mode-hook)
 #+END_SRC
 
-*** ac-nrepl.el
+*** COMMENT ac-nrepl.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'ac-nrepl)
+  (el-get 'sync 'ac-nrepl)
   
-  (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-  (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
+  (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
   (eval-after-load "auto-complete"
-    '(add-to-list 'ac-modes 'nrepl-mode))
-#+END_SRC
-
-*** nrepl-ritz.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'nrepl-javadoc-local-paths
-               (expand-file-name "jdk-6u30-apidocs" "~/Documents"))
-  
+    '(add-to-list 'ac-modes 'cider-repl-mode))
 #+END_SRC
 
 *** Inferior Lisp Mode

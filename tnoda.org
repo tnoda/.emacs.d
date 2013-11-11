@@ -2790,6 +2790,32 @@ main.org のトップレベルに refile できるようにする．
 #+END_SRC
 
 ** To-Do
+
+*** Customize Org TODO faces
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defface tnoda/org-todo
+    '((t (:foreground "gray" :background "dark red" :bold t)))
+    "Font for TODO keywords.")
+  
+  (defface tnoda/org-started
+    '((t (:foreground "gray10" :background "gold1" :bold t)))
+    "Font for STARTED keywords.")
+  
+  (defface tnoda/org-waiting
+    '((t (:foreground "gray" :background "green4" :bold t)))
+    "Font for WAITING keywords.")
+  
+  (defface tnoda/org-appt
+    '((t (:foreground "gray" :background "DodgerBlue4" :bold t)))
+    "Font for APPT keywords")
+  
+  (setq org-todo-keyword-faces
+        '(("TODO" . tnoda/org-todo)
+          ("STARTED" . tnoda/org-started)
+          ("WAITING" . tnoda/org-waiting)
+          ("APPT" . tnoda/org-appt)))
+#+END_SRC
+
 *** =TODO= キーワードは各ファイルで共通のものを使うことにする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-todo-keywords

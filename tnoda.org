@@ -2819,7 +2819,7 @@ main.org のトップレベルに refile できるようにする．
 *** Block entries from changing state to DONE while they have children that are not DONE or checked.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-enforce-todo-dependencies t)
-  (setq org-enforce-todo-checkbox-dependencies t)
+  (setq org-enforce-todo-checkbox-dependencies nil)
 #+END_SRC
 
 *** Automatically change to DONE when all children are done.

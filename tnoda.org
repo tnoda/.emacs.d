@@ -1342,6 +1342,11 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
                            ("l" . hi-lock-mode)))
 #+END_SRC
 
+** smartparens                                                       :elget:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'smartparens)
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

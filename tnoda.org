@@ -1342,6 +1342,11 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
                            ("l" . hi-lock-mode)))
 #+END_SRC
 
+** smartparens                                                       :elget:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'smartparens)
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2443,9 +2448,12 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (setq scala-indent:align-parameters t)
   (setq scala-indent:align-forms t)
   
+  (require 'smartparens-config)
+  
   (defun tnoda/scala-mode-hook ()
     (subword-mode 1)
-    (electric-pair-mode 1)
+    (electric-pair-mode -1)
+    (turn-on-smartparens-strict-mode)
     (setq imenu-generic-expression
           '((nil "^ *\\(abstract \\|case \\)?\\(class\\|object\\) \\w+\\( extends [^\\{}]+\\)?.*" 0)
             (nil "^ *\\(override \\|implicit \\)?def .*" 0)

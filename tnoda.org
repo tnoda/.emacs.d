@@ -2986,6 +2986,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
         '(("H" "Home Lists"
            ((agenda "")
             (tags-todo "@home")
+            (tags-todo "coursera")
             (tags-todo "errands")
             (tags-todo "emacs")))
           ("D" "Daily Action List"

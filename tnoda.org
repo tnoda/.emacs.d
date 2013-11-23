@@ -183,19 +183,22 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
     (set-fontset-font nil '(#x0370 . #x03FF) "Helvetica")
     (setq tnoda/current-fontset 'default))
   
-  (defun tnoda/fontset-set-programming ()
+  (defun tnoda/fontset-set-retina ()
+    (set-face-attribute 'default nil
+                        :family "Ricty Ascii"
+                        :height 240)
     (set-fontset-font (frame-parameter nil 'font)
                       'japanese-jisx0208
-                      (font-spec :family "Ricty" :size 16))
+                      (font-spec :family "Hiragino Maru Gothic ProN" :size 24))
     (set-fontset-font nil '(#x0370 . #x03FF) "Helvetica")
-    (setq tnoda/current-fontset 'programming))
+    (setq tnoda/current-fontset 'retina))
   
   (defun tnoda/fontset-toggle ()
     (interactive)
     (case tnoda/current-fontset
       ('default
-        (tnoda/fontset-set-programming))
-      ('programming
+        (tnoda/fontset-set-retina))
+      ('retina
        (tnoda/fontset-set-default))
       (t
        (error "invalid fontset"))))
@@ -263,6 +266,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 *** リージョンに色をつける．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (transient-mark-mode 1)
+  (set-face-background 'region "blue")
 #+END_SRC
 
 *** カーソルを点滅させない．

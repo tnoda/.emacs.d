@@ -177,6 +177,9 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
   (defvar tnoda/current-fontset 'default)
   
   (defun tnoda/fontset-set-default ()
+    (set-face-attribute 'default nil
+                        :family "Ricty Ascii"
+                        :height 160)
     (set-fontset-font (frame-parameter nil 'font)
                       'japanese-jisx0208
                       (font-spec :family "Hiragino Maru Gothic ProN" :size 16))
@@ -203,10 +206,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
       (t
        (error "invalid fontset"))))
   
-  (when window-system
-    (set-face-attribute 'default nil
-                        :family "Ricty Ascii"
-                        :height 160)
+  (when window-system  
     (tnoda/fontset-set-default))
   
   (global-set-key (kbd "s-f") 'tnoda/fontset-toggle)

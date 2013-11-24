@@ -3077,6 +3077,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
    '((emacs-lisp . t)
      (R . t)
      (clojure . t)
+     (scala . t)
      (ditaa . t)
      (dot . t)
      (haskell . t)

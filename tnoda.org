@@ -2810,7 +2810,7 @@ main.org のトップレベルに refile できるようにする．
     "Font for TODO keywords.")
   
   (defface tnoda/org-started
-    '((t (:foreground "gray10" :background "gold1" :bold t)))
+    '((t (:foreground "gold1" :background "gray10" :bold t)))
     "Font for STARTED keywords.")
   
   (defface tnoda/org-waiting

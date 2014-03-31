@@ -2846,11 +2846,6 @@ main.org のトップレベルに refile できるようにする．
 
 Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]]
 
-*** Add a time stamp to the task.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-log-done 'time)
-#+END_SRC
-
 *** =TODO= キーワードは各ファイルで共通のものを使うことにする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-todo-keywords

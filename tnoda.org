@@ -2904,7 +2904,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-capture-templates
-        '(("j" "Journal" entry (file "") "* %^{Head Line} %T\n\n%?"
+        '(("j" "Journal" entry (file "") "* %?   %T\n"
            :prepend t
            :clock-keep t
            :empty-lines 1

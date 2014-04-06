@@ -2894,72 +2894,39 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 #+END_SRC
 
 ** Capture
-+ ノートファイルには notes.org だけを使う．Capture は常にこのファイルに保存．
-+ テンプレートは 2 種類だけ
-  - Note
-    - 基本的にはこれを使う
-    - カレントタスクのクロックは止めない (:clock-keep)
-    - notes.org を開いていなければ，notes.org バッファを残さない (:kill-buffer)
-  - Away
-    - 席を離れるとき
-    - カレントタスクのクロックを停止 (:clock-in)
-    - Capture 終了時に元タスクのクロックを再開 (:clock-resume)
-    - notes.org を開いていなければ，notes.org バッファを残さない (:kill-buffer)
-   
+
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
-  (setq org-reverse-note-order t)
+  (setq org-default-notes-file (expand-file-name "journal.org" org-directory))
+  (define-key global-map "\C-cc" 'org-capture)
+#+END_SRC
+
+*** Templates
+
+#+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-capture-templates
-        '(("n" "Note" entry (file "") "* %?\n  %U\n  %i\n  %a"
+        '(("j" "Journal" entry (file "") "* %^{Head Line} %U\n\n%?"
+           :prepend t
            :clock-keep t
            :empty-lines 1
            :kill-buffer t)
-          ("a" "Away" entry (file "") "* %? :away:"
-           :clock-in t
-           :clock-resume t
+          ("t" "Todo" entry (file+headline tnoda/gtd-file "Tasks")
+           "* TODO %^{Brief Description} %^g\n\n%?\n%i\n%a\nAdded: %U\n"
+           :prepend t
+           :clock-keep t
            :empty-lines 1
            :kill-buffer t)
-          ("t" "Task" entry (file+headline tnoda/gtd-file "Tasks")
-           "* TODO %?\n %i\n %a"
-           :clock-keep t
-           :kill-buffer t)
-          ("m" "Meditation" entry (file "") "* Meditation%?"
+          ("m" "Morning Routine" entry (file "")
+           "* Morning Routine %U\n\n%[~/org/morning_routine.org]"
+           :prepend t
            :clock-in t
-           :clock-resume t
+           :empty-lines 1
+           :kill-buffer t)
+          ("r" "Daily Review" entry (file "")
+           "* Daily Review %U\n\n%[~/org/daily_review.org]"
+           :prepend t
+           :clock-in t
            :empty-lines 1
            :kill-buffer t)))
-#+END_SRC
-
-*** =C-c n= で Capture Note 開始．                                      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-capture-note ()
-      (interactive)
-      (org-capture nil "n"))
-    (global-set-key (kbd "C-c n") 'tnoda/org-capture-note)
-#+END_SRC
-
-*** =C-c z= で Capture Away 開始．                                      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-capture-away ()
-    (interactive)
-    (org-capture nil "a"))
-  (global-set-key (kbd "C-c z") 'tnoda/org-capture-away)
-#+END_SRC
-
-*** =C-c t= で Capture Task 開始．                                      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-capture-task ()
-    (interactive)
-    (org-capture nil "t"))
-  (global-set-key (kbd "C-c t") 'tnoda/org-capture-task)
-#+END_SRC
-
-*** Bind =C-c m= to =tnoda/org-capture-meditation=.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-capture-meditation ()
-    (interactive)
-    (org-capture nil "m"))
-  (global-set-key (kbd "C-c m") 'tnoda/org-capture-meditation)
 #+END_SRC
 
 ** GTD

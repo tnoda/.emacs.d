@@ -2872,6 +2872,20 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
             'sacha/org-clock-out-if-waiting)
 #+END_SRC
 
+** Tags
+
+*** Globally defined tags
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-tag-alist '((:startgroup . nil)
+                        ("home" . ?h)
+                        ("office" . ?o)
+                        (:endgroup . nil)
+                        ("computer" . ?c)
+                        ("errands" . ?e)
+                        ("library" . ?l)
+                        ("reading" . ?r)))
+#+END_SRC
+
 ** Capture
 + ノートファイルには notes.org だけを使う．Capture は常にこのファイルに保存．
 + テンプレートは 2 種類だけ

@@ -1,4 +1,5 @@
 #+TITLE: Emacs 初期化ファイルの本体
+#+STARTUP: noptag
 #+STARTUP: content
 #+STARTUP: hidestars
 #+STARTUP: indent

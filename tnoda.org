@@ -2958,9 +2958,15 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 #+END_SRC
 
 ** Agenda
-*** Agenda に含めるファイルは， =main.org= と =notes.org=  の 2つ．
+
+*** Agenda files
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-agenda-files (list tnoda/gtd-file org-default-notes-file))
+  (setq org-agenda-files (-concat (-list tnoda/gtd-file org-default-notes-file)
+                                  (--map (expand-file-name it org-directory)
+                                         '("projects.org"
+                                           "habits.org"
+                                           "financial.org"
+                                           "family.org"))))
 #+END_SRC
 
 *** =<S-f7>= と =<f7>= に Org Agenda を開くコマンドを割り当てる．     :key:

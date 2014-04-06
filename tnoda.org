@@ -2976,15 +2976,17 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   (setq org-agenda-custom-commands
         '(("H" "Home Lists"
            ((agenda "")
-            (tags-todo "@home")
-            (tags-todo "coursera")
+            (tags-todo "home")
+            (tags-todo "office")
             (tags-todo "errands")
-            (tags-todo "emacs")))
+            (tags-todo "library")
+            (tags-todo "reading")))
           ("D" "Daily Action List"
            ((agenda "" ((org-agenda-ndays 1)
                         (org-agenda-sorting-strategy
                          (quote ((agenda time-up priority-down tag-up) )))
                         (org-deadline-warning-days 0)))))))
+  
   (defun tnoda/org-agenda-home-lists ()
     (interactive)
     (org-agenda nil "H"))

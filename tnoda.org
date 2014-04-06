@@ -2839,12 +2839,6 @@ main.org のトップレベルに refile できるようにする．
           ("APPT" . tnoda/org-appt)))
 #+END_SRC
 
-*** Block entries from changing state to DONE while they have children that are not DONE or checked.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-enforce-todo-dependencies t)
-  (setq org-enforce-todo-checkbox-dependencies nil)
-#+END_SRC
-
 *** Automatically change to DONE when all children are done.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun org-summary-todo (n-done n-not-done)

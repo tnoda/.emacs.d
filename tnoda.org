@@ -2979,8 +2979,8 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
             (tags-todo "home")
             (tags-todo "office")
             (tags-todo "errands")
-            (tags-todo "library")
-            (tags-todo "reading")))
+            (tags "library")
+            (tags "reading")))
           ("D" "Daily Action List"
            ((agenda "" ((org-agenda-ndays 1)
                         (org-agenda-sorting-strategy

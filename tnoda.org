@@ -645,6 +645,12 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 #+END_SRC
 
 * Global
+
+** dash.el                                                           :elget:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'dash)
+#+END_SRC
+
 ** imenu.el
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'imenu)

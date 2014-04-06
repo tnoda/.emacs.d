@@ -2801,7 +2801,7 @@ main.org のトップレベルに refile できるようにする．
         '(("main.org" . (:level . 1))))
 #+END_SRC
 
-** To-Do
+** ~TODO~
 
 *** Customize Org TODO faces
 #+BEGIN_SRC emacs-lisp :tangle yes

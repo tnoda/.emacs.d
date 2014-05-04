@@ -2516,10 +2516,15 @@ would be done by the following steps:
                                      ("->" . (string-to-char "→"))
                                      ("<-" . (string-to-char "←"))
                                      ("\\<Nil\\>" . (string-to-char "∅"))
-                                     ("!"  . (string-to-char "¬"))
                                      ("&&" . (string-to-char "∧"))
                                      ("||" . (string-to-char "∨"))
                                      ("\\<compose\\>" . (string-to-char "◦") )))
+  (font-lock-add-keywords
+   'scala-mode
+   '(("\\(!\\)[^=]" (0 (prog1 ()
+                     (compose-region (match-beginning 1)
+                                     (match-end 1)
+                                     (string-to-char "¬")))))))
 #+END_SRC
 
 ** Graphviz

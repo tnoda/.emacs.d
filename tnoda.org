@@ -2506,6 +2506,16 @@ would be done by the following steps:
         "file:///Users/tnoda/Documents/jdk-6u30-apidocs/api/")
 #+END_SRC
 
+*** pretty-mode.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'scala-mode-hook 'turn-on-pretty-mode)
+  (pretty-add-keywords 'scala-mode '(("=>" . (string-to-char "⇒"))
+                                     ("<=" . (string-to-char "≤"))
+                                     (">=" . (string-to-char "≥"))
+                                     ("!=" . (string-to-char "≠"))
+                                     ("->" . (string-to-char "→"))
+                                     ("<-" . (string-to-char "←"))))
+#+END_SRC
 
 ** Graphviz
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -1358,6 +1358,11 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
   (el-get 'sync 'smartparens)
 #+END_SRC
 
+** pretty-mode.el                                                    :elget:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'pretty-mode)
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

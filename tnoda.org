@@ -2514,7 +2514,12 @@ would be done by the following steps:
                                      (">=" . (string-to-char "≥"))
                                      ("!=" . (string-to-char "≠"))
                                      ("->" . (string-to-char "→"))
-                                     ("<-" . (string-to-char "←"))))
+                                     ("<-" . (string-to-char "←"))
+                                     ("\\<Nil\\>" . (string-to-char "∅"))
+                                     ("!"  . (string-to-char "¬"))
+                                     ("&&" . (string-to-char "∧"))
+                                     ("||" . (string-to-char "∨"))
+                                     ("\\<compose\\>" . (string-to-char "◦") )))
 #+END_SRC
 
 ** Graphviz

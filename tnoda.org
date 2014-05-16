@@ -1705,12 +1705,10 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 ** Mew
 *** インストール
-#+NAME: install-mew(prefix = tnoda-dotfiles-dir, elisp_dir = tnoda-elisp-dir, emacs = emacs-app)
-#+BEGIN_SRC sh :tangle install-mew.sh
+#+BEGIN_SRC sh :tangle install-mew.sh :var prefix=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app
   cd src
-  curl http://www.mew.org/Release/mew-6.5.tar.gz | tar zxf -
-  cd mew-6.5
-  autoconf
+  curl http://www.mew.org/Release/mew-6.6.tar.gz | tar zxf -
+  cd mew-6.6
   ./configure --prefix=${prefix} \
           --with-elispdir=${elisp_dir}/mew \
           --with-emacs=$emacs --with-etcdir=${prefix}/share/mew

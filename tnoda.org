@@ -1412,6 +1412,14 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (setq eshell-prompt-function 'tnoda/eshell-prompt-function)
 #+END_SRC
 
+* Shell-mode
+** Suppress echo-backs
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'shell-mode-hook
+            (lambda ()
+              (setq comint-process-echoes t)))
+#+END_SRC
+
 * Pcomplete
 ** Git ブランチのリストを返す関数 =tnoda/git-branches=.
 #+BEGIN_SRC emacs-lisp :tangle yes

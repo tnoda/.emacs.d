@@ -2474,15 +2474,16 @@ flymake-ruby で使う Ruby は rbenv のもの．
 *** scala-mode2
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'scala-mode2)
-  
+
   (setq scala-indent:default-run-on-strategy 1)
   (setq scala-indent:indent-value-expression t)
   (setq scala-indent:align-parameters t)
   (setq scala-indent:align-forms t)
-  
+
   (require 'smartparens-config)
-  
+
   (defun tnoda/scala-mode-hook ()
+    (tnoda/increase-line-spacing)
     (subword-mode 1)
     (electric-pair-mode -1)
     (turn-on-smartparens-strict-mode)
@@ -2490,7 +2491,7 @@ flymake-ruby で使う Ruby は rbenv のもの．
           '((nil "^ *\\(abstract \\|case \\)?\\(class\\|object\\) \\w+\\( extends [^\\{}]+\\)?.*" 0)
             (nil "^ *\\(override \\|implicit \\)?def .*" 0)
             (nil "\\( *trait .*\\){" 1))))
-  
+
   (add-hook 'scala-mode-hook 'tnoda/scala-mode-hook)
 #+END_SRC
 

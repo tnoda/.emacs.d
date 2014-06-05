@@ -2550,6 +2550,17 @@ would be done by the following steps:
   (setq graphviz-dot-indent-width 2)
 #+END_SRC
 
+** Python
+
+*** Jedi.el
+#+BEGIN_SRC emacs-lisp :tangle no
+  (el-get 'sync 'jedi)
+  (require 'python-environment)
+  (setq python-environment-virtualenv '("pyvenv" "--system-site-packages"))
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+#+END_SRC
+
 * ESS                                                                 :elget:
 ** Install using a local recipe to install the stable version.
 #+BEGIN_SRC emacs-lisp :tangle yes

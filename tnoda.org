@@ -1358,6 +1358,17 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
   (el-get 'sync 'pretty-mode)
 #+END_SRC
 
+** flymake                                                           :elget:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'flymake)
+#+END_SRC
+
+** flycheck
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'flycheck)
+#+END_SRC
+
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2544,6 +2555,55 @@ would be done by the following steps:
   (setq python-environment-virtualenv '("pyvenv" "--system-site-packages"))
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t)
+#+END_SRC
+
+
+** Golang
+
+*** go-mode/gocode
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defvar tnoda/gopath (expand-file-name "go" (getenv "HOME")))
+  (defvar tnoda/gopath-bin (expand-file-name "bin" tnoda/gopath))
+
+  (setenv "GOPATH" tnoda/gopath)
+  (setenv "PATH" (concat (getenv "PATH") ":" tnoda/gopath-bin))
+  (add-to-list 'exec-path tnoda/gopath-bin)
+
+  (el-get 'sync 'go-autocomplete)
+
+  (eval-after-load "go-mode"
+    '(add-hook 'before-save-hook 'gofmt-before-save))
+
+  (defun tnoda/smartparens-go ()
+    (require 'smartparens-config)
+    (turn-on-smartparens-mode)
+    (sp-use-paredit-bindings))
+
+  (add-hook 'go-mode-hook 'tnoda/smartparens-go)
+
+  (define-key go-mode-map (kbd "M-.") 'godef-jump)
+  (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
+  (define-key go-mode-map (kbd "C-c C-j") 'go-goto-imports)
+  (define-key go-mode-map (kbd "C-c C-r") 'go-remove-unused-imports)
+
+  (defun tnoda/go-mode-tab-width ()
+    (setq tab-width 4))
+
+  (add-hook 'go-mode-hook 'tnoda/go-mode-tab-width)
+
+#+END_SRC
+
+*** go-eldoc
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'go-eldoc)
+
+#+END_SRC
+
+*** flycheck
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'flycheck)
+  (add-hook 'go-mode-hook 'flycheck-mode)
+
 #+END_SRC
 
 * ESS                                                                 :elget:

@@ -1935,18 +1935,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (add-hook 'inferior-lisp-mode-hook 'clojure-mode-font-lock-setup)
 #+END_SRC
 
-** CoffeeScript                                                  :marmalade:
-+ インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (package-install 'coffee-mode)
-    (package-install 'flymake-coffee)
-  #+END_SRC
-
-+ =coffee-mode= で flymake を有効にする．
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (add-hook 'coffee-mode-hook 'flymake-coffee-load)
-  #+END_SRC
-  
 ** Ruby
 
 *** Install elisps using el-get.

@@ -2554,7 +2554,7 @@ would be done by the following steps:
   (el-get 'sync 'go-autocomplete)
 
   (defun tnoda/gofmt-before-save ()
-    "The original version of go-fmt may break the kill-ring function,
+    "The original version of go-fmt may break the kill-region function,
   if it has an advised version."
     (interactive)
     (when (eq major-mode 'go-mode)

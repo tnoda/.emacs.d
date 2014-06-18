@@ -963,12 +963,6 @@ Eshell から =emacsclient= したときに，違うフレームで表示した�
   (el-get 'sync 'yasnippet)
 #+END_SRC
 
-*** Enable Yas minor mode in every possible buffer.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'yasnippet)
-  (yas-global-mode 1)
-#+END_SRC
-
 *** メジャーモードが =TAB= キーをインデントに使っているときの回避策．
 
 http://capitaomorte.github.com/yasnippet/faq.html

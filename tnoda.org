@@ -1345,6 +1345,8 @@ rubikitch 先生曰く「コマンドの『カラ実行』」．
 ** smartparens                                                       :elget:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'smartparens)
+  (sp-use-paredit-bindings)
+
 #+END_SRC
 
 ** pretty-mode.el                                                    :elget:

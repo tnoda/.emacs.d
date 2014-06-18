@@ -2556,14 +2556,10 @@ would be done by the following steps:
   (eval-after-load "go-mode"
     '(add-hook 'before-save-hook 'gofmt-before-save))
 
-  (defun tnoda/smartparens-go ()
-    (require 'smartparens-config)
-    (turn-on-smartparens-mode)
-    (sp-use-paredit-bindings))
 
-  (add-hook 'go-mode-hook 'tnoda/smartparens-go)
 
   (add-hook 'go-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'go-mode-hook 'turn-on-smartparens-strict-mode)
 
   (define-key go-mode-map (kbd "M-.") 'godef-jump)
   (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)

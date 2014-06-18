@@ -2997,7 +2997,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
            :empty-lines 1
            :kill-buffer t)
           ("t" "Todo" entry (file+headline tnoda/gtd-file "Tasks")
-           "* TODO %^{Brief Description} %^g\n\n%?\n%i\n%a\nAdded: %U\n"
+           "* TODO %? %^g\n\n%i\n%a\nAdded: %U\n\n"
            :prepend t
            :clock-keep t
            :empty-lines 1

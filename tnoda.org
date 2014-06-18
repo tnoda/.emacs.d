@@ -2553,8 +2553,16 @@ would be done by the following steps:
 
   (el-get 'sync 'go-autocomplete)
 
+  (defun tnoda/gofmt-before-save ()
+    "The original version of go-fmt may break the kill-ring function,
+  if it has an advised version."
+    (interactive)
+    (when (eq major-mode 'go-mode)
+      (sense-region-off)
+      (gofmt)
+      (sense-region-on)))
 
-  (add-hook 'before-save-hook 'gofmt-before-save)
+  (add-hook 'before-save-hook 'tnoda/gofmt-before-save)
   (add-hook 'go-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'go-mode-hook 'turn-on-smartparens-strict-mode)
 

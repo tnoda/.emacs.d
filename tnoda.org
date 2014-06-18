@@ -2553,11 +2553,8 @@ would be done by the following steps:
 
   (el-get 'sync 'go-autocomplete)
 
-  (eval-after-load "go-mode"
-    '(add-hook 'before-save-hook 'gofmt-before-save))
 
-
-
+  (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'go-mode-hook 'turn-on-smartparens-strict-mode)
 

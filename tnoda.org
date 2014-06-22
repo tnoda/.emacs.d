@@ -2537,6 +2537,9 @@ would be done by the following steps:
   (el-get 'sync 'jedi)
   (require 'python-environment)
   (setq python-environment-virtualenv '("pyvenv" "--system-site-packages"))
+  (require 'auto-complete-config)
+  (require 'python)
+  (require 'jedi)
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t)
 #+END_SRC

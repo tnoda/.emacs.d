@@ -2542,8 +2542,19 @@ would be done by the following steps:
   (require 'jedi)
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t)
+
 #+END_SRC
 
+*** Flycheck
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'flycheck)
+  (require 'python)
+
+  (defun tnoda/turn-on-flycheck-mode ()
+    (flycheck-mode 1))
+  (add-hook 'python-mode-hook 'tnoda/turn-on-flycheck-mode)
+
+#+END_SRC
 
 ** Golang
 

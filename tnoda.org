@@ -2568,6 +2568,7 @@ would be done by the following steps:
   (add-hook 'go-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'go-mode-hook 'turn-on-smartparens-strict-mode)
   (add-hook 'go-mode-hook 'tnoda/increase-line-spacing)
+  (add-hook 'go-mode-hook 'subword-mode)
 
   (define-key go-mode-map (kbd "M-.") 'godef-jump)
   (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)

@@ -837,17 +837,14 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (add-hook 'bookmark-after-jump-hook 'tnoda/bookmark-arrange)
 #+END_SRC
 
-** auto-save-buffers.el                              :autoinstall:rubikitch:
-+ インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "http://homepage3.nifty.com/oatu/emacs/archives/auto-save-buffers.el")
-  #+END_SRC
+** auto-save-buffers-enhanced.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'auto-save-buffers-enhanced)
 
-+ 2 秒何もしなければセーブ
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (require 'auto-save-buffers)
-    (run-with-idle-timer 2 t 'auto-save-buffers)
-  #+END_SRC
+  (auto-save-buffers-enhanced t)
+  (setq auto-save-buffers-enhanced-interval 2)
+
+#+END_SRC
 
 ** sense-region.el                               :key:autoinstall:rubikitch:
 
@@ -2847,11 +2844,11 @@ My day really ends at two o'clock in the morning.
   (lexical-let ((previous-active-p))
     (defadvice org-edit-src-code (before tnoda/auto-save-buffers-toggle activate)
       "Disable auto-save-buffers."
-      (setq previous-active-p  auto-save-buffers-active-p)
+      (setq previous-active-p  auto-save-buffers-enhanced-active-flag)
       (setq auto-save-buffers-active-p nil))
     (defadvice org-edit-src-exit (after tndoa/auto-save-buffers-toggle activate)
       "Recover auto-save-buffers."
-      (setq auto-save-buffers-active-p previous-active-p)))
+      (setq auto-save-buffers-enhanced-active-flag previous-active-p)))
 #+END_SRC
 
 停止しないと，src ブロックを編集している最中に，

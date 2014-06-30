@@ -223,13 +223,13 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
   (global-set-key (kbd "s-f") 'tnoda/fontset-toggle)
 #+END_SRC
 
-*** Apply solarlized-dark theme
+*** Apply solarized-dark theme
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'color-theme-solarized)
-  
-  (require 'color-theme)
+
   (color-theme-initialize)
   (color-theme-solarized-dark)
+
 #+END_SRC
 
 *** ツールバーなどを表示しない．

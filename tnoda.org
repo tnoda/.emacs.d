@@ -674,11 +674,12 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   using smartrep.el.
   - Pressing =M-g n n n ...=, you can visit the corresponding lines.
 
-** bm.el                                             :autoinstall:rubikitch:
+** bm.el                                                   :elget:rubikitch:
 *** インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "http://cvs.savannah.gnu.org/viewvc/*checkout*/bm/bm/bm.el")
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'bm)
+
+#+END_SRC
 
 *** =bm.el= ロード時にマークを復元する．Emacs を終了してもマークを復元できるようにする．
 #+BEGIN_SRC emacs-lisp :tangle yes

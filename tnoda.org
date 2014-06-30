@@ -89,10 +89,6 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
 ** Marmalade/ELPA
 + ELPA ではなく Marmalade の package.el をインストールする
   - Marmalade も ELPA 互換なので問題ない．
-+ インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "http://repo.or.cz/w/emacs.git/blob_plain/1a0a666f941c99882093d7bd08ced15033bc3f0c:/lisp/emacs-lisp/package.el")
-  #+END_SRC
 + 設定
   - Marmalade も使えるようにする
   #+BEGIN_SRC emacs-lisp :tangle yes

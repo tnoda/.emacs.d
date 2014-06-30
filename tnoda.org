@@ -782,8 +782,9 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 最近使ったファイルを表示する =recentf.el= をもっと便利に．
 
 *** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "recentf-ext.el")
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'recentf-ext)
+
 #+END_SRC
 
 *** =recentf-exclude= に履歴に含めないファイルを設定．

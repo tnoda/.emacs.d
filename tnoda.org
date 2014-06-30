@@ -471,19 +471,21 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
   (load "~/.calendar-location.el")
 #+END_SRC
 
-*** 日本の祝日
-+ japanese-holidays.el のインストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "http://www.meadowy.org/meadow/netinstall/export/799/branches/3.00/pkginfo/japanese-holidays/japanese-holidays.el")
-  #+END_SRC
-  
-+ 設定
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (require 'japanese-holidays)
-    (setq calendar-holidays japanese-holidays)
-    (setq calendar-mark-holidays-flag t)
-    (add-hook 'today-visible-calendar-hook 'calendar-mark-today)
-  #+END_SRC
+*** japanese-holidays.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'japanese-holidays)
+
+  (setq calendar-holidays
+        (append japanese-holidays local-holidays other-holidays))
+  (setq mark-holidays-in-calendar t) ; 祝日をカレンダーに表示
+
+  ;; (setq japanese-holiday-weekend '(0 6)     ; 土日を祝日として表示
+  ;;       japanese-holiday-weekend-marker     ; 土曜日を水色で表示
+  ;;       '(holiday nil nil nil nil nil japanese-holiday-saturday))
+  ;; (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
+  ;; (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend))
+
+#+END_SRC
 
 ** スクリプトファイルを保存するときには，モードを実行可能に設定する．
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -735,7 +735,7 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 キーボード同時押し時のコマンドを指定する =key-chord-define= が使えるようになる．
 
 *** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
+#+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'key-chord)
 
 #+END_SRC

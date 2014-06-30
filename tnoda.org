@@ -2556,6 +2556,13 @@ would be done by the following steps:
 
 #+END_SRC
 
+*** Smartparens
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'python)
+  (add-hook 'python-mode-hook 'turn-on-smartparens-strict-mode)
+
+#+END_SRC
+
 ** Golang
 
 *** go-mode/gocode

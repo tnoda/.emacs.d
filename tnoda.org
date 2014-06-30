@@ -730,13 +730,14 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 
 #+END_SRC
 
-** key-chord.el                                      :autoinstall:rubikitch:
+** key-chord.el                                            :elget:rubikitch:
 
 キーボード同時押し時のコマンドを指定する =key-chord-define= が使えるようになる．
 
 *** インストール
 #+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "key-chord.el")
+  (el-get 'sync 'key-chord)
+
 #+END_SRC
 
 *** 全てのバッファで =key-chord-mode= を有効に．

@@ -720,15 +720,14 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (global-set-key (kbd "s->") 'bm-next)
 #+END_SRC
 
-** sequencial-command.el                             :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-batch "sequential-command")
-#+END_SRC
-*** =M-a=, =M-e=, =M-u=, =M-d=, =M-c= の挙動が変わり，連打が有効になる．        :key:
+** sequencial-command.el                                   :elget:rubikitch:
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync '(sequential-command sequential-command-config))
+
+  (require 'sequential-command)
   (require 'sequential-command-config)
   (sequential-command-setup-keys)
+
 #+END_SRC
 
 ** key-chord.el                                      :autoinstall:rubikitch:

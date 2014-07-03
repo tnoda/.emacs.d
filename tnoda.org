@@ -846,19 +846,17 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 
 #+END_SRC
 
-** sense-region.el                               :key:autoinstall:rubikitch:
+** sense-region.el                                     :key:elget:rubikitch:
 
 =C-SPC= 連打で選択範囲が広がっていく．マークとポイントが対角線の矩形を選択できる．
 
-*** インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "https://raw.github.com/gist/1776988/63a04b9b81bc5dbeef2d3878994639fd81ddc276/sense-region.el")
-  #+END_SRC
 
-*** すべてのバッファで sence-region を有効に．
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'sense-region)
+
   (require 'sense-region)
   (sense-region-on)
+
 #+END_SRC
 
 *** =C-SPC= 連打で =mark-word= できるので，=M-@= を無効にする．あまり使わないし．
@@ -868,10 +866,12 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (global-unset-key (kbd "M-@"))
 #+END_SRC
 
-** cycle-buffers.el                                  :autoinstall:rubikitch:
+** cycle-buffer.el                                         :elget:rubikitch:
 *** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "cycle-buffer.el")
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'cycle-buffer)
+
 #+END_SRC
 
 *** =autoload= ではなく =require= する．
@@ -907,10 +907,11 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (global-set-key (kbd "M->")   'cycle-buffer)
 #+END_SRC
 
-** popwin.el                                                   :autoinstall:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-url "https://raw.github.com/m2ym/popwin-el/v0.3/popwin.el")
+** popwin.el                                                         :elget:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'popwin)
+
 #+END_SRC
 
 *** =special-display-function= で使う．
@@ -991,10 +992,11 @@ http://capitaomorte.github.com/yasnippet/faq.html
                           (buffer-name (current-buffer)))))))
 #+END_SRC
 
-** point-undo.el                                     :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "point-undo.el")
+** point-undo.el                                           :elget:rubikitch:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'point-undo)
+
 #+END_SRC
 
 *** Require
@@ -1012,10 +1014,11 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (global-set-key (kbd "C-.") 'point-redo)
 #+END_SRC
 
-** goto-chg.el                                       :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "goto-chg.el")
+** goto-chg.el                                             :elget:rubikitch:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'goto-chg)
+
 #+END_SRC
 
 *** Require
@@ -1033,11 +1036,13 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (global-set-key (kbd "C->") 'goto-last-change-reverse)
 #+END_SRC
 
-** eldoc-extension.el                                          :autoinstall:
-+ インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-emacswiki "eldoc-extension.el")
-  #+END_SRC
+** eldoc-extension.el                                                :elget:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'eldoc-extension)
+
+#+END_SRC
+
 + 設定
   - =emacs-lisp-mode= と =ielm-mode= で有効にする．
   - =lisp-interaction-mode= は Clojure にとっておく．
@@ -1050,19 +1055,23 @@ http://capitaomorte.github.com/yasnippet/faq.html
     (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
   #+END_SRC
 
-** tempbuf.el                                        :autoinstall:rubikitch:
-+ =tempbuf.el= は =tempbuf-mode= マイナーモードを提供する．
-  + =tempbuf-mode= はバッファごとに作用し，不要と思われるバッファを自動削除．
-+ インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-emacswiki "tempbuf.el")
-  #+END_SRC
-+ 設定
-  - =dired-mode= でだけ =tempbuf-mode= を有効にする．
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (require 'tempbuf)
-      (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
-    #+END_SRC
+** tempbuf.el                                              :elget:rubikitch:
+
+#+BEGIN_QUOTE
+Tempbuf-mode is a minor mode that enables buffers to get
+automatically deleted in the background when it can be deduced that
+they are no longer of any use.
+
+- tempbuf.el
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'tempbuf)
+
+  (require 'tempbuf)
+  (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
+
+#+END_SRC
     
 ** auto-complete.el                                        :elget:rubikitch:
 *** Install via el-get.
@@ -1077,77 +1086,79 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (setq ac-auto-start 4)
 #+END_SRC
   
-** col-highlight.el                                  :autoinstall:rubikitch:
+** col-highlight.el                                        :elget:rubikitch:
 
-現在桁をハイライトする．
+Do =M-x column-highlight=, to highlight the corrent column.
 
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-batch "col-highlight")
-#+END_SRC
-
-*** =M-x column-highlight-mode= で桁ハイライト切替．              :command:
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'col-highlight)
+
   (require 'col-highlight)
+
 #+END_SRC
 
-** paredit.el                                                  :autoinstall:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-url "http://mumble.net/~campbell/emacs/paredit.el")
-#+END_SRC
 
-*** LISP 関係のモードで有効にする．
+** paredit.el                                                        :elget:
+
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'paredit)
+
   (require 'paredit)
   (setq parens-require-spaces nil)
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'ielm-mode-hook 'enable-paredit-mode)
+
 #+END_SRC
 
-** rainbow-delimiters.el                                       :autoinstall:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "rainbow-delimiters.el")
-#+END_SRC
 
-*** とりあえず =emacs-lisp-mode= と =ielm=mode= で有効にする．
+** rainbow-delimiters.el                                             :elget:
+
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'rainbow-delimiters)
+
   (require 'rainbow-delimiters)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)
+
 #+END_SRC
 
-** open-junk-file.el                                 :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "open-junk-file.el")
-#+END_SRC
 
-*** =~/.junk/= に保存，ファイル名は =%Y%m%d-%H%M%S."．
+** open-junk-file.el                                       :elget:rubikitch:
+
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'open-junk-file)
+
   (require 'open-junk-file)
-  (setq open-junk-file-format "~/.junk/%Y%m%d-%H%M%S.")
+
 #+END_SRC
 
-*** =C-x f= で =open-junk-file=. =set-fill-column= は使わない．                     :key:
+*** Junk files will go to =~/.junk/=.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq open-junk-file-format "~/.junk/%Y%m%d-%H%M%S.")
+
+#+END_SRC
+
+*** =C-x f= opens a new junk file.                                    :key:
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "C-x f") 'open-junk-file)
+
 #+END_SRC
 
-** lispxmp.el                                        :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "lispxmp.el")
-#+END_SRC
 
-*** =<S-f5>= で =lispxmp=.                                            :key:
+** lispxmp.el                                              :elget:rubikitch:
+
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'lispxmp)
+
   (require 'lispxmp)
-  (global-set-key (kbd "<S-f5>") 'lispxmp)
+  (define-key emacs-lisp-mode-map (kbd "<S-f5>") 'lispxmp)
+
 #+END_SRC
+
 
 ** color-moccur.el                                   :autoinstall:rubikitch:
 *** インストール
@@ -1921,11 +1932,10 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 *** Install elisps using el-get.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(ruby-mode ruby-end inf-ruby ruby-compilation yari flymake-easy flymake-ruby))
+  (el-get 'sync '(ruby-mode ruby-end inf-ruby yari flymake-easy flymake-ruby))
   (require 'ruby-mode)
   (require 'ruby-end)
   (require 'inf-ruby)
-  (require 'ruby-compilation)
   (require 'ruby-style)
 #+END_SRC
 
@@ -2844,11 +2854,11 @@ My day really ends at two o'clock in the morning.
   (lexical-let ((previous-active-p))
     (defadvice org-edit-src-code (before tnoda/auto-save-buffers-toggle activate)
       "Disable auto-save-buffers."
-      (setq previous-active-p  auto-save-buffers-enhanced-active-flag)
+      (setq previous-active-p  auto-save-buffers-enhanced-activity-flag)
       (setq auto-save-buffers-active-p nil))
     (defadvice org-edit-src-exit (after tndoa/auto-save-buffers-toggle activate)
       "Recover auto-save-buffers."
-      (setq auto-save-buffers-enhanced-active-flag previous-active-p)))
+      (setq auto-save-buffers-enhanced-activity-flag previous-active-p)))
 #+END_SRC
 
 停止しないと，src ブロックを編集している最中に，

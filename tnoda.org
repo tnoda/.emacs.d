@@ -2572,6 +2572,8 @@ would be done by the following steps:
 
   (el-get 'sync 'go-autocomplete)
 
+  (require 'go-mode)
+
   (defun tnoda/gofmt-before-save ()
     "The original version of go-fmt may break the kill-region function,
   if it has an advised version."

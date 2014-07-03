@@ -1086,19 +1086,17 @@ they are no longer of any use.
   (setq ac-auto-start 4)
 #+END_SRC
   
-** col-highlight.el                                  :autoinstall:rubikitch:
+** col-highlight.el                                        :elget:rubikitch:
 
-現在桁をハイライトする．
+Do =M-x column-highlight=, to highlight the corrent column.
 
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-batch "col-highlight")
-#+END_SRC
-
-*** =M-x column-highlight-mode= で桁ハイライト切替．              :command:
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'col-highlight)
+
   (require 'col-highlight)
+
 #+END_SRC
+
 
 ** paredit.el                                                  :autoinstall:
 *** インストール

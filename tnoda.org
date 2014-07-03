@@ -1036,11 +1036,13 @@ http://capitaomorte.github.com/yasnippet/faq.html
   (global-set-key (kbd "C->") 'goto-last-change-reverse)
 #+END_SRC
 
-** eldoc-extension.el                                          :autoinstall:
-+ インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-emacswiki "eldoc-extension.el")
-  #+END_SRC
+** eldoc-extension.el                                                :elget:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'eldoc-extension)
+
+#+END_SRC
+
 + 設定
   - =emacs-lisp-mode= と =ielm-mode= で有効にする．
   - =lisp-interaction-mode= は Clojure にとっておく．

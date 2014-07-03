@@ -1113,35 +1113,41 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** rainbow-delimiters.el                                       :autoinstall:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "rainbow-delimiters.el")
-#+END_SRC
+** rainbow-delimiters.el                                             :elget:
 
-*** とりあえず =emacs-lisp-mode= と =ielm=mode= で有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'rainbow-delimiters)
+
   (require 'rainbow-delimiters)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)
+
 #+END_SRC
 
-** open-junk-file.el                                 :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "open-junk-file.el")
-#+END_SRC
 
-*** =~/.junk/= に保存，ファイル名は =%Y%m%d-%H%M%S."．
+** open-junk-file.el                                       :elget:rubikitch:
+
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'open-junk-file)
+
   (require 'open-junk-file)
-  (setq open-junk-file-format "~/.junk/%Y%m%d-%H%M%S.")
+
 #+END_SRC
 
-*** =C-x f= で =open-junk-file=. =set-fill-column= は使わない．                     :key:
+*** Junk files will go to =~/.junk/=.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq open-junk-file-format "~/.junk/%Y%m%d-%H%M%S.")
+
+#+END_SRC
+
+*** =C-x f= opens a new junk file.                                    :key:
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "C-x f") 'open-junk-file)
+
 #+END_SRC
+
 
 ** lispxmp.el                                        :autoinstall:rubikitch:
 *** インストール

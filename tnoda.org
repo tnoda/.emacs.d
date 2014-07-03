@@ -846,19 +846,17 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 
 #+END_SRC
 
-** sense-region.el                               :key:autoinstall:rubikitch:
+** sense-region.el                                     :key:elget:rubikitch:
 
 =C-SPC= 連打で選択範囲が広がっていく．マークとポイントが対角線の矩形を選択できる．
 
-*** インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-url "https://raw.github.com/gist/1776988/63a04b9b81bc5dbeef2d3878994639fd81ddc276/sense-region.el")
-  #+END_SRC
 
-*** すべてのバッファで sence-region を有効に．
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'sense-region)
+
   (require 'sense-region)
   (sense-region-on)
+
 #+END_SRC
 
 *** =C-SPC= 連打で =mark-word= できるので，=M-@= を無効にする．あまり使わないし．

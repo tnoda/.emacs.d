@@ -1149,17 +1149,16 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** lispxmp.el                                        :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "lispxmp.el")
+** lispxmp.el                                              :elget:rubikitch:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'lispxmp)
+
+  (require 'lispxmp)
+  (define-key emacs-lisp-mode-map (kbd "<S-f5>") 'lispxmp)
+
 #+END_SRC
 
-*** =<S-f5>= で =lispxmp=.                                            :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'lispxmp)
-  (global-set-key (kbd "<S-f5>") 'lispxmp)
-#+END_SRC
 
 ** color-moccur.el                                   :autoinstall:rubikitch:
 *** インストール

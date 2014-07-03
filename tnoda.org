@@ -1098,21 +1098,20 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** paredit.el                                                  :autoinstall:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-url "http://mumble.net/~campbell/emacs/paredit.el")
-#+END_SRC
+** paredit.el                                                        :elget:
 
-*** LISP 関係のモードで有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'paredit)
+
   (require 'paredit)
   (setq parens-require-spaces nil)
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'ielm-mode-hook 'enable-paredit-mode)
+
 #+END_SRC
+
 
 ** rainbow-delimiters.el                                       :autoinstall:
 *** インストール

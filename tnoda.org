@@ -1932,11 +1932,10 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 *** Install elisps using el-get.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(ruby-mode ruby-end inf-ruby ruby-compilation yari flymake-easy flymake-ruby))
+  (el-get 'sync '(ruby-mode ruby-end inf-ruby yari flymake-easy flymake-ruby))
   (require 'ruby-mode)
   (require 'ruby-end)
   (require 'inf-ruby)
-  (require 'ruby-compilation)
   (require 'ruby-style)
 #+END_SRC
 

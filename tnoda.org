@@ -572,6 +572,8 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 ** emacsclient
 #+BEGIN_SRC emacs-lisp :tangle yes
   (server-start)
+  (setq server-window 'pop-to-buffer)
+
 #+END_SRC
 
 ** midnight: 深夜に不急と思われるバッファを消す．

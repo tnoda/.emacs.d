@@ -866,10 +866,12 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (global-unset-key (kbd "M-@"))
 #+END_SRC
 
-** cycle-buffers.el                                  :autoinstall:rubikitch:
+** cycle-buffer.el                                         :elget:rubikitch:
 *** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "cycle-buffer.el")
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'cycle-buffer)
+
 #+END_SRC
 
 *** =autoload= ではなく =require= する．

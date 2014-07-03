@@ -122,6 +122,14 @@ auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
 #+END_SRC
 
 * Emacs
+
+** Use fullscreen the old way.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq ns-use-native-fullscreen nil)
+
+#+END_SRC
+
 ** Emacs 起動したらすぐ eshell を使えるようにする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'emacs-startup-hook 'eshell)

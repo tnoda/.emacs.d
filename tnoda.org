@@ -907,10 +907,11 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (global-set-key (kbd "M->")   'cycle-buffer)
 #+END_SRC
 
-** popwin.el                                                   :autoinstall:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-url "https://raw.github.com/m2ym/popwin-el/v0.3/popwin.el")
+** popwin.el                                                         :elget:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'popwin)
+
 #+END_SRC
 
 *** =special-display-function= で使う．

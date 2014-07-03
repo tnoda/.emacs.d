@@ -1055,19 +1055,23 @@ http://capitaomorte.github.com/yasnippet/faq.html
     (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
   #+END_SRC
 
-** tempbuf.el                                        :autoinstall:rubikitch:
-+ =tempbuf.el= は =tempbuf-mode= マイナーモードを提供する．
-  + =tempbuf-mode= はバッファごとに作用し，不要と思われるバッファを自動削除．
-+ インストール
-  #+BEGIN_SRC emacs-lisp :tangle install.el
-    (auto-install-from-emacswiki "tempbuf.el")
-  #+END_SRC
-+ 設定
-  - =dired-mode= でだけ =tempbuf-mode= を有効にする．
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (require 'tempbuf)
-      (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
-    #+END_SRC
+** tempbuf.el                                              :elget:rubikitch:
+
+#+BEGIN_QUOTE
+Tempbuf-mode is a minor mode that enables buffers to get
+automatically deleted in the background when it can be deduced that
+they are no longer of any use.
+
+- tempbuf.el
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'tempbuf)
+
+  (require 'tempbuf)
+  (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
+
+#+END_SRC
     
 ** auto-complete.el                                        :elget:rubikitch:
 *** Install via el-get.

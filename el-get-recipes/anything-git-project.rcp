@@ -1,0 +1,4 @@
+(:name anything-git-project
+       :type http
+       :url "https://gist.github.com/tnoda/6945413/raw/3df5f5c751bac9d9df5035e10f0ae02e083e9b92/anything-git-project.el")
+

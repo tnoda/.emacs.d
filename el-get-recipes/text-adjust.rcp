@@ -1,0 +1,5 @@
+(:name text-adjust
+       :description "Adjust Japanese text blocks."
+       :type git
+       :url "https://gist.github.com/dedb18a47780e9a50983.git"
+       :features ("mell" "text-adjust"))

@@ -1,0 +1,4 @@
+(:name sense-region
+       :type http
+       :url "https://gist.githubusercontent.com/tnoda/1776988/raw/63a04b9b81bc5dbeef2d3878994639fd81ddc276/sense-region.el")
+

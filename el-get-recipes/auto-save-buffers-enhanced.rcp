@@ -1,0 +1,9 @@
+(:name auto-save-buffers-enhanced
+       :description "Automatically save buffers in a decent way"
+       :url "https://github.com/kentaro/auto-save-buffers-enhanced"
+       :type github
+       :username "kentaro"
+       :pkgname "auto-save-buffered-enhanced"
+       :features ("japanese-holidays"))
+
+

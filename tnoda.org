@@ -2525,6 +2525,7 @@ twittering-mode.el を使う．
   (require 'helm)
   (setq helm-command-prefix-key "C-c h")
   (require 'helm-config)
+  (require 'helm-mode)
   (require 'helm-eshell)
   (require 'helm-files)
   (require 'helm-grep)
@@ -2542,6 +2543,8 @@ twittering-mode.el を使う．
   (define-key helm-command-map (kbd "m") 'helm-man-woman)
   (define-key helm-command-map (kbd "o") 'helm-occur)
   (define-key helm-command-map (kbd "r") 'helm-resume)
+
+  (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 
   (setq
    helm-google-suggest-use-curl-p t

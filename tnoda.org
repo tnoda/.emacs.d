@@ -2225,17 +2225,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (define-key ruby-mode-map (kbd "C-c C-t") 'ruby-toggle-buffer)
 #+END_SRC
 
-*** =anything-rcodetools.el= で =ri-ruby.el= の代わりに =yari= を使う．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'anything-rcodetools)
-  (setq rct-get-all-methods-command "PAGER=cat fri -l")
-  
-  (defun tnoda/anything-rct-ri (meth)
-    (yari (get-text-property 0 'desc meth)))
-  
-  (fset 'anything-rct-ri 'tnoda/anything-rct-ri)
-#+END_SRC
-
 ** Markdown                                                    :autoinstall:
 *** Install
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -1273,12 +1273,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (setq hs-set-up-overlay 'tnoda/highlight-overlay)
 #+END_SRC
 
-** auto-pair+.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'auto-pair-plus)
-  (require 'auto-pair+)
-#+END_SRC
-
 ** highlight-symbol.el                                               :elget:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'highlight-symbol)
@@ -2349,11 +2343,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (setenv "JAVA_HOME" "/Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home")
 #+END_SRC
 
-*** auto-pair+
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'java-mode-hook 'autopair-on)
-#+END_SRC
-
 *** ajc-java-complete
 #+BEGIN_SRC sh :tangle setup-tags-for-ajc.sh :var prefix=el-get-dir
   cd ${prefix}/ajc-java-complete
@@ -2595,12 +2584,6 @@ would be done by the following steps:
 ** ESS does not prompt each time you start a R session.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq ess-ask-for-ess-directory nil)
-#+END_SRC
-
-** Enable auto-pair.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'R-mode-hook 'autopair-on)
-  (add-hook 'inferior-ess-mode-hook 'autopair-on)
 #+END_SRC
 
 ** =ess-tracebug=

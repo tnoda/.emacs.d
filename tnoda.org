@@ -1155,12 +1155,12 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** text-adjust.el                                    :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-url "http://taiyaki.org/elisp/mell/src/mell.el")
-  (auto-install-from-url "http://taiyaki.org/elisp/text-adjust/src/text-adjust.el")
+** text-adjust.el                                          :elget:rubikitch:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'text-adjust)
 #+END_SRC
+
 *** =kinsoku-ascii= がいつのまにか =kinsoku.el= から無くなっているので定義．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'text-adjust)

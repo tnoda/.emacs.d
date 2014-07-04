@@ -3048,11 +3048,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 #+END_SRC
 
 ** Babel
-*** ob-markdown のインストール．
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-url "https://raw.github.com/tnoda/ob-markdown/master/ob-markdown.el")
-#+END_SRC
-
 *** Emacs Lisp 以外の言語も有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (org-babel-do-load-languages

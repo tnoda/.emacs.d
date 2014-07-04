@@ -66,25 +66,8 @@
 #+END_SRC
 
 ** auto-install.el
-*** 初回のインストール（インストーラが実行する）．
-#+BEGIN_SRC sh :tangle install-auto-install.sh :var elisp_dir=tnoda-elisp-dir
-  curl http://www.emacswiki.org/emacs/download/auto-install.el -o $elisp_dir/auto-install.el
-#+END_SRC
 
-*** 二回目からは =auto-install= で自身を更新する．
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "auto-install.el")
-#+END_SRC
 
-*** auto-install を =~/.emacs.d/auto-install= で使う．
- 
-auto-install 先のデフォルトは，=~/.emacs.d/auto-install=
- 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path "~/.emacs.d/auto-install")
-  (require 'auto-install)
-  (auto-install-compatibility-setup)
-#+END_SRC
 
 ** Marmalade/ELPA
 + ELPA ではなく Marmalade の package.el をインストールする
@@ -304,8 +287,13 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
     (setq show-trailing-whitespace t))
 #+END_SRC
 
-** Mac OS X
-*** バッテリー残量を表示する．
+** Mac OS X*
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/auto-install")
+
+#+end_src
+
+* バッテリー残量を表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (display-battery-mode t)
 #+END_SRC
@@ -1498,7 +1486,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
 + migemo.el のインストールと設定は，http://d.hatena.ne.jp/samurai20000/20100907/1283791433 を参考にする．
 
 ** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
+#+BEGIN_SRC emacs-lisp :tangle no
   (auto-install-from-url "https://raw.github.com/gist/457761/539882a79ec11bc9b6e1ac417cdafe0e198e245f/migemo.el")
 #+END_SRC
 
@@ -2535,7 +2523,7 @@ twittering-mode.el を使う．
 
 * Anything
 ** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
+#+BEGIN_SRC emacs-lisp :tangle no
   (auto-install-batch "anything")
 #+END_SRC
 
@@ -2585,7 +2573,7 @@ twittering-mode.el を使う．
 color-moccur.el に依存している．
 
 *** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
+#+BEGIN_SRC emacs-lisp :tangle no
   (auto-install-from-url "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
 #+END_SRC
 
@@ -3006,7 +2994,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
      (org . t)
      (ruby . t)
      (sh . t)
-     (markdown . t)
      (latex . t)))
 #+END_SRC
 

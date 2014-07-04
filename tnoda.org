@@ -2245,16 +2245,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'html-mode-hook 'zencoding-mode)
 #+END_SRC
 
-** C/C++
-
-そういえば最近 Ruby の拡張モジュール以外書いていない．
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'ruby-style) ; Documentation-purposes only: actually loaded in the Ruby section.
-  (add-hook 'c-mode-hook 'ruby-style-c-mode)  
-  (add-hook 'c++-mode-hook 'ruby-style-c-mode)
-#+END_SRC
-
 ** Java
 
 *** Use Oracle Java 1.7.0_21.

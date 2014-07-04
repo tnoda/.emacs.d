@@ -65,10 +65,6 @@
     (normal-top-level-add-subdirs-to-load-path))
 #+END_SRC
 
-** auto-install.el
-
-
-
 ** Marmalade/ELPA
 + ELPA ではなく Marmalade の package.el をインストールする
   - Marmalade も ELPA 互換なので問題ない．
@@ -2521,80 +2517,57 @@ twittering-mode.el を使う．
   (load "~/.ssh-proxy.el")
 #+END_SRC
 
-* Anything
-** インストール
-#+BEGIN_SRC emacs-lisp :tangle no
-  (auto-install-batch "anything")
-#+END_SRC
-
-** Anything で使うプレフィクスキーを =C-c a= にする．                   :key:
-
-+ anything-config.el で設定されるデフォルトは =<f5> a= だが，
-  =<f5>= を =tnoda/compile-or-executable-interpret= に割り当てているため，
-  =(require 'anything-startup)= でエラーになる．
+* Helm
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq anything-command-map-prefix-key "C-c a")
-  (require 'anything-startup)
-#+END_SRC
+  (el-get 'sync '(helm helm-ag helm-project))
 
-** Anything が =ctl-x-map= を上書きする？ので再度 =C-x C-j= を =skk-mode= に． :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'helm)
+  (setq helm-command-prefix-key "C-c h")
+  (require 'helm-config)
+  (require 'helm-eshell)
+  (require 'helm-files)
+  (require 'helm-grep)
+  (require 'helm-info)
+  (require 'helm-ag)
+  (require 'helm-project)
   (define-key ctl-x-map (kbd "C-j") 'skk-mode)
+  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+  (define-key ctl-x-map (kbd "b") 'helm-mini)
+  (define-key helm-command-map (kbd "a") 'helm-apropos)
+  (define-key helm-command-map (kbd "i") 'helm-info-emacs)
+  (define-key helm-command-map (kbd "f") 'helm-project)
+  (define-key helm-command-map (kbd "g") 'helm-ag)
+  (define-key helm-command-map (kbd "l") 'helm-locate)
+  (define-key helm-command-map (kbd "m") 'helm-man-woman)
+  (define-key helm-command-map (kbd "o") 'helm-occur)
+  (define-key helm-command-map (kbd "r") 'helm-resume)
+
+  (setq
+   helm-google-suggest-use-curl-p t
+   helm-scroll-amount 4 ; scroll 4 lines other window using M-<next>/M-<prior>
+   helm-quick-update t ; do not display invisible candidates
+   helm-idle-delay 0.01 ; be idle for this many seconds, before updating in delayed sources.
+   helm-input-idle-delay 0.01 ; be idle for this many seconds, before updating candidate buffer
+   helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
+   helm-split-window-default-side 'other ;; open helm buffer in another window
+   helm-move-to-line-cycle-in-source t
+   )
+
+  (helm-mode 1)
+
 #+END_SRC
 
-** ido と喧嘩させない．
+** helm-pydoc
+
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (anything-read-string-mode 0)
+  (el-get 'sync 'helm-pydoc)
+
+  (require 'helm-pydoc)
+  (define-key python-mode-map (kbd "<f1>") 'helm-pydoc)
+
 #+END_SRC
 
-** デフォルト設定が遅い．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq anything-input-idle-delay 0.03)
-#+END_SRC
-
-** =C-x b= を =anything-for-files= に．                                :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (define-key ctl-x-map (kbd "b") 'anything-for-files)
-#+END_SRC
-
-** =M-!=, =M-|= で =C-o= を押すとシェルコマンド履歴から補完する．      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (anything-complete-shell-history-setup-key (kbd "C-o"))
-#+END_SRC
-
-** =M-y= を anything-show-kill-ring に．キルリングの補完と絞り込み．   :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "M-y") 'anything-show-kill-ring)
-#+END_SRC
-
-** anything-c-moccur.el
-
-color-moccur.el に依存している．
-
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle no
-  (auto-install-from-url "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
-#+END_SRC
-
-*** =C-c a o= で =anything-c-moccur-occur-by-moccur=.                   :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'anything-c-moccur)
-  (define-key anything-command-map (kbd "o") 'anything-c-moccur-occur-by-moccur)
-#+END_SRC
-
-*** isearch 中に =M-o= で anything-c-moccur に移行．                    :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (define-key isearch-mode-map (kbd "M-o") 'anything-c-moccur-from-isearch)
-#+END_SRC
-
-** =ruby-mode= の =C-c C-y= で =yari-anything=.                         :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/ri-bind-key ()
-    (local-set-key (kbd "C-c C-y") 'yari-anything))
-  
-  (add-hook 'ruby-mode-hook 'tnoda/ri-bind-key)
-#+END_SRC
 
 * SDIC
 ** インストール

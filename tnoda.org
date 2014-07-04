@@ -1143,28 +1143,17 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** color-moccur.el                                   :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "color-moccur.el")
-  (auto-install-from-emacswiki "moccur-edit.el")
-#+END_SRC
+** color-moccur.el                                     :key:elget:rubikitch:
 
-*** スペースで区切られた複数の単語にマッチする
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync '(color-moccur moccur-edit))
+
   (require 'moccur-edit)
   (setq moccur-split-edit t)
-#+END_SRC
-
-*** =M-s o= を =occur-by-moccur= に置き換える．                       :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "M-s o") 'occur-by-moccur)
-#+END_SRC
-
-*** =M-s O= に =moccur= を割り当てる．                                :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "M-s O") 'moccur)
 #+END_SRC
+
 
 ** text-adjust.el                                    :autoinstall:rubikitch:
 *** インストール

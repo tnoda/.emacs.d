@@ -1245,10 +1245,13 @@ Do =M-x column-highlight=, to highlight the corrent column.
 *** =*grep*= で =C-c C-r= するとリージョンの変更を破棄．              :key:
 *** =*grep*= で =C-c C-u= するとバッファへの変更を破棄．              :key:
 
-** hideshow-org.el                                             :autoinstall:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-url "https://raw.github.com/secelis/hideshow-org/master/hideshow-org.el")
+** hideshow-org.el                                                   :elget:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'hideshow-org)
+
+  (require 'hideshow-org)
+
 #+END_SRC
 
 *** =tnoda/hs-org/minor-mode-activate=.

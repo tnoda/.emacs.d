@@ -1207,31 +1207,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
 
 #+END_SRC
 
-** grep-a-lot.el                                           :elget:rubikitch:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'grep-a-lot)
-
-  (require 'grep-a-lot)
-
-#+END_SRC
-
-*** =igrep.el= でも grep-a-lot する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (grep-a-lot-advise igrep)
-#+END_SRC
-
-*** =M-g =/]/[/-/_= で =*grep*= バッファ操作．                        :key:
-+ =M-g == ... 最後の grep バッファを開く．
-+ =M-g ]= ... 次の grep バッファを開く．
-+ =M-g [= ... 前の grep バッファを開く．
-+ =M-g -= ... 最後の grep バッファを削除する．
-+ =M-g _= ... すべての grep バッファを削除する．
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (grep-a-lot-setup-keys)
-#+END_SRC
-
 ** grep-edit.el                                            :elget:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes

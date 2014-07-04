@@ -1858,13 +1858,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (require 'ruby-mode)
   (require 'ruby-end)
   (require 'inf-ruby)
-  (require 'ruby-style)
-#+END_SRC
-
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle no
-  (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/ruby-style.el")
-  (auto-install-from-url "https://raw.github.com/ruby/ruby/trunk/misc/rdoc-mode.el")
 #+END_SRC
 
 *** =~/.rbenv/shims= を =exec-path= に追加する．
@@ -2000,12 +1993,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
                  (regexp . "\\(\\s-*\\)=>\\s-*[^# \t\n]")
                  (repeat . t)
                  (modes  . '(ruby-mode))))
-#+END_SRC
-
-*** =.rdoc= なファイルを =rdoc-mode= で開く．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'rdoc-mode)
-  (add-to-list 'auto-mode-alist '("\\.rdoc$" . rdoc-mode))
 #+END_SRC
 
 *** =ruby-mode= の =C-c C-c= で =ruby-compilation-this-buffer=.       :key:

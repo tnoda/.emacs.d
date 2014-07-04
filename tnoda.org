@@ -1198,18 +1198,12 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (setq text-adjust-hankaku-except "？！＠ー〜、，。．")
 #+END_SRC
 
-** igrep.el                                          :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "igrep.el")
-#+END_SRC
-*** =M-x igrep= で =grep= コマンドラインを対話的に編集．
-+ 正規表現のデフォルトは現在位置の単語．
-+ ファイルは現在のバッファと拡張子が同じもの．
+** igrep.el                                                :elget:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'igrep)
+
   (require 'igrep)
-#+END_SRC
 
 ** grep-a-lot.el                                     :autoinstall:rubikitch:
 *** インストール

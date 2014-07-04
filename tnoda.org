@@ -1205,15 +1205,15 @@ Do =M-x column-highlight=, to highlight the corrent column.
 
   (require 'igrep)
 
-** grep-a-lot.el                                     :autoinstall:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle install.el
-  (auto-install-from-emacswiki "grep-a-lot.el")
 #+END_SRC
 
-*** =*grep*= バッファを複数もつことができる．
+** grep-a-lot.el                                           :elget:rubikitch:
+
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (el-get 'sync 'grep-a-lot)
+
   (require 'grep-a-lot)
+
 #+END_SRC
 
 *** =igrep.el= でも grep-a-lot する．

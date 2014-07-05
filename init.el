@@ -3,26 +3,27 @@
 ;; This file loads Org-mode and then loads the rest of our Emacs initialization from Emacs lisp
 ;; embedded in literate Org-mode files.
 
-(require 'cask "~/.emacs.d/.cask/cask.el")
-(cask-initialize)
-
 (require 'cl)
+
+(defun tnoda/find-brew-cask-prefix
+  ()
+  (with-current-buffer (get-buffer-create "*brew-cask-prefix")
+    (erase-buffer)
+    (if (zerop (call-process "brew" nil t nil "--prefix" "cask"))
+        (buffer-substring (point-min) (1- (point-max))))))
+
+(defconst tnoda/cask-el-path
+  (let ((prefix (tnoda/find-brew-cask-prefix)))
+    (if prefix
+        (expand-file-name "cask.el" prefix))))
+
+
+(require 'cask tnoda/cask-el-path)
+(cask-initialize)
 
 ;; Load up Org Mode and (now included) Org Babel for elisp embedded in Org Mode files
 (defconst tnoda/dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
 
-(let* ((org-dir (expand-file-name
-                 "lisp" (expand-file-name
-                         "org" (expand-file-name
-                                "src" tnoda/dotfiles-dir))))
-       (org-contrib-dir (expand-file-name
-                         "lisp" (expand-file-name
-                                 "contrib" (expand-file-name
-                                            ".." org-dir)))))
-  (setq load-path (append (list org-dir org-contrib-dir)
-                          (or load-path nil))))
-
-;; load up Org-mode and Org-babel
 (require 'org)
 (require 'ob-tangle)
 

@@ -2559,6 +2559,11 @@ twittering-mode.el を使う．
    helm-move-to-line-cycle-in-source t
    )
 
+  (set-face-attribute 'helm-selection
+                      'nil
+                      :background "DarkGreen"
+                      :foreground "Gray94")
+
   (helm-mode 1)
 
 #+END_SRC

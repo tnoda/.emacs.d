@@ -2556,7 +2556,6 @@ twittering-mode.el を使う．
    helm-input-idle-delay 0.01 ; be idle for this many seconds, before updating candidate buffer
    helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
    helm-split-window-default-side 'other ;; open helm buffer in another window
-   helm-move-to-line-cycle-in-source t
    )
 
   (set-face-attribute 'helm-selection

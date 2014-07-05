@@ -2428,7 +2428,7 @@ would be done by the following steps:
   (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
   (define-key go-mode-map (kbd "C-c C-j") 'go-goto-imports)
   (define-key go-mode-map (kbd "C-c C-r") 'go-remove-unused-imports)
-  (define-key go-mode-map (kbd "<f1>") 'godoc)
+  (define-key go-mode-map (kbd "C-c C-d") 'godoc)
 
   (defun tnoda/go-mode-tab-width ()
     (setq tab-width 4))

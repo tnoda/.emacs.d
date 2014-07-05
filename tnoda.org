@@ -2546,6 +2546,7 @@ twittering-mode.el を使う．
   (define-key helm-command-map (kbd "r") 'helm-resume)
 
   (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(execute-extended-command . nil))
 
   (setq
    helm-google-suggest-use-curl-p t

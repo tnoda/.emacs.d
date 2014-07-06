@@ -13,8 +13,10 @@
         (buffer-substring (point-min) (1- (point-max))))))
 
 (defconst tnoda/cask-el-path
-  (when-let (prefix (tnoda/find-brew-cask-prefix))
-            (expand-file-name "cask.el" prefix)))
+  (let ((prefix (tnoda/find-brew-cask-prefix)))
+    (if prefix
+        (expand-file-name "cask.el" prefix))))
+
 
 (require 'cask tnoda/cask-el-path)
 (cask-initialize)

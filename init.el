@@ -21,7 +21,11 @@
 (require 'cask tnoda/cask-el-path)
 (cask-initialize)
 
-(add-to-list 'Info-directory-list (cask-resource-path "org-plus-contrib"))
+(defun tnoda/add-cask-org-plus-contrib-dir-to-info-directory-list ()
+  (add-to-list 'Info-directory-list (cask-resource-path "org-plus-contrib")))
+
+(add-hook 'Info-mode-hook 'tnoda/add-cask-org-plus-contrib-dir-to-info-directory-list)
+
 
 ;; Load up Org Mode and (now included) Org Babel for elisp embedded in Org Mode files
 (defconst tnoda/dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))

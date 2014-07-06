@@ -600,10 +600,12 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 ** =~/.emacs.d/share/info= を優先する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/set-info-dir ()
-    (setq Info-directory-list
-          (list tnoda/info-dir "/Applications/Emacs.app/Contents/Resources/info")))
-  (add-hook 'Info-mode-hook 'tnoda/set-info-dir)
+  (defun tnoda/add-tnoda-info-dir-to-info-directory-list
+    ()
+    (add-to-list 'Info-directory-list tnoda/info-dir))
+
+  (add-hook 'Info-mode-hook 'tnoda/add-tnoda-info-dir-to-info-directory-list)
+
 #+END_SRC
 
 ** Unified diff を表示する．                                     :rubikitch:

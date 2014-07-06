@@ -2523,8 +2523,6 @@ twittering-mode.el を使う．
 * Helm
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(helm helm-ag helm-project))
-
   (require 'helm)
   (setq helm-command-prefix-key "C-c h")
   (require 'helm-config)
@@ -2533,15 +2531,11 @@ twittering-mode.el を使う．
   (require 'helm-files)
   (require 'helm-grep)
   (require 'helm-info)
-  (require 'helm-ag)
-  (require 'helm-project)
   (define-key ctl-x-map (kbd "C-j") 'skk-mode)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring)
   (define-key ctl-x-map (kbd "b") 'helm-mini)
   (define-key helm-command-map (kbd "a") 'helm-apropos)
   (define-key helm-command-map (kbd "i") 'helm-info-emacs)
-  (define-key helm-command-map (kbd "f") 'helm-project)
-  (define-key helm-command-map (kbd "g") 'helm-ag)
   (define-key helm-command-map (kbd "l") 'helm-locate)
   (define-key helm-command-map (kbd "m") 'helm-man-woman)
   (define-key helm-command-map (kbd "o") 'helm-occur)
@@ -2572,13 +2566,35 @@ twittering-mode.el を使う．
 ** helm-pydoc
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'helm-pydoc)
-
   (require 'helm-pydoc)
   (define-key python-mode-map (kbd "<f1>") 'helm-pydoc)
 
 #+END_SRC
 
+** helm-dash
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'helm-dash)
+
+  (define-key helm-command-map (kbd "d") 'helm-dash)
+  (setq helm-dash-docsets-url "https://raw.githubusercontent.com/Kapeli/feeds/master")
+  (setq helm-dash-common-docsets '("Go" "Python_3" "Scala" "Java_SE8" "Clojure" "Ruby_2"))
+
+  (defun tnoda/install-helm-dash-common-docsets
+    ()
+    (interactive)
+    (--map (helm-dash-install-docset it) helm-dash-common-docsets))
+
+#+END_SRC
+
+*** Go
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/set-helm-dash-docsets-go
+    ()
+    (setq-local helm-dash-docsets '("Go")))
+
+  (add-hook 'go-mode-hook 'tnoda/set-helm-dash-docsets-go)
+
+#+END_SRC
 
 * SDIC
 ** インストール

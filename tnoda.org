@@ -2577,12 +2577,12 @@ twittering-mode.el を使う．
 
   (define-key helm-command-map (kbd "d") 'helm-dash)
   (setq helm-dash-docsets-url "https://raw.githubusercontent.com/Kapeli/feeds/master")
-  (setq helm-dash-common-docsets '("Go" "Python_3" "Scala" "Java_SE8" "Clojure" "Ruby_2"))
+  (defvar tnoda/helm-dash-docsets '("Go" "Python_3" "Scala" "Java_SE8" "Clojure" "Ruby_2"))
 
   (defun tnoda/install-helm-dash-common-docsets
     ()
     (interactive)
-    (--map (helm-dash-install-docset it) helm-dash-common-docsets))
+    (--map (helm-dash-install-docset it) tnoda/helm-dash-docsetts))
 
 #+END_SRC
 
@@ -2595,6 +2595,17 @@ twittering-mode.el を使う．
   (add-hook 'go-mode-hook 'tnoda/set-helm-dash-docsets-go)
 
 #+END_SRC
+
+*** Python
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/set-helm-dash-docsets-python
+    ()
+    (setq-local helm-dash-docsets '("Python_3")))
+
+  (add-hook 'python-mode-hook 'tnoda/set-helm-dash-docsets-python)
+
+#+END_SRC
+
 
 * SDIC
 ** インストール

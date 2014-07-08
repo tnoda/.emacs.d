@@ -9,3 +9,4 @@
 (depends-on "helm-ls-git")
 (depends-on "helm-pydoc")
 (depends-on "helm-dash")
+(depends-on "popwin")

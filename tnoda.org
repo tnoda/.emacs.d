@@ -903,11 +903,9 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (global-set-key (kbd "M->")   'cycle-buffer)
 #+END_SRC
 
-** popwin.el                                                         :elget:
+** popwin.el                                                          :cask:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'popwin)
-
   (require 'popwin)
   (popwin-mode 1)
 
@@ -2469,7 +2467,9 @@ would be done by the following steps:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq ess-describe-at-point-method nil)
   (add-to-list 'special-display-buffer-names "*ess-describe*")
-  (push '("*ess-describe*" :height 10) popwin:special-display-config)
+  (if (boundp 'popwin:special-display-config)
+      (push '("*ess-describe*" :height 10) popwin:special-display-config))
+
 #+END_SRC
 
 ** ESS does not wait for the R process.
@@ -2620,7 +2620,9 @@ twittering-mode.el を使う．
 ** popwin を使って，SDIC の検索結果を下に表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'special-display-buffer-names "*sdic*")
-  (push '("*sdic*" :position bottom) popwin:special-display-config)
+  (if (boundp 'popwin:special-display-config)
+      (push '("*sdic*" :position bottom) popwin:special-display-config))
+
 #+END_SRC
 
 * Org Mode                                                              :git:

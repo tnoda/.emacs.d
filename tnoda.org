@@ -1586,15 +1586,15 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 ** emacs-w3m                                                          :cask:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'w3m)
-  (add-hook 'w3m-mode-hook 'tnoda/increase-line-spacing)
-
-  (when (fboundp 'cask-resource-path)
-    (defun tnoda/add-cask-w3m-to-info-directory-list ()
-      (add-to-list 'Info-directory-list
-                   (cask-resource-path "org-plus-contrib")))
-    (add-hook 'Info-mode-hook
-              'tnoda/add-cask-w3m-to-info-directory-list))
+  (when (eq system-type 'darwin)
+    (require 'w3m)
+    (add-hook 'w3m-mode-hook 'tnoda/increase-line-spacing)
+    (when (fboundp 'cask-resource-path)
+      (defun tnoda/add-cask-w3m-to-info-directory-list ()
+        (add-to-list 'Info-directory-list
+                     (cask-resource-path "org-plus-contrib")))
+      (add-hook 'Info-mode-hook
+                'tnoda/add-cask-w3m-to-info-directory-list)))
 
 #+END_SRC
 

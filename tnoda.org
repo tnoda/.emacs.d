@@ -279,7 +279,9 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
 *** バッテリー残量を表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (display-battery-mode t)
+  (when (eq system-type 'darwin)
+    (display-battery-mode 1))
+
 #+END_SRC
 
 *** =browse-url= で Firefox を開く．                              :command:

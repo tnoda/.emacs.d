@@ -19,3 +19,4 @@
 (depends-on "cider")
 (depends-on "ac-nrepl")
 (depends-on "w3m")
+(depends-on "markdown-mode")

@@ -2036,10 +2036,12 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+END_SRC
 
 ** Markdown                                                    :autoinstall:
-*** Install
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'markdown-mode)
-#+END_SRC
+
+#+begin_src emacs-lisp
+  (require 'markdown-mode)
+
+#+end_src
+
 
 *** Use the =markdown= command located in =/opt/homebew/bin=
 #+BEGIN_SRC emacs-lisp :tangle yes

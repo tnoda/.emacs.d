@@ -45,12 +45,6 @@
   /Applications/Emacs.app/Contents/MacOS/Emacs
 #+END_EXAMPLE
 
-** Mac OS X の Network Location を取得する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/get-current-location ()
-    (substring (shell-command-to-string "/usr/sbin/networksetup -getcurrentlocation") 0 -1))
-#+END_SRC
-
 ** 行間を広くする関数 =tnoda/increase-line-spacing=.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/increase-line-spacing ()

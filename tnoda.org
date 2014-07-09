@@ -264,13 +264,13 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
     (setq show-trailing-whitespace t))
 #+END_SRC
 
-** Mac OS X*
+*** Mac OS X
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/auto-install")
 
 #+end_src
 
-* バッテリー残量を表示する．
+*** バッテリー残量を表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (display-battery-mode t)
 #+END_SRC

@@ -67,7 +67,7 @@
           (cond ((eq system-type 'darwin)
                  "/opt/el-get")
                 ((eq system-type 'windows-nt)
-                 (expand-file-name "el-get" dotfiles-dir))
+                 (expand-file-name "el-get" tnoda/dotfiles-dir))
                 (t nil))))
 
 #+END_SRC

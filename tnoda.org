@@ -83,13 +83,6 @@
 
 * Emacs
 
-** Use fullscreen the old way.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq ns-use-native-fullscreen nil)
-
-#+END_SRC
-
 ** Emacs 起動したらすぐ eshell を使えるようにする．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'emacs-startup-hook 'eshell)
@@ -117,19 +110,21 @@
 Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 2013-07-07
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/toggle-fullscreen ()
-    "Toggle full screen"
-    (interactive)
-    (if (frame-parameter nil 'fullscreen)
-        (progn
-          (set-frame-parameter nil 'fullscreen nil)
-          (set-frame-position (selected-frame) 1 1)
-          (set-frame-size (selected-frame) 80 42))
+  (when (eq window-system 'ns)
+    (setq ns-use-native-fullscreen nil)
+    
+    (defun tnoda/toggle-fullscreen ()
+      "Toggle full screen"
+      (interactive)
+      (if (frame-parameter nil 'fullscreen)
+          (progn
+            (set-frame-parameter nil 'fullscreen nil)
+            (set-frame-position (selected-frame) 1 1)
+            (set-frame-size (selected-frame) 80 42))
         (set-frame-parameter nil 'fullscreen 'fullboth)))
-  
-  (global-set-key (kbd "M-F") 'tnoda/toggle-fullscreen)
-  
-  (set-frame-parameter nil 'fullscreen 'fullboth)
+
+    (global-set-key (kbd "M-F") 'tnoda/toggle-fullscreen)
+    (set-frame-parameter nil 'fullscreen 'fullboth))
 #+END_SRC
 
 *** =s-f= でフォント切り替え．                                            :key:
@@ -139,52 +134,57 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 + =s-f= で切り替え
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defvar tnoda/current-fontset 'default)
+  (defun tnoda/fontset-setup-mac
+    ()
 
-  (defun tnoda/fontset-set-default ()
-    (set-face-attribute 'default nil
-                        :family "Ricty Ascii"
-                        :height 160)
-    (set-fontset-font (frame-parameter nil 'font)
-                      'japanese-jisx0208
-                      (font-spec :family "Hiragino Maru Gothic ProN" :size 16))
-    (set-fontset-font (frame-parameter nil 'font)
-                      'mule-unicode-0100-24ff
-                      (font-spec :family "Ricty" :size 16))
-    (set-fontset-font nil
-                      '(#x0370 . #x03FF)
-                      (font-spec :family "Helvetica" :size 16))
-    (setq tnoda/current-fontset 'default))
+    (defvar tnoda/current-fontset 'default)
 
-  (defun tnoda/fontset-set-retina ()
-    (set-face-attribute 'default nil
-                        :family "Ricty Ascii"
-                        :height 240)
-    (set-fontset-font (frame-parameter nil 'font)
-                      'japanese-jisx0208
-                      (font-spec :family "Hiragino Maru Gothic ProN" :size 24))
-    (set-fontset-font (frame-parameter nil 'font)
-                      'mule-unicode-0100-24ff
-                      (font-spec :family "Ricty" :size 24))
-    (set-fontset-font nil
-                      '(#x0370 . #x03FF)
-                      (font-spec :family "Helvetica" :size 24))
-    (setq tnoda/current-fontset 'retina))
+    (defun tnoda/fontset-mac-default ()
+      (set-face-attribute 'default nil
+                          :family "Ricty Ascii"
+                          :height 160)
+      (set-fontset-font (frame-parameter nil 'font)
+                        'japanese-jisx0208
+                        (font-spec :family "Hiragino Maru Gothic ProN" :size 16))
+      (set-fontset-font (frame-parameter nil 'font)
+                        'mule-unicode-0100-24ff
+                        (font-spec :family "Ricty" :size 16))
+      (set-fontset-font nil
+                        '(#x0370 . #x03FF)
+                        (font-spec :family "Helvetica" :size 16))
+      (setq tnoda/current-fontset 'default))
 
-  (defun tnoda/fontset-toggle ()
-    (interactive)
-    (case tnoda/current-fontset
-      ('default
-        (tnoda/fontset-set-retina))
-      ('retina
-       (tnoda/fontset-set-default))
-      (t
-       (error "invalid fontset"))))
+    (defun tnoda/fontset-mac-retina ()
+      (set-face-attribute 'default nil
+                          :family "Ricty Ascii"
+                          :height 240)
+      (set-fontset-font (frame-parameter nil 'font)
+                        'japanese-jisx0208
+                        (font-spec :family "Hiragino Maru Gothic ProN" :size 24))
+      (set-fontset-font (frame-parameter nil 'font)
+                        'mule-unicode-0100-24ff
+                        (font-spec :family "Ricty" :size 24))
+      (set-fontset-font nil
+                        '(#x0370 . #x03FF)
+                        (font-spec :family "Helvetica" :size 24))
+      (setq tnoda/current-fontset 'retina))
 
-  (when window-system  
-    (tnoda/fontset-set-default))
+    (defun tnoda/fontset-toggle ()
+      (interactive)
+      (case tnoda/current-fontset
+        ('default
+          (tnoda/fontset-mac-retina))
+        ('retina
+         (tnoda/fontset-mac-default))
+        (t
+         (error "invalid fontset"))))
 
-  (global-set-key (kbd "s-f") 'tnoda/fontset-toggle)
+    (tnoda/fontset-mac-default)
+    (global-set-key (kbd "s-f") 'tnoda/fontset-toggle))
+
+  (when (eq window-system 'ns)
+    (tnoda/fontset-setup-mac))
+
 #+END_SRC
 
 *** Apply solarized-dark theme

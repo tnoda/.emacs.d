@@ -2771,23 +2771,14 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 #+END_SRC
 
 ** Mobile
-*** DropBox を利用する．
-+ DropBox を利用して，MobileOrg と sync する (org-mobile-directory).
-+ MobileOrg の Capture は flagged.org に (org-mobile-index-for-pull).
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-mobile-inbox-for-pull "~/org/flagged.org")
-  (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-#+END_SRC
+#+begin_src emacs-lisp :tangle yes
+  (when (load "~/.org-mobile-encryption-password.el" t)
+    (setq org-mobile-use-encryption t)
+    (setq org-mobile-inbox-for-pull "~/org/flagged.org")
+    (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg"))
 
-*** 暗号化する．パスワードは別ファイルに保存．
-+ 暗号化する (org-mobile-use-encryption).
-  - パスワードを設定 (org-mobile-encryption-password).
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-mobile-use-encryption t)
-  (load "~/.org-mobile-encryption-password.el")
-#+END_SRC
+#+end_src
 
 ** Exporting
 #+BEGIN_SRC emacs-lisp :tangle yes

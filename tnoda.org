@@ -1046,7 +1046,7 @@ they are no longer of any use.
 Do =M-x column-highlight=, to highlight the corrent column.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'col-highlight)
+  (el-get 'sync '(col-highlight vline))
 
   (require 'col-highlight)
 

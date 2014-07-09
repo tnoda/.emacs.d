@@ -1584,25 +1584,19 @@ Pressing =C-z= toggles between an eshell buffer and another.
   - =wl-init-hook= と =wl-exit-hook= で，ssh port forwarding を開始・終了する
     設定を追加している．
 
-** emacs-w3m                                                           :cvs:
-*** Install emacs-w3m using el-get.
+** emacs-w3m                                                          :cask:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'emacs-w3m)
-#+END_SRC
-
-#+BEGIN_SRC sh :tangle no :var info_dir=tnoda-info-dir
-  cd $info_dir
-  rm -f emacs-w3m-ja.info
-  ln -s /opt/el-get/emacs-w3m/doc/emacs-w3m-ja.info .
-#+END_SRC
-
-*** 行間を広くする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'w3m-load)
+  (require 'w3m)
   (add-hook 'w3m-mode-hook 'tnoda/increase-line-spacing)
-#+END_SRC
 
-面倒なことは全て =~/.emacs-w3m.el= に書いてある．
+  (when (fboundp 'cask-resource-path)
+    (defun tnoda/add-cask-w3m-to-info-directory-list ()
+      (add-to-list 'Info-directory-list
+                   (cask-resource-path "org-plus-contrib")))
+    (add-hook 'Info-mode-hook
+              'tnoda/add-cask-w3m-to-info-directory-list))
+
+#+END_SRC
 
 ** Mew
 *** インストール

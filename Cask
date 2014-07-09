@@ -18,3 +18,4 @@
 (depends-on "clojure-mode")
 (depends-on "cider")
 (depends-on "ac-nrepl")
+(depends-on "w3m")

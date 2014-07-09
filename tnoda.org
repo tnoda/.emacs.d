@@ -2311,45 +2311,6 @@ would be done by the following steps:
 
 #+END_SRC
 
-* ESS                                                                 :elget:
-** Install using a local recipe to install the stable version.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'ess-stable)
-  (require 'ess-site)
-#+END_SRC
-
-#+begin_src sh :var info_dir=tnoda-info-dir
-  cd $info_dir
-  rm -f ess.info
-  ln -s /opt/el-get/ess-stable/doc/info/ess.info .
-#+end_src
-
-** =C-c C-d C-e= pops up the object inspection.                         :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq ess-describe-at-point-method nil)
-  (add-to-list 'special-display-buffer-names "*ess-describe*")
-  (if (boundp 'popwin:special-display-config)
-      (push '("*ess-describe*" :height 10) popwin:special-display-config))
-
-#+END_SRC
-
-** ESS does not wait for the R process.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq ess-eval-visibly nil)
-#+END_SRC
-
-** ESS does not prompt each time you start a R session.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq ess-ask-for-ess-directory nil)
-#+END_SRC
-
-** =ess-tracebug=
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq ess-use-tracebug t)
-  (setq ess-long+replacement "+.")
-  (setq inferior-ess-split-long-prompt t)
-#+END_SRC
-
 * Twitter                                                   :elget:rubikitch:
 
 twittering-mode.el を使う．

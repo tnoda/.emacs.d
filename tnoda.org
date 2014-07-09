@@ -2336,12 +2336,6 @@ twittering-mode.el を使う．
   (setq twittering-use-master-password t)
 #+END_SRC
 
-* Network
-** =s-p= でプロキシサーバへの SSH フォワーディング開始・停止．         :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (load "~/.ssh-proxy.el")
-#+END_SRC
-
 * Helm
 
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -1614,7 +1614,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
 #+END_SRC
 
 *** Windows
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
   (when (eq system-type 'windows-nt)
     (defconst tnoda/mew-windows-dir
       (expand-file-name "mew-6.6" tnoda/src-dir))

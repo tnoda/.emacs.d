@@ -63,13 +63,19 @@
 *** Install & Setup
 #+NAME: el-get-dir
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (eval (defconst el-get-dir "/opt/el-get"))
+  (eval (defconst el-get-dir
+          (cond ((eq system-type 'darwin)
+                 "/opt/el-get")
+                ((eq system-type 'windows-nt)
+                 (expand-file-name "el-get" dotfiles-dir))
+                (t nil))))
+
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (let ((default-directory el-get-dir))
     (normal-top-level-add-subdirs-to-load-path))
-  (add-to-list 'load-path "/opt/el-get/el-get")
+  (add-to-list 'load-path (expand-file-name "el-get" el-get-dir))
   (unless (require 'el-get nil t)
     (url-retrieve
      "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
@@ -79,6 +85,7 @@
          (eval-print-last-sexp)))))
   (add-to-list 'el-get-recipe-path (expand-file-name "el-get-recipes" tnoda/dotfiles-dir))
   (el-get 'sync)
+
 #+END_SRC
 
 * Emacs

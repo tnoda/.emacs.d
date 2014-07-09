@@ -2005,32 +2005,34 @@ flymake-ruby で使う Ruby は rbenv のもの．
 **** Configuration
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defconst rsense-home "/opt/homebrew/Cellar/rsense/0.3/libexec")
-  (add-to-list 'load-path (expand-file-name "etc" rsense-home))
-  (require 'rsense)
-  
+  (when (eq system-type 'darwin)
+    (defconst rsense-home "/opt/homebrew/Cellar/rsense/0.3/libexec")
+    (add-to-list 'load-path (expand-file-name "etc" rsense-home))
+    (require 'rsense)
+
   ;;; Ruby Reference Manual
-  (setq rsense-rurema-home "/Users/tnoda/.rbenv/shims")
-  (setq rsense-rurema-refe "refe")
-  
+    (setq rsense-rurema-home "/Users/tnoda/.rbenv/shims")
+    (setq rsense-rurema-refe "refe")
+
   ;;; C-c .
-  (define-prefix-command 'tnoda/rsense-map)
-  (define-key ruby-mode-map (kbd "C-c .") 'tnoda/rsense-map)
-  (define-key tnoda/rsense-map (kbd ".") 'ac-complete-rsense)
-  (define-key tnoda/rsense-map (kbd "t") 'rsense-type-help)
-  (define-key tnoda/rsense-map (kbd "j") 'rsense-jump-to-definition)
-  (define-key tnoda/rsense-map (kbd "w") 'rsense-where-is)
-  (define-key tnoda/rsense-map (kbd "v") 'rsense-version)
-  (define-key tnoda/rsense-map (kbd "o") 'rsense-open-project)
-  (define-key tnoda/rsense-map (kbd "c") 'rsense-close-project)
-  (define-key tnoda/rsense-map (kbd "l") 'rsense-clear)
-  (define-key tnoda/rsense-map (kbd "x") 'rsense-exit)
-  
+    (define-prefix-command 'tnoda/rsense-map)
+    (define-key ruby-mode-map (kbd "C-c .") 'tnoda/rsense-map)
+    (define-key tnoda/rsense-map (kbd ".") 'ac-complete-rsense)
+    (define-key tnoda/rsense-map (kbd "t") 'rsense-type-help)
+    (define-key tnoda/rsense-map (kbd "j") 'rsense-jump-to-definition)
+    (define-key tnoda/rsense-map (kbd "w") 'rsense-where-is)
+    (define-key tnoda/rsense-map (kbd "v") 'rsense-version)
+    (define-key tnoda/rsense-map (kbd "o") 'rsense-open-project)
+    (define-key tnoda/rsense-map (kbd "c") 'rsense-close-project)
+    (define-key tnoda/rsense-map (kbd "l") 'rsense-clear)
+    (define-key tnoda/rsense-map (kbd "x") 'rsense-exit)
+
   ;;; Start completion automatically after inserting . or ::.
-  (defun tnoda/ac-complete-rsense-automatically ()
-    (add-to-list 'ac-sources 'ac-source-rsense-method)
-    (add-to-list 'ac-sources 'ac-source-rsense-constant))
-  (add-hook 'ruby-mode-hook 'tnoda/ac-complete-rsense-automatically)
+    (defun tnoda/ac-complete-rsense-automatically ()
+      (add-to-list 'ac-sources 'ac-source-rsense-method)
+      (add-to-list 'ac-sources 'ac-source-rsense-constant))
+    (add-hook 'ruby-mode-hook 'tnoda/ac-complete-rsense-automatically))
+
 #+END_SRC
 
 ** Rinari

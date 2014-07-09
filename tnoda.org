@@ -1031,9 +1031,9 @@ they are no longer of any use.
 ** auto-complete.el                                        :elget:rubikitch:
 *** Install via el-get.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'auto-complete)
   (require 'auto-complete-config)
   (ac-config-default)
+
 #+END_SRC
 
 *** 4 文字以上にならないと補完を開始しない (=ac-auto-start=).
@@ -1722,19 +1722,19 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 *** clojure-mode
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'clojure-mode)
-  
+  (require 'clojure-mode)
   (define-key clojure-mode-map (kbd "<f5>") 'nrepl-ritz-jack-in)
   (define-key clojure-mode-map (kbd "C-c t") nil)
-  
+
   (defun tnoda/clojure-mode-hook ()
     (enable-paredit-mode)
     (rainbow-delimiters-mode 1)
     (subword-mode 1)
     (setq show-trailing-whitespace t)
     (setq buffer-save-without-query t))
-  
+
   (add-hook 'clojure-mode-hook 'tnoda/clojure-mode-hook)
+
 #+END_SRC
 
 **** Yasnippet helper functions.
@@ -1757,10 +1757,8 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 *** CIDER
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'cider)
-  
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-  
+  (require 'cider)
+
   (defun tnoda/cider-repl-mode-hook ()
     (enable-paredit-mode)
     (rainbow-delimiters-mode 1)
@@ -1768,18 +1766,20 @@ Pressing =C-z= toggles between an eshell buffer and another.
     (font-lock-mode -1)
     (clojure-mode-font-lock-setup)
     (font-lock-mode 1))
-  
+
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
   (add-hook 'cider-repl-mode-hook 'tnoda/cider-repl-mode-hook)
+
 #+END_SRC
 
-*** COMMENT ac-nrepl.el
+*** ac-nrepl.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'ac-nrepl)
-  
+  (require 'ac-nrepl)
   (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
   (add-hook 'cider-mode-hook 'ac-nrepl-setup)
   (eval-after-load "auto-complete"
     '(add-to-list 'ac-modes 'cider-repl-mode))
+
 #+END_SRC
 
 *** Inferior Lisp Mode
@@ -2353,7 +2353,6 @@ would be done by the following steps:
 
 *** Jedi.el
 #+BEGIN_SRC emacs-lisp :tangle no
-  (el-get 'sync 'jedi)
   (require 'python-environment)
   (setq python-environment-virtualenv '("pyvenv" "--system-site-packages"))
   (require 'auto-complete-config)
@@ -2393,8 +2392,6 @@ would be done by the following steps:
   (setenv "PATH" (concat (getenv "PATH") ":" tnoda/gopath-bin))
   (add-to-list 'exec-path tnoda/gopath-bin)
 
-  (el-get 'sync 'go-autocomplete)
-
   (require 'go-mode)
 
   (defun tnoda/gofmt-before-save ()
@@ -2427,7 +2424,7 @@ would be done by the following steps:
 
 *** go-eldoc
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'go-eldoc)
+  (require 'go-eldoc)
 
 #+END_SRC
 

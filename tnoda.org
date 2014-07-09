@@ -295,17 +295,15 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
   (global-set-key (kbd "<M-f1>") 'tnoda/dictionary)
 #+END_SRC
 
-*** コマンドキーを =meta= キーにする．                                  :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq mac-command-modifier 'meta)
-#+END_SRC
-
-*** =Opt= キーを =super= キーにする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq mac-option-modifier 'super)
-#+END_SRC
-
 ** キーバインド
+*** Mac OS X's modifier settings
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when (eq system-type 'darwin)
+    (setq mac-option-modifier 'super)
+    (setq mac-command-modifier 'meta))
+
+#+END_SRC
+
 *** =s-q= を無効に．誤爆したときのダメージが大きすぎる (=save-buffers-kill-emacs=) :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-unset-key (kbd "s-q"))

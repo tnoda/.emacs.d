@@ -1920,12 +1920,21 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (define-key ruby-mode-map (kbd "#") 'ruby-interpolate)
 #+END_SRC
 
+
 *** =inf-ruby=
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'inf-ruby-implementations '("pry" . "pry -Ilib"))
-  (setq inf-ruby-default-implementation "pry")
-  (setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
-  (setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
+  (setq inf-ruby-default-implementation
+        (cond ((eq system-type 'darwin)
+               (progn
+                 (setq inf-ruby-first-prompt-pattern
+                       "^\\[[0-9]+\\] pry\\((.*)\\)> *")
+                 (setq inf-ruby-prompt-pattern
+                       "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
+                 "pry"))
+              (t "ruby")))
+
 #+END_SRC
 
 *** =C-m= を =reindent-then-newline-and-indent= に設定．              :key:

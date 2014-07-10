@@ -193,8 +193,19 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
     (tnoda/fontset-mac-default)
     (global-set-key (kbd "s-f") 'tnoda/fontset-toggle))
 
-  (when (eq window-system 'ns)
-    (tnoda/fontset-setup-mac))
+  (defun tnoda/fontset-setup-windows
+    ()
+    (set-face-attribute 'default nil
+                        :family "Inconsolata"
+                        :height 140)
+    (set-fontset-font t 'japanese-jisx0208 (font-spec :family "Meiryo"))
+    (set-fontset-font t 'katakana-jisx0201 (font-spec :family "Meiryo"))
+    (set-fontset-font t 'japanese-jisx0212 (font-spec :family "Meiryo")))
+
+  (cond ((eq window-system 'ns)
+         (tnoda/fontset-setup-mac))
+        ((eq window-system 'w32)
+         (tnoda/fontset-setup-windows)))
 
 #+END_SRC
 

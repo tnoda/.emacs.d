@@ -20,3 +20,4 @@
 (depends-on "ac-nrepl")
 (depends-on "w3m")
 (depends-on "markdown-mode")
+(depends-on "elisp-slime-nav")

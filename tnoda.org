@@ -196,7 +196,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
   (defun tnoda/fontset-setup-windows
     ()
     (set-face-attribute 'default nil
-                        :family "Inconsolata"
+                        :family "Consolas"
                         :height 140)
     (set-fontset-font t 'japanese-jisx0208 (font-spec :family "Meiryo"))
     (set-fontset-font t 'katakana-jisx0201 (font-spec :family "Meiryo"))

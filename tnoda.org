@@ -313,6 +313,14 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 #+END_SRC
 
+*** Windows key settings
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when (eq system-type 'windows-nt)
+    (setq w32-pass-lwindow-to-system nil)
+    (setq w32-lwindow-modifier 'hyper))
+
+#+END_SRC
+
 *** =s-q= を無効に．誤爆したときのダメージが大きすぎる (=save-buffers-kill-emacs=) :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-unset-key (kbd "s-q"))

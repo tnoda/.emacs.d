@@ -1996,8 +1996,8 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 flymake-ruby で使う Ruby は rbenv のもの．
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq flymake-ruby-executable "~/.rbenv/shims/ruby")
   (add-hook 'ruby-mode-hook 'flymake-ruby-load)
+
 #+END_SRC
 
 *** =ruby-mode-map= で =TAB= を =ruby-indent-command= に割り当てているので yasnippet と競合するのを回避する．

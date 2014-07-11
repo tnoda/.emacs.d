@@ -1871,6 +1871,13 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (require 'inf-ruby)
 #+END_SRC
 
+*** smartparens-ruby
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'smartparens-ruby)
+  (add-hook 'ruby-mode-hook 'smartparens-strict-mode)
+
+#+END_SRC
+
 *** =~/.rbenv/shims= を =exec-path= に追加する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'exec-path (expand-file-name "~/.rbenv/shims"))
@@ -1879,16 +1886,14 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 *** =ruby-mode=
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/ruby-mode-hook ()
-    (electric-pair-mode 1)
+    (electric-pair-mode -1)
     (electric-indent-mode 1)
     (electric-layout-mode 1)
-    (make-local-variable 'electric-pair-pairs)
-    (setq-local electric-pair-pairs '((?\| . ?\|)))
     (subword-mode 1)
     (setq show-trailing-whitespace t)
     (outline-minor-mode 1)
     (setq outline-regexp " *\\(def \\|class\\|module\\|describe \\|it \\)"))
-  
+
   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))

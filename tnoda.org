@@ -107,7 +107,7 @@
 #+BEGIN_SRC emacs-lisp :tangle yes
   (set-language-environment "Japanese")
   (require 'ucs-normalize)
-  (prefer-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8-unix)
   (cond ((eq system-type 'darwin)
          (setq default-file-name-coding-system 'utf-8-hfs))
         ((eq system-type 'windows-nt)

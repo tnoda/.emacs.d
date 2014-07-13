@@ -1230,6 +1230,15 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (el-get 'sync 'flycheck)
 #+END_SRC
 
+** YASnippet                                                          :cask:
+
+Use YASnippet as a non-global minor mode.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'yasnippet)
+
+#+END_SRC
+
 
 * Eshell
 ** Plan 9 Smart Shell

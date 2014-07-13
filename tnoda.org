@@ -922,54 +922,6 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 
 #+END_SRC
 
-** yasnippet.el                                                      :elget:
-*** Install
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'yasnippet)
-#+END_SRC
-
-*** メジャーモードが =TAB= キーをインデントに使っているときの回避策．
-
-http://capitaomorte.github.com/yasnippet/faq.html
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun yas/advise-indent-function (function-symbol)
-    (eval `(defadvice ,function-symbol (around yas/try-expand-first activate)
-             ,(format
-               "Try to expand a snippet before point, then call `%s' as usual"
-               function-symbol)
-             (let ((yas/fallback-behavior nil))
-               (unless (and (interactive-p)
-                            (yas/expand))
-                 ad-do-it)))))
-#+END_SRC
-
-この =yas/advice-indent-function= は，
-
-#+BEGIN_EXAMPLE
-  (yas/advise-indent-function 'ruby-indent-line)
-#+END_EXAMPLE
-
-のように使う．
-
-*** スニペット用のヘルパー関数を定義．
-**** =tnoda/classify=. ActiveSupport の =String#classify= と同等．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/classify (str)
-    "Return rails-classified string."
-    (replace-regexp-in-string "_" "" (capitalize str)))
-#+END_SRC
-
-**** =tnoda/guess-ruby-class-name=. ファイル名から Ruby のクラス名を推測する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/guess-ruby-class-name ()
-    "Return the Ruby class name associating with the current buffer."
-    (tnoda/classify (file-name-sans-extension
-                     (file-name-nondirectory
-                      (or (buffer-file-name)
-                          (buffer-name (current-buffer)))))))
-#+END_SRC
-
 ** point-undo.el                                           :elget:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1998,11 +1950,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
-#+END_SRC
-
-*** =ruby-mode-map= で =TAB= を =ruby-indent-command= に割り当てているので yasnippet と競合するのを回避する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (yas/advise-indent-function 'ruby-indent-line)
 #+END_SRC
 
 *** =align-rules-list=. =M-x align= でコンマ区切りとハッシュを整列． :command:

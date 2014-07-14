@@ -2732,6 +2732,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   (setq org-agenda-custom-commands
         '(("H" "Home Lists"
            ((agenda "")
+            (tags-todo "family")
             (tags-todo "home")
             (tags-todo "office")
             (tags-todo "errands")
@@ -2742,7 +2743,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
                         (org-agenda-sorting-strategy
                          (quote ((agenda time-up priority-down tag-up) )))
                         (org-deadline-warning-days 0)))))))
-  
+
   (defun tnoda/org-agenda-home-lists ()
     (interactive)
     (org-agenda nil "H"))

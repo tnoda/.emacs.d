@@ -332,7 +332,7 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (when (eq system-type 'windows-nt)
     (setq w32-pass-lwindow-to-system nil)
-    (setq w32-lwindow-modifier 'hyper))
+    (setq w32-lwindow-modifier 'meta))
 
 #+END_SRC
 
@@ -2799,6 +2799,12 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 *** Beamer
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-beamer-frame-level 2)
+#+END_SRC
+
+*** Inhibit HTML validation link
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-html-validation-link nil)
+
 #+END_SRC
 
 ** Babel

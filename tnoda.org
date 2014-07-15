@@ -645,6 +645,23 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
   (add-hook 'find-file-hook 'tnoda/try-smerge)
 #+END_SRC
 
+** Printing
+
++ Printing by =ps-print-buffer-with-faces=.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq ps-multibyte-buffer 'non-latin-printer)
+  (setq ps-lpr-command "c:/Program Files/Ghostgum/gsview/gsview32.exe")
+  (setq ps-lpr-switches nil)
+  (setq ps-printer-name nil)
+  (setq ps-printer-name-option nil)
+  (setq ps-paper-type 'a4)
+  (setq ps-line-number t)
+  (setq ps-print-header t)
+  (setq ps-print-color-p t)
+
+#+END_SRC
+
 * Global
 
 ** dash.el                                                           :elget:

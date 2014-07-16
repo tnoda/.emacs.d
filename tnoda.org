@@ -140,9 +140,8 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
 *** =s-f= でフォント切り替え．                                            :key:
 
-+ デフォルトは Ricty Ascii + ヒラギノ丸ゴ
-+ プログラミング時は Ricty
-+ =s-f= で切り替え
++ デフォルトは Inconsolata + ヒラギノ丸ゴ
++ =s-f= で拡大・縮小
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/fontset-setup-mac
@@ -152,7 +151,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
     (defun tnoda/fontset-mac-default ()
       (set-face-attribute 'default nil
-                          :family "Ricty Ascii"
+                          :family "Inconsolata"
                           :height 160)
       (set-fontset-font (frame-parameter nil 'font)
                         'japanese-jisx0208
@@ -167,7 +166,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
     (defun tnoda/fontset-mac-retina ()
       (set-face-attribute 'default nil
-                          :family "Ricty Ascii"
+                          :family "Inconsolata"
                           :height 240)
       (set-fontset-font (frame-parameter nil 'font)
                         'japanese-jisx0208

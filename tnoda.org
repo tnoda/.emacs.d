@@ -100,18 +100,12 @@
   (load "~/.mail.el")
 #+END_SRC
 
-** 日本語
-+ 日本語で使う
-+ UTF-8 で使う
-
+** Coding system for file names
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (set-language-environment "Japanese")
-  (require 'ucs-normalize)
-  (prefer-coding-system 'utf-8-unix)
   (cond ((eq system-type 'darwin)
          (setq default-file-name-coding-system 'utf-8-hfs))
         ((eq system-type 'windows-nt)
-         (setq default-file-name-coding-system 'japanese-cp932-dos)))
+         (setq default-file-name-coding-system 'cp932)))
 
 #+END_SRC
 

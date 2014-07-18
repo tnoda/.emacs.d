@@ -100,18 +100,16 @@
   (load "~/.mail.el")
 #+END_SRC
 
-** 日本語
-+ 日本語で使う
-+ UTF-8 で使う
-
+** Coding system
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (set-language-environment "Japanese")
-  (require 'ucs-normalize)
-  (prefer-coding-system 'utf-8-unix)
-  (cond ((eq system-type 'darwin)
-         (setq default-file-name-coding-system 'utf-8-hfs))
-        ((eq system-type 'windows-nt)
-         (setq default-file-name-coding-system 'japanese-cp932-dos)))
+  (setq default-file-name-coding-system
+        (pcase system-type
+          (`darwin     'utf-8-hfs)
+          (`windows-nt 'cp932-dos)))
+
+  (when (eq system-type 'windows-nt)
+    (setq default-buffer-file-coding-system 'utf-8-unix)
+    (setq default-process-coding-system '(cp932-dos . cp932-dos)))
 
 #+END_SRC
 
@@ -195,11 +193,12 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
   (defun tnoda/fontset-setup-windows
     ()
     (set-face-attribute 'default nil
-                        :family "Consolas"
-                        :height 140)
+                        :family "Inconsolata"
+                        :height 144)
     (set-fontset-font t 'japanese-jisx0208 (font-spec :family "Meiryo"))
     (set-fontset-font t 'katakana-jisx0201 (font-spec :family "Meiryo"))
-    (set-fontset-font t 'japanese-jisx0212 (font-spec :family "Meiryo")))
+    (set-fontset-font t 'japanese-jisx0212 (font-spec :family "Meiryo"))
+    (setq face-font-rescale-alist '(("メイリオ" . 0.96))))
 
   (cond ((eq window-system 'ns)
          (tnoda/fontset-setup-mac))
@@ -1164,9 +1163,10 @@ Do =M-x column-highlight=, to highlight the corrent column.
 ** igrep.el                                                :elget:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'igrep)
+  (unless (eq system-type 'windows-nt)
+    (el-get 'sync 'igrep)
 
-  (require 'igrep)
+    (require 'igrep))
 
 #+END_SRC
 

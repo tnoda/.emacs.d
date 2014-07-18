@@ -5,6 +5,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
+;;; Language Environment
+;;;
+(set-language-environment "UTF-8")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Per-host Settings
 ;;;
 (load (expand-file-name ".local.el" (getenv "HOME")) t)

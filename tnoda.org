@@ -197,11 +197,11 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
     ()
     (set-face-attribute 'default nil
                         :family "Inconsolata"
-                        :height 140)
+                        :height 144)
     (set-fontset-font t 'japanese-jisx0208 (font-spec :family "Meiryo"))
     (set-fontset-font t 'katakana-jisx0201 (font-spec :family "Meiryo"))
     (set-fontset-font t 'japanese-jisx0212 (font-spec :family "Meiryo"))
-    (setq face-font-rescale-alist '(("メイリオ" . 0.95))))
+    (setq face-font-rescale-alist '(("メイリオ" . 0.96))))
 
   (cond ((eq window-system 'ns)
          (tnoda/fontset-setup-mac))

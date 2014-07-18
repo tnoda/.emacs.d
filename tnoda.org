@@ -1160,9 +1160,10 @@ Do =M-x column-highlight=, to highlight the corrent column.
 ** igrep.el                                                :elget:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'igrep)
+  (unless (eq system-type 'windows-nt)
+    (el-get 'sync 'igrep)
 
-  (require 'igrep)
+    (require 'igrep))
 
 #+END_SRC
 

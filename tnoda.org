@@ -100,14 +100,10 @@
   (load "~/.mail.el")
 #+END_SRC
 
-** Coding system
+** Coding system in Windows settings
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq default-file-name-coding-system
-        (pcase system-type
-          (`darwin     'utf-8-hfs)
-          (`windows-nt 'cp932-dos)))
-
   (when (eq system-type 'windows-nt)
+    (setq default-file-name-coding-system 'cp932)
     (setq default-buffer-file-coding-system 'utf-8-unix)
     (setq default-process-coding-system '(cp932-dos . cp932-dos)))
 

@@ -2310,7 +2310,11 @@ would be done by the following steps:
   (defun tnoda/go-mode-tab-width ()
     (setq tab-width 4))
 
+  (defun tnoda/go-mode-turn-off-auto-save-buffers ()
+    (setq-local auto-save-buffers-enhanced-activity-flag nil))
+
   (add-hook 'go-mode-hook 'tnoda/go-mode-tab-width)
+  (add-hook 'go-mode-hook 'tnoda/go-mode-turn-off-auto-save-buffers)
 
 #+END_SRC
 

@@ -295,9 +295,11 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
 *** =browse-url= で Firefox を開く．                              :command:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "open"
-        browse-url-generic-args '("-a" "Firefox"))
+  (when (eq system-type 'darwin)
+    (setq browse-url-browser-function 'browse-url-generic
+          browse-url-generic-program "open"
+          browse-url-generic-args '("-a" "Firefox")))
+
 #+END_SRC
 
 *** =<M-f1>= invokes Dictionary.app.                                    :key:

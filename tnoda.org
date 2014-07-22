@@ -860,7 +860,7 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (el-get 'sync 'auto-save-buffers-enhanced)
 
   (auto-save-buffers-enhanced t)
-  (setq auto-save-buffers-enhanced-interval 2)
+  (setq auto-save-buffers-enhanced-interval 3)
 
 #+END_SRC
 

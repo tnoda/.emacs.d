@@ -782,6 +782,22 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (setq uniquify-ignore-buffers-re "*[^*]+*")
 #+END_SRC名
 
+** dired-x
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when (eq system-type 'windows-nt)
+    (defun tnoda/dired-x-for-windows
+      ()
+      (load "dired-x")
+      (let ((re (->> '("xlsx?" "pptx?" "docx?" "pdf" "jpg" "png" "bmp")
+                  (--map (concat "\\." it "\\'"))
+                  (-interpose "\\|")
+                  (apply 'concat))))
+        (add-to-list 'dired-guess-shell-alist-default `(,re . ("explorer.exe"))))
+      (define-key ctl-x-map (kbd "C-j") 'skk-mode))
+    (add-to-list 'dired-load-hook 'tnoda/dired-x-for-windows))
+
+#+END_SRC
+
 ** ido.el
 #+BEGIN_SRC emacs-lisp :tangle yes
   (ido-mode 1)

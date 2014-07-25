@@ -2259,6 +2259,12 @@ would be done by the following steps:
 
 ** Python
 
+*** pdb
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq gud-pdb-command-name "pdb.sh")
+
+#+END_SRC
+
 *** Jedi.el
 #+BEGIN_SRC emacs-lisp :tangle no
   (require 'python-environment)

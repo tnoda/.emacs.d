@@ -2342,12 +2342,35 @@ would be done by the following steps:
 
 ** CSS
 
+*** indent-offset
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/css-mode-indent-offset ()
+    (setq-local css-indent-offset 2))
+
+  (add-hook 'css-mode-hook 'tnoda/css-mode-indent-offset)
+
+#+END_SRC
+
 *** mon-css-color                                                    :cask:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (when (require 'mon-css-color "mon-css-color" t)
     (add-hook 'css-mode-hook 'css-color-turn-on-in-buffer))
 
 #+END_SRC
+
+*** emmet-mode                                                       :cask:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'emmet-mode)
+  (setq emmet-indentation 2)
+
+  (defun tnoda/turn-on-emmet-mode ()
+    (emmet-mode 1))
+
+  (add-hook 'css-mode-hook 'tnoda/turn-on-emmet-mode)
+  (add-hook 'css-mode-hook 'turn-on-smartparens-strict-mode)
+
+#+END_SRC
+
 
 * Twitter                                                   :elget:rubikitch:
 

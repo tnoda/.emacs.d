@@ -24,4 +24,4 @@
 (depends-on "yasnippet")
 (depends-on "dired-open")
 (depends-on "mon-css-color" :git "https://gist.github.com/f341df133553ea1cf873.git")
-
+(depends-on "emmet-mode")

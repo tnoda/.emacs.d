@@ -2114,19 +2114,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
   (add-hook 'gfm-mode-hook 'tnoda/markdown-shifttab-fix)
 #+END_SRC
 
-** Zencoding                                                         :elget:
-*** Install
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'zencoding-mode)
-#+END_SRC
-
-*** Enable zencoding-mode in html-mode.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path (expand-file-name "zencoding" tnoda/dotfiles-dir))
-  (require 'zencoding-mode)
-  (add-hook 'html-mode-hook 'zencoding-mode)
-#+END_SRC
-
 ** Java
 
 *** Use Oracle Java 1.7.0_21.

@@ -2353,6 +2353,15 @@ would be done by the following steps:
 
 #+END_SRC
 
+** CSS
+
+*** mon-css-color                                                    :cask:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when (require 'mon-css-color "mon-css-color" t)
+    (add-hook 'css-mode-hook 'css-color-turn-on-in-buffer))
+
+#+END_SRC
+
 * Twitter                                                   :elget:rubikitch:
 
 twittering-mode.el を使う．

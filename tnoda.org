@@ -2398,6 +2398,7 @@ twittering-mode.el を使う．
   (define-key helm-command-map (kbd "m") 'helm-man-woman)
   (define-key helm-command-map (kbd "o") 'helm-occur)
   (define-key helm-command-map (kbd "r") 'helm-resume)
+  (define-key helm-command-map (kbd "s") 'helm-semantic-or-imenu)
 
   (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
   (add-to-list 'helm-completing-read-handlers-alist '(execute-extended-command . nil))

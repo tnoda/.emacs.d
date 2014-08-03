@@ -660,6 +660,12 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 * Global
 
+** generic-x.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'generic-x)
+
+#+END_SRC
+
 ** dash.el                                                           :elget:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'dash)

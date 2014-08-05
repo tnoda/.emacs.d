@@ -658,6 +658,12 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 #+END_SRC
 
+** auto-insert
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'find-file-hook 'auto-insert)
+
+#+END_SRC
+
 * Global
 
 ** generic-x.el

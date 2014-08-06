@@ -2626,6 +2626,13 @@ File on disk now will become a backup file if you save these changes.
   (global-set-key (kbd "C-c l") 'org-store-link)
 #+END_SRC
 
+*** Using links outside Org
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-c L") 'org-insert-link-global)
+  (global-set-key (kbd "C-c o") 'org-open-at-point-global)
+
+#+END_SRC
+
 ** Refile
 main.org のトップレベルに refile できるようにする．
 

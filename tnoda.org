@@ -2016,12 +2016,6 @@ flymake-ruby で使う Ruby は rbenv のもの．
                  (modes  . '(ruby-mode))))
 #+END_SRC
 
-*** rspec-mode.el                                                     :elget:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(rspec-mode))
-  (require 'rspec-mode)
-#+END_SRC
-
 *** Rsense
 
 **** Install via Homebrew

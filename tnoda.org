@@ -1867,7 +1867,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 *** Install elisps using el-get.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(ruby-mode inf-ruby yari flymake-easy flymake-ruby))
+  (el-get 'sync '(ruby-mode inf-ruby yari))
   (require 'ruby-mode)
   (require 'inf-ruby)
 #+END_SRC
@@ -1992,15 +1992,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (define-key ruby-mode-map (kbd "C-M-h") 'tnoda/ruby-mark-defun)
 #+END_SRC
 
-*** flymake-ruby を使う．
-
-flymake-ruby で使う Ruby は rbenv のもの．
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'ruby-mode-hook 'flymake-ruby-load)
-
-#+END_SRC
-
 *** =align-rules-list=. =M-x align= でコンマ区切りとハッシュを整列． :command:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'align)
@@ -2014,6 +2005,12 @@ flymake-ruby で使う Ruby は rbenv のもの．
                  (regexp . "\\(\\s-*\\)=>\\s-*[^# \t\n]")
                  (repeat . t)
                  (modes  . '(ruby-mode))))
+#+END_SRC
+
+*** flycheck
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'ruby-mode-hook 'tnoda/turn-on-flycheck-mode)
+
 #+END_SRC
 
 *** Rsense

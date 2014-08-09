@@ -1813,16 +1813,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 #+END_SRC
 
-*** ac-nrepl.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'ac-nrepl)
-  (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
-  (eval-after-load "auto-complete"
-    '(add-to-list 'ac-modes 'cider-repl-mode))
-
-#+END_SRC
-
 *** Inferior Lisp Mode
 
 **** Enable paredit-mode in inferior-lisp-mode.

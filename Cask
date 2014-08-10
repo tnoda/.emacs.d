@@ -24,3 +24,4 @@
 (depends-on "emmet-mode")
 (depends-on "clojure-mode")
 (depends-on "cider")
+(depends-on "ac-cider")

@@ -2127,9 +2127,12 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 ** Java
 
-*** Use Oracle Java 1.7.0_21.
+*** Set =JAVA_HOME= using =java_home=
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setenv "JAVA_HOME" "/Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home")
+  (setenv "JAVA_HOME"
+          (let ((ret (shell-command-to-string "/usr/libexec/java_home")))
+            (substring ret 0 (1- (length ret)))))
+
 #+END_SRC
 
 *** ajc-java-complete

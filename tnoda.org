@@ -1482,6 +1482,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
 + =skk-large-jisyo=
 + =skk-server-host=
 + =skk-server-portnum=
++ =skk-dcomp-activate=
 + =skk-today= / =skk-clock= で西暦表示 (=skk-data-ad=).
 + 読点句点の代わりに，「，」「．」を使う (=skk-rom-kana-rule-list=).
 + アノテーションを表示する (=skk-show-annotation=).

@@ -26,3 +26,4 @@
 (depends-on "cider")
 (depends-on "ac-cider")
 (depends-on "yaml-mode")
+(depends-on "visual-regexp")

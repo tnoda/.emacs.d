@@ -1279,6 +1279,12 @@ Use YASnippet as a non-global minor mode.
 
 #+END_SRC
 
+** visual-regexp                                                      :cask:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'visual-regexp)
+  (global-set-key (kbd "C-M-%") 'vr/query-replace)
+
+#+END_SRC
 
 * Eshell
 ** Plan 9 Smart Shell

@@ -664,6 +664,13 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 #+END_SRC
 
+** wdired
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'dired)
+  (define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)
+
+#+END_SRC
+
 * Global
 
 ** generic-x.el

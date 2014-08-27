@@ -1276,6 +1276,7 @@ Use YASnippet as a non-global minor mode.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'yasnippet)
+  (yas-reload-all)
 
 #+END_SRC
 
@@ -2210,6 +2211,8 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
             (nil "\\( *trait .*\\){" 1))))
 
   (add-hook 'scala-mode-hook 'tnoda/scala-mode-hook)
+  (add-hook 'scala-mode-hook 'yas-minor-mode-on)
+
 #+END_SRC
 
 *** ENSIME

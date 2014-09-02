@@ -29,3 +29,4 @@
 (depends-on "yaml-mode")
 (depends-on "visual-regexp")
 (depends-on "sudden-death")
+(depends-on "guide-key")

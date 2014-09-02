@@ -2515,6 +2515,12 @@ twittering-mode.el を使う．
 
 #+END_SRC
 
+** helm-descbinds
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (helm-descbinds-install)
+
+#+END_SRC
+
 
 * SDIC
 ** インストール

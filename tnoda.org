@@ -1322,7 +1322,7 @@ on Sep. 2, 2014.
   (setq guide-key/popup-window-position 'bottom)
 
   ;;; 文字の大きさを変更する(正の数で大きく、負の数で小さく)
-  (setq guide-key/text-scale-amount -2)
+  (setq guide-key/text-scale-amount 0)
 
   ;;; 有効にする
   (guide-key-mode 1)

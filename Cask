@@ -10,6 +10,7 @@
 (depends-on "helm-pydoc")
 (depends-on "helm-dash")
 (depends-on "helm-descbinds")
+(depends-on "helm-ls-git")
 (depends-on "popwin")
 (depends-on "auto-complete")
 (depends-on "jedi")

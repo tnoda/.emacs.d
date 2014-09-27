@@ -1864,8 +1864,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
     (enable-paredit-mode)
     (rainbow-delimiters-mode 1)
     (subword-mode 1)
-    (font-lock-mode -1)
-    (clojure-mode-font-lock-setup)
     (font-lock-mode 1))
 
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)

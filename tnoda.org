@@ -1072,6 +1072,12 @@ they are no longer of any use.
   (setq ac-auto-start 4)
 #+END_SRC
   
+** company-mode                                                       :cask:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'company)
+
+#+END_SRC
+
 ** col-highlight.el                                        :elget:rubikitch:
 
 Do =M-x column-highlight=, to highlight the corrent column.

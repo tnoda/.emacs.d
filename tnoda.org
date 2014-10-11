@@ -1831,6 +1831,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
     (enable-paredit-mode)
     (rainbow-delimiters-mode 1)
     (subword-mode 1)
+    (yas-minor-mode)
     (setq show-trailing-whitespace t)
     (setq buffer-save-without-query t))
 

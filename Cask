@@ -31,3 +31,4 @@
 (depends-on "visual-regexp")
 (depends-on "sudden-death")
 (depends-on "guide-key")
+(depends-on "company")

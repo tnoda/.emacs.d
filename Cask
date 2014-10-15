@@ -31,3 +31,4 @@
 (depends-on "sudden-death")
 (depends-on "guide-key")
 (depends-on "company")
+(depends-on "ace-isearch")

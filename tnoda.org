@@ -1345,6 +1345,12 @@ on Sep. 2, 2014.
 
 #+END_SRC
 
+** ace-isearch                                                        :cask:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-ace-isearch-mode 1)
+
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

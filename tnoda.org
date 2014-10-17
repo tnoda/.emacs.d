@@ -2265,6 +2265,10 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'ensime)
   (setq ensime-sbt-perform-on-save nil)
+  (setq ensime-javadoc-stdlib-url-base
+        (concat "file://"
+                (expand-file-name "Documents/Java/jdk-8u25-docs/api/"
+                                  (getenv "HOME"))))
   (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 #+END_SRC

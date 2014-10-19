@@ -811,6 +811,26 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   (setq uniquify-ignore-buffers-re "*[^*]+*")
 #+END_SRC名
 
+** direx.el                                                           :cask:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'dired)
+  (require 'direx)
+  (define-key dired-mode-map (kbd "b") 'direx:jump-to-directory)
+  (define-key direx:direx-mode-map (kbd "b") 'dired-jump)
+
+#+END_SRC
+
+** dired-k                                                            :cask:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'dired)
+  (require 'dired-k)
+  (define-key dired-mode-map (kbd "g") 'dired-k)
+  (add-hook 'dired-initial-position-hook 'dired-k)
+  (require 'direx-k)
+  (define-key direx:direx-mode-map (kbd "K") 'direx-k)
+
+#+END_SRC
+
 ** dired-x
 #+BEGIN_SRC emacs-lisp :tangle yes
   (when (eq system-type 'windows-nt)

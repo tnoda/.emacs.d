@@ -1926,11 +1926,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (add-hook 'inferior-lisp-mode-hook 'tnoda/curly-brace-matching-fix)
 #+END_SRC
 
-**** Syntax highlighting
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'inferior-lisp-mode-hook 'clojure-mode-font-lock-setup)
-#+END_SRC
-
 ** Ruby
 
 *** Install elisps using el-get.

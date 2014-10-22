@@ -36,3 +36,4 @@
 (depends-on "ace-isearch")
 (depends-on "scala-mode2")
 (depends-on "ensime")
+(depends-on "twittering-mode")

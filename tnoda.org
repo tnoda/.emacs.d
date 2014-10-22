@@ -2458,8 +2458,8 @@ twittering-mode.el を使う．
 
 ** 各 tweet 一行で表示．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq twittering-status-format
-        "%C{%Y-%m-%d %H:%M:%S} %s > %T // from %f%L%r%R\n")
+  (setq twittering-status-format "%s >\n%T\n")
+
 #+END_SRC
 
 ** 認証済み OAuth トークンを PGP で暗号化して保存．

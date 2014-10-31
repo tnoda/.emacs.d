@@ -37,3 +37,4 @@
 (depends-on "scala-mode2")
 (depends-on "ensime")
 (depends-on "twittering-mode")
+(depends-on "ess")

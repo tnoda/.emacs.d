@@ -2446,6 +2446,14 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 #+END_SRC
 
+** ESS (R)
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'ess-site)
+
+  (add-hook 'inferior-ess-mode-hook 'turn-on-smartparens-mode)
+
+#+END_SRC
+
 
 * Twitter                                                    :cask:rubikitch:
 

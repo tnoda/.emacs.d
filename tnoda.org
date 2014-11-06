@@ -2917,9 +2917,10 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 
 *** Latex
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-latex-pdf-process '("platex %b" "platex %b" "dvipdfmx %b"))
-  (setq org-latex-default-class "jsarticle")
-#+END_SRC
+  (setq org-latex-pdf-process '("/usr/texbin/lualatex %b"))
+  (setq org-latex-default-class "ltjsarticle}")
+  (add-to-list 'org-latex-default-packages-alist '("" "luatexja" nil))
+  (add-to-list 'org-latex-default-packages-alist '("hiragino-pron" "luatexja-preset" nil))
 
 *** Beamer
 #+BEGIN_SRC emacs-lisp :tangle yes

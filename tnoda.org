@@ -2922,9 +2922,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   (add-to-list 'org-latex-default-packages-alist '("" "luatexja" nil))
   (add-to-list 'org-latex-default-packages-alist '("hiragino-pron" "luatexja-preset" nil))
 
-*** Beamer
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-beamer-frame-level 2)
 #+END_SRC
 
 *** Inhibit HTML validation link

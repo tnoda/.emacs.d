@@ -1543,32 +1543,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (global-set-key (kbd "C-\\") 'skk-mode)
 #+END_SRC
 
-** =skk-mode= なバッファで =isearch= するときにはミニバッファでも SKK.
-
-=(require 'skk-setup)= すると，=C-x j= と =C-x t= にそれぞれ
-=skk-auto-fill=mode= と =skk-tutorial= が割り当てられるので，
-=skk-setup.el= は使わないことにする．代わりに =skk-setup.el=
-で定義されている関数をコピペする．
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun skk-isearch-setup-maybe ()
-    (require 'skk-vars)
-    (when (or (eq skk-isearch-mode-enable 'always)
-              (and (boundp 'skk-mode)
-                   skk-mode
-                   skk-isearch-mode-enable))
-      (skk-isearch-mode-setup)))
-  
-  (defun skk-isearch-cleanup-maybe ()
-    (require 'skk-vars)
-    (when (and (featurep 'skk-isearch)
-               skk-isearch-mode-enable)
-      (skk-isearch-mode-cleanup)))
-  
-  (add-hook 'isearch-mode-hook #'skk-isearch-setup-maybe)
-  (add-hook 'isearch-mode-end-hook #'skk-isearch-cleanup-maybe)
-#+END_SRC
-
 ** =~/.skk.el= の設定
 + =skk-large-jisyo=
 + =skk-server-host=

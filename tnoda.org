@@ -2951,6 +2951,13 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
      (latex . t)))
 #+END_SRC
 
+*** Ditaa
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-ditaa-jar-path
+        (shell-command-to-string "brew ls ditaa | grep jar | tr -d '\n'"))
+
+#+END_SRC
+
 *** Use graphviz-dot-mode when editing dot blocks.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'graphviz-dot-mode)

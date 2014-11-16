@@ -1520,8 +1520,8 @@ Pressing =C-z= toggles between an eshell buffer and another.
 ** インストール
 #+BEGIN_SRC sh :tangle install-skk.sh :var prefix=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir info_dir=tnoda-info-dir emacs=emacs-app
   cd src
-  curl http://www.ring.gr.jp/archives/elisp/skk/maintrunk/ddskk-15.1.tar.gz | tar zxf -
-  cd ddskk-15.1
+  curl http://www.ring.gr.jp/archives/elisp/skk/maintrunk/ddskk-20141116.tar.gz | tar zxf -
+  cd ddskk-20141116
   echo "(setq PREFIX \"${prefix}\")
   (setq SKK_DATADIR \"${prefix}/share/skk\")
   (setq SKK_INFODIR \"${info_dir}\")

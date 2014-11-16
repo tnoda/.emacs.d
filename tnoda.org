@@ -2953,11 +2953,17 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-ditaa-jar-path
         (shell-command-to-string "brew ls ditaa | grep jar | tr -d '\n'"))
+  (setq org-ditaa-eps-jar-path
+        (expand-file-name "share/ditaa/DitaaEps.jar" tnoda/dotfiles-dir))
+  (add-to-list 'org-babel-default-header-args:ditaa '(:eps . t))
+  (add-to-list 'org-babel-default-header-args:ditaa '(:cmdline . "-S -E"))
 
 #+END_SRC
 
-*** Use graphviz-dot-mode when editing dot blocks.
+*** Graphviz
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'org-babel-default-header-args:dot '(:cmdline . "-Teps"))
+
   (require 'graphviz-dot-mode)
   (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
 #+END_SRC

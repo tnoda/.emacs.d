@@ -1128,8 +1128,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
 ** rainbow-delimiters.el                                             :elget:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'rainbow-delimiters)
-
   (require 'rainbow-delimiters)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)

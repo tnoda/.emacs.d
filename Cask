@@ -38,3 +38,4 @@
 (depends-on "ensime")
 (depends-on "twittering-mode")
 (depends-on "ess")
+(depends-on "rainbow-delimiters")

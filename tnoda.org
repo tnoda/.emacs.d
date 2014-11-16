@@ -1557,11 +1557,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
 + cmigemo を https://gist.github.com/1824249 の formula で =brew install= する．
 + migemo.el のインストールと設定は，http://d.hatena.ne.jp/samurai20000/20100907/1283791433 を参考にする．
 
-** インストール
-#+BEGIN_SRC emacs-lisp :tangle no
-  (auto-install-from-url "https://raw.github.com/gist/457761/539882a79ec11bc9b6e1ac417cdafe0e198e245f/migemo.el")
-#+END_SRC
-
 ** C/Migemo を使う．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'migemo)

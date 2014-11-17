@@ -1301,11 +1301,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (el-get 'sync 'pretty-mode)
 #+END_SRC
 
-** flymake                                                           :elget:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'flymake)
-#+END_SRC
-
 ** flycheck
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'flycheck)
@@ -2201,19 +2196,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
     (define-key java-mode-map (kbd "C-c C-c") 'compile))
   
   (add-hook 'java-mode-hook 'tnoda/java-mode-hook)
-#+END_SRC
-
-*** flymake
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'flymake)
-  (add-hook 'java-mode-hook 'flymake-mode-on)
-  
-  (defun tnoda/java-flymake-init ()
-    (list "javac" (list (flymake-init-create-temp-buffer-copy
-                         'flymake-create-temp-with-folder-structure))))
-  
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.java$" tnoda/java-flymake-init flymake-simple-cleanup))
 #+END_SRC
 
 ** Scala

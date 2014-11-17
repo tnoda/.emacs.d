@@ -40,4 +40,5 @@
 (depends-on "ess")
 (depends-on "rainbow-delimiters")
 (depends-on "migemo")
-
+(depends-on "haskell-mode")
+(depends-on "ghc")

@@ -2415,6 +2415,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'haskell-mode)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+  (add-hook 'haskell-mode-hook 'turn-off-pretty-mode)
   (eval-after-load "haskell-mode"
     '(progn
        (define-key haskell-mode-map (kbd "C-,") 'haskell-move-nested-left)

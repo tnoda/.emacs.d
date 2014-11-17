@@ -1298,7 +1298,9 @@ Do =M-x column-highlight=, to highlight the corrent column.
 
 ** pretty-mode.el                                                    :elget:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'pretty-mode)
+  (require 'pretty-mode)
+  (global-pretty-mode -1)
+
 #+END_SRC
 
 ** flycheck

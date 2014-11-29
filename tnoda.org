@@ -2416,6 +2416,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (require 'haskell-mode)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc)
+  (add-hook 'haskell-mode-hook 'turn-on-smartparens-mode)
   (add-hook 'haskell-mode-hook 'turn-off-pretty-mode)
   (eval-after-load "haskell-mode"
     '(progn

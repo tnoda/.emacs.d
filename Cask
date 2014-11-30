@@ -43,3 +43,4 @@
 (depends-on "haskell-mode")
 (depends-on "ghc")
 (depends-on "pretty-mode")
+(depends-on "stripe-buffer")

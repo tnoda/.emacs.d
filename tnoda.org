@@ -2451,6 +2451,14 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 #+END_SRC
 
+** Gradle
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'groovy-mode)
+  (require 'gradle-mode)
+  (add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode))
+
+#+END_SRC
+
 * Twitter                                                    :cask:rubikitch:
 
 twittering-mode.el を使う．

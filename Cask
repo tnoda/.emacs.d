@@ -44,3 +44,5 @@
 (depends-on "ghc")
 (depends-on "pretty-mode")
 (depends-on "stripe-buffer")
+(depends-on "groovy-mode")
+(depends-on "gradle-mode")

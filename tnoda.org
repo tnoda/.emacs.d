@@ -2939,8 +2939,13 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 
 *** Latex
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'ox-latex)
   (setq org-latex-pdf-process '("/usr/texbin/lualatex %b"))
+  (add-to-list 'org-latex-packages-alist '("" "listings"))
+  (add-to-list 'org-latex-packages-alist '("" "color"))
   (setq org-latex-default-class "ltjsarticle}")
+  (setq org-latex-listings 'listings)
+  (add-to-list 'org-latex-listings-langs '(scala "Scala"))
   (add-to-list 'org-latex-default-packages-alist '("" "luatexja" nil))
   (add-to-list 'org-latex-default-packages-alist '("hiragino-pron" "luatexja-preset" nil))
 
@@ -3050,6 +3055,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   ,#+BEAMER_HEADER: \\beamertemplatenavigationsymbolsempty
   ,#+BEAMER_HEADER: \\usepackage{inconsolata}
   ,#+BEAMER_HEADER: \\usepackage[T1]{fontenc}
+  ,#+BEAMER_HEADER: \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
   ,#+OPTIONS: toc:nil H:2
   "
   ) org-structure-template-alist)

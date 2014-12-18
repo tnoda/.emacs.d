@@ -1651,20 +1651,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
   - =wl-init-hook= と =wl-exit-hook= で，ssh port forwarding を開始・終了する
     設定を追加している．
 
-** emacs-w3m                                                          :cask:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (when (eq system-type 'darwin)
-    (require 'w3m)
-    (add-hook 'w3m-mode-hook 'tnoda/increase-line-spacing)
-    (when (fboundp 'cask-resource-path)
-      (defun tnoda/add-cask-w3m-to-info-directory-list ()
-        (add-to-list 'Info-directory-list
-                     (cask-resource-path "org-plus-contrib")))
-      (add-hook 'Info-mode-hook
-                'tnoda/add-cask-w3m-to-info-directory-list)))
-
-#+END_SRC
-
 ** Mew
 *** インストール
 #+BEGIN_SRC sh :tangle install-mew.sh :var prefix=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app

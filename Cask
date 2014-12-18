@@ -46,3 +46,4 @@
 (depends-on "stripe-buffer")
 (depends-on "groovy-mode")
 (depends-on "gradle-mode")
+(depends-on "skk")

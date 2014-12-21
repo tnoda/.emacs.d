@@ -125,7 +125,8 @@
 Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 2013-07-07
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (when (eq window-system 'ns)
+  (when (or (eq window-system 'mac)
+            (eq window-system 'ns))
     (setq ns-use-native-fullscreen nil)
     
     (defun tnoda/toggle-fullscreen ()
@@ -206,7 +207,8 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
     (set-fontset-font t 'japanese-jisx0212 (font-spec :family "Meiryo"))
     (setq face-font-rescale-alist '(("メイリオ" . 0.96))))
 
-  (cond ((eq window-system 'ns)
+  (cond ((or (eq window-system 'mac)
+             (eq window-system 'ns))
          (tnoda/fontset-setup-mac))
         ((eq window-system 'w32)
          (tnoda/fontset-setup-windows)))

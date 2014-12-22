@@ -725,52 +725,6 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   using smartrep.el.
   - Pressing =M-g n n n ...=, you can visit the corresponding lines.
 
-** bm.el                                                   :elget:rubikitch:
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'bm)
-
-#+END_SRC
-
-*** =bm.el= ロード時にマークを復元する．Emacs を終了してもマークを復元できるようにする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq bm-restore-repository-on-load t)
-  (load "bm")
-  (add-hook 'find-file-hook 'bm-buffer-restore)
-  (add-hook 'kill-buffer-hook 'bm-buffer-save)
-  (add-hook 'after-save-hook 'bm-buffer-save)
-  (add-hook 'after-revert-hook 'bm-buffer-restore)
-  (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
-#+END_SRC
-
-=bm-restore-repository-on-load= は =bm= ロード前に設定する必要がある．
-
-*** デフォルトではブックマークを永続化しない． =M-x bm-toggle-buffer-persistence= すること．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq-default bm-buffer-persistence nil)
-#+END_SRC
-
-*** マークを湘南色に．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (set-face-foreground 'bm-face "darkgreen")
-  (set-face-background 'bm-face "darkorange")
-#+END_SRC
-
-*** =s-SPC= で現在行をマーク (=bm-toggle=).                             :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "s-SPC") 'bm-toggle)
-#+END_SRC
-
-*** =s-<= で前のマーク行に (=bm-previous=).                             :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "s-<") 'bm-previous)
-#+END_SRC
-
-*** =s->= で次のマーク行に (=bm-next=).                                 :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "s->") 'bm-next)
-#+END_SRC
-
 ** sequencial-command.el                                   :elget:rubikitch:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync '(sequential-command sequential-command-config))
@@ -2549,6 +2503,55 @@ twittering-mode.el を使う．
 
 #+END_SRC
 
+** helm-bm                                                       :rubikitch:
+
+*** http://rubikitch.com/2014/11/22/helm-bm/
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;;; bm.el初期設定
+  (setq-default bm-buffer-persistence nil)
+  (setq bm-restore-repository-on-load t)
+  (require 'bm)
+  (add-hook 'find-file-hook 'bm-buffer-restore)
+  (add-hook 'kill-buffer-hook 'bm-buffer-save)
+  (add-hook 'after-save-hook 'bm-buffer-save)
+  (add-hook 'after-revert-hook 'bm-buffer-restore)
+  (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+  (add-hook 'kill-emacs-hook '(lambda nil
+                                (bm-buffer-save-all)
+                                (bm-repository-save)))
+  (global-set-key (kbd "s-[") 'bm-previous)
+  (global-set-key (kbd "s-]") 'bm-next)
+
+  ;;; helm-bm.el設定
+  (require 'helm-bm)
+
+  ;; migemoくらいつけようね
+  ;; (push '(migemo) helm-source-bm)
+
+  ;; annotationはあまり使わないので仕切り線で表示件数減るの嫌
+  ;; (setq helm-source-bm (delete '(multiline) helm-source-bm))
+
+  (defun bm-toggle-or-helm ()
+    "2回連続で起動したらhelm-bmを実行させる"
+    (interactive)
+    (bm-toggle)
+    (when (eq last-command 'bm-toggle-or-helm)
+      (helm-bm)))
+  (global-set-key (kbd "s-SPC") 'bm-toggle-or-helm)
+
+  ;;; これがないとemacs -Qでエラーになる。おそらくバグ。
+  (require 'compile)
+
+#+END_SRC
+
+*** Color
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (set-face-foreground 'bm-face "darkgreen")
+  (set-face-background 'bm-face "darkorange")
+
+#+END_SRC
 
 * SDIC
 ** インストール

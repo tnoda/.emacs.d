@@ -49,3 +49,4 @@
 (depends-on "groovy-mode")
 (depends-on "gradle-mode")
 (depends-on "skk")
+(depends-on "ace-link")

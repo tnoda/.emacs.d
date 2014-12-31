@@ -2134,7 +2134,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 *** scala-mode2                                                      :cask:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'scala-mode2)
-  (setq scala-indent:default-run-on-strategy 0)
   (setq scala-indent:indent-value-expression nil)
   (setq scala-indent:align-parameters t)
   (setq scala-indent:align-forms t)

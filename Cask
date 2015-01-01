@@ -13,6 +13,7 @@
 (depends-on "helm-ls-git")
 (depends-on "bm")
 (depends-on "helm-bm")
+(depends-on "helm-swoop")
 (depends-on "popwin")
 (depends-on "auto-complete")
 (depends-on "jedi")

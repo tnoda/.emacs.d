@@ -2273,7 +2273,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (add-hook 'go-mode-hook 'tnoda/increase-line-spacing)
   (add-hook 'go-mode-hook 'subword-mode)
   (add-hook 'go-mode-hook 'yas-minor-mode)
-  (add-hook 'go-mode-hook 'company-mode)
 
   (define-key go-mode-map (kbd "M-.") 'godef-jump)
   (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
@@ -2311,6 +2310,22 @@ https://godoc.org/golang.org/x/tools/cmd/goimports
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq gofmt-command "goimports")
+
+#+END_SRC
+
+*** company-go
+
+https://github.com/nsf/gocode/tree/master/emacs-company
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'company)
+  (require 'company-go)
+
+  (defun tnoda/enable-company-go ()
+    (set (make-local-variable 'company-backends) '(company-go))
+    (company-mode))
+
+  (add-hook 'go-mode-hook 'tnoda/enable-company-go)
 
 #+END_SRC
 

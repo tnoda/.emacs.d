@@ -37,6 +37,7 @@
 (depends-on "sudden-death")
 (depends-on "guide-key")
 (depends-on "company")
+(depends-on "company-go")
 (depends-on "ace-isearch")
 (depends-on "scala-mode2")
 (depends-on "ensime")

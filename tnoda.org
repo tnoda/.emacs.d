@@ -2305,15 +2305,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 #+END_SRC
 
-*** goimports
-
-https://godoc.org/golang.org/x/tools/cmd/goimports
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq gofmt-command "goimports")
-
-#+END_SRC
-
 ** CSS
 
 *** indent-offset

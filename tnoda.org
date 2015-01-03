@@ -2364,6 +2364,30 @@ https://github.com/nsf/gocode/tree/master/emacs-company
 
 #+END_SRC
 
+*** Go Oracle
+
+https://godoc.org/golang.org/x/tools/oracle
+
+#+BEGIN_QUOTE
+  Before you can run the oracle, you must tell Emacs the analysis
+  scope, which is done using the command:
+
+  M-x go-oracle-set-scope
+
+  This command prompts you for the analysis scope, described above,
+  with words separated by spaces. The effect of go-oracle-set-scope
+  persists across all oracle invocations until it is called again with
+  a different value.
+
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (load (expand-file-name "src/code.google.com/p/go.tools/cmd/oracle/oracle.el"
+                          (getenv "GOPATH")))
+  (add-hook 'go-mode 'go-oracle-mode)
+
+#+END_SRC
+
 ** CSS
 
 *** indent-offset

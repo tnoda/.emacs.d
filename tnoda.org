@@ -2272,6 +2272,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (add-hook 'go-mode-hook 'turn-on-smartparens-strict-mode)
   (add-hook 'go-mode-hook 'tnoda/increase-line-spacing)
   (add-hook 'go-mode-hook 'subword-mode)
+  (add-hook 'go-mode-hook 'yas-minor-mode)
 
   (define-key go-mode-map (kbd "M-.") 'godef-jump)
   (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)

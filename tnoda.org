@@ -1035,19 +1035,15 @@ they are no longer of any use.
 
 #+END_SRC
     
-** auto-complete.el                                        :elget:rubikitch:
-*** Install via el-get.
+** auto-complete.el                                              :rubikitch:
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'auto-complete-config)
   (ac-config-default)
-
-#+END_SRC
-
-*** 4 文字以上にならないと補完を開始しない (=ac-auto-start=).
-#+BEGIN_SRC emacs-lisp :tangle yes
   (setq ac-auto-start 4)
+
 #+END_SRC
-  
+
 ** company-mode                                                       :cask:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'company)

@@ -19,7 +19,6 @@
 (depends-on "auto-complete")
 (depends-on "jedi")
 (depends-on "go-mode")
-(depends-on "go-autocomplete")
 (depends-on "go-eldoc")
 (depends-on "w3m")
 (depends-on "markdown-mode")

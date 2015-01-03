@@ -1040,6 +1040,7 @@ they are no longer of any use.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'auto-complete-config)
   (ac-config-default)
+  (setq ac-modes nil)
   (setq ac-auto-start 4)
 
 #+END_SRC

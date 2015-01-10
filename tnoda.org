@@ -2355,6 +2355,7 @@ https://github.com/nsf/gocode/tree/master/emacs-company
 
   (defun tnoda/enable-company-go ()
     (set (make-local-variable 'company-backends) '(company-go))
+    (setq company-go-insert-arguments nil)
     (company-mode))
 
   (add-hook 'go-mode-hook 'tnoda/enable-company-go)

@@ -1057,7 +1057,7 @@ Retrieved from https://github.com/nsf/gocode/tree/master/emacs-company
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq company-tooltip-limit 20)
-  (setq company-idle-delay .3)
+  (setq company-idle-delay .7)
   (setq company-echo-delay 0)
   (setq company-begin-commands '(self-insert-command))
 

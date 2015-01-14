@@ -2387,6 +2387,16 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
+*** Rename
+- http://permalink.gmane.org/gmane.comp.lang.go.general/140050
+- http://mattn.kaoriya.net/software/lang/go/20150113141338.htm
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (load (expand-file-name "src/golang.org/x/tools/refactor/rename/rename.el"
+                          (getenv "GOPATH")))
+
+#+END_SRC
+
 ** CSS
 
 *** indent-offset

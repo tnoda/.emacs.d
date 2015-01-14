@@ -2326,6 +2326,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 *** go-eldoc
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'go-eldoc)
+  (add-hook 'go-mode-hook 'go-eldoc-setup)
 
 #+END_SRC
 

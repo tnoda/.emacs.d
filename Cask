@@ -1,5 +1,6 @@
 ;-*- mode: emacs-lisp -*-
 
+(source gnu)
 (source org)
 (source marmalade)
 (source melpa)

@@ -2309,7 +2309,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (define-key go-mode-map (kbd "M-.") 'godef-jump)
   (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
   (define-key go-mode-map (kbd "C-c C-j") 'go-goto-imports)
-  (define-key go-mode-map (kbd "C-c C-r") 'go-remove-unused-imports)
   (define-key go-mode-map (kbd "C-c C-d") 'godoc)
 
   (defun tnoda/go-mode-tab-width ()
@@ -2394,6 +2393,7 @@ https://godoc.org/golang.org/x/tools/oracle
 #+BEGIN_SRC emacs-lisp :tangle yes
   (load (expand-file-name "src/golang.org/x/tools/refactor/rename/rename.el"
                           (getenv "GOPATH")))
+  (define-key go-mode-map (kbd "C-c C-r") 'go-rename)
 
 #+END_SRC
 

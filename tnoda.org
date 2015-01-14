@@ -2021,6 +2021,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 *** flycheck
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'flycheck)
   (add-hook 'ruby-mode-hook 'tnoda/turn-on-flycheck-mode)
 
 #+END_SRC

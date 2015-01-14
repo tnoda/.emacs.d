@@ -53,3 +53,4 @@
 (depends-on "gradle-mode")
 (depends-on "skk")
 (depends-on "ace-link")
+(depends-on "flycheck")

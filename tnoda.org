@@ -1291,11 +1291,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
 
 #+END_SRC
 
-** flycheck
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'flycheck)
-#+END_SRC
-
 ** YASnippet                                                          :cask:
 
 Use YASnippet as a non-global minor mode.
@@ -2261,7 +2256,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 *** Flycheck
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'flycheck)
   (require 'python)
 
   (defun tnoda/turn-on-flycheck-mode ()
@@ -2331,7 +2325,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 *** flycheck
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'flycheck)
   (add-hook 'go-mode-hook 'flycheck-mode)
 
 #+END_SRC

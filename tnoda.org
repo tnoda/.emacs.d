@@ -2376,7 +2376,7 @@ https://godoc.org/golang.org/x/tools/oracle
 #+BEGIN_SRC emacs-lisp :tangle yes
   (load (expand-file-name "src/code.google.com/p/go.tools/cmd/oracle/oracle.el"
                           (getenv "GOPATH")))
-  (add-hook 'go-mode 'go-oracle-mode)
+  ;; (add-hook 'go-mode-hook 'go-oracle-mode)
 
 #+END_SRC
 

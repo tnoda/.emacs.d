@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: alh
+# key: alh
+# binding: direct-keybinding
+# --
+#+ATTR_LATEX: :height 

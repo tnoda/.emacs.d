@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: bp
+# key: bp
+# binding: direct-keybinding
+# --
+#+BEAMER: \pause

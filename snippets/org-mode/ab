@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ab
+# key: ab
+# binding: direct-keybinding
+# --
+#+ATTR_BEAMER: 

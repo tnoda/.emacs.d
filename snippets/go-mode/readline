@@ -1,0 +1,21 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: readline
+# key: readline
+# binding: direct-keybinding
+# --
+var rdr = bufio.NewReader(os.Stdin)
+var rbuf = make([]byte, 0, 1<<21)
+
+func readLine() string {
+	rbuf = rbuf[:0]
+	for {
+		l, p, e := rdr.ReadLine()
+		if e != nil && e != io.EOF {
+			panic(e)
+		}
+		rbuf = append(rbuf, l...)
+		if !p {
+			return string(rbuf)
+		}
+	}
+}

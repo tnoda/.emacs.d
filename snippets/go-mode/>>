@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: >>
+# key: >>
+# binding: direct-keybinding
+# --
+fmt.Scan(&$0)

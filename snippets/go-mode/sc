@@ -1,0 +1,38 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: sc
+# key: sc
+# binding: direct-keybinding
+# --
+var sc = bufio.NewScanner(os.Stdin)
+
+func next() string {
+	sc.Split(bufio.ScanWords)
+	if !sc.Scan() {
+		panic("could not scan a word from the reader")
+	}
+	return sc.Text()
+}
+
+func nextInt() int {
+	i, e := strconv.Atoi(next())
+	if e != nil {
+		panic(e)
+	}
+	return i
+}
+
+func nextLong() int64 {
+	i, e := strconv.ParseInt(next(), 10, 64)
+	if e != nil {
+		panic(e)
+	}
+	return i
+}
+
+func nextLine() string {
+	sc.Split(bufio.ScanLines)
+	if !sc.Scan() {
+		panic("could not scan a line from the reader")
+	}
+	return sc.Text()
+}

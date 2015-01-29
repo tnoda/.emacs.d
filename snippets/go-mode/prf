@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: prf
+# key: prf
+# binding: direct-keybinding
+# --
+fmt.Printf($0)

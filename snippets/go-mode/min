@@ -1,0 +1,11 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: min
+# key: min
+# binding: direct-keybinding
+# --
+func min(x, y int) int {
+	if y < x {
+		return y
+	}
+	return x
+}

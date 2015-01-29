@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: rep1
+# key: rep1
+# binding: direct-keybinding
+# --
+for $1 := 1; $1 <= $2; $1++ {
+    $0
+}

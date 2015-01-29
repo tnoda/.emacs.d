@@ -1,0 +1,14 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: m
+# key: m
+# binding: direct-keybinding
+# --
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+    $0
+}

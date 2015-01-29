@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: int64s
+# key: int64s
+# binding: direct-keybinding
+# --
+type int64s []int64
+func (a int64s) Len() int { return len(a) }
+func (a int64s) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a int64s) Less(i, j int) bool { return a[i] < a[j] }

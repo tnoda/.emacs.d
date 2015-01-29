@@ -1,0 +1,44 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: uf
+# key: uf
+# binding: direct-keybinding
+# --
+type unionFind struct {
+	id []int
+	sz []int
+}
+
+func newUnionFind(size int) *unionFind {
+	uf := &unionFind{
+		id: make([]int, size),
+		sz: make([]int, size),
+	}
+	for i := 0; i < size; i++ {
+		uf.id[i] = i
+		uf.sz[i] = 1
+	}
+	return uf
+}
+
+func (uf *unionFind) root(i int) int {
+	for i != uf.id[i] {
+		uf.id[i] = uf.id[uf.id[i]]
+		i = uf.id[i]
+	}
+	return i
+}
+
+func (uf *unionFind) find(p, q int) bool {
+	return uf.root(p) == uf.root(q)
+}
+
+func (uf *unionFind) union(p, q int) {
+	i, j := uf.root(p), uf.root(q)
+	if uf.sz[i] < uf.sz[j] {
+		uf.id[i] = j
+		uf.sz[j] += uf.sz[i]
+	} else {
+		uf.id[j] = i
+		uf.sz[i] += uf.sz[j]
+	}
+}

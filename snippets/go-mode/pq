@@ -1,0 +1,35 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: pq
+# key: pq
+# binding: direct-keybinding
+# --
+// import "container/heap"
+type item struct {
+	x int // value
+	w int // weight
+}
+
+type priorityQueue []*item
+
+func (pq priorityQueue) Len() int { return len(pq) }
+
+func (pq priorityQueue) Less(i, j int) bool {
+	return pq[i].w < pq[j].w
+}
+
+func (pq priorityQueue) Swap(i, j int) {
+	pq[i], pq[j] = pq[j], pq[i]
+}
+
+func (pq *priorityQueue) Push(x interface{}) {
+	item := x.(*item)
+	*pq = append(*pq, item)
+}
+
+func (pq *priorityQueue) Pop() interface{} {
+	old := *pq
+	n := len(old)
+	item := old[n-1]
+	*pq = old[0 : n-1]
+	return item
+}

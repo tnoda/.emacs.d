@@ -1,0 +1,29 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: bit
+# key: bit
+# binding: direct-keybinding
+# --
+const bitMaxN = 1 << 20
+
+type bit [bitMaxN + 1]int64
+
+func newBit() *bit {
+	var z bit
+	return &z
+}
+
+func (bit *bit) sum(i int) int64 {
+	var s int64
+	for i > 0 {
+		s += bit[i]
+		i -= i & -i
+	}
+	return s
+}
+
+func (bit *bit) add(i int, x int64) {
+	for i <= bitMaxN {
+		bit[i] += x
+		i += i & -i
+	}
+}

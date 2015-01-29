@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: -m
+# key: -m
+# binding: direct-keybinding
+# --
+(defn -main
+  [& args]
+  $0)

@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# key: ns
+# --
+(ns ${1:`(tnoda/lein-guess-namespace)`}$0)

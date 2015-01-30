@@ -1,0 +1,71 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: scc
+# key: scc
+# binding: direct-keybinding
+# --
+type graph struct {
+	V       int     // The number of vetices
+	E       [][]int // Adjacency list expression of the graph
+	R       [][]int // Reversed E
+	vs      []int   // Post order
+	visited []bool  // True if the vertex is visited during DFS
+	sccID   []int   // Topological order of the vertex v
+	sccSize []int   // The size of SCC indexed by sccID
+}
+
+func newGraph(size int) *graph {
+	g := &graph{
+		V:       size,
+		E:       make([][]int, size),
+		R:       make([][]int, size),
+		vs:      make([]int, 0, size),
+		visited: make([]bool, size),
+		sccID:   make([]int, size),
+		sccSize: make([]int, size),
+	}
+	return g
+}
+
+func (g *graph) addEdge(from, to int) {
+	g.E[from] = append(g.E[from], to)
+	g.R[to] = append(g.R[to], from)
+}
+
+func (g *graph) dfs(v int) {
+	g.visited[v] = true
+	for i, n := 0, len(g.E[v]); i < n; i++ {
+		if !g.visited[g.E[v][i]] {
+			g.dfs(g.E[v][i])
+		}
+	}
+	g.vs = append(g.vs, v)
+}
+
+func (g *graph) rdfs(v, k int) {
+	g.visited[v] = true
+	g.sccID[v] = k
+	g.sccSize[k]++
+	for i, n := 0, len(g.R[v]); i < n; i++ {
+		if !g.visited[g.R[v][i]] {
+			g.rdfs(g.R[v][i], k)
+		}
+	}
+}
+
+func (g *graph) scc() (k int) {
+	g.visited = make([]bool, g.V)
+	g.vs = g.vs[:0]
+	for i := 0; i < g.V; i++ {
+		if !g.visited[i] {
+			g.dfs(i)
+		}
+	}
+	g.visited = make([]bool, g.V)
+	for i := len(g.vs) - 1; i >= 0; i-- {
+		if !g.visited[g.vs[i]] {
+			g.rdfs(g.vs[i], k)
+			k++
+		}
+	}
+	return k
+}

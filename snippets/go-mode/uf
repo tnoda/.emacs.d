@@ -20,12 +20,12 @@ func newUnionFind(size int) *unionFind {
 	return uf
 }
 
-func (uf *unionFind) root(i int) int {
-	for i != uf.id[i] {
-		uf.id[i] = uf.id[uf.id[i]]
-		i = uf.id[i]
+func (uf *unionFind) root(x int) int {
+	if uf.id[x] == x {
+		return x
 	}
-	return i
+	uf.id[x] = uf.root(uf.id[x])
+	return uf.id[x]
 }
 
 func (uf *unionFind) find(p, q int) bool {

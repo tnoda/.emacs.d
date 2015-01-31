@@ -3,28 +3,20 @@
 # key: uf
 # binding: direct-keybinding
 # --
-type unionFind struct {
-	id []int
-	sz []int
-}
+type unionFind struct{ id, sz []int }
 
 func newUnionFind(size int) *unionFind {
-	uf := &unionFind{
-		id: make([]int, size),
-		sz: make([]int, size),
-	}
+	uf := &unionFind{id: make([]int, size), sz: make([]int, size)}
 	for i := 0; i < size; i++ {
-		uf.id[i] = i
-		uf.sz[i] = 1
+		uf.id[i], uf.sz[i] = i, 1
 	}
 	return uf
 }
 
 func (uf *unionFind) root(x int) int {
-	if uf.id[x] == x {
-		return x
+	if uf.id[x] != x {
+		uf.id[x] = uf.root(uf.id[x])
 	}
-	uf.id[x] = uf.root(uf.id[x])
 	return uf.id[x]
 }
 

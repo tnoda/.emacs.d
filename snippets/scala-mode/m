@@ -1,0 +1,20 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: m
+# key: m
+# binding: direct-keybinding
+# --
+import java.io.PrintWriter
+import java.util.Scanner
+import scala.annotation.tailrec
+
+object Main extends App {
+  val sc = new Scanner(System.in)
+  val out = new PrintWriter(System.out)
+  
+  def solve(): Int = {
+    $0
+  }
+  
+  out.println(solve)
+  out.flush
+}

@@ -1,0 +1,39 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: bit
+# key: bit
+# binding: direct-keybinding
+# --
+class BIT(size: Int) {
+  val N = {
+    @tailrec
+    def loop(acc: Int, x: Int): Int =
+      if (x == 0) acc
+      else loop(acc << 1, x >> 1)
+
+    loop(1, size)
+  }
+  val bit = Array.ofDim[Long](N + 1)
+
+  def sum(i: Int): Long = {
+
+    @tailrec
+    def loop(acc: Long, j: Int): Long =
+      if (j == 0) acc
+      else loop(acc + bit(j), j - (j & -j))
+
+    loop(0, i)
+  }
+
+  def add(i: Int, x: Long): Unit = {
+
+    @tailrec
+    def loop(j: Int): Unit =
+      if (j > N) ()
+      else {
+        bit(j) += x
+        loop(j + (j & - j))
+      }
+
+    loop(i)
+  }
+}

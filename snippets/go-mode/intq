@@ -1,0 +1,33 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: intq
+# key: intq
+# binding: direct-keybinding
+# --
+type intQueue []int
+
+func newIntQueue(size int) *intQueue {
+	q := make(intQueue, 0, size)
+	return &q
+}
+
+func (q *intQueue) Len() int {
+	return len(*q)
+}
+
+func (q *intQueue) Empty() bool {
+	return q.Len() == 0
+}
+
+func (q *intQueue) Push(x int) {
+	*q = append(*q, x)
+}
+
+func (q *intQueue) Peek() int {
+	return (*q)[0]
+}
+
+func (q *intQueue) Pop() int {
+	z := (*q)[0]
+	*q = (*q)[1:]
+	return z
+}

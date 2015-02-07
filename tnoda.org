@@ -692,6 +692,24 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 #+END_SRC
 
+** EWW
+
+*** Block all images by default
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'eww)
+
+  (defun tnoda/shr-block-all-images ()
+      (interactive)
+    (setq-local shr-blocked-images ".*"))
+
+  (defun tnoda/shr-display-all-images ()
+      (interactive)
+    (setq-local shr-blocked-images nil))
+
+  (add-hook 'eww-mode-hook 'tnoda/shr-block-all-images)
+
+#+END_SRC
+
 * Global
 
 ** generic-x.el

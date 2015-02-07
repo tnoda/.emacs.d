@@ -3039,6 +3039,11 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 
 #+END_SRC
 
+*** Markdown
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'ox-md)
+
+#+END_SRC
 ** Babel
 *** Emacs Lisp 以外の言語も有効にする．
 #+BEGIN_SRC emacs-lisp :tangle yes

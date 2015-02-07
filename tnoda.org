@@ -617,6 +617,15 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
                                ":"))
 #+END_SRC
 
+** Add Emacs Mac Port's info dir to ~Info-directory-list~
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/add-emacs-mac-ports-info-dir-to-info-directory-list ()
+    (add-to-list 'Info-directory-list "/opt/emacs/share/info"))
+
+  (add-hook 'Info-mode-hook 'tnoda/add-emacs-mac-ports-info-dir-to-info-directory-list)
+
+#+END_SRC
+
 ** =~/.emacs.d/share/info= を優先する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/add-tnoda-info-dir-to-info-directory-list

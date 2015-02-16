@@ -685,6 +685,15 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 #+END_SRC
 
+** dired
+
+Mac OS X's ls does not support the ~--dired~ option.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq dired-use-ls-dired nil)
+
+#+END_SRC
+
 ** wdired
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'dired)

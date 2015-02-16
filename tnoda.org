@@ -812,17 +812,6 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 
 #+END_SRC
 
-** dired-k                                                            :cask:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'dired)
-  (require 'dired-k)
-  (define-key dired-mode-map (kbd "g") 'dired-k)
-  (add-hook 'dired-initial-position-hook 'dired-k)
-  (require 'direx-k)
-  (define-key direx:direx-mode-map (kbd "K") 'direx-k)
-
-#+END_SRC
-
 ** dired-x
 #+BEGIN_SRC emacs-lisp :tangle yes
   (when (eq system-type 'windows-nt)
@@ -2790,6 +2779,13 @@ File on disk now will become a backup file if you save these changes.
                            (equal "=" (car x)))
                          org-emphasis-alist)))
 #+END_SRC
+
+*** Suppress automatic sub/superscript conversion
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-use-sub-superscripts nil)
+
+#+END_SRC
+
 ** 見出し入力の改善．
 *** =C-M-RET= で =org-insert-substring=                                 :key:
 #+BEGIN_SRC emacs-lisp :tangle yes

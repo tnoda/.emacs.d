@@ -1,0 +1,17 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: fib
+# key: fib
+# binding: direct-keybinding
+# --
+func fib(n, p int64) int64 {
+	var a, b, c, d, e, f, g, h int64
+	a, b, c, d, e, f, g, h = 1, 1, 1, 0, 1, 0, 0, 1
+	for n > 0 {
+		if n&1 == 1 {
+			e, f, g, h = (a*e+b*g)%p, (a*f+b*h)%p, (c*e+d*g)%p, (c*f+d*h)%p
+		}
+		n >>= 1
+		a, b, c, d = (a*a+b*c)%p, (b*(a+d))%p, (c*(a+d))%p, (b*c+d*d)%p
+	}
+	return g
+}

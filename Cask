@@ -21,7 +21,6 @@
 (depends-on "jedi")
 (depends-on "go-mode")
 (depends-on "go-eldoc")
-(depends-on "w3m")
 (depends-on "markdown-mode")
 (depends-on "elisp-slime-nav")
 (depends-on "yasnippet")

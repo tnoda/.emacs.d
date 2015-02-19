@@ -3181,36 +3181,3 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   ) org-structure-template-alist)
 #+END_SRC
 
-** Patch ob-clojure to work with nrepl
-
-Retrieved from https://raw.github.com/lambdatronic/org-babel-example/master/org/potter.org,
-on [2013-03-06 Wed]
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (declare-function nrepl-send-string-sync "ext:nrepl" (code &optional ns))
-  
-  (defun org-babel-execute:clojure (body params)
-    "Execute a block of Clojure code with Babel."
-    (require 'nrepl)
-    (with-temp-buffer
-      (insert (org-babel-expand-body:clojure body params))
-      ((lambda (result)
-         (let ((result-params (cdr (assoc :result-params params))))
-           (if (or (member "scalar" result-params)
-                   (member "verbatim" result-params))
-               result
-             (condition-case nil (org-babel-script-escape result)
-               (error result)))))
-       (plist-get (nrepl-send-string-sync
-                   (buffer-substring-no-properties (point-min) (point-max))
-                   (cdr (assoc :package params)))
-                  :value))))
-#+END_SRC
-
-Under nrepl.el + NREPL:
-
-1. M-x org-babel-tangle (regenerates source files)
-2. M-x nrepl-jack-in (starts nrepl.el + NREPL)
-3. M-x nrepl-interaction-mode (to enable NREPL keybindings in this buffer)
-4. C-c C-c (from within toplevel-load-block, loads source code into NREPL)
-5. M-x org-export-as-html (regenerate woven HTML documentation)

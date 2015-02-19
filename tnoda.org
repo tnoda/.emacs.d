@@ -2997,6 +2997,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
             (tags-todo "home")
             (tags-todo "office")
             (tags-todo "errands")
+            (tags-todo "computer")
             (tags "library")
             (tags "reading")))
           ("D" "Daily Action List"

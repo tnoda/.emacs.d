@@ -763,16 +763,6 @@ http://sheephead.homelinux.org/2012/01/30/6934/
   using smartrep.el.
   - Pressing =M-g n n n ...=, you can visit the corresponding lines.
 
-** sequencial-command.el                                   :elget:rubikitch:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(sequential-command sequential-command-config))
-
-  (require 'sequential-command)
-  (require 'sequential-command-config)
-  (sequential-command-setup-keys)
-
-#+END_SRC
-
 ** key-chord.el                                            :elget:rubikitch:
 
 キーボード同時押し時のコマンドを指定する =key-chord-define= が使えるようになる．

@@ -1593,6 +1593,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 ** Mew
 *** インストール
+
 #+BEGIN_SRC sh :tangle install-mew.sh :var prefix=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app
   cd src
   curl http://www.mew.org/Release/mew-6.6.tar.gz | tar zxf -
@@ -1614,6 +1615,19 @@ Pressing =C-z= toggles between an eshell buffer and another.
     (add-to-list 'load-path tnoda/mew-windows-dir))
 
 #+end_src
+
+*** Ubuntu
+
+#+begin_src emacs-lisp :tangle yes
+  (when (eq system-type 'gnu/linux)
+    (defconst tnoda/mew-ubuntu-dir "/opt/mew")
+    (add-to-list 'load-path
+                 (expand-file-name "share/emacs/site-lisp/mew"
+                                   tnoda/mew-ubuntu-dir)))
+
+#+end_src
+
+
 
 *** 最小限の設定
 

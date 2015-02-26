@@ -1127,15 +1127,17 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** color-moccur.el                                     :key:elget:rubikitch:
+** color-moccur.el                                        :up:key:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(color-moccur moccur-edit))
+  (use-package color-moccur
+    :ensure t
+    :bind
+    (("M-s o" . occur-by-moccur)
+     ("M-s O" . moccur))
+    :config
+    (setq moccur-split-edit t))
 
-  (require 'moccur-edit)
-  (setq moccur-split-edit t)
-  (global-set-key (kbd "M-s o") 'occur-by-moccur)
-  (global-set-key (kbd "M-s O") 'moccur)
 #+END_SRC
 
 

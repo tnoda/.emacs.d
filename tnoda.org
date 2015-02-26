@@ -776,7 +776,44 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package sequential-command
-               :ensure t)
+    :ensure t
+    :config
+    (progn
+      (define-sequential-command seq-home
+        beginning-of-line beginning-of-buffer seq-return)
+      (define-sequential-command seq-end
+        end-of-line end-of-buffer seq-return)
+
+      (defun seq-upcase-backward-word ()
+        (interactive)
+        (upcase-word (- (1+ (seq-count)))))
+      (defun seq-capitalize-backward-word ()
+        (interactive)
+        (capitalize-word (- (1+ (seq-count)))))
+      (defun seq-downcase-backward-word ()
+        (interactive)
+        (downcase-word (- (1+ (seq-count)))))
+
+      (when (require 'org nil t)
+        (define-sequential-command org-seq-home
+          org-beginning-of-line beginning-of-buffer seq-return)
+        (define-sequential-command org-seq-end
+          org-end-of-line end-of-buffer seq-return))
+
+      (defun sequential-command-setup-keys ()
+        "Rebind C-a, C-e, M-u, M-c, and M-l to seq-* commands.
+  If you use `org-mode', rebind C-a and C-e."
+        (interactive)
+        (global-set-key "\C-a" 'seq-home)
+        (global-set-key "\C-e" 'seq-end)
+        (global-set-key "\M-u" 'seq-upcase-backward-word)
+        (global-set-key "\M-c" 'seq-capitalize-backward-word)
+        (global-set-key "\M-l" 'seq-downcase-backward-word)
+        (when (require 'org nil t)
+          (define-key org-mode-map "\C-a" 'org-seq-home)
+          (define-key org-mode-map "\C-e" 'org-seq-end)))
+
+      (sequential-command-setup-keys)))
 
 #+END_SRC
 

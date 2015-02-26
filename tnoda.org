@@ -940,26 +940,14 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 
 #+END_SRC
 
-** point-undo.el                                           :elget:rubikitch:
+** point-undo.el                                              :up:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'point-undo)
+  (use-package point-undo
+    :ensure t
+    :bind (("C-," . point-undo)
+           ("C-." . point-redo)))
 
-#+END_SRC
-
-*** Require
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'point-undo)
-#+END_SRC
-
-*** =C-,== でカーソルをコマンド実行前の位置に戻す (=point-undo=)        :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "C-,") 'point-undo)
-#+END_SRC
-
-*** =C-.= でカーソルを次のコマンド実行位置に進める (=point-redo=)       :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "C-.") 'point-redo)
 #+END_SRC
 
 ** goto-chg.el                                             :elget:rubikitch:

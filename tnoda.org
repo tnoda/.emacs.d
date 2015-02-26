@@ -1184,16 +1184,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (setq text-adjust-hankaku-except "？！＠ー〜、，。．")
 #+END_SRC
 
-** igrep.el                                                :elget:rubikitch:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (unless (eq system-type 'windows-nt)
-    (el-get 'sync 'igrep)
-
-    (require 'igrep))
-
-#+END_SRC
-
 ** grep-edit.el                                            :elget:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -68,6 +68,8 @@
                  "/opt/el-get")
                 ((eq system-type 'windows-nt)
                  (expand-file-name "el-get" tnoda/dotfiles-dir))
+                ((eq system-type 'gnu/linux)
+                 "/opt/el-get")
                 (t nil))))
 
 #+END_SRC

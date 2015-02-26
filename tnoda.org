@@ -736,11 +736,6 @@ Mac OS X's ls does not support the ~--dired~ option.
 
 #+END_SRC
 
-** dash.el                                                           :elget:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'dash)
-#+END_SRC
-
 ** imenu.el
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'imenu)

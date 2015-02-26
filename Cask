@@ -52,3 +52,4 @@
 (depends-on "skk")
 (depends-on "ace-link")
 (depends-on "flycheck")
+(depends-on "use-package")

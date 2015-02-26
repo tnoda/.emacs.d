@@ -2626,6 +2626,15 @@ twittering-mode.el を使う．
   make install-dict
 #+END_SRC
 
+** Sdic has been installed in =/opt/sdic= on Ubuntu
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (if (eq system-type 'gnu/linux)
+      (add-to-list 'load-path "/opt/sdic/share/emacs/site-lisp"))
+
+#+END_SRC
+
+
 ** =C-c w= で SDIC 辞書検索．                                          :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'sdic)

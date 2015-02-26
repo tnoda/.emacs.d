@@ -99,6 +99,13 @@
 
 #+END_SRC
 
+** use-package.el                                                       :up:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'use-package)
+
+#+END_SRC
+
 
 * Emacs
 
@@ -762,6 +769,14 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 + =M-g n= and =M-g p= are bound to =next-error= and =previous-error=
   using smartrep.el.
   - Pressing =M-g n n n ...=, you can visit the corresponding lines.
+
+** sequential-commmand.el                                               :up:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package sequential-command
+               :ensure t)
+
+#+END_SRC
 
 ** key-chord.el                                            :elget:rubikitch:
 

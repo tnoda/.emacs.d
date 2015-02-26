@@ -975,21 +975,16 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 ** eldoc-extension.el                                                :elget:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'eldoc-extension)
+  (use-package eldoc-extension
+    :ensure t
+    :config
+    (progn
+      (setq eldoc-idle-delay 0.1)
+      (setq eldoc-echo-area-use-multiline-p t)
+      (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+      (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)))
 
 #+END_SRC
-
-+ 設定
-  - =emacs-lisp-mode= と =ielm-mode= で有効にする．
-  - =lisp-interaction-mode= は Clojure にとっておく．
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (require 'eldoc)
-    (require 'eldoc-extension)
-    (setq eldoc-idle-delay 0.1)
-    (setq eldoc-echo-area-use-multiline-p t)
-    (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-    (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
-  #+END_SRC
 
 ** tempbuf.el                                              :elget:rubikitch:
 

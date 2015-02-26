@@ -997,10 +997,10 @@ they are no longer of any use.
 #+END_QUOTE
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'tempbuf)
-
-  (require 'tempbuf)
-  (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
+  (use-package tempbuf
+    :ensure t
+    :config
+    (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode))
 
 #+END_SRC
     

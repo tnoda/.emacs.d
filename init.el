@@ -29,11 +29,14 @@
 
 (defun tnoda/find-brew-cask-prefix
   ()
-  (when (eq system-type 'darwin)
-    (with-current-buffer (get-buffer-create "*brew-cask-prefix")
-      (erase-buffer)
-      (if (zerop (call-process "brew" nil t nil "--prefix" "cask"))
-          (buffer-substring (point-min) (1- (point-max)))))))
+  (cond ((eq system-type 'darwin)
+         ((with-current-buffer (get-buffer)-create "*brew-cask-prefix")
+            (erase-buffer)
+            (if (zerop (call-process "brew" nil t nil "--prefix" "cask"))
+                (buffer-substring (point-min) (1- (point-max))))))
+        ((eq system-type 'gnu/linux)
+         "/opt/cask")
+        (t nil)))
 
 (defconst tnoda/cask-el-path
   (let ((prefix (tnoda/find-brew-cask-prefix)))

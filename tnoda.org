@@ -99,6 +99,13 @@
 
 #+END_SRC
 
+** use-package.el                                                       :up:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'use-package)
+
+#+END_SRC
+
 
 * Emacs
 

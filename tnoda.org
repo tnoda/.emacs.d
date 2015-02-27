@@ -3045,7 +3045,11 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 *** Latex
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'ox-latex)
-  (setq org-latex-pdf-process '("/usr/texbin/lualatex %b"))
+  (setq org-latex-pdf-process
+        (cond ((executable-find "/usr/texbin/lualatex")
+               '("/usr/texbin/lualatex %b"))
+              ((executable-find "/usr/local/bin/lualatex")
+               '("/usr/local/bin/lualatex %b"))))
   (add-to-list 'org-latex-packages-alist '("" "listings"))
   (add-to-list 'org-latex-packages-alist '("" "color"))
   (setq org-latex-default-class "ltjsarticle}")

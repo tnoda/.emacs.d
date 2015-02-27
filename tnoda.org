@@ -3180,3 +3180,22 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   ) org-structure-template-alist)
 #+END_SRC
 
+* Ubuntu
+** Toggle touchpad                                             :key:command:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when (string= system-name "bluetail")
+    (defvar tnoda/touchpad-enabled 1)
+
+    (defun tnoda/toggle-touchpad-enabled ()
+      (interactive)
+      (setq tnoda/touchpad-enabled (logxor tnoda/touchpad-enabled 1))
+      (shell-command-to-string (format "xinput set-prop 10 \"Device Enabled\" %d"
+                                       tnoda/touchpad-enabled))
+      (message (if (eq 1 tnoda/touchpad-enabled)
+                   "touchpad enabled"
+                 "touchpad disabled")))
+
+    (global-set-key (kbd "<f12>") 'tnoda/toggle-touchpad-enabled))
+
+#+END_SRC

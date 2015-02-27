@@ -135,7 +135,8 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (when (or (eq window-system 'mac)
-            (eq window-system 'ns))
+            (eq window-system 'ns)
+            (eq window-system 'x))
     (setq ns-use-native-fullscreen nil)
     
     (defun tnoda/toggle-fullscreen ()
@@ -150,6 +151,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
     (global-set-key (kbd "M-F") 'tnoda/toggle-fullscreen)
     (set-frame-parameter nil 'fullscreen 'fullboth))
+
 #+END_SRC
 
 *** =s-f= でフォント切り替え．                                            :key:

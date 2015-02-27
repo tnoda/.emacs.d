@@ -1669,6 +1669,9 @@ Pressing =C-z= toggles between an eshell buffer and another.
     (defconst tnoda/mew-ubuntu-dir "/opt/mew")
     (add-to-list 'load-path
                  (expand-file-name "share/emacs/site-lisp/mew"
+                                   tnoda/mew-ubuntu-dir))
+    (add-to-list 'exec-path
+                 (expand-file-name "bin"
                                    tnoda/mew-ubuntu-dir)))
 
 #+end_src

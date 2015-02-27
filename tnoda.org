@@ -221,7 +221,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
   (defun tnoda/fontset-setup-ubuntu ()
     (set-face-attribute 'default nil
                         :family "Ricty"
-                        :height 144))
+                        :height 120))
 
   (cond ((or (eq window-system 'mac)
              (eq window-system 'ns))

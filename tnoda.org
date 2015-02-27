@@ -3061,7 +3061,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   (setq org-latex-listings 'listings)
   (add-to-list 'org-latex-listings-langs '(scala "Scala"))
   (add-to-list 'org-latex-default-packages-alist '("" "luatexja" nil))
-  (add-to-list 'org-latex-default-packages-alist '("hiragino-pron" "luatexja-preset" nil))
 
 #+END_SRC
 

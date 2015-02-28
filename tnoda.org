@@ -2123,9 +2123,11 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 ** Graphviz
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'graphviz-dot-mode)
-  (require 'graphviz-dot-mode)
-  (setq graphviz-dot-indent-width 2)
+  (use-package graphviz-dot-mode
+    :ensure t
+    :config
+    (setq graphviz-dot-indent-width 2))
+
 #+END_SRC
 
 ** Python

@@ -235,12 +235,15 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
 *** Apply solarized-dark theme
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package color-theme-solarized
+  (use-package color-theme
     :ensure t
     :config
-    (progn
-      (color-theme-initialize)
-      (color-theme-solarized-dark)))
+    (use-package color-theme-solarized
+      :ensure t
+      :config
+      (progn
+        (color-theme-initialize)
+        (color-theme-solarized-dark))))
 
 #+END_SRC
 

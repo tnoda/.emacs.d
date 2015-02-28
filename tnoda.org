@@ -1118,14 +1118,15 @@ Do =M-x column-highlight=, to highlight the corrent column.
 ** paredit.el                                                        :elget:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'paredit)
-
-  (require 'paredit)
-  (setq parens-require-spaces nil)
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'ielm-mode-hook 'enable-paredit-mode)
+  (use-package paredit
+    :ensure t
+    :config
+    (progn
+      (setq parens-require-spaces nil)
+      (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+      (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+      (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+      (add-hook 'ielm-mode-hook 'enable-paredit-mode)))
 
 #+END_SRC
 

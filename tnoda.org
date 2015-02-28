@@ -2049,27 +2049,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 #+END_SRC
 
-*** ajc-java-complete
-#+BEGIN_SRC sh :tangle setup-tags-for-ajc.sh :var prefix=el-get-dir
-  cd ${prefix}/ajc-java-complete
-  javac Tags.java
-  java -cp ~/clojure.jar:/System/Library/Frameworks/JavaVM.framework/Classes/classes.jar:. Tags
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'ajc-java-complete)
-  (require 'ajc-java-complete-config)
-  
-  (eval-after-load "auto-complete"
-    '(add-to-list 'ac-modes 'java-mode))
-  
-  (defun tnoda/enable-ajc-java-complete-mode
-    ()
-    (ajc-java-complete-mode 1))
-  
-  (add-hook 'java-mode-hook 'tnoda/enable-ajc-java-complete-mode)
-#+END_SRC
-
 *** Leiningen support
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/java-mode-hook ()

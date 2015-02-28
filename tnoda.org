@@ -1276,8 +1276,10 @@ Do =M-x column-highlight=, to highlight the corrent column.
 
 ** smartparens                                                       :elget:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'smartparens)
-  (sp-use-paredit-bindings)
+  (use-package smartparens
+    :ensure t
+    :config
+    (sp-use-paredit-bindings))
 
 #+END_SRC
 

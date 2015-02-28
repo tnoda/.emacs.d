@@ -235,10 +235,12 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
 *** Apply solarized-dark theme
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'color-theme-solarized)
-
-  (color-theme-initialize)
-  (color-theme-solarized-dark)
+  (use-package color-theme-solarized
+    :ensure t
+    :config
+    (progn
+      (color-theme-initialize)
+      (color-theme-solarized-dark)))
 
 #+END_SRC
 
@@ -1116,14 +1118,15 @@ Do =M-x column-highlight=, to highlight the corrent column.
 ** paredit.el                                                        :elget:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'paredit)
-
-  (require 'paredit)
-  (setq parens-require-spaces nil)
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'ielm-mode-hook 'enable-paredit-mode)
+  (use-package paredit
+    :ensure t
+    :config
+    (progn
+      (setq parens-require-spaces nil)
+      (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+      (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+      (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+      (add-hook 'ielm-mode-hook 'enable-paredit-mode)))
 
 #+END_SRC
 
@@ -1273,8 +1276,10 @@ Do =M-x column-highlight=, to highlight the corrent column.
 
 ** smartparens                                                       :elget:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'smartparens)
-  (sp-use-paredit-bindings)
+  (use-package smartparens
+    :ensure t
+    :config
+    (sp-use-paredit-bindings))
 
 #+END_SRC
 
@@ -1542,101 +1547,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
 #+END_SRC
 
 * Mail/News/WWW
-** Install APEL using el-get.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'apel)
-#+END_SRC
-
-** FLIM/SEMI のインストール．
-:PROPERTIES:
-:var: src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app prefix=tnoda-dotfiles-dir
-:END:
-
-+ FLIM
-  #+BEGIN_SRC sh :tangle install-flim.sh
-    cd src
-    curl http://www.ring.gr.jp/archives/elisp/flim/flim-1.14/flim-1.14.9.tar.gz | tar zxf -
-    cd flim-1.14.9
-    echo "(add-to-list 'load-path \"${elisp_dir}/apel\")
-    (add-to-list 'load-path \"${elisp_dir}/emu\")
-    (require 'install)
-    (defvar default-load-path load-path)
-    (add-latest-path \"custom\")
-    (add-path default-directory)
-    (setq PREFIX \"${prefix}\")
-    (setq FLIM_PREFIX \"flim\")
-    (setq LISPDIR \"${elisp_dir}\")
-    (setq FLIM_DIR (expand-file-name FLIM_PREFIX LISPDIR))
-    (setq VERSION_SPECIFIC_LISPDIR \"${elisp_dir}\")" > FLIM-CFG
-    make EMACS=$emacs install
-  #+END_SRC
-
-+ SEMI
-  #+BEGIN_SRC sh :tangle install-semi.sh
-    cd src
-    curl http://www.ring.gr.jp/archives/elisp/semi/semi-1.14-for-flim-1.14/semi-1.14.6.tar.gz | tar zxf -
-    cd semi-1.14.6
-    echo "(add-to-list 'load-path \"${elisp_dir}/apel\")
-    (add-to-list 'load-path \"${elisp_dir}/emu\")
-    (add-to-list 'load-path \"${elisp_dir}/flim\")
-    (add-to-list 'load-path (expand-file-name \".\"))
-    (require 'install)
-    (defvar default-load-path load-path)
-    (add-latest-path \"custom\")
-    (add-path default-directory)
-    (add-path \"bitmap-mule\")
-    (add-path \"flim\")
-    (setq PREFIX \"${prefix}\")
-    (setq LISPDIR \"${elisp_dir}\")
-    (setq METHOD_DIR \"${prefix}/share/semi\")
-    (setq SEMI_KERNEL_DIR \"${elisp_dir}/semi\")
-    (setq SETUP_FILE_DIR SEMI_KERNEL_DIR)
-    (setq METHOD_SRC_DIR \"methods\")
-    (setq METHODS
-        '(\"tm-au\" \"tm-file\" \"tm-html\" \"tm-image\" \"tm-mpeg\"
-          \"tm-plain\" \"tm-ps\"
-          \"tmdecode\"))" > SEMI-CFG
-    make EMACS=$emacs install
-  #+END_SRC
-
-** Wanderlust                                                          :cvs:
-+ インストール
-  #+BEGIN_SRC sh :tangle install-wl.sh :var src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app info_dir=tnoda-info-dir prefix=tnoda-dotfiles-dir
-    cd $src_dir
-    expect -c "set timeout 10
-    spawn cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root login
-    expect \"CVS password:\" {
-      send \"\n\"
-    }
-    "
-    cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root checkout wanderlust
-    cd wanderlust
-    echo "(setq load-path (append
-                     (list \"$elisp_dir/apel\"
-                           \"$elisp_dir/emu\"
-                           \"$elisp_dir/flim\"
-                           \"$elisp_dir/semi\")
-                     load-path))
-    (setq wl-install-utils t)
-    (setq wl-info-lang \"ja\")
-    " > WL-CFG
-    make EMACS=$emacs LISPDIR=$elisp_dir install PIXMAPDIR=$prefix/share/wl
-    make EMACS=$emacs LISPDIR=$elisp_dir install PIXMAPDIR=$prefix/share/wl
-    make EMACS=$emacs info
-    make EMACS=$emacs INFODIR=$info_dir install-info
-  #+END_SRC
-
-+ 設定
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (autoload 'wl "wl" "Wanderlust" t)
-    (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
-    (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
-  #+END_SRC
-
-+ =.wl.el= の設定
-  - =wl-init-hook= と =wl-exit-hook= で，ssh port forwarding を開始・終了する
-    設定を追加している．
-
 ** Mew
 *** インストール
 
@@ -1887,13 +1797,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 #+END_SRC
 
 ** Ruby
-
-*** Install elisps using el-get.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(ruby-mode inf-ruby yari))
-  (require 'ruby-mode)
-  (require 'inf-ruby)
-#+END_SRC
 
 *** smartparens-ruby
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2146,27 +2049,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 #+END_SRC
 
-*** ajc-java-complete
-#+BEGIN_SRC sh :tangle setup-tags-for-ajc.sh :var prefix=el-get-dir
-  cd ${prefix}/ajc-java-complete
-  javac Tags.java
-  java -cp ~/clojure.jar:/System/Library/Frameworks/JavaVM.framework/Classes/classes.jar:. Tags
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'ajc-java-complete)
-  (require 'ajc-java-complete-config)
-  
-  (eval-after-load "auto-complete"
-    '(add-to-list 'ac-modes 'java-mode))
-  
-  (defun tnoda/enable-ajc-java-complete-mode
-    ()
-    (ajc-java-complete-mode 1))
-  
-  (add-hook 'java-mode-hook 'tnoda/enable-ajc-java-complete-mode)
-#+END_SRC
-
 *** Leiningen support
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/java-mode-hook ()
@@ -2241,9 +2123,11 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 ** Graphviz
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'graphviz-dot-mode)
-  (require 'graphviz-dot-mode)
-  (setq graphviz-dot-indent-width 2)
+  (use-package graphviz-dot-mode
+    :ensure t
+    :config
+    (setq graphviz-dot-indent-width 2))
+
 #+END_SRC
 
 ** Python

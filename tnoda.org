@@ -1798,13 +1798,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 ** Ruby
 
-*** Install elisps using el-get.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(ruby-mode inf-ruby yari))
-  (require 'ruby-mode)
-  (require 'inf-ruby)
-#+END_SRC
-
 *** smartparens-ruby
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'smartparens-ruby)

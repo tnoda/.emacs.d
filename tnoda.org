@@ -235,12 +235,15 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
 *** Apply solarized-dark theme
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package color-theme-solarized
+  (use-package color-theme
     :ensure t
     :config
-    (progn
-      (color-theme-initialize)
-      (color-theme-solarized-dark)))
+    (use-package color-theme-solarized
+      :ensure t
+      :config
+      (progn
+        (color-theme-initialize)
+        (color-theme-solarized-dark))))
 
 #+END_SRC
 
@@ -1798,6 +1801,13 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 ** Ruby
 
+*** ruby-mode
+#+begin_src emacs-lisp :tangle yes
+  (require 'ruby-mode)
+
+#+end_src
+
+
 *** smartparens-ruby
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'smartparens-ruby)
@@ -1855,16 +1865,20 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 *** =inf-ruby=
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'inf-ruby-implementations '("pry" . "pry -Ilib"))
-  (setq inf-ruby-default-implementation
-        (cond ((eq system-type 'darwin)
-               (progn
-                 (setq inf-ruby-first-prompt-pattern
-                       "^\\[[0-9]+\\] pry\\((.*)\\)> *")
-                 (setq inf-ruby-prompt-pattern
-                       "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
-                 "pry"))
-              (t "ruby")))
+  (use-package inf-ruby
+    :ensure t
+    :config
+    (progn
+      (add-to-list 'inf-ruby-implementations '("pry" . "pry -Ilib"))
+      (setq inf-ruby-default-implementation
+            (cond ((eq system-type 'darwin)
+                   (progn
+                     (setq inf-ruby-first-prompt-pattern
+                           "^\\[[0-9]+\\] pry\\((.*)\\)> *")
+                     (setq inf-ruby-prompt-pattern
+                           "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
+                     "pry"))
+                  (t "ruby")))))
 
 #+END_SRC
 

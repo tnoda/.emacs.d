@@ -2420,6 +2420,20 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 
+*** company-mode
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'c++-mode-hook 'company-mode)
+
+  (use-package company-c-headers
+    :ensure t
+    :config
+    (progn
+      (when (eq system-type 'darwin)
+        (add-to-list 'company-c-headers-path-system "/opt/homebrew/include/c++/4.9.2"))))
+
+#+END_SRC
+
 * Twitter                                                    :cask:rubikitch:
 
 twittering-mode.el を使う．

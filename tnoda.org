@@ -2436,6 +2436,18 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
+*** google-c-style.el
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package google-c-style
+    :ensure t
+    :config
+    (progn
+      (add-hook 'c-mode-common-hook 'google-set-c-style)
+      (add-hook 'c-mode-common-hook 'google-make-newline-indent)))
+
+#+END_SRC
+
 * Twitter                                                    :cask:rubikitch:
 
 twittering-mode.el を使う．

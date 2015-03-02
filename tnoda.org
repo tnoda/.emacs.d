@@ -2393,6 +2393,25 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
+** C++
+
++ http://tuhdo.github.io/c-ide.html
+
+*** function-args
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package function-args
+    :ensure t
+    :init
+    (fa-config-default)
+    :config
+    (progn
+      (when (eq system-type 'darwin)
+        (semantic-add-system-include "/opt/homebrew/include/c++/4.9.2"))))
+
+#+END_SRC
+
+
 * Twitter                                                    :cask:rubikitch:
 
 twittering-mode.el を使う．

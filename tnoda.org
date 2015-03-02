@@ -1360,6 +1360,14 @@ on Sep. 2, 2014.
 
 #+END_SRC
 
+** sr-speedbar
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package sr-speedbar
+    :ensure t)
+
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

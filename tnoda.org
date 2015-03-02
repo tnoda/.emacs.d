@@ -2448,6 +2448,22 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
+*** Semantic
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'cc-mode)
+  (require 'semantic)
+
+  (global-semanticdb-minor-mode 1)
+  (global-semantic-idle-scheduler-mode 1)
+
+  (semantic-mode 1)
+
+  (semantic-add-system-include "/opt/homebrew/include/c++/4.9.2" 'c++-mode)
+
+#+END_SRC
+
+
 * Twitter                                                    :cask:rubikitch:
 
 twittering-mode.el を使う．

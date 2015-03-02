@@ -2415,7 +2415,9 @@ https://godoc.org/golang.org/x/tools/oracle
     :config
     (progn
       (when (eq system-type 'darwin)
-        (semantic-add-system-include "/opt/homebrew/include/c++/4.9.2"))))
+        (semantic-add-system-include "/opt/homebrew/include/c++/4.9.2"))
+      (define-key c++-mode-map [(control tab)] 'moo-complete)
+      (define-key c++-mode-map (kbd "M-o") 'fa-show)))
 
 #+END_SRC
 

@@ -2490,6 +2490,12 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
+*** Yasnippet
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'c++-mode-hook 'yas-minor-mode-on)
+
+#+END_SRC
 
 * Twitter                                                    :cask:rubikitch:
 

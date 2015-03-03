@@ -2483,6 +2483,14 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
+*** smartparens-mode
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'c++-mode-hook 'turn-on-smartparens-strict-mode)
+
+#+END_SRC
+
+
 * Twitter                                                    :cask:rubikitch:
 
 twittering-mode.el を使う．

@@ -1360,6 +1360,14 @@ on Sep. 2, 2014.
 
 #+END_SRC
 
+** sr-speedbar
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package sr-speedbar
+    :ensure t)
+
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2393,6 +2401,102 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
+** C++
+
++ http://tuhdo.github.io/c-ide.html
+
+*** function-args
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package function-args
+    :ensure t
+    :init
+    (fa-config-default)
+    :config
+    (progn
+      (when (eq system-type 'darwin)
+        (semantic-add-system-include "/opt/homebrew/include/c++/4.9.2"))
+      (define-key c++-mode-map [(control tab)] 'moo-complete)
+      (define-key c++-mode-map (kbd "M-o") 'fa-show)))
+
+#+END_SRC
+
+
+*** company-mode
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'c++-mode-hook 'company-mode)
+
+  (use-package company-c-headers
+    :ensure t
+    :config
+    (progn
+      (when (eq system-type 'darwin)
+        (add-to-list 'company-c-headers-path-system "/opt/homebrew/include/c++/4.9.2"))))
+
+#+END_SRC
+
+*** google-c-style.el
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package google-c-style
+    :ensure t
+    :config
+    (progn
+      (add-hook 'c-mode-common-hook 'google-set-c-style)
+      (add-hook 'c-mode-common-hook 'google-make-newline-indent)))
+
+#+END_SRC
+
+*** Semantic
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'cc-mode)
+  (require 'semantic)
+
+  (global-semanticdb-minor-mode 1)
+  (global-semantic-idle-scheduler-mode 1)
+
+  (semantic-mode 1)
+
+  (semantic-add-system-include "/opt/homebrew/include/c++/4.9.2" 'c++-mode)
+
+#+END_SRC
+
+*** flycheck-google-cpplint
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'flycheck)
+
+  (use-package flycheck-google-cpplint
+    :ensure t
+    :config
+    (progn
+      (flycheck-add-next-checker 'c/c++-cppcheck
+                                 '(warning . c/c++-googlelint))
+      (setq flycheck-c/c++-googlelint-executable (expand-file-name "bin/cpplint.py"
+                                                                   default-directory)
+            flycheck-googlelint-filter "-whitespace,+whitespace/braces"
+            flycheck-googlelint-verbose "3")
+
+      (add-hook 'c++-mode-hook 'tnoda/turn-on-flycheck-mode)))
+
+#+END_SRC
+
+*** smartparens-mode
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'c++-mode-hook 'turn-on-smartparens-strict-mode)
+
+#+END_SRC
+
+*** Yasnippet
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'c++-mode-hook 'yas-minor-mode-on)
+
+#+END_SRC
+
 * Twitter                                                    :cask:rubikitch:
 
 twittering-mode.el を使う．
@@ -2555,6 +2659,27 @@ twittering-mode.el を使う．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (set-face-foreground 'bm-face "darkgreen")
   (set-face-background 'bm-face "darkorange")
+
+#+END_SRC
+
+** helm-gtags
+
+http://tuhdo.github.io/c-ide.html
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq helm-gtags-prefix-key (kbd "C-c ;")
+        helm-gtags-suggested-key-mapping t)
+
+  (use-package helm-gtags
+    :ensure t
+    :config
+    (progn
+      (add-hook 'c-mode-hook 'helm-gtags-mode)
+      (add-hook 'c++-mode-hook 'helm-gtags-mode)
+      (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+      (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+      (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+      (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)))
 
 #+END_SRC
 

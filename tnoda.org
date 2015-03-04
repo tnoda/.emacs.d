@@ -2481,6 +2481,16 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
+**** flycheck-c/c++-gcc
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/set-flycheck-gcc-language-standard ()
+    (setq flycheck-gcc-language-standard "c++11"))
+
+  (add-hook 'c++-mode-hook 'tnoda/set-flycheck-gcc-language-standard)
+
+#+END_SRC
+
 **** flycheck-google-cpplint
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package flycheck-google-cpplint

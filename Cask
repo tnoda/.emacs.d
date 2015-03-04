@@ -51,5 +51,4 @@
 (depends-on "gradle-mode")
 (depends-on "ddskk")
 (depends-on "ace-link")
-(depends-on "flycheck")
 (depends-on "use-package")

@@ -1368,6 +1368,13 @@ on Sep. 2, 2014.
 
 #+END_SRC
 
+** flycheck
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package flycheck
+    :ensure t)
+
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

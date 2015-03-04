@@ -1368,6 +1368,13 @@ on Sep. 2, 2014.
 
 #+END_SRC
 
+** flycheck
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package flycheck
+    :ensure t)
+
+#+END_SRC
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2483,13 +2490,45 @@ https://godoc.org/golang.org/x/tools/oracle
 
 **** flycheck-c/c++-gcc
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/set-flycheck-gcc-language-standard ()
-    (setq flycheck-gcc-language-standard "c++11"))
+Must use C++11.
 
-  (add-hook 'c++-mode-hook 'tnoda/set-flycheck-gcc-language-standard)
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq-default flycheck-gcc-language-standard "c++11")
 
 #+END_SRC
+
+Mac OS X 10.8 does not come with GCC 4.9. Instead, add a new checker
+that uses homebrew's gcc-4.9.
+
+The ~flycheck-define-clike-checker~ macro has been retrieved from
+https://github.com/jedrz/.emacs.d/blob/master/setup-flycheck.el
+on March 4, 2015.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when (eq system-type 'darwin)
+    (defun tnoda/disable-flycheck-gcc ()
+      (add-to-list 'flycheck-disable-checkers 'gcc))
+
+    (add-hook 'c++-mode-hook 'tnoda/disable-flycheck-gcc)
+
+    (defmacro flycheck-define-clike-checker (name command modes)
+      `(flycheck-define-checker ,(intern (format "%s" name))
+         ,(format "A %s checker using %s" name (car command))
+         :command (,@command source-inplace)
+         :error-patterns
+         ((warning line-start (file-name) ":" line ":" column
+                   ": warning: " (message) line-end)
+          (error line-start (file-name) ":" line ":" column
+                 ": error: " (message) line-end))
+         :modes ',modes))
+
+    (flycheck-define-clike-checker c++-g++
+                                   ("g++-4.9" "-fsyntax-only" "-Wall" "-Wextra" "-std=c++11")
+                                   c++-mode)
+    (add-to-list 'flycheck-checkers 'c++-g++))
+
+#+END_SRC
+
 
 **** flycheck-google-cpplint
 #+BEGIN_SRC emacs-lisp :tangle yes

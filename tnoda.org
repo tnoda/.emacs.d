@@ -2474,10 +2474,10 @@ https://godoc.org/golang.org/x/tools/oracle
 **** Disable the Clang checker in the C++ mode
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/disable-flycheck-c/c++-clang ()
-    (add-to-list 'flycheck-disabled-checkers 'c/c++-clang))
+  (defun tnoda/disable-flycheck-clang ()
+    (add-to-list 'flycheck-disabled-checkers 'clang))
 
-  (add-hook 'c++-mode-hook 'tnoda/disable-flycheck-c/c++-clang)
+  (add-hook 'c++-mode-hook 'tnoda/disable-flycheck-clang)
 
 #+END_SRC
 

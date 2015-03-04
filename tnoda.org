@@ -2463,11 +2463,36 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
-*** flycheck-google-cpplint
+*** flycheck
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'flycheck)
+  (add-hook 'c++-mode-hook 'tnoda/turn-on-flycheck-mode)
 
+#+END_SRC
+
+**** Disable the Clang checker in the C++ mode
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/disable-flycheck-clang ()
+    (add-to-list 'flycheck-disabled-checkers 'clang))
+
+  (add-hook 'c++-mode-hook 'tnoda/disable-flycheck-clang)
+
+#+END_SRC
+
+**** flycheck-c/c++-gcc
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/set-flycheck-gcc-language-standard ()
+    (setq flycheck-gcc-language-standard "c++11"))
+
+  (add-hook 'c++-mode-hook 'tnoda/set-flycheck-gcc-language-standard)
+
+#+END_SRC
+
+**** flycheck-google-cpplint
+#+BEGIN_SRC emacs-lisp :tangle yes
   (use-package flycheck-google-cpplint
     :ensure t
     :config
@@ -2477,9 +2502,7 @@ https://godoc.org/golang.org/x/tools/oracle
       (setq flycheck-c/c++-googlelint-executable (expand-file-name "bin/cpplint.py"
                                                                    default-directory)
             flycheck-googlelint-filter "-whitespace,+whitespace/braces"
-            flycheck-googlelint-verbose "3")
-
-      (add-hook 'c++-mode-hook 'tnoda/turn-on-flycheck-mode)))
+            flycheck-googlelint-verbose "3")))
 
 #+END_SRC
 

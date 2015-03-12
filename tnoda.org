@@ -1763,9 +1763,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
   (defun tnoda/cider-repl-mode-hook ()
     (enable-paredit-mode)
-    (rainbow-delimiters-mode 1)
-    (subword-mode 1)
-    (font-lock-mode 1))
+    (subword-mode 1))
 
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
   (add-hook 'cider-repl-mode-hook 'tnoda/cider-repl-mode-hook)

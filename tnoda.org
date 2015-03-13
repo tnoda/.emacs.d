@@ -2505,7 +2505,7 @@ on March 4, 2015.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (when (eq system-type 'darwin)
     (defun tnoda/disable-flycheck-gcc ()
-      (add-to-list 'flycheck-disable-checkers 'gcc))
+      (add-to-list 'flycheck-disabled-checkers 'gcc))
 
     (add-hook 'c++-mode-hook 'tnoda/disable-flycheck-gcc)
 

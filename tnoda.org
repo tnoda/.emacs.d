@@ -3004,6 +3004,10 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
            :clock-keep t
            :empty-lines 1
            :kill-buffer t)
+          ("z" "Break" entry (file "") "* %?\n"
+           :pretend t
+           :clock-in t
+           :clock-resume t)
           ("t" "Todo" entry (file+headline tnoda/gtd-file "Tasks")
            "* TODO %? \n\n%i\n%a\nAdded: %U\n\n"
            :prepend t

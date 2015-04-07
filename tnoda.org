@@ -42,7 +42,7 @@
 *** emacs
 #+NAME: emacs-app
 #+BEGIN_EXAMPLE
-  /Applications/Emacs.app/Contents/MacOS/Emacs
+  ~/.emacs.d/bin/emacs
 #+END_EXAMPLE
 
 ** 行間を広くする関数 =tnoda/increase-line-spacing=.

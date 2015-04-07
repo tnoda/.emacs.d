@@ -3004,7 +3004,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
            :clock-keep t
            :empty-lines 1
            :kill-buffer t)
-          ("z" "Break" entry (file "") "* %?\n"
+          ("z" "Break" entry (file "") "* %?   :break:\n"
            :pretend t
            :clock-in t
            :clock-resume t)

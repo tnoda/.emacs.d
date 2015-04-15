@@ -1,0 +1,35 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: gss
+# key: gss
+# binding: direct-keybinding
+# --
+// GR is Golden Ratio
+const GR = 1.6180339887498948482045868343656
+
+// GRSectionSearch returns z, for a minimum value of f(x) in [lb, ub], and the x.
+func GRSectionSearch(lb, ub int64, f func(int64) int64) (z int64, x int64) {
+	var x1, x2, f1, f2 int64
+	d := float64(ub - lb)
+	x1, x2 = lb+int64(d/(GR+1)), lb+int64(d/GR)
+	f1, f2 = f(x1), f(x2)
+	for ub-lb > 3 {
+		if f1 <= f2 {
+			ub = x2
+			x2, f2 = x1, f1
+			x1 = lb + int64(float64(ub-lb)/(GR+1))
+			f1 = f(x1)
+		} else {
+			lb = x1
+			x1, f1 = x2, f2
+			x2 = lb + int64(float64(ub-lb)/GR)
+			f2 = f(x2)
+		}
+	}
+	z, x = f(lb), lb
+	for i := lb + 1; i <= ub; i++ {
+		if y := f(i); y < z {
+			z, x = y, i
+		}
+	}
+	return
+}

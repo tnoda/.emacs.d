@@ -1694,14 +1694,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
 + =mew-refile-guess-alist=
 + =mew-config-alist=
 
-*** test/html を =message= バッファに表示する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (when (boundp 'w3m)
-    (require 'mew-w3m)
-    (setq mew-use-text/html t))
-
-#+END_SRC
-
 * Lang
 
 ** Emacs Lisp

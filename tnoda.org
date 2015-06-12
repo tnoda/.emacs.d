@@ -1566,19 +1566,18 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 * Mail/News/WWW
 ** Mew
-*** インストール
+*** Install script
 
-#+BEGIN_SRC sh :tangle install-mew.sh :var prefix=tnoda-dotfiles-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app
+#+BEGIN_SRC sh :tangle no
   cd src
-  curl http://www.mew.org/Release/mew-6.6.tar.gz | tar zxf -
-  cd mew-6.6
-  ./configure --prefix=${prefix} \
-          --with-elispdir=${elisp_dir}/mew \
-          --with-emacs=$emacs --with-etcdir=${prefix}/share/mew
+  curl http://mew.org/Beta/mew-6.7rc1.tar.gz | tar zxf -
+  cd mew-6.7rc1
+  ./configure --prefix=/opt/mew --with-emacs=/opt/emacs/bin/emacs
   make
   make install
   make install-info
   make install-jinfo
+
 #+END_SRC
 
 *** Windows

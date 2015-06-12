@@ -1676,6 +1676,22 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (setq mew-search-method 'est)
 #+END_SRC
 
+*** Use stunnel4 on Ubunte 14.04
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when (eq system-type 'gnu/linux)
+    (setq mew-prog-ssl "stunnel4"))
+
+#+END_SRC
+
+*** Set mew-ssl-cert-directory on Mac OS X
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when (eq system-type 'darwin)
+    (setq mew-ssl-cert-directory (expand-file-name ".certs" (getenv "HOME"))))
+
+#+END_SRC
+
 *** =draft= と =message= とでは行間を広く表示する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'mew-draft-mode-hook 'tnoda/increase-line-spacing)
@@ -3118,7 +3134,8 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 #+BEGIN_SRC emacs-lisp :tangle yes
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((emacs-lisp . t)
+   '((sh . t)
+     (emacs-lisp . t)
      (R . t)
      (clojure . t)
      (scala . t)
@@ -3129,9 +3146,8 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
      (js . t)
      (latex . t)
      (org . t)
-     (ruby . t)
-     (sh . t)
-     (latex . t)))
+     (ruby . t)))
+
 #+END_SRC
 
 *** Ditaa

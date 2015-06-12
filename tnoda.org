@@ -2739,44 +2739,6 @@ http://tuhdo.github.io/c-ide.html
 
 #+END_SRC
 
-* SDIC
-** インストール
-#+BEGIN_SRC sh :tangle install-sdic.sh :var src_dir=tnoda-src-dir elisp_dir=tnoda-elisp-dir emacs=emacs-app info_dir=tnoda-info-dir prefix=tnoda-dotfiles-dir
-  cd $src_dir
-  curl http://www.namazu.org/~tsuchiya/sdic/sdic-2.1.3.tar.gz | tar zxf -
-  cd sdic-2.1.3
-  curl -O http://www.namazu.org/~tsuchiya/sdic/data/gene95.tar.gz
-  curl -O http://www.namazu.org/~tsuchiya/sdic/data/edict.gz
-  ./configure --prefix=$prefix --infodir=$info_dir --with-emacs=$emacs  --with-lispdir=$elisp_dir --with-dictdir=$prefix/share/dict
-  make install
-  make install-info
-  make dict
-  make install-dict
-#+END_SRC
-
-** Sdic has been installed in =/opt/sdic= on Ubuntu
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (if (eq system-type 'gnu/linux)
-      (add-to-list 'load-path "/opt/sdic/share/emacs/site-lisp"))
-
-#+END_SRC
-
-
-** =C-c w= で SDIC 辞書検索．                                          :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'sdic)
-  (global-set-key (kbd "C-c w") 'sdic-describe-word-at-point)
-#+END_SRC
-
-** popwin を使って，SDIC の検索結果を下に表示する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'special-display-buffer-names "*sdic*")
-  (if (boundp 'popwin:special-display-config)
-      (push '("*sdic*" :position bottom) popwin:special-display-config))
-
-#+END_SRC
-
 * Org Mode                                                              :git:
 
 ** Install

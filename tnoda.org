@@ -1589,21 +1589,20 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 #+end_src
 
-*** Ubuntu
+*** Mac OS X/Ubuntu
 
 #+begin_src emacs-lisp :tangle yes
-  (when (eq system-type 'gnu/linux)
-    (defconst tnoda/mew-ubuntu-dir "/opt/mew")
+  (when (or (eq system-type 'darwin)
+            (eq system-type 'gnu/linux))
+    (defconst tnoda/mew-prefix "/opt/mew")
     (add-to-list 'load-path
                  (expand-file-name "share/emacs/site-lisp/mew"
-                                   tnoda/mew-ubuntu-dir))
+                                   tnoda/mew-prefix))
     (add-to-list 'exec-path
                  (expand-file-name "bin"
-                                   tnoda/mew-ubuntu-dir)))
+                                   tnoda/mew-prefix)))
 
 #+end_src
-
-
 
 *** 最小限の設定
 

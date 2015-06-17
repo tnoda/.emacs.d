@@ -824,27 +824,6 @@ http://sheephead.homelinux.org/2012/01/30/6934/
 
 #+END_SRC
 
-** key-chord.el                                            :elget:rubikitch:
-
-キーボード同時押し時のコマンドを指定する =key-chord-define= が使えるようになる．
-
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'key-chord)
-
-#+END_SRC
-
-*** 全てのバッファで =key-chord-mode= を有効に．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'key-chord)
-  (key-chord-mode 1)
-#+END_SRC
-
-*** 同時押し判定は 0.3 秒以内．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq key-chord-two-keys-delay 0.03)
-#+END_SRC
-
 ** uniquify.el                                                   :rubikitch:
 
 ファイル名が同じファイルを複数開いたときに，
@@ -3192,28 +3171,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
-
-** =el= 同時押しで emacs-lisp の src ブロック挿入．                       :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-babel-demarcate-block-as-elisp ()
-    (interactive)
-    (insert "#+BEGIN_SRC emacs-lisp :tangle yes\n\n#+END_SRC")
-    (org-indent-line)
-    (previous-line)
-    (org-edit-special))
-  (key-chord-define org-mode-map "el" 'tnoda/org-babel-demarcate-block-as-elisp)
-#+END_SRC
-
-** =dm= 同時押しで markdown の src ブロック挿入．                      :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/org-babel-demarcate-block-as-markdown ()
-    (interactive)
-    (insert "#+BEGIN_SRC markdown :tangle yes\n\n#+END_SRC")
-    (org-indent-line)
-    (previous-line)
-    (org-edit-special))
-  (key-chord-define org-mode-map "dm" 'tnoda/org-babel-demarcate-block-as-markdown)
-#+END_SRC
 
 ** Easy Templates
 + =<s= で =#+STARTUP: =

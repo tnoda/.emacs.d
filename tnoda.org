@@ -3104,17 +3104,30 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'ox-latex)
   (setq org-latex-pdf-process
-        (cond ((executable-find "/usr/texbin/lualatex")
+        (cond ((executable-find "/Library/TeX/texbin/lualatex")
+               '("/Library/TeX/texbin/lualatex %b"))
+              ((executable-find "/usr/texbin/lualatex")
                '("/usr/texbin/lualatex %b"))
               ((executable-find "/usr/local/bin/lualatex")
                '("/usr/local/bin/lualatex %b"))))
-  (add-to-list 'org-latex-packages-alist '("" "listings"))
-  (add-to-list 'org-latex-packages-alist '("" "color"))
-  (setq org-latex-default-class "ltjsarticle}")
+  (add-to-list 'org-latex-classes
+               '("ltjsarticle"
+                 "\\documentclass{ltjsarticle}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (setq org-latex-default-class "ltjsarticle")
   (setq org-latex-listings 'listings)
   (add-to-list 'org-latex-listings-langs '(scala "Scala"))
   (add-to-list 'org-latex-default-packages-alist '("" "luatexja" nil))
-  (add-to-list 'org-latex-default-packages-alist '("" "luatexja-fontspec" nil))
+  (setq org-latex-packages-alist
+        '(("" "luatexja-fontspec" nil)
+          ("hiragino-pron" "luatexja-preset" nil)
+          ("" "lmodern" nil)
+          ("" "listings" nil)
+          ("" "color" nil)))
 
 #+END_SRC
 
@@ -3226,8 +3239,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   ,#+BEAMER_FONT_THEME: structurebold
   ,#+BEAMER_HEADER: \\beamertemplatenavigationsymbolsempty
   ,#+BEAMER_HEADER: \\usepackage{inconsolata}
-  ,#+BEAMER_HEADER: \\usepackage[T1]{fontenc}
-  ,#+BEAMER_HEADER: \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
   ,#+OPTIONS: toc:nil H:2
   "
   ) org-structure-template-alist)

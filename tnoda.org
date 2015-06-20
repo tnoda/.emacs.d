@@ -1742,14 +1742,11 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 *** CIDER
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'cider)
-
-  (defun tnoda/cider-repl-mode-hook ()
-    (enable-paredit-mode)
-    (subword-mode 1))
-
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-  (add-hook 'cider-repl-mode-hook 'tnoda/cider-repl-mode-hook)
+  (use-package cider
+    :ensure clojure-mode
+    :config
+    (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+    (add-hook 'cider-repl-mode-hook 'tnoda/clojure-mode-hook))
 
 #+END_SRC
 

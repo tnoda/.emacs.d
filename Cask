@@ -28,8 +28,6 @@
 (depends-on "dired-open")
 (depends-on "mon-css-color" :git "https://gist.github.com/f341df133553ea1cf873.git")
 (depends-on "emmet-mode")
-(depends-on "clojure-mode")
-(depends-on "cider")
 (depends-on "yaml-mode")
 (depends-on "visual-regexp")
 (depends-on "sudden-death")

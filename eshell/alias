@@ -1,0 +1,12 @@
+alias dc git diff --cached --color $*
+alias l git log --color --oneline -20
+alias d git diff --color $*
+alias co git checkout $*
+alias bd git branch -d $*
+alias b git branch --color $*
+alias cb git checkout -b $*
+alias g git $*
+alias a git add -p $* $*
+alias m git merge --no-ff $*
+alias s git status -s
+alias ci git commit -v $*

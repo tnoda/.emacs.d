@@ -1712,6 +1712,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
     :ensure t
     :config
     (defun tnoda/clojure-mode-hook ()
+      (put-clojure-indent 'for-all 1)     ; for clojure.test.check
       (enable-paredit-mode)
       (rainbow-delimiters-mode 1)
       (subword-mode 1)

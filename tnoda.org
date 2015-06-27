@@ -92,10 +92,11 @@
 
 ** MELPA/Marmalade
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (when (eq system-type 'windows-nt)
-    (package-initialize)
-    (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-    (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t))
+  (require 'package)
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+  (package-initialize)
 
 #+END_SRC
 
@@ -1712,6 +1713,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
     :ensure t
     :config
     (defun tnoda/clojure-mode-hook ()
+      (put-clojure-indent 'for-all 1)     ; for clojure.test.check
       (enable-paredit-mode)
       (rainbow-delimiters-mode 1)
       (subword-mode 1)
@@ -1743,7 +1745,8 @@ Pressing =C-z= toggles between an eshell buffer and another.
 *** CIDER
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package cider
-    :ensure clojure-mode
+    :ensure t
+    :pin melpa-stable
     :config
     (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
     (add-hook 'cider-repl-mode-hook 'tnoda/clojure-mode-hook))

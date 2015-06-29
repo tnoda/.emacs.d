@@ -2004,7 +2004,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 ** Markdown                                                    :autoinstall:
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
   (require 'markdown-mode)
 
 #+end_src
@@ -2844,7 +2844,7 @@ main.org のトップレベルに refile できるようにする．
 
 ** Archive
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
   (setq org-archive-location "%s_archive.gpg::")
 
 #+end_src

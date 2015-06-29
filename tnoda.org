@@ -2937,8 +2937,10 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 ** Capture
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-default-notes-file (expand-file-name "journal.org" org-directory))
+  (setq org-default-notes-file (expand-file-name "journal.org.gpg"
+                                                 tnoda/org-dropbox-directory))
   (define-key global-map "\C-cc" 'org-capture)
+
 #+END_SRC
 
 *** Templates

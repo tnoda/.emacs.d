@@ -2739,10 +2739,20 @@ http://tuhdo.github.io/c-ide.html
   (require 'org-habit)
 #+END_SRC
 
-*** =~/org= で Org を使う．
+*** Store per host org files in =~/org/= directory.
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-directory "~/org")
+
 #+END_SRC
+
+*** Share org files using Dropbox
+
+#+begin_src emacs-lisp :tangle yes
+  (setq tnoda/org-dropbox-directory "~/Dropbox/org")
+
+#+end_src
+
 
 *** =org-extend-today-until=
 My day really ends at two o'clock in the morning.

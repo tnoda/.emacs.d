@@ -1371,8 +1371,9 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun tnoda/eshell-toggle-key ()
-    (define-key eshell-mode-map (kbd "C-z") 'cycle-buffer))
+    (define-key eshell-mode-map (kbd "C-z") 'bs-cycle-previous))
   (add-hook 'eshell-mode-hook 'tnoda/eshell-toggle-key)
+
 #+END_SRC
 
 ** プロンプトの色を変える．

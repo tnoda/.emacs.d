@@ -2726,23 +2726,7 @@ http://tuhdo.github.io/c-ide.html
 
 #+END_SRC
 
-* Org Mode                                                              :git:
-
-** Install
-#+BEGIN_SRC sh :tangle install-org.sh :var src_dir=tnoda-src-dir prefix=tnoda-dotfiles-dir info_dir=tnoda-info-dir emacs=emacs-app
-  ORG_VERSION=8.2.6
-  cd $src_dir
-  curl -O http://orgmode.org/org-${ORG_VERSION}.tar.gz
-  tar zxf org-${ORG_VERSION}.tar.gz
-  rm -f org
-  ln -s org-${ORG_VERSION} org
-  cd org
-  make EMACS=$emacs compile
-  make EMACS=$emacs info
-  cd $info_dir
-  rm -f org
-  ln -s $src_dir/org/doc/org .
-#+END_SRC
+* Org Mode
 
 ** org-mew.el
 #+BEGIN_SRC emacs-lisp :tangle yes

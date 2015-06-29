@@ -1646,11 +1646,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (setq mew-ssh-keep-connection nil)
 #+END_SRC
 
-*** マスターパスワードを使う．PGP を使ってパスワードを保存．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq mew-use-master-passwd t)
-#+END_SRC
-
 *** Hyper Estraier で検索する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq mew-search-method 'est)

@@ -2848,6 +2848,13 @@ main.org のトップレベルに refile できるようにする．
         '(("main.org" . (:level . 1))))
 #+END_SRC
 
+** Archive
+
+#+begin_src emacs-lisp
+  (setq org-archive-location "%s_archive.gpg::")
+
+#+end_src
+
 ** ~TODO~
 
 *** ~TODO~ keywords

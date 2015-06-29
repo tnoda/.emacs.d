@@ -2985,13 +2985,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
       (find-file tnoda/gtd-file))
 #+END_SRC
 
-*** =M-x notes= で =notes.org= を開く．                           :command:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun notes ()
-    (interactive)
-    (find-file org-default-notes-file))
-#+END_SRC
-  
 *** =M-x flagged= で =flagged.org= を開く．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun flagged ()

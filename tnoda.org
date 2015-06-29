@@ -2977,14 +2977,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 #+END_SRC
 
 ** GTD
-*** =M-x gtd= で =main.org= を開く．                              :command:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defconst tnoda/gtd-file (expand-file-name "main.org" org-directory))
-    (defun gtd ()
-      (interactive)
-      (find-file tnoda/gtd-file))
-#+END_SRC
-
 *** =M-x flagged= で =flagged.org= を開く．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun flagged ()

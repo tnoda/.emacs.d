@@ -2963,17 +2963,18 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
            :empty-lines 1
            :kill-buffer t)
           ("m" "Morning Routine" entry (file "")
-           "* Morning Routine %U\n\n%[~/org/morning_routine.org]"
+           "* Morning Routine %U\n\n%[~/Dropbox/org/morning_routine.org]"
            :prepend t
            :clock-in t
            :empty-lines 1
            :kill-buffer t)
           ("r" "Daily Review" entry (file "")
-           "* Daily Review %U\n\n%[~/org/daily_review.org]"
+           "* Daily Review %U\n\n%[~/Dropbox/org/daily_review.org]"
            :prepend t
            :clock-in t
            :empty-lines 1
            :kill-buffer t)))
+
 #+END_SRC
 
 ** GTD

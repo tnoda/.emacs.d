@@ -640,24 +640,13 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
                                ":"))
 #+END_SRC
 
-** Add Emacs Mac Port's info dir to ~Info-directory-list~
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/add-emacs-mac-ports-info-dir-to-info-directory-list ()
-    (add-to-list 'Info-directory-list "/opt/emacs/share/info"))
+** Search ~/opt/emacs/share/info~ and ~/opt/mew/share/info~ for Info files
 
-  (add-hook 'Info-mode-hook 'tnoda/add-emacs-mac-ports-info-dir-to-info-directory-list)
+#+begin_src emacs-lisp :tangle yes
+  (setq Info-directory-list
+        '("/opt/emacs/share/info" "/opt/mew/share/info"))
 
-#+END_SRC
-
-** =~/.emacs.d/share/info= を優先する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/add-tnoda-info-dir-to-info-directory-list
-    ()
-    (add-to-list 'Info-directory-list tnoda/info-dir))
-
-  (add-hook 'Info-mode-hook 'tnoda/add-tnoda-info-dir-to-info-directory-list)
-
-#+END_SRC
+#+end_src
 
 ** Unified diff を表示する．                                     :rubikitch:
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -549,21 +549,6 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
   (add-to-list 'exec-path "/usr/texbin")
 #+END_SRC
 
-** スペルチェック (ispell/aspell)
-+ aspell を使う．
-+ 英語日本語混じりの文章でエラーが出ないようなおまじない (ispell-skip-region-alist).
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq-default ispell-program-name "aspell")
-  (eval-after-load "ispell"
-    '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
-#+END_SRC
-
-*** =C-M-$= で =ispell-buffer=.                                       :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "C-M-$") 'ispell-buffer)
-#+END_SRC
-
 ** GC を減らして軽くする．                                       :rubikitch:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq gc-cons-threshold (* 16 gc-cons-threshold))
@@ -730,6 +715,42 @@ Mac OS X's ls does not support the ~--dired~ option.
   (add-hook 'eww-mode-hook 'tnoda/shr-block-all-images)
 
 #+END_SRC
+
+** flyspell-mode
+
+*** Configure aspell
+
++ aspell を使う．
++ 英語日本語混じりの文章でエラーが出ないようなおまじない (ispell-skip-region-alist).
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq-default ispell-program-name "aspell")
+  (eval-after-load "ispell"
+    '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+#+END_SRC
+
++ Configure ~.aspell.conf~
+
+#+BEGIN_EXAMPLE
+  lang en_US
+#+END_EXAMPLE
+
+*** =C-M-$= で =ispell-buffer=.                                       :key:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-set-key (kbd "C-M-$") 'ispell-buffer)
+#+END_SRC
+
+*** Enable flyspell-mode in text buffers
+
+#+begin_src emacs-lisp :tangle yse
+  (--map (add-hook it 'flyspell-mode)
+         '(markdown-mode-hook
+           gfm-mode-hook
+           org-mode-hook
+           text-mode-hook
+           latex-mode-hook))
+
+#+end_src
 
 * Global
 

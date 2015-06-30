@@ -2958,7 +2958,8 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
            :pretend t
            :clock-in t
            :clock-resume t)
-          ("t" "Todo" entry (file+headline tnoda/gtd-file "Tasks")
+          ("t" "Todo" entry (file+headline (expand-file-name "main.org.gpg"
+                                                             tnoda/org-dropbox-directory) "Tasks")
            "* TODO %? \n\n%i\n%a\nAdded: %U\n\n"
            :prepend t
            :clock-keep t

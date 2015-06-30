@@ -736,7 +736,7 @@ Mac OS X's ls does not support the ~--dired~ option.
 
 *** Enable flyspell-mode in text buffers
 
-#+begin_src emacs-lisp :tangle yse
+#+begin_src emacs-lisp :tangle yes
   (--map (add-hook it 'flyspell-mode)
          '(markdown-mode-hook
            gfm-mode-hook

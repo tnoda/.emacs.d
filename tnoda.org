@@ -734,6 +734,13 @@ Mac OS X's ls does not support the ~--dired~ option.
   (global-set-key (kbd "C-M-$") 'ispell-buffer)
 #+END_SRC
 
+*** Bind flyspell-auto-correct-binding to ~s-;~                       :key:
+
+#+begin_src emacs-lisp :tangle yes
+  (setq flyspell-auto-correct-binding (kbd "s-;"))
+
+#+end_src
+
 *** Enable flyspell-mode in text buffers
 
 #+begin_src emacs-lisp :tangle yes

@@ -1724,6 +1724,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
       (rainbow-delimiters-mode 1)
       (subword-mode 1)
       (yas-minor-mode)
+      (flyspell-prog-mode)
       (setq show-trailing-whitespace t)
       (setq buffer-save-without-query t))
     (add-hook 'clojure-mode-hook 'tnoda/clojure-mode-hook))

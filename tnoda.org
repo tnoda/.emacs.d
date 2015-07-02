@@ -2417,25 +2417,6 @@ https://godoc.org/golang.org/x/tools/oracle
 
 ** C++
 
-+ http://tuhdo.github.io/c-ide.html
-
-*** function-args
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package function-args
-    :ensure t
-    :init
-    (fa-config-default)
-    :config
-    (progn
-      (when (eq system-type 'darwin)
-        (semantic-add-system-include "/opt/homebrew/include/c++/4.9.2"))
-      (define-key c++-mode-map [(control tab)] 'moo-complete)
-      (define-key c++-mode-map (kbd "M-o") 'fa-show)))
-
-#+END_SRC
-
-
 *** company-mode
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2446,7 +2427,9 @@ https://godoc.org/golang.org/x/tools/oracle
     :config
     (progn
       (when (eq system-type 'darwin)
-        (add-to-list 'company-c-headers-path-system "/opt/homebrew/include/c++/4.9.2"))))
+        (add-to-list 'company-c-headers-path-system
+                     "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"))
+      (add-to-list 'company-backends 'company-c-headers)))
 
 #+END_SRC
 
@@ -2473,82 +2456,31 @@ https://godoc.org/golang.org/x/tools/oracle
 
   (semantic-mode 1)
 
-  (semantic-add-system-include "/opt/homebrew/include/c++/4.9.2" 'c++-mode)
+  (semantic-add-system-include "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1" 'c++-mode)
 
 #+END_SRC
 
 *** flycheck
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'flycheck)
-  (add-hook 'c++-mode-hook 'tnoda/turn-on-flycheck-mode)
+  (use-package flycheck
+    :ensure t
+    :config
+    (defun tnoda/c++-mode-hook-flycheck ()
+      (flycheck-mode 1)
+      (setq flycheck-clang-language-standard "c++11"))
+    (add-hook 'c++-mode-hook 'tnoda/c++-mode-hook-flycheck))
 
 #+END_SRC
-
-**** Disable the Clang checker in the C++ mode
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/disable-flycheck-clang ()
-    (add-to-list 'flycheck-disabled-checkers 'clang))
-
-  (add-hook 'c++-mode-hook 'tnoda/disable-flycheck-clang)
-
-#+END_SRC
-
-**** flycheck-c/c++-gcc
-
-Must use C++11.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq-default flycheck-gcc-language-standard "c++11")
-
-#+END_SRC
-
-Mac OS X 10.8 does not come with GCC 4.9. Instead, add a new checker
-that uses homebrew's gcc-4.9.
-
-The ~flycheck-define-clike-checker~ macro has been retrieved from
-https://github.com/jedrz/.emacs.d/blob/master/setup-flycheck.el
-on March 4, 2015.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (when (eq system-type 'darwin)
-    (defun tnoda/disable-flycheck-gcc ()
-      (add-to-list 'flycheck-disabled-checkers 'gcc))
-
-    (add-hook 'c++-mode-hook 'tnoda/disable-flycheck-gcc)
-
-    (defmacro flycheck-define-clike-checker (name command modes)
-      `(flycheck-define-checker ,(intern (format "%s" name))
-         ,(format "A %s checker using %s" name (car command))
-         :command (,@command source-inplace)
-         :error-patterns
-         ((warning line-start (file-name) ":" line ":" column
-                   ": warning: " (message) line-end)
-          (error line-start (file-name) ":" line ":" column
-                 ": error: " (message) line-end))
-         :modes ',modes))
-
-    (flycheck-define-clike-checker c++-g++
-                                   ("g++-4.9" "-fsyntax-only" "-Wall" "-Wextra" "-std=c++11")
-                                   c++-mode)
-    (add-to-list 'flycheck-checkers 'c++-g++))
-
-#+END_SRC
-
 
 **** flycheck-google-cpplint
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package flycheck-google-cpplint
     :ensure t
     :config
-    (progn
-      (flycheck-add-next-checker 'c/c++-cppcheck
-                                 '(warning . c/c++-googlelint))
-      (setq flycheck-c/c++-googlelint-executable (expand-file-name "bin/cpplint.py"
-                                                                   default-directory)
-            flycheck-googlelint-filter "-whitespace,+whitespace/braces"
-            flycheck-googlelint-verbose "3")))
+    (custom-set-variables
+     '(flycheck-c/c++-googlelint-executable
+       (expand-file-name "bin/cpplint.py" default-directory))))
 
 #+END_SRC
 

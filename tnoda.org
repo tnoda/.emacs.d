@@ -1762,6 +1762,11 @@ Pressing =C-z= toggles between an eshell buffer and another.
     :ensure t
     :pin melpa-stable
     :config
+    (setq cider-repl-history "~/.emacs.d/cider-repl-history")
+    (setq cider-repl-use-pretty-printing t)
+    (setq cider-repl-use-clojure-font-lock nil)
+    (setq cider-repl-wrap-history t)
+    (setq cider-repl-history-size 3000)
     (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
     (add-hook 'cider-repl-mode-hook 'tnoda/clojure-mode-hook))
 

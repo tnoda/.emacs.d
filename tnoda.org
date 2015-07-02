@@ -457,6 +457,13 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
   (global-set-key (kbd "s-a") 'tnoda/kill-ring-save-whole-buffer)
 #+END_SRC
 
+*** zap-up-to-char ~M-z~                                              :key:
+#+begin_src emacs-lisp :tangle yes
+  (require 'misc)
+  (global-set-key (kbd "M-z") 'zap-up-to-char)
+
+#+end_src
+
 ** ログと履歴
 *** ログの記録行数を増やす．                                    :rubikitch:
 #+BEGIN_SRC emacs-lisp :tangle yes

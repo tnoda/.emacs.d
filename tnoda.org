@@ -679,6 +679,7 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 ** auto-insert
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'autoinsert)
   (add-hook 'find-file-hook 'auto-insert)
 
 #+END_SRC

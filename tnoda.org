@@ -2506,6 +2506,8 @@ https://godoc.org/golang.org/x/tools/oracle
     '("Simple C++ skelton"
       "#include <cstdio>
   #include <iostream>
+  #include <stack>
+  #include <queue>
   #include <vector>
   #include <map>
   #include <string>

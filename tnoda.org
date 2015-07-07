@@ -2505,7 +2505,9 @@ https://godoc.org/golang.org/x/tools/oracle
     '("\\.\\(CC?\\|cc\\|cxx\\|cpp\\|c++\\)\\'" . "C++ skeleton")
     '("Simple C++ skelton"
       "#include <cstdio>
+  #include <cmath>
   #include <iostream>
+  #include <list>
   #include <stack>
   #include <queue>
   #include <vector>

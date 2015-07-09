@@ -2475,7 +2475,7 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 **** flycheck-google-cpplint
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package flycheck-google-cpplint
     :ensure t
     :config

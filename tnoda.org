@@ -2539,6 +2539,68 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+end_src
 
+** LaTeX
+
+*** AUCTeX
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package tex-jp
+    :ensure auctex
+    :config
+    (setq TeX-engine-alist '((pdfuptex "pdfupTeX"
+                                       "ptex2pdf -u -e -ot '%S %(mode)'"
+                                       "ptex2pdf -u -l -ot '%S %(mode)'"
+                                       "euptex")))
+    (setq japanese-TeX-engine-default 'pdfuptex)
+    (setq japanese-LaTeX-default-style "jsarticle")
+    (dolist (command '("pTeX" "pLaTeX" "pBibTeX" "jTeX" "jLaTeX" "jBibTeX" "Mendex"))
+      (delq (assoc command TeX-command-list) TeX-command-list))
+    (setq preview-image-type 'dvipng)
+    (setq TeX-source-correlate-method 'synctex)
+    (setq TeX-source-correlate-start-server t)
+    (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+    (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
+    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
+    (defun tnoda/TeX-command-list-config ()
+      (add-to-list 'TeX-command-list
+                   '("Latexmk"
+                     "latexmk %t"
+                     TeX-run-TeX nil (latex-mode) :help "Run Latexmk"))
+      (add-to-list 'TeX-command-list
+                   '("Latexmk-upLaTeX-pdfdvi"
+                     "latexmk -e '$latex=q/uplatex %%O %S %(mode) %%S/' -e '$bibtex=q/upbibtex %%O %%B/' -e '$biber=q/biber %%O --bblencoding=utf8 -u -U --output_safechars %%B/' -e '$makeindex=q/upmendex %%O -o %%D %%S/' -e '$dvipdf=q/dvipdfmx %%O -o %%D %%S/' -norc -gg -pdfdvi %t"
+                     TeX-run-TeX nil (latex-mode) :help "Run Latexmk-upLaTeX-pdfdvi"))
+      (add-to-list 'TeX-command-list
+                   '("Latexmk-LuaLaTeX"
+                     "latexmk -e '$pdflatex=q/lualatex %%O %S %(mode) %%S/' -e '$bibtex=q/upbibtex %%O %%B/' -e '$biber=q/biber %%O --bblencoding=utf8 -u -U --output_safechars %%B/' -e '$makeindex=q/upmendex %%O -o %%D %%S/' -norc -gg -pdf %t"
+                     TeX-run-TeX nil (latex-mode) :help "Run Latexmk-LuaLaTeX"))
+      (add-to-list 'TeX-command-list
+                   '("Latexmk-XeLaTeX"
+                     "latexmk -e '$pdflatex=q/xelatex %%O %S %(mode) %%S/' -e '$bibtex=q/upbibtex %%O %%B/' -e '$biber=q/biber %%O --bblencoding=utf8 -u -U --output_safechars %%B/' -e '$makeindex=q/upmendex %%O -o %%D %%S/' -norc -gg -pdf %t"
+                     TeX-run-TeX nil (latex-mode) :help "Run Latexmk-XeLaTeX"))
+      (add-to-list 'TeX-command-list
+                   '("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil)))
+
+    (add-hook 'LaTeX-mode-hook 'tnoda/TeX-command-list-config)
+
+
+    ;; Skim
+    (setq TeX-view-program-list
+          '(("Skim"
+             "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+    (setq TeX-view-program-selection '((output-pdf "Skim")))
+
+    ;; RefTeX
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    (setq reftex-plug-into-AUCTeX t)
+
+    ;; kinsoku.el
+    (setq kinsoku-limit 10))
+
+#+end_src
+
+
 * Twitter                                                    :cask:rubikitch:
 
 twittering-mode.el を使う．

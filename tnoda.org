@@ -1053,16 +1053,6 @@ they are no longer of any use.
 
 #+END_SRC
     
-** auto-complete.el                                              :rubikitch:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'auto-complete-config)
-  (ac-config-default)
-  (setq ac-modes nil)
-  (setq ac-auto-start 4)
-
-#+END_SRC
-
 ** company-mode                                                       :cask:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'company)
@@ -2011,7 +2001,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   ;;; C-c .
     (define-prefix-command 'tnoda/rsense-map)
     (define-key ruby-mode-map (kbd "C-c .") 'tnoda/rsense-map)
-    (define-key tnoda/rsense-map (kbd ".") 'ac-complete-rsense)
     (define-key tnoda/rsense-map (kbd "t") 'rsense-type-help)
     (define-key tnoda/rsense-map (kbd "j") 'rsense-jump-to-definition)
     (define-key tnoda/rsense-map (kbd "w") 'rsense-where-is)
@@ -2019,13 +2008,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
     (define-key tnoda/rsense-map (kbd "o") 'rsense-open-project)
     (define-key tnoda/rsense-map (kbd "c") 'rsense-close-project)
     (define-key tnoda/rsense-map (kbd "l") 'rsense-clear)
-    (define-key tnoda/rsense-map (kbd "x") 'rsense-exit)
-
-  ;;; Start completion automatically after inserting . or ::.
-    (defun tnoda/ac-complete-rsense-automatically ()
-      (add-to-list 'ac-sources 'ac-source-rsense-method)
-      (add-to-list 'ac-sources 'ac-source-rsense-constant))
-    (add-hook 'ruby-mode-hook 'tnoda/ac-complete-rsense-automatically))
+    (define-key tnoda/rsense-map (kbd "x") 'rsense-exit))
 
 #+END_SRC
 
@@ -2179,7 +2162,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 #+BEGIN_SRC emacs-lisp :tangle no
   (require 'python-environment)
   (setq python-environment-virtualenv '("pyvenv" "--system-site-packages"))
-  (require 'auto-complete-config)
   (require 'python)
   (require 'jedi)
   (add-hook 'python-mode-hook 'jedi:setup)

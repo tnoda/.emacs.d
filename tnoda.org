@@ -2495,6 +2495,7 @@ https://godoc.org/golang.org/x/tools/oracle
   #include <queue>
   #include <vector>
   #include <map>
+  #include <set>
   #include <string>
   #include <utility>
   #include <algorithm>

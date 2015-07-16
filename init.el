@@ -71,8 +71,7 @@
 (require 'org)
 (require 'ob-tangle)
 
-;; load up all literate org-mode files in this directory
-(mapc #'org-babel-load-file (directory-files tnoda/dotfiles-dir t "\\.org$"))
+(org-babel-load-file (expand-file-name "tnoda.org" tnoda/dotfiles-dir))
 
 ;;; init.el ends here
 

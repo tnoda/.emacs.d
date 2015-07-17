@@ -3,30 +3,43 @@
 # key: uf
 # binding: direct-keybinding
 # --
-const int MAX_N = 1000010;
-int id[MAX_N], sz[MAX_N];
-
-void init(int n) {
-  REP(i,n) id[i] = i;
-}
-
-int root(int x) {
-  if (id[x] != x)
-    id[x] = root(id[x]);
-  return id[x];
-}
-
-bool same(int p, int q) {
-  return root(p) == root(q);
-}
-
-void unite(int p, int q) {
-  int i = root(p), j = root(q);
-  if (sz[i] < sz[j]) {
-    id[i] = j;
-    sz[j] += sz[i];
-  } else {
-    id[j] = i;
-    sz[i] += sz[j];
+class UnionFind {
+  int *id, *sz;
+  
+  int root(int x) {
+    if (id[x] != x)
+      id[x] = root(id[x]);
+    return id[x];
   }
-}
+  
+ public:
+
+  explicit UnionFind(int n) {
+    id = new int[n];
+    sz = new int[n];
+    REP(i,n) {
+      id[i] = i;
+      sz[i] = 0;
+    }
+  }
+  
+  ~UnionFind() {
+    delete[] id;
+    delete[] sz;
+  }
+
+  bool same(int p, int q) {
+    return root(p) == root(q);
+  }
+
+  void unite(int p, int q) {
+    int i = root(p), j = root(q);
+    if (sz[i] < sz[j]) {
+      id[i] = j;
+      sz[j] += sz[i];
+    } else {
+      id[j] = i;
+      sz[i] += sz[j];
+    }
+  }
+};

@@ -2489,6 +2489,7 @@ https://godoc.org/golang.org/x/tools/oracle
       "#include <cstdio>
   #include <cstring>
   #include <cmath>
+  #include <climits>
   #include <iostream>
   #include <iomanip>
   #include <list>

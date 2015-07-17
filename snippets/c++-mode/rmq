@@ -1,0 +1,46 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: rmq
+# key: rmq
+# binding: direct-keybinding
+# --
+const ll Inf = LONG_MAX;
+
+class RMQ {
+  int n;
+  ll *dat;
+
+  ll q(int a, int b, int k, int l, int r) {
+    if (r <= a || b <= l) return Inf;
+    if (a <= l && r <= b) return dat[k];
+    else {
+      ll lhs = q(a, b, k*2+1, l, (l+r)/2);
+      ll rhs = q(a, b, k*2+2, (l+r)/2, r);
+      return min(lhs, rhs);
+    }
+  }
+
+ public:
+
+  explicit RMQ(int n_) {
+    n = 1;
+    while (n < n_) n <<= 1;
+    dat = new ll[n*2];
+    REP(i,n*2) dat[i] = Inf;
+  }
+
+  ~RMQ() { delete[] dat; }
+
+  void update(int k, int a) {
+    k += n-1;
+    dat[k] = a;
+    while (k > 0) {
+      k = --k / 2;
+      dat[k] = min(dat[k*2+1], dat[k*2+2]);
+    }
+  }
+
+  // Returns the min value of [a, b)
+  ll query(int a, int b) {
+    return q(a, b, 0, 0, n);
+  }
+};

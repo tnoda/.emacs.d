@@ -2565,7 +2565,11 @@ https://godoc.org/golang.org/x/tools/oracle
                      "latexmk -e '$pdflatex=q/xelatex %%O %S %(mode) %%S/' -e '$bibtex=q/upbibtex %%O %%B/' -e '$biber=q/biber %%O --bblencoding=utf8 -u -U --output_safechars %%B/' -e '$makeindex=q/upmendex %%O -o %%D %%S/' -norc -gg -pdf %t"
                      TeX-run-TeX nil (latex-mode) :help "Run Latexmk-XeLaTeX"))
       (add-to-list 'TeX-command-list
-                   '("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil)))
+                   '("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil))
+      (add-to-list 'TeX-command-list
+                   '("Evince"
+                     "evince %s.pdf"
+                     TeX-run-discard-or-function t t :help "Run Evince")))
 
     (add-hook 'LaTeX-mode-hook 'tnoda/TeX-command-list-config)
 
@@ -2574,8 +2578,12 @@ https://godoc.org/golang.org/x/tools/oracle
     (setq TeX-view-program-list
           '(("Skim"
              "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
-    (setq TeX-view-program-selection '((output-pdf "Skim")))
 
+    (cond ((eq system-type 'gnu/linux)
+           (setq TeX-view-program-selection '((output-pdf "Evince"))))
+          ((eq system-type 'darwin)
+           (setq TeX-view-program-selection '((output-pdf "Skim")))))
+    
     ;; RefTeX
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
     (setq reftex-plug-into-AUCTeX t)

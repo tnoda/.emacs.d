@@ -1156,7 +1156,7 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** lispxmp.el                                              :elget:rubikitch:
+** lispxmp.el                                               :elget:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (el-get 'sync 'lispxmp)
@@ -1338,6 +1338,16 @@ on Sep. 2, 2014.
   (global-ace-isearch-mode 1)
 
 #+END_SRC
+
+** avy
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package avy
+    :ensure t
+    :config
+    (global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1))
+
+#+end_src
 
 ** ace-link
 #+BEGIN_SRC emacs-lisp :tangle yes

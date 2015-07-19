@@ -1235,15 +1235,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (setq hs-set-up-overlay 'tnoda/highlight-overlay)
 #+END_SRC
 
-** highlight-symbol.el                                               :elget:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'highlight-symbol)
-  (require 'highlight-symbol)
-  (define-prefix-command 'highlight-symbol-mode-map)
-  (global-set-key (kbd "C-c h") 'highlight-symbol-mode-map)
-
-#+END_SRC
-
 ** smartparens                                                       :elget:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package smartparens

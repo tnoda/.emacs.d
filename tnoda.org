@@ -1339,12 +1339,14 @@ on Sep. 2, 2014.
 
 #+END_SRC
 
-** ace-link                                                 :cask:rubikitch:
+** ace-link
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'ace-link)
-  (ace-link-setup-default)
-  (require 'org)
-  (define-key org-mode-map (kbd "C-c M-o") 'ace-link-org)
+  (use-package ace-link
+    :ensure t
+    :config
+    (ace-link-setup-default)
+    (require 'org)
+    (define-key org-mode-map (kbd "C-c M-o") 'ace-link-org))
 
 #+END_SRC
 

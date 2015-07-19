@@ -47,5 +47,4 @@
 (depends-on "groovy-mode")
 (depends-on "gradle-mode")
 (depends-on "ddskk")
-(depends-on "ace-link")
 (depends-on "use-package")

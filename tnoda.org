@@ -781,23 +781,6 @@ Mac OS X's ls does not support the ~--dired~ option.
     (subword-mode 1))
 #+END_SRC
 
-** smartrep.el                                                       :elget:
-http://sheephead.homelinux.org/2012/01/30/6934/
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'smartrep)
-  (require 'smartrep)
-#+END_SRC
-
-*** =M-g n n n ...=                                                   :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (smartrep-define-key
-      global-map "M-g" '(("n"   . 'next-error)
-                         ("p"   . 'previous-error)))
-#+END_SRC
-+ =M-g n= and =M-g p= are bound to =next-error= and =previous-error=
-  using smartrep.el.
-  - Pressing =M-g n n n ...=, you can visit the corresponding lines.
-
 ** sequential-commmand.el                                               :up:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1258,11 +1241,7 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (require 'highlight-symbol)
   (define-prefix-command 'highlight-symbol-mode-map)
   (global-set-key (kbd "C-c h") 'highlight-symbol-mode-map)
-  (smartrep-define-key
-      global-map "C-c h" '(("h" . highlight-symbol-at-point)
-                           ("n" . highlight-symbol-next)
-                           ("p" . highlight-symbol-prev)
-                           ("l" . hi-lock-mode)))
+
 #+END_SRC
 
 ** smartparens                                                       :elget:

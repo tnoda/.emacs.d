@@ -1345,6 +1345,14 @@ on Sep. 2, 2014.
 
 #+END_SRC
 
+** hydra
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package hydra
+    :ensure t)
+
+#+end_src
+
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

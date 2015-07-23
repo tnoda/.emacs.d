@@ -331,7 +331,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
 #+END_SRC
 
-*** =<M-f1>= invokes Dictionary.app.                                    :key:
+*** C-c w invokes Dictionary.app.                                       :key:
 
 Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
@@ -341,7 +341,8 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
     (interactive)
     (let ((url (concat "dict://" (read-from-minibuffer "" (current-word)))))
       (browse-url url)))
-  (global-set-key (kbd "<M-f1>") 'tnoda/dictionary)
+  (global-set-key (kbd "C-c w") 'tnoda/dictionary)
+
 #+END_SRC
 
 ** キーバインド

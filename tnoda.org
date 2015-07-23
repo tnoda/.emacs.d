@@ -2150,12 +2150,20 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 *** Jedi.el
 #+BEGIN_SRC emacs-lisp :tangle no
-  (require 'python-environment)
-  (setq python-environment-virtualenv '("pyvenv" "--system-site-packages"))
-  (require 'python)
-  (require 'jedi)
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t)
+  (use-package jedi
+    :ensure t
+    :config
+    (add-hook 'python-mode-hook 'jedi:setup)
+    (setq jedi:complete-on-dot t)
+    (when (eq system-type 'darwin)
+      (setq jedi:environment-virtualenv (list "pyenv" "virtualenv"))))
+
+  (use-package company-jedi
+    :ensure t
+    :config
+    (defun tnoda/turn-on-company-jedi ()
+      (add-to-list 'company-backends 'company-jedi))
+    (add-hook 'python-mode-hook 'tnoda/turn-on-company-jedi))
 
 #+END_SRC
 

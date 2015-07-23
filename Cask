@@ -17,7 +17,6 @@
 (depends-on "helm-swoop")
 (depends-on "helm-ag")
 (depends-on "popwin")
-(depends-on "jedi")
 (depends-on "go-mode")
 (depends-on "go-eldoc")
 (depends-on "markdown-mode")

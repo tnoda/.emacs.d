@@ -2892,7 +2892,8 @@ main.org のトップレベルに refile できるようにする．
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-refile-targets
-        '(("main.org" . (:level . 1))))
+        '(("main.org.gpg" . (:level . 1))))
+
 #+END_SRC
 
 ** Archive

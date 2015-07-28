@@ -2158,6 +2158,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
     (setq jedi:complete-on-dot t)
     (when (eq system-type 'darwin)
       (setq jedi:environment-virtualenv (list "pyenv" "virtualenv")))
+    (require 'python)
     (define-key python-mode-map (kbd "M-.") 'jedi:goto-definition)
     (define-key python-mode-map (kbd "M-,") 'jedi:goto-definition-pop-marker))
 

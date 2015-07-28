@@ -2662,8 +2662,10 @@ twittering-mode.el を使う．
 ** helm-pydoc
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'helm-pydoc)
-  (define-key python-mode-map (kbd "<f1>") 'helm-pydoc)
+  (use-package helm-pydoc
+    :ensure t
+    :config
+    (define-key python-mode-map (kbd "C-c C-d") 'helm-pydoc))
 
 #+END_SRC
 

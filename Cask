@@ -8,7 +8,6 @@
 (depends-on "org-plus-contrib")
 (depends-on "helm")
 (depends-on "helm-ls-git")
-(depends-on "helm-pydoc")
 (depends-on "helm-dash")
 (depends-on "helm-descbinds")
 (depends-on "helm-ls-git")

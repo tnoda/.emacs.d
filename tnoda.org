@@ -2171,6 +2171,16 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 #+END_SRC
 
+*** EIP: Emacs IPython Notebook
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package ein
+    :ensure t
+    :config
+    (add-hook 'ein:connect-mode-hook 'ein:jedi-setup))
+
+#+end_src
+
 *** Flycheck
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'python)

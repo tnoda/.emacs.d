@@ -2145,7 +2145,9 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 *** pdb
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq gud-pdb-command-name "pdb.sh")
+  (setq gud-pdb-command-name
+        (expand-file-name ".pyenv/versions/anaconda-2.2.0/lib/python2.7/pdb.py"
+                          (getenv "HOME")))
 
 #+END_SRC
 

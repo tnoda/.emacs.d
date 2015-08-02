@@ -3233,6 +3233,16 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
+*** ob-ipython.el
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package ob-ipython
+    :ensure t
+    :config
+    (setq ob-ipython-driver-port 8888))
+
+#+end_src
+
 
 ** Easy Templates
 + =<s= で =#+STARTUP: =

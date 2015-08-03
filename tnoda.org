@@ -3234,6 +3234,13 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
+*** Display/update images in org buffers after evaluation
+
+#+begin_src emacs-lisp :tangle yes
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
+#+end_src
+
 *** ob-ipython.el
 
 #+begin_src emacs-lisp :tangle yes

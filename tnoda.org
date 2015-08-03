@@ -3200,6 +3200,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
      (js . t)
      (latex . t)
      (org . t)
+     (python . t)
      (ruby . t)))
 
 #+END_SRC

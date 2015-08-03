@@ -2146,7 +2146,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 *** pdb
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq gud-pdb-command-name
-        (expand-file-name ".pyenv/versions/anaconda-2.2.0/lib/python2.7/pdb.py"
+        (expand-file-name ".pyenv/versions/anaconda-2.3.0/lib/python2.7/pdb.py"
                           (getenv "HOME")))
 
 #+END_SRC
@@ -3199,6 +3199,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
      (js . t)
      (latex . t)
      (org . t)
+     (python . t)
      (ruby . t)))
 
 #+END_SRC
@@ -3231,6 +3232,13 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-confirm-babel-evaluate nil)
 #+END_SRC
+
+*** Display/update images in org buffers after evaluation
+
+#+begin_src emacs-lisp :tangle yes
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
+#+end_src
 
 *** ob-ipython.el
 

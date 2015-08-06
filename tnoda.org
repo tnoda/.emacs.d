@@ -3244,9 +3244,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
 
 #+begin_src emacs-lisp :tangle yes
   (use-package ob-ipython
-    :ensure t
-    :config
-    (setq ob-ipython-driver-port 8888))
+    :ensure t)
 
 #+end_src
 

@@ -8,6 +8,7 @@
   import matplotlib.pyplot as plt
   from numpy.random import randn
   import numpy as np
-  from pands import Series, DataFrame
+  from pandas import Series, DataFrame
   import pandas as pd
+  pd.__version__
 #+end_src

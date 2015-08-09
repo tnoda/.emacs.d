@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ints
+# key: ints
+# binding: direct-keybinding
+# --
+map(int, raw_input().strip().split())

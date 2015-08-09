@@ -1714,6 +1714,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (use-package clojure-mode
     :ensure t
     :config
+    (define-key clojure-mode-map (kbd "C-:") nil)
     (defun tnoda/clojure-mode-hook ()
       (put-clojure-indent 'for-all 1)     ; for clojure.test.check
       (enable-paredit-mode)

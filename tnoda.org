@@ -3183,7 +3183,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
    'org-babel-load-languages
    '((sh . t)
      (emacs-lisp . t)
-     (R . t)
      (clojure . t)
      (scala . t)
      (ditaa . t)

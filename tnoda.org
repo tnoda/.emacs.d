@@ -1241,6 +1241,7 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (use-package smartparens
     :ensure t
     :config
+    (require 'smartparens-config)
     (sp-use-paredit-bindings))
 
 #+END_SRC

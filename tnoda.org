@@ -2387,7 +2387,7 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 *** ghc
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
     (use-package ghc
       :ensure t
       :config
@@ -2398,7 +2398,7 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 *** company-ghc
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package company-ghc
     :ensure t
     :config

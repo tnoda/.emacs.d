@@ -3,4 +3,4 @@
 # key: ints
 # binding: direct-keybinding
 # --
-map(int, raw_input().strip().split())
+map(int, raw_input().split())

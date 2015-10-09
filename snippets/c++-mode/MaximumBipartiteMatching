@@ -1,0 +1,56 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: MaximumBipartiteMatching
+# key: MaximumBipartiteMatching
+# binding: direct-keybinding
+# --
+class MaximumBipartiteMatching {
+  int max_v;
+  vector<vector<int>> *G;
+  bool *used;
+ public:
+  int *match;
+
+  explicit MaximumBipartiteMatching(int n) : max_v(n)
+  {
+    G = new vector<vector<int>>(max_v);
+    match = new int[max_v];
+    used = new bool[max_v];
+  }
+
+  ~MaximumBipartiteMatching()
+  {
+    delete[] match;
+    delete[] used;
+    delete G;
+  }
+
+  void AddEdge(int u, int v) {
+    (*G)[u].push_back(v);
+    (*G)[v].push_back(u);
+  }
+
+  bool Dfs(int v) {
+    used[v] = true;
+    for (int u : (*G)[v]) {
+      int w = match[u];
+      if (w < 0 || (!used[w] && Dfs(w))) {
+        match[v] = u;
+        match[u] = v;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  int DoMatching() {
+    int res = 0;
+    memset(match, -1, sizeof(match[0]) * max_v);
+    for (int v = 0; v < max_v; v++) {
+      if (match[v] < 0) {
+        memset(used, false, sizeof(used[0]) * max_v);
+        if (Dfs(v)) res++;
+      }
+    }
+    return res;
+  }
+};

@@ -5,7 +5,7 @@
 # --
 #+begin_src ipython :session
   %matplotlib inline
-  import matplotlib.pyplot as plt
+  import matplotlib.pyplot as P
   from numpy.random import randn
   import numpy as np
   from pandas import Series, DataFrame

@@ -2425,6 +2425,18 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 ** C++
+*** Keywords for competitive-programming macros
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (font-lock-add-keywords
+   'c++-mode
+   '(("FOR" . font-lock-keyword-face)
+     ("RFOR" . font-lock-keyword-face)
+     ("REP" . font-lock-keyword-face)
+     ("RREP" . font-lock-keyword-face)
+     ("ALL" . font-lock-keyword-face)
+     ("1000000007" . font-lock-constant-face)))
+
+#+END_SRC
 
 *** company-mode
 

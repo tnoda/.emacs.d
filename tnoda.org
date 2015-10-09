@@ -2396,12 +2396,12 @@ https://godoc.org/golang.org/x/tools/oracle
 
 *** ghc
 #+BEGIN_SRC emacs-lisp :tangle no
-    (use-package ghc
-      :ensure t
-      :config
-      (autoload 'ghc-init "ghc" nil t)
-      (autoload 'ghc-debug "ghc" nil t)
-      (add-hook 'haskell-mode-hook 'ghc-init))
+  (use-package ghc
+    :ensure t
+    :config
+    (autoload 'ghc-init "ghc" nil t)
+    (autoload 'ghc-debug "ghc" nil t)
+    (add-hook 'haskell-mode-hook 'ghc-init))
 
 #+END_SRC
 

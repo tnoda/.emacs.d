@@ -2631,6 +2631,27 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+end_src
 
+** Octave
+
+#+BEGIN_SRC elisp :tangle yes
+  (require 'octave)
+  (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+  (add-hook 'octave-mode-hook
+            (lambda ()
+              (abbrev-mode 1)
+              (auto-fill-mode 1)
+              (smartparens-strict-mode 1)
+              (if (eq window-system 'x)
+                  (font-lock-mode 1))))
+  (add-hook 'inferior-octave-mode-hook
+            (lambda ()
+              (turn-on-font-lock)
+              (define-key inferior-octave-mode-map [up]
+                'comint-previous-input)
+              (define-key inferior-octave-mode-map [down]
+                'comint-next-input)))
+#+END_SRC
+
 
 * Twitter                                                    :cask:rubikitch:
 

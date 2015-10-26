@@ -1,5 +1,0 @@
-(:name ajc-java-complete
-       :description "Auto Java Complete"
-       :type github
-       :pkgname "emacs-java/auto-java-complete"
-       :load-path ".")

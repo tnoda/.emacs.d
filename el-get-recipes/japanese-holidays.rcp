@@ -1,8 +1,0 @@
-(:name japanese-holidays
-       :description "A calendar data generator for Japanese holidays."
-       :url "https://github.com/emacs-jp/japanese-holidays"
-       :type github
-       :username "emacs-jp"
-       :pkgname "japanese-holidays"
-       :features ("japanese-holidays"))
-

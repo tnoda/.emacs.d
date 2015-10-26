@@ -1,6 +1,0 @@
-(:name noflet
-       :website "https://github.com/nicferrier/emacs-noflet"
-       :description "noflet is dynamic, local, advice for Emacs-Lisp code."
-       :type github
-       :pkgname "nicferrier/emacs-noflet"
-       :load-path ".")

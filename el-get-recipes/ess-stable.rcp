@@ -1,5 +1,0 @@
-(:name ess-stable
-       :description "Emacs Speaks Statistics (ESS)"
-       :type http-tar
-       :options ("zxf")
-       :url "http://ess.r-project.org/downloads/ess/ess-12.09-2.tgz")

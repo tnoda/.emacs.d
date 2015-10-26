@@ -51,14 +51,6 @@
     (setq line-spacing 4))
 #+END_SRC
 
-* パッケージ管理
-** =~/.emacs.d/elisp= とそのサブディレクトリを =load-path= に追加する．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (let ((default-directory tnoda/elisp-dir))
-    (add-to-list 'load-path default-directory)
-    (normal-top-level-add-subdirs-to-load-path))
-#+END_SRC
-
 * Emacs
 
 ** Emacs 起動したらすぐ eshell を使えるようにする．

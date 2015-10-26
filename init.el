@@ -39,8 +39,11 @@
 (add-to-list 'package-archives
 	     '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
-(package-install 'use-package)
-(require 'use-package)
+(unless (require 'use-package nil t)
+  (progn
+    (package-refresh-contents)
+    (package-install 'use-package)
+    (require 'use-package)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

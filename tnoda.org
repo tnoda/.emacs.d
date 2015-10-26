@@ -58,11 +58,6 @@
   (add-hook 'emacs-startup-hook 'eshell)
 #+END_SRC
 
-** メール
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (load "~/.mail.el")
-#+END_SRC
-
 ** Coding system in Windows settings
 #+BEGIN_SRC emacs-lisp :tangle yes
   (when (eq system-type 'windows-nt)

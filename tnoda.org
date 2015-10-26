@@ -766,11 +766,50 @@ Mac OS X's ls does not support the ~--dired~ option.
 
 ** sequential-commmand.el                                               :up:
 
-#+BEGIN_SRC emacs-lisp :tangle no
-  (use-package sequential-command-config
-    :ensure sequential-command
-    :config
-    (sequential-command-setup-keys))
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (unless (require 'sequential-command nil t)
+    (let ((url "https://gist.githubusercontent.com/tnoda/49797ef440b7a2166986/raw/sequential-command.el"))
+      (-if-let (buf (url-retrieve-synchronously url))
+          (progn
+            (switch-to-buffer buf)
+            (package-install-from-buffer)))))
+  (require 'sequential-command)
+
+  (define-sequential-command sequential-command:home
+    beginning-of-line beginning-of-buffer sequential-command:return)
+  (define-sequential-command sequential-command:end
+    end-of-line end-of-buffer sequential-command:return)
+
+  (defun tnoda/sequential-command:upcase-backward-word ()
+    (interactive)
+    (upcase-word (- (1+ (sequential-command:count)))))
+  (defun tnoda/sequential-command:capitalize-backward-word ()
+    (interactive)
+    (capitalize-word (- (1+ (sequential-command:count)))))
+  (defun tnoda/sequential-command:downcase-backward-word ()
+    (interactive)
+    (downcase-word (- (1+ (sequential-command:count)))))
+
+  (when (require 'org nil t)
+    (define-sequential-command org-sequential-command:home
+      org-beginning-of-line beginning-of-buffer sequential-command:return)
+    (define-sequential-command org-sequential-command:end
+      org-end-of-line end-of-buffer sequential-command:return))
+
+  (defun tnoda/sequential-command-setup-keys ()
+    "Rebind C-a, C-e, M-u, M-c, and M-l to sequential-command:* commands.
+    If you use `org-mode', rebind C-a and C-e."
+    (interactive)
+    (global-set-key "\C-a" 'sequential-command:home)
+    (global-set-key "\C-e" 'sequential-command:end)
+    (global-set-key "\M-u" 'tnoda/sequential-command:upcase-backward-word)
+    (global-set-key "\M-c" 'tnoda/sequential-command:capitalize-backward-word)
+    (global-set-key "\M-l" 'tnoda/sequential-command:downcase-backward-word)
+    (when (require 'org nil t)
+      (define-key org-mode-map "\C-a" 'org-sequential-command:home)
+      (define-key org-mode-map "\C-e" 'org-sequential-command:end)))
+
+  (tnoda/sequential-command-setup-keys)
 
 #+END_SRC
 

@@ -5,7 +5,7 @@
 #+STARTUP: indent
 #+PROPERTY: padline no
 #+PROPERTY: results silent
-#+TAGS:  key(k) command(c) autoinstall(a) marmalade(m) elget(e) git(g) svn(s) rubikitch(r)
+#+TAGS:  key(k) command(c) marmalade(m) git(g) svn(s) rubikitch(r)
 
 * ユーティリティ
 ** ディレクトリ構成
@@ -57,37 +57,6 @@
   (let ((default-directory tnoda/elisp-dir))
     (add-to-list 'load-path default-directory)
     (normal-top-level-add-subdirs-to-load-path))
-#+END_SRC
-
-** el-get                                                            :elget:
-*** Install & Setup
-#+NAME: el-get-dir
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (eval (defconst el-get-dir
-          (cond ((eq system-type 'darwin)
-                 "/opt/el-get")
-                ((eq system-type 'windows-nt)
-                 (expand-file-name "el-get" tnoda/dotfiles-dir))
-                ((eq system-type 'gnu/linux)
-                 "/opt/el-get")
-                (t nil))))
-
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (let ((default-directory el-get-dir))
-    (normal-top-level-add-subdirs-to-load-path))
-  (add-to-list 'load-path (expand-file-name "el-get" el-get-dir))
-  (unless (require 'el-get nil t)
-    (url-retrieve
-     "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-     (lambda (s)
-       (let (el-get-master-branch)
-         (goto-char (point-max))
-         (eval-print-last-sexp)))))
-  (add-to-list 'el-get-recipe-path (expand-file-name "el-get-recipes" tnoda/dotfiles-dir))
-  (el-get 'sync)
-
 #+END_SRC
 
 * Emacs
@@ -382,6 +351,7 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 *** =dired-mode= で =W= を押すと =wdired-mode= になる．                 :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'dired)
   (define-key dired-mode-map "W" 'wdired-change-to-wdired-mode)
 #+END_SRC
 
@@ -491,18 +461,12 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 
 *** japanese-holidays.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'japanese-holidays)
-
-  (setq calendar-holidays
-        (append japanese-holidays local-holidays other-holidays))
-  (setq mark-holidays-in-calendar t) ; 祝日をカレンダーに表示
-
-  ;; (setq japanese-holiday-weekend '(0 6)     ; 土日を祝日として表示
-  ;;       japanese-holiday-weekend-marker     ; 土曜日を水色で表示
-  ;;       '(holiday nil nil nil nil nil japanese-holiday-saturday))
-  ;; (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
-  ;; (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend))
-
+  (use-package japanese-holidays
+    :ensure t
+    :config
+    (setq calendar-holidays
+          (append japanese-holidays local-holidays other-holidays))
+    (setq mark-holidays-in-calendar t))
 #+END_SRC
 
 ** スクリプトファイルを保存するときには，モードを実行可能に設定する．
@@ -863,49 +827,27 @@ Mac OS X's ls does not support the ~--dired~ option.
   (setq ido-use-url-at-point t)
 #+END_SRC
 
-** recentf-ext.el                                    :autoinstall:rubikitch:
-
-最近使ったファイルを表示する =recentf.el= をもっと便利に．
-
-*** インストール
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'recentf-ext)
-
-#+END_SRC
-
-*** =recentf-exclude= に履歴に含めないファイルを設定．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'recentf-ext)
-  (setq recentf-max-saved-items 3000)
-  (setq recentf-exclude '("/TAGS$" "/tmp/$" "\.html$" "/work/$" "/\.emacs\.bmk$" "~$"))
-  (setq tnoda/recentf-exclude-org 
-        (list
-         "org_archive$"
-         "/mobileorg.org$"
-         "/COMMIT_EDITMSG$"
-         (expand-file-name "~/diary")
-         (expand-file-name "~/org/main\.org")
-         (expand-file-name "~/org/notes\.org")))
-  (setq recentf-exclude (append recentf-exclude tnoda/recentf-exclude-org))
-#+END_SRC
-
-*** =recentf= でディレクトリを扱わない．
-
-=recentf-ext.el= が
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  (add-hook 'dired-mode-hook 'recentf-add-dired-directory)
-#+END_SRC
-
-しているので， =remove-hook= する．
+** recentf-ext.el                                                :rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (remove-hook 'dired-mode-hook 'recentf-add-dired-directory)
-#+END_SRC
+  (use-package recentf-ext
+    :ensure t
+    :bind
+    ("C-@" . recentf-open-files)
+    :config
+    (setq recentf-max-saved-items 3000)
+    (setq recentf-exclude '("/TAGS$" "/tmp/$" "\.html$" "/work/$" "/\.emacs\.bmk$" "~$"))
+    (setq tnoda/recentf-exclude-org 
+          (list
+           "org_archive$"
+           "/mobileorg.org$"
+           "/COMMIT_EDITMSG$"
+           (expand-file-name "~/diary")
+           (expand-file-name "~/org/main\.org")
+           (expand-file-name "~/org/notes\.org")))
+    (setq recentf-exclude (append recentf-exclude tnoda/recentf-exclude-org))
+    (remove-hook 'dired-mode-hook 'recentf-add-dired-directory))
 
-*** =C-@= で =recentf-open-files=                                     :key:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-set-key (kbd "C-@") 'recentf-open-files)
 #+END_SRC
 
 ** bookmark.el                                                   :rubikitch:
@@ -925,22 +867,25 @@ Mac OS X's ls does not support the ~--dired~ option.
 
 ** auto-save-buffers-enhanced.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'auto-save-buffers-enhanced)
-
-  (auto-save-buffers-enhanced t)
-  (setq auto-save-buffers-enhanced-interval 3)
+  (use-package auto-save-buffers-enhanced
+    :ensure t
+    :config
+    (auto-save-buffers-enhanced t)
+    (setq auto-save-buffers-enhanced-interval 3))
 
 #+END_SRC
 
-** sense-region.el                                     :key:elget:rubikitch:
+** sense-region.el                                     :key:rubikitch:
 
 =C-SPC= 連打で選択範囲が広がっていく．マークとポイントが対角線の矩形を選択できる．
 
-
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'sense-region)
-
-  (require 'sense-region)
+  (unless (require 'sense-region nil t)
+    (let ((url "https://gist.githubusercontent.com/tnoda/1776988/raw/f1421879e6f9c96a1a0b9708bc8da0378f30e22b/sense-region.el"))
+      (-if-let (buf (url-retrieve-synchronously url))
+          (progn
+            (switch-to-buffer buf)
+            (package-install-from-buffer)))))
   (sense-region-on)
 
 #+END_SRC
@@ -972,10 +917,11 @@ Mac OS X's ls does not support the ~--dired~ option.
 
 #+END_SRC
 
-** goto-chg.el                                             :elget:rubikitch:
+** goto-chg.el                                                   :rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'goto-chg)
+  (use-package goto-chg
+    :ensure t)
 
 #+END_SRC
 
@@ -1038,14 +984,13 @@ Mac OS X's ls does not support the ~--dired~ option.
         (t (:inherit company-tooltip-selection))))))
 #+END_SRC
 
-** col-highlight.el                                        :elget:rubikitch:
+** col-highlight.el                                              :rubikitch:
 
 Do =M-x column-highlight=, to highlight the corrent column.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync '(col-highlight vline))
-
-  (require 'col-highlight)
+  (use-package col-highlight
+    :ensure t)
 
 #+END_SRC
 
@@ -1078,12 +1023,11 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** open-junk-file.el                                       :elget:rubikitch:
+** open-junk-file.el                                       :rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'open-junk-file)
-
-  (require 'open-junk-file)
+  (use-package open-junk-file
+    :ensure t)
 
 #+END_SRC
 
@@ -1116,10 +1060,22 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** text-adjust.el                                          :elget:rubikitch:
+** text-adjust.el                                          :rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'text-adjust)
+  (unless (require 'mell nil t)
+    (let ((url "https://gist.githubusercontent.com/tnoda/dedb18a47780e9a50983/raw/eb99fe55f813f14b75009923301033cb17d601c2/mell.el"))
+      (-if-let (buf (url-retrieve-synchronously url))
+          (progn
+            (switch-to-buffer buf)
+            (package-install-from-buffer)))))
+
+  (unless (require 'text-adjust nil t)
+    (let ((url "https://gist.githubusercontent.com/tnoda/dedb18a47780e9a50983/raw/eb99fe55f813f14b75009923301033cb17d601c2/text-adjust.el"))
+      (-if-let (buf (url-retrieve-synchronously url))
+          (progn
+            (switch-to-buffer buf)
+            (package-install-from-buffer)))))
 #+END_SRC
 
 *** =kinsoku-ascii= がいつのまにか =kinsoku.el= から無くなっているので定義．
@@ -1159,12 +1115,11 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (setq text-adjust-hankaku-except "？！＠ー〜、，。．")
 #+END_SRC
 
-** hideshow-org.el                                                   :elget:
+** hideshow-org.el
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'hideshow-org)
-
-  (require 'hideshow-org)
+  (use-package hideshow-org
+    :ensure t)
 
 #+END_SRC
 

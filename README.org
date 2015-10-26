@@ -14,8 +14,6 @@ tnoda's Emacs initialization files
 
 #+BEGIN_EXAMPLE
 $ git clone https://github.com/tnoda/.emacs.d.git
-$ cd .emacs.d
-$ cask
 
 #+END_EXAMPLE
 

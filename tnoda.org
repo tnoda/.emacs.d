@@ -90,24 +90,6 @@
 
 #+END_SRC
 
-** MELPA/Marmalade
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'package)
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-  (package-initialize)
-
-#+END_SRC
-
-** use-package.el                                                       :up:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'use-package)
-
-#+END_SRC
-
-
 * Emacs
 
 ** Emacs 起動したらすぐ eshell を使えるようにする．
@@ -784,46 +766,11 @@ Mac OS X's ls does not support the ~--dired~ option.
 
 ** sequential-commmand.el                                               :up:
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package sequential-command
-    :ensure t
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package sequential-command-config
+    :ensure sequential-command
     :config
-    (progn
-      (define-sequential-command seq-home
-        beginning-of-line beginning-of-buffer seq-return)
-      (define-sequential-command seq-end
-        end-of-line end-of-buffer seq-return)
-
-      (defun seq-upcase-backward-word ()
-        (interactive)
-        (upcase-word (- (1+ (seq-count)))))
-      (defun seq-capitalize-backward-word ()
-        (interactive)
-        (capitalize-word (- (1+ (seq-count)))))
-      (defun seq-downcase-backward-word ()
-        (interactive)
-        (downcase-word (- (1+ (seq-count)))))
-
-      (when (require 'org nil t)
-        (define-sequential-command org-seq-home
-          org-beginning-of-line beginning-of-buffer seq-return)
-        (define-sequential-command org-seq-end
-          org-end-of-line end-of-buffer seq-return))
-
-      (defun sequential-command-setup-keys ()
-        "Rebind C-a, C-e, M-u, M-c, and M-l to seq-* commands.
-  If you use `org-mode', rebind C-a and C-e."
-        (interactive)
-        (global-set-key "\C-a" 'seq-home)
-        (global-set-key "\C-e" 'seq-end)
-        (global-set-key "\M-u" 'seq-upcase-backward-word)
-        (global-set-key "\M-c" 'seq-capitalize-backward-word)
-        (global-set-key "\M-l" 'seq-downcase-backward-word)
-        (when (require 'org nil t)
-          (define-key org-mode-map "\C-a" 'org-seq-home)
-          (define-key org-mode-map "\C-e" 'org-seq-end)))
-
-      (sequential-command-setup-keys)))
+    (sequential-command-setup-keys))
 
 #+END_SRC
 
@@ -838,12 +785,13 @@ Mac OS X's ls does not support the ~--dired~ option.
   (setq uniquify-ignore-buffers-re "*[^*]+*")
 #+END_SRC名
 
-** direx.el                                                           :cask:
+** direx.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'dired)
-  (require 'direx)
-  (define-key dired-mode-map (kbd "b") 'direx:jump-to-directory)
-  (define-key direx:direx-mode-map (kbd "b") 'dired-jump)
+  (use-package direx
+    :ensure t
+    :config
+    (define-key dired-mode-map (kbd "b") 'direx:jump-to-directory)
+    (define-key direx:direx-mode-map (kbd "b") 'dired-jump))
 
 #+END_SRC
 
@@ -965,11 +913,13 @@ Mac OS X's ls does not support the ~--dired~ option.
   (global-unset-key (kbd "M-@"))
 #+END_SRC
 
-** popwin.el                                                          :cask:
+** popwin.el
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'popwin)
-  (popwin-mode 1)
+  (use-package popwin
+    :ensure t
+    :config
+    (popwin-mode 1))
 
 #+END_SRC
 
@@ -1005,7 +955,7 @@ Mac OS X's ls does not support the ~--dired~ option.
   (global-set-key (kbd "C->") 'goto-last-change-reverse)
 #+END_SRC
 
-** eldoc-extension.el                                                :elget:
+** eldoc-extension.el
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package eldoc-extension
@@ -1019,63 +969,34 @@ Mac OS X's ls does not support the ~--dired~ option.
 
 #+END_SRC
 
-** tempbuf.el                                              :elget:rubikitch:
-
-#+BEGIN_QUOTE
-Tempbuf-mode is a minor mode that enables buffers to get
-automatically deleted in the background when it can be deduced that
-they are no longer of any use.
-
-- tempbuf.el
-#+END_QUOTE
-
+** company-mode
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package tempbuf
+  (use-package company
     :ensure t
     :config
-    (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode))
 
-#+END_SRC
-    
-** company-mode                                                       :cask:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'company)
+    ;; Retrieved from https://github.com/nsf/gocode/tree/master/emacs-company
+    (setq company-tooltip-limit 20)
+    (setq company-idle-delay .7)
+    (setq company-echo-delay 0)
+    (setq company-begin-commands '(self-insert-command))
 
-#+END_SRC
-
-*** Improvements
-
-Retrieved from https://github.com/nsf/gocode/tree/master/emacs-company
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq company-tooltip-limit 20)
-  (setq company-idle-delay .7)
-  (setq company-echo-delay 0)
-  (setq company-begin-commands '(self-insert-command))
-
-#+END_SRC
-
-*** Color customization
-
-Also retrieved from https://github.com/nsf/gocode/tree/master/emacs-company
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (custom-set-faces
-   '(company-preview
-     ((t (:foreground "darkgray" :underline t))))
-   '(company-preview-common
-     ((t (:inherit company-preview))))
-   '(company-tooltip
-     ((t (:background "lightgray" :foreground "black"))))
-   '(company-tooltip-selection
-     ((t (:background "steelblue" :foreground "white"))))
-   '(company-tooltip-common
-     ((((type x)) (:inherit company-tooltip :weight bold))
-      (t (:inherit company-tooltip))))
-   '(company-tooltip-common-selection
-     ((((type x)) (:inherit company-tooltip-selection :weight bold))
-      (t (:inherit company-tooltip-selection)))))
-
+    ;; Also retrieved from https://github.com/nsf/gocode/tree/master/emacs-company
+    (custom-set-faces
+     '(company-preview
+       ((t (:foreground "darkgray" :underline t))))
+     '(company-preview-common
+       ((t (:inherit company-preview))))
+     '(company-tooltip
+       ((t (:background "lightgray" :foreground "black"))))
+     '(company-tooltip-selection
+       ((t (:background "steelblue" :foreground "white"))))
+     '(company-tooltip-common
+       ((((type x)) (:inherit company-tooltip :weight bold))
+        (t (:inherit company-tooltip))))
+     '(company-tooltip-common-selection
+       ((((type x)) (:inherit company-tooltip-selection :weight bold))
+        (t (:inherit company-tooltip-selection))))))
 #+END_SRC
 
 ** col-highlight.el                                        :elget:rubikitch:
@@ -1090,7 +1011,7 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** paredit.el                                                        :elget:
+** paredit.el
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package paredit
@@ -1106,12 +1027,14 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** rainbow-delimiters.el                                             :elget:
+** rainbow-delimiters.el
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'rainbow-delimiters)
-  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)
+  (use-package rainbow-delimiters
+    :ensure t
+    :config
+    (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+    (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode))
 
 #+END_SRC
 
@@ -1136,17 +1059,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "C-x f") 'open-junk-file)
-
-#+END_SRC
-
-
-** lispxmp.el                                               :elget:rubikitch:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (el-get 'sync 'lispxmp)
-
-  (require 'lispxmp)
-  (define-key emacs-lisp-mode-map (kbd "<S-f5>") 'lispxmp)
 
 #+END_SRC
 
@@ -1236,7 +1148,7 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (setq hs-set-up-overlay 'tnoda/highlight-overlay)
 #+END_SRC
 
-** smartparens                                                       :elget:
+** smartparens
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package smartparens
     :ensure t
@@ -1246,68 +1158,78 @@ Do =M-x column-highlight=, to highlight the corrent column.
 
 #+END_SRC
 
-** pretty-mode.el                                                    :elget:
+** pretty-mode.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'pretty-mode)
-  (global-pretty-mode -1)
+  (use-package pretty-mode
+    :ensure t
+    :config
+    (global-pretty-mode -1))
 
 #+END_SRC
 
-** YASnippet                                                          :cask:
+** YASnippet
 
 Use YASnippet as a non-global minor mode.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'yasnippet)
-  (yas-reload-all)
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-reload-all))
 
 #+END_SRC
 
-** visual-regexp                                                      :cask:
+** visual-regexp
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'visual-regexp)
-  (global-set-key (kbd "C-M-%") 'vr/query-replace)
+  (use-package visual-regexp
+    :ensure t
+    :config
+    (global-set-key (kbd "C-M-%") 'vr/query-replace))
 
 #+END_SRC
 
-** guide-key                                                          :cask:
+** guide-key
 
 =guide-key= configuration, regrieved from
 http://rubikitch.com/f/140830063637.guide-key.el
 on Sep. 2, 2014.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'guide-key)
-
+  (use-package guide-key
+    :ensure t
+    :config
   ;;; guilde-keyを発動させるプレフィクスキー
-  (setq guide-key/guide-key-sequence
-        '("C-x r" "C-x 4"                 ;global
-          ;; org-modeではC-c C-xも対象にする
-          (org-mode "C-c C-x")
-          ;; outline-minor-modeではC-c @も対象にする
-          (outline-minor-mode "C-c @")))
+    (setq guide-key/guide-key-sequence
+          '("C-x r" "C-x 4"           ;global
+            ;; org-modeではC-c C-xも対象にする
+            (org-mode "C-c C-x")
+            ;; outline-minor-modeではC-c @も対象にする
+            (outline-minor-mode "C-c @")))
 
   ;;; コマンド名にこれらが含まれている場合はハイライトされる
-  (setq guide-key/highlight-command-regexp "rectangle\\|register\\|org-clock")
+    (setq guide-key/highlight-command-regexp "rectangle\\|register\\|org-clock")
 
   ;;; 1秒後にポップアップされる(デフォルト)
   ;;; つまり1秒以内に操作すればポップアップされずに実行される
-  (setq guide-key/idle-delay 1.0)
+    (setq guide-key/idle-delay 1.0)
 
   ;;; 下部にキー一覧を表示させる(デフォルトはright)
-  (setq guide-key/popup-window-position 'bottom)
+    (setq guide-key/popup-window-position 'bottom)
 
   ;;; 文字の大きさを変更する(正の数で大きく、負の数で小さく)
-  (setq guide-key/text-scale-amount 0)
+    (setq guide-key/text-scale-amount 0)
 
   ;;; 有効にする
-  (guide-key-mode 1)
+    (guide-key-mode 1))
 
 #+END_SRC
 
-** ace-isearch                                                        :cask:
+** ace-isearch
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (global-ace-isearch-mode 1)
+  (use-package ace-isearch
+    :ensure t
+    :config
+    (global-ace-isearch-mode 1))
 
 #+END_SRC
 
@@ -1360,6 +1282,13 @@ on Sep. 2, 2014.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'epa)
   (setq epa-file-encrypt-to user-mail-address)
+
+#+END_SRC
+
+** sudden-death.el
+#+BEGIN_SRC emacs-lisp
+  (use-package sudden-death
+    :ensure t)
 
 #+END_SRC
 
@@ -1514,11 +1443,15 @@ Pressing =C-z= toggles between an eshell buffer and another.
 * SKK
 ** =C-x C-j= で =skk-mode=.                                             :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'skk)
-  (define-key ctl-x-map (kbd "C-j") 'skk-mode)
+  (use-package ddskk
+    :ensure t
+    :config
+    (require 'skk)
+    (define-key ctl-x-map (kbd "C-j") 'skk-mode))
+
 #+END_SRC
 
-** =C-\= でも =skk-mode=.                                              :key:
+** =C-\= でも =skk-mode=.                                               :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "C-\\") 'skk-mode)
 #+END_SRC
@@ -1541,16 +1474,19 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 ** C/Migemo を使う．
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'migemo)
-  (setq migemo-command "cmigemo")
-  (setq migemo-options '("-q" "--emacs"))
-  (setq migemo-dictionary "/opt/homebrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict")
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix)
-  (load-library "migemo")
-  (migemo-init)
-  (setq search-whitespace-regexp nil)
+  (use-package migemo
+    :ensure t
+    :config
+    (setq migemo-command "cmigemo")
+    (setq migemo-options '("-q" "--emacs"))
+    (setq migemo-dictionary "/opt/homebrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict")
+    (setq migemo-user-dictionary nil)
+    (setq migemo-regex-dictionary nil)
+    (setq migemo-coding-system 'utf-8-unix)
+    (load-library "migemo")
+    (migemo-init)
+    (setq search-whitespace-regexp nil))
+
 #+END_SRC
 
 * Mail/News/WWW
@@ -1703,12 +1639,14 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 ** Emacs Lisp
 
-*** elisp-slime-nav                                                  :cask:
+*** elisp-slime-nav
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'elisp-slime-nav)
-  (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
-    (add-hook hook 'turn-on-elisp-slime-nav-mode))
+  (use-package elisp-slime-nav
+    :ensure t
+    :config
+    (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+      (add-hook hook 'turn-on-elisp-slime-nav-mode)))
 
 #+END_SRC
 
@@ -2006,10 +1944,11 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 #+END_SRC
 
-** Markdown                                                    :autoinstall:
+** Markdown
 
 #+begin_src emacs-lisp :tangle yes
-  (require 'markdown-mode)
+  (use-package markdown-mode
+    :ensure t)
 
 #+end_src
 
@@ -2075,43 +2014,47 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 ** Scala
 
-*** scala-mode2                                                      :cask:
+*** scala-mode2
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'scala-mode2)
-  (setq scala-indent:indent-value-expression nil)
-  (setq scala-indent:align-parameters t)
-  (setq scala-indent:align-forms t)
+  (use-package scala-mode2
+    :ensure t
+    :config
+    (setq scala-indent:indent-value-expression nil)
+    (setq scala-indent:align-parameters t)
+    (setq scala-indent:align-forms t)
 
-  (require 'smartparens-config)
+    (require 'smartparens-config)
 
-  (defun tnoda/scala-mode-hook ()
-    (tnoda/increase-line-spacing)
-    (subword-mode 1)
-    (electric-pair-mode -1)
-    (turn-on-smartparens-strict-mode)
-    (setq imenu-generic-expression
-          '((nil "^ *\\(abstract \\|case \\)?\\(class\\|object\\) \\w+\\( extends [^\\{}]+\\)?.*" 0)
-            (nil "^ *\\(override \\|implicit \\)?def .*" 0)
-            (nil "\\( *trait .*\\){" 1))))
+    (defun tnoda/scala-mode-hook ()
+      (tnoda/increase-line-spacing)
+      (subword-mode 1)
+      (electric-pair-mode -1)
+      (turn-on-smartparens-strict-mode)
+      (setq imenu-generic-expression
+            '((nil "^ *\\(abstract \\|case \\)?\\(class\\|object\\) \\w+\\( extends [^\\{}]+\\)?.*" 0)
+              (nil "^ *\\(override \\|implicit \\)?def .*" 0)
+              (nil "\\( *trait .*\\){" 1))))
 
-  (add-hook 'scala-mode-hook 'tnoda/scala-mode-hook)
-  (add-hook 'scala-mode-hook 'yas-minor-mode-on)
+    (add-hook 'scala-mode-hook 'tnoda/scala-mode-hook)
+    (add-hook 'scala-mode-hook 'yas-minor-mode-on))
 
 #+END_SRC
 
-*** ENSIME                                                           :cask:
+*** ENSIME
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'ensime)
-  (setq ensime-sbt-perform-on-save nil)
-  (setq ensime-scaladoc-stdlib-url-base
-        (concat "file://"
-                (expand-file-name "Documents/Scala/scala-docs-2.11.2/api/scala-library/"
-                                  (getenv "HOME"))))
-  (setq ensime-javadoc-stdlib-url-base
-        (concat "file://"
-                (expand-file-name "Documents/Java/jdk-8u25-docs/api/"
-                                  (getenv "HOME"))))
-  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+  (use-package ensime
+    :ensure t
+    :config
+    (setq ensime-sbt-perform-on-save nil)
+    (setq ensime-scaladoc-stdlib-url-base
+          (concat "file://"
+                  (expand-file-name "Documents/Scala/scala-docs-2.11.2/api/scala-library/"
+                                    (getenv "HOME"))))
+    (setq ensime-javadoc-stdlib-url-base
+          (concat "file://"
+                  (expand-file-name "Documents/Java/jdk-8u25-docs/api/"
+                                    (getenv "HOME"))))
+    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
 
 #+END_SRC
 
@@ -2213,44 +2156,47 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (setenv "PATH" (concat (getenv "PATH") ":" tnoda/gopath-bin))
   (add-to-list 'exec-path tnoda/gopath-bin)
 
-  (require 'go-mode)
-
-  (defun tnoda/gofmt-before-save ()
-    "The original version of go-fmt may break the kill-region function,
+  (use-package go-mode
+    :ensure t
+    :mode "\\.go\\'"
+    :config
+    (defun tnoda/gofmt-before-save ()
+      "The original version of go-fmt may break the kill-region function,
   if it has an advised version."
-    (interactive)
-    (when (eq major-mode 'go-mode)
-      (sense-region-off)
-      (gofmt)
-      (sense-region-on)))
+      (interactive)
+      (when (eq major-mode 'go-mode)
+        (sense-region-off)
+        (gofmt)
+        (sense-region-on)))
 
-  (add-hook 'before-save-hook 'tnoda/gofmt-before-save)
-  (add-hook 'go-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'go-mode-hook 'turn-on-smartparens-strict-mode)
-  (add-hook 'go-mode-hook 'tnoda/increase-line-spacing)
-  (add-hook 'go-mode-hook 'subword-mode)
-  (add-hook 'go-mode-hook 'yas-minor-mode)
+    (add-hook 'before-save-hook 'tnoda/gofmt-before-save)
+    (add-hook 'go-mode-hook 'rainbow-delimiters-mode)
+    (add-hook 'go-mode-hook 'turn-on-smartparens-strict-mode)
+    (add-hook 'go-mode-hook 'tnoda/increase-line-spacing)
+    (add-hook 'go-mode-hook 'subword-mode)
+    (add-hook 'go-mode-hook 'yas-minor-mode)
 
-  (define-key go-mode-map (kbd "M-.") 'godef-jump)
-  (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
-  (define-key go-mode-map (kbd "C-c C-j") 'go-goto-imports)
-  (define-key go-mode-map (kbd "C-c C-d") 'godoc)
+    (define-key go-mode-map (kbd "M-.") 'godef-jump)
+    (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
+    (define-key go-mode-map (kbd "C-c C-j") 'go-goto-imports)
+    (define-key go-mode-map (kbd "C-c C-d") 'godoc)
 
-  (defun tnoda/go-mode-tab-width ()
-    (setq tab-width 4))
+    (defun tnoda/go-mode-tab-width ()
+      (setq tab-width 4))
 
-  (defun tnoda/go-mode-turn-off-auto-save-buffers ()
-    (setq-local auto-save-buffers-enhanced-activity-flag nil))
+    (defun tnoda/go-mode-turn-off-auto-save-buffers ()
+      (setq-local auto-save-buffers-enhanced-activity-flag nil))
 
-  (add-hook 'go-mode-hook 'tnoda/go-mode-tab-width)
-  (add-hook 'go-mode-hook 'tnoda/go-mode-turn-off-auto-save-buffers)
-
+    (add-hook 'go-mode-hook 'tnoda/go-mode-tab-width)
+    (add-hook 'go-mode-hook 'tnoda/go-mode-turn-off-auto-save-buffers))
 #+END_SRC
 
 *** go-eldoc
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'go-eldoc)
-  (add-hook 'go-mode-hook 'go-eldoc-setup)
+  (use-package go-eldoc
+    :ensure t
+    :config
+    (add-hook 'go-mode-hook 'go-eldoc-setup))
 
 #+END_SRC
 
@@ -2274,16 +2220,18 @@ https://godoc.org/golang.org/x/tools/cmd/goimports
 https://github.com/nsf/gocode/tree/master/emacs-company
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'company)
-  (require 'company-go)
+  (use-package company-go
+    :ensure t
+    :init
+    (use-package company
+      :ensure t)
+    :config
+    (defun tnoda/enable-company-go ()
+      (set (make-local-variable 'company-backends) '(company-go))
+      (setq company-go-insert-arguments nil)
+      (company-mode))
 
-  (defun tnoda/enable-company-go ()
-    (set (make-local-variable 'company-backends) '(company-go))
-    (setq company-go-insert-arguments nil)
-    (company-mode))
-
-  (add-hook 'go-mode-hook 'tnoda/enable-company-go)
-
+    (add-hook 'go-mode-hook 'tnoda/enable-company-go))
 #+END_SRC
 
 *** Go Oracle
@@ -2332,31 +2280,27 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
-*** mon-css-color                                                    :cask:
+*** emmet-mode
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (when (require 'mon-css-color "mon-css-color" t)
-    (add-hook 'css-mode-hook 'css-color-turn-on-in-buffer))
+  (use-package emmet-mode
+    :ensure t
+    :config
+    (setq emmet-indentation 2)
 
-#+END_SRC
+    (defun tnoda/turn-on-emmet-mode ()
+      (emmet-mode 1))
 
-*** emmet-mode                                                       :cask:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'emmet-mode)
-  (setq emmet-indentation 2)
-
-  (defun tnoda/turn-on-emmet-mode ()
-    (emmet-mode 1))
-
-  (add-hook 'css-mode-hook 'tnoda/turn-on-emmet-mode)
-  (add-hook 'css-mode-hook 'turn-on-smartparens-strict-mode)
+    (add-hook 'css-mode-hook 'tnoda/turn-on-emmet-mode)
+    (add-hook 'css-mode-hook 'turn-on-smartparens-strict-mode))
 
 #+END_SRC
 
 ** ESS (R)
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'ess-site)
-
-  (add-hook 'inferior-ess-mode-hook 'turn-on-smartparens-mode)
+  (use-package ess-site
+    :ensure ess
+    :config
+    (add-hook 'inferior-ess-mode-hook 'turn-on-smartparens-mode))
 
 #+END_SRC
 
@@ -2413,14 +2357,6 @@ https://godoc.org/golang.org/x/tools/oracle
     (require 'company)
     (add-to-list 'haskell-mode-hook 'company-mode)
     (add-to-list 'company-backends 'company-ghc))
-
-#+END_SRC
-
-** Gradle
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'groovy-mode)
-  (require 'gradle-mode)
-  (add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode))
 
 #+END_SRC
 
@@ -2653,71 +2589,73 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 
-* Twitter                                                    :cask:rubikitch:
+* Twitter
 
-twittering-mode.el を使う．
-
-** =M-x twit= で =twittering-mode=.                                 :command:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'twittering-mode)
-#+END_SRC
+  (use-package twittering-mode
+    :ensure t
+    :config
+    (setq twittering-status-format "%s >\n%T\n")
+    (setq twittering-use-master-password t))
 
-** 各 tweet 一行で表示．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq twittering-status-format "%s >\n%T\n")
-
-#+END_SRC
-
-** 認証済み OAuth トークンを PGP で暗号化して保存．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq twittering-use-master-password t)
 #+END_SRC
 
 * Helm
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'helm)
-  (setq helm-command-prefix-key "C-c h")
-  (require 'helm-config)
-  (require 'helm-mode)
-  (require 'helm-eshell)
-  (require 'helm-files)
-  (require 'helm-grep)
-  (require 'helm-info)
-  (require 'helm-ls-git)
-  (define-key ctl-x-map (kbd "C-j") 'skk-mode)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-  (define-key ctl-x-map (kbd "b") 'helm-mini)
-  (define-key helm-command-map (kbd "a") 'helm-apropos)
-  (define-key helm-command-map (kbd "g") 'helm-ls-git-ls)
-  (define-key helm-command-map (kbd "i") 'helm-info-emacs)
-  (define-key helm-command-map (kbd "l") 'helm-locate)
-  (define-key helm-command-map (kbd "m") 'helm-man-woman)
-  (define-key helm-command-map (kbd "o") 'helm-occur)
-  (define-key helm-command-map (kbd "r") 'helm-resume)
-  (define-key helm-command-map (kbd "s") 'helm-semantic-or-imenu)
-
-  (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
-  (add-to-list 'helm-completing-read-handlers-alist '(execute-extended-command . nil))
-
-  (setq
-   helm-google-suggest-use-curl-p t
-   helm-scroll-amount 4 ; scroll 4 lines other window using M-<next>/M-<prior>
-   helm-quick-update t ; do not display invisible candidates
-   helm-idle-delay 0.01 ; be idle for this many seconds, before updating in delayed sources.
-   helm-input-idle-delay 0.01 ; be idle for this many seconds, before updating candidate buffer
-   helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
-   helm-split-window-default-side 'other ;; open helm buffer in another window
-   )
-
-  (set-face-attribute 'helm-selection
-                      'nil
-                      :background "DarkGreen"
-                      :foreground "Gray94")
-
-  (helm-mode 1)
+  (use-package helm
+    :ensure t
+    :init
+    (setq helm-command-prefix-key "C-c h")
+    :bind
+    ("M-y" . helm-show-kill-ring)
+    :config
+    (require 'helm-config)
+    (require 'helm-mode)
+    (require 'helm-eshell)
+    (require 'helm-files)
+    (require 'helm-grep)
+    (require 'helm-info)
+    (define-key ctl-x-map (kbd "C-j") 'skk-mode)
+    (define-key ctl-x-map (kbd "b") 'helm-mini)
+    (define-key helm-command-map (kbd "a") 'helm-apropos)
+    (define-key helm-command-map (kbd "i") 'helm-info-emacs)
+    (define-key helm-command-map (kbd "l") 'helm-locate)
+    (define-key helm-command-map (kbd "m") 'helm-man-woman)
+    (define-key helm-command-map (kbd "o") 'helm-occur)
+    (define-key helm-command-map (kbd "r") 'helm-resume)
+    (define-key helm-command-map (kbd "s") 'helm-semantic-or-imenu)
+    (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+    (add-to-list 'helm-completing-read-handlers-alist '(execute-extended-command . nil))
+    (setq
+     helm-google-suggest-use-curl-p t
+     helm-scroll-amount 4 ; scroll 4 lines other window using M-<next>/M-<prior>
+     helm-quick-update t  ; do not display invisible candidates
+     helm-idle-delay 0.01 ; be idle for this many seconds, before updating in delayed sources.
+     helm-input-idle-delay 0.01 ; be idle for this many seconds, before updating candidate buffer
+     helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
+     helm-split-window-default-side 'other ;; open helm buffer in another window
+     )
+    (set-face-attribute 'helm-selection
+                        'nil
+                        :background "DarkGreen"
+                        :foreground "Gray94")
+    (helm-mode 1)
+    )
 
 #+END_SRC
+
+** helm-ls-git
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package helm-ls-git
+    :ensure t
+    :config
+    (use-package helm
+      :ensure t)
+    (define-key helm-command-map (kbd "g") 'helm-ls-git-ls))
+
+#+END_SRC
+
 
 ** helm-pydoc
 
@@ -2729,44 +2667,12 @@ twittering-mode.el を使う．
 
 #+END_SRC
 
-** helm-dash
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'helm-dash)
-
-  (define-key helm-command-map (kbd "d") 'helm-dash)
-  (setq helm-dash-docsets-url "https://raw.githubusercontent.com/Kapeli/feeds/master")
-  (defvar tnoda/helm-dash-docsets '("Go" "Python_3" "Scala" "Java_SE8" "Clojure" "Ruby_2"))
-
-  (defun tnoda/install-helm-dash-common-docsets
-    ()
-    (interactive)
-    (--map (helm-dash-install-docset it) tnoda/helm-dash-docsetts))
-
-#+END_SRC
-
-*** Go
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/set-helm-dash-docsets-go
-    ()
-    (setq-local helm-dash-docsets '("Go")))
-
-  (add-hook 'go-mode-hook 'tnoda/set-helm-dash-docsets-go)
-
-#+END_SRC
-
-*** Python
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/set-helm-dash-docsets-python
-    ()
-    (setq-local helm-dash-docsets '("Python_3")))
-
-  (add-hook 'python-mode-hook 'tnoda/set-helm-dash-docsets-python)
-
-#+END_SRC
-
 ** helm-descbinds
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (helm-descbinds-install)
+  (use-package helm-descbinds
+    :ensure t
+    :config
+    (helm-descbinds-mode))
 
 #+END_SRC
 
@@ -2775,48 +2681,47 @@ twittering-mode.el を使う．
 *** http://rubikitch.com/2014/11/22/helm-bm/
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;;; bm.el初期設定
-  (setq-default bm-buffer-persistence nil)
-  (setq bm-restore-repository-on-load t)
-  (require 'bm)
-  (add-hook 'find-file-hook 'bm-buffer-restore)
-  (add-hook 'kill-buffer-hook 'bm-buffer-save)
-  (add-hook 'after-save-hook 'bm-buffer-save)
-  (add-hook 'after-revert-hook 'bm-buffer-restore)
-  (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
-  (add-hook 'kill-emacs-hook '(lambda nil
-                                (bm-buffer-save-all)
-                                (bm-repository-save)))
-  (global-set-key (kbd "s-[") 'bm-previous)
-  (global-set-key (kbd "s-]") 'bm-next)
+  (use-package bm
+    :ensure t
+    :bind
+    (("s-[" . bm-previous)
+     ("s-]" . bm-next))
+    :init
+    (setq-default bm-buffer-persistence nil)
+    (setq bm-restore-repository-on-load t)
+    :config
+    (add-hook 'find-file-hook 'bm-buffer-restore)
+    (add-hook 'kill-buffer-hook 'bm-buffer-save)
+    (add-hook 'after-save-hook 'bm-buffer-save)
+    (add-hook 'after-revert-hook 'bm-buffer-restore)
+    (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+    (add-hook 'kill-emacs-hook '(lambda nil
+                                  (bm-buffer-save-all)
+                                  (bm-repository-save)))
+    (set-face-foreground 'bm-face "darkgreen")
+    (set-face-background 'bm-face "darkorange"))
 
-  ;;; helm-bm.el設定
-  (require 'helm-bm)
+  (use-package helm-bm
+    :ensure t
+    :config
+    (use-package bm
+      :ensure t)
+    ;; migemoくらいつけようね
+    ;; (push '(migemo) helm-source-bm)
 
-  ;; migemoくらいつけようね
-  ;; (push '(migemo) helm-source-bm)
+    ;; annotationはあまり使わないので仕切り線で表示件数減るの嫌
+    ;; (setq helm-source-bm (delete '(multiline) helm-source-bm))
 
-  ;; annotationはあまり使わないので仕切り線で表示件数減るの嫌
-  ;; (setq helm-source-bm (delete '(multiline) helm-source-bm))
+    (defun bm-toggle-or-helm ()
+      "2回連続で起動したらhelm-bmを実行させる"
+      (interactive)
+      (bm-toggle)
+      (when (eq last-command 'bm-toggle-or-helm)
+        (helm-bm)))
+    (global-set-key (kbd "s-SPC") 'bm-toggle-or-helm)
 
-  (defun bm-toggle-or-helm ()
-    "2回連続で起動したらhelm-bmを実行させる"
-    (interactive)
-    (bm-toggle)
-    (when (eq last-command 'bm-toggle-or-helm)
-      (helm-bm)))
-  (global-set-key (kbd "s-SPC") 'bm-toggle-or-helm)
-
-  ;;; これがないとemacs -Qでエラーになる。おそらくバグ。
-  (require 'compile)
-
-#+END_SRC
-
-*** Color
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (set-face-foreground 'bm-face "darkgreen")
-  (set-face-background 'bm-face "darkorange")
+    ;;; これがないとemacs -Qでエラーになる。おそらくバグ。
+    (require 'compile))
 
 #+END_SRC
 
@@ -2825,20 +2730,20 @@ twittering-mode.el を使う．
 http://tuhdo.github.io/c-ide.html
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq helm-gtags-prefix-key (kbd "C-c ;")
-        helm-gtags-suggested-key-mapping t)
-
   (use-package helm-gtags
     :ensure t
+    :init
+    (setq helm-gtags-prefix-key (kbd "C-c ;")
+          helm-gtags-suggested-key-mapping t)
     :config
-    (progn
-      (add-hook 'c-mode-hook 'helm-gtags-mode)
-      (add-hook 'c++-mode-hook 'helm-gtags-mode)
-      (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-      (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-      (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-      (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)))
-
+    (use-package helm
+      :ensure t)
+    (add-hook 'c-mode-hook 'helm-gtags-mode)
+    (add-hook 'c++-mode-hook 'helm-gtags-mode)
+    (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+    (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+    (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+    (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history))
 #+END_SRC
 
 * Org Mode

@@ -22,54 +22,46 @@
 ;;;
 (load (expand-file-name ".local.el" (getenv "HOME")) t)
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 
-;;; Homebrew/Cask
-;;; 
+;;;
+;;; use-package
+;;;
+(require 'package)
+(add-to-list 'package-archives
+	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+	     '("ELPA" . "http://tromey.com/elpa/"))
+(add-to-list 'package-archives
+	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+	     '("org" . "http://orgmode.org/elpa/"))
+(package-initialize)
+(package-install 'use-package)
+(require 'use-package)
 
-(defun tnoda/find-brew-cask-prefix ()
-  (cond ((eq system-type 'darwin)
-         (with-current-buffer (get-buffer-create "*brew-cask-prefix")
-	   (erase-buffer)
-	   (if (zerop (call-process "brew" nil t nil "--prefix" "cask"))
-	       (buffer-substring (point-min) (1- (point-max))))))
-	((eq system-type 'gnu/linux)
-	 "/opt/cask")
-	(t nil)))
 
-(defconst tnoda/cask-el-path
-  (let ((prefix (tnoda/find-brew-cask-prefix)))
-    (if prefix
-        (expand-file-name "cask.el" prefix))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; dash.el
+;;;
+(use-package dash
+  :ensure t)
 
-(defun tnoda/cask-setup
-  ()
-  (cask-initialize)
-  (defun tnoda/add-cask-org-plus-contrib-dir-to-info-directory-list ()
-    (add-to-list 'Info-directory-list
-                 (cask-resource-path "org-plus-contrib")))
-  (add-hook 'Info-mode-hook
-            'tnoda/add-cask-org-plus-contrib-dir-to-info-directory-list))
 
-(defun tnoda/package-el-setup
-  ()
-  (require 'package)
-  (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-  (package-initialize))
-
-(if (require 'cask tnoda/cask-el-path t)
-    (tnoda/cask-setup)
-  (tnoda/package-el-setup))
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Org mode
+;;;
+(use-package org-plus-contrib
+  :ensure t
+  :config
+  (require 'ob-tangle))
 
 ;; Load up Org Mode and (now included) Org Babel for elisp embedded in Org Mode files
 (defconst tnoda/dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
-
-(require 'org)
-(require 'ob-tangle)
 
 (org-babel-load-file (expand-file-name "tnoda.org" tnoda/dotfiles-dir))
 

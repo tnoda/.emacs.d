@@ -51,6 +51,23 @@
     (setq line-spacing 4))
 #+END_SRC
 
+** tnoda/require-or-package-install-from-url
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun tnoda/require-or-package-install-from-url (feature url)
+    "If feature FEATURE is not loaded, load it. If FEATURE is not
+  a member of the list `features', then the feature is not loaded;
+  so install the corresponding package from URL."
+    (unless (require feature nil t)
+      (-if-let (buf (url-retrieve-synchronously url))
+          (progn
+            (switch-to-buffer buf)
+            (package-install-from-buffer)
+            (require feature)))))
+
+#+END_SRC
+
+
 * Emacs
 
 ** Emacs 起動したらすぐ eshell を使えるようにする．
@@ -718,13 +735,9 @@ Mac OS X's ls does not support the ~--dired~ option.
 ** sequential-commmand.el                                               :up:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (unless (require 'sequential-command nil t)
-    (let ((url "https://gist.githubusercontent.com/tnoda/49797ef440b7a2166986/raw/sequential-command.el"))
-      (-if-let (buf (url-retrieve-synchronously url))
-          (progn
-            (switch-to-buffer buf)
-            (package-install-from-buffer)))))
-  (require 'sequential-command)
+  (tnoda/require-or-package-install-from-url
+   'sequential-command
+   "https://gist.githubusercontent.com/tnoda/49797ef440b7a2166986/raw/sequential-command.el")
 
   (define-sequential-command sequential-command:home
     beginning-of-line beginning-of-buffer sequential-command:return)
@@ -867,12 +880,9 @@ Mac OS X's ls does not support the ~--dired~ option.
 =C-SPC= 連打で選択範囲が広がっていく．マークとポイントが対角線の矩形を選択できる．
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (unless (require 'sense-region nil t)
-    (let ((url "https://gist.githubusercontent.com/tnoda/1776988/raw/f1421879e6f9c96a1a0b9708bc8da0378f30e22b/sense-region.el"))
-      (-if-let (buf (url-retrieve-synchronously url))
-          (progn
-            (switch-to-buffer buf)
-            (package-install-from-buffer)))))
+  (tnoda/require-or-package-install-from-url
+   'sense-region
+   "https://gist.githubusercontent.com/tnoda/1776988/raw/f1421879e6f9c96a1a0b9708bc8da0378f30e22b/sense-region.el")
   (sense-region-on)
 
 #+END_SRC
@@ -1050,19 +1060,13 @@ Do =M-x column-highlight=, to highlight the corrent column.
 ** text-adjust.el                                          :rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (unless (require 'mell nil t)
-    (let ((url "https://gist.githubusercontent.com/tnoda/dedb18a47780e9a50983/raw/eb99fe55f813f14b75009923301033cb17d601c2/mell.el"))
-      (-if-let (buf (url-retrieve-synchronously url))
-          (progn
-            (switch-to-buffer buf)
-            (package-install-from-buffer)))))
+  (tnoda/require-or-package-install-from-url
+   'mell
+   "https://gist.githubusercontent.com/tnoda/dedb18a47780e9a50983/raw/eb99fe55f813f14b75009923301033cb17d601c2/mell.el")
+  (tnoda/require-or-package-install-from-url
+   'text-adjust
+   "https://gist.githubusercontent.com/tnoda/dedb18a47780e9a50983/raw/eb99fe55f813f14b75009923301033cb17d601c2/text-adjust.el")
 
-  (unless (require 'text-adjust nil t)
-    (let ((url "https://gist.githubusercontent.com/tnoda/dedb18a47780e9a50983/raw/eb99fe55f813f14b75009923301033cb17d601c2/text-adjust.el"))
-      (-if-let (buf (url-retrieve-synchronously url))
-          (progn
-            (switch-to-buffer buf)
-            (package-install-from-buffer)))))
 #+END_SRC
 
 *** =kinsoku-ascii= がいつのまにか =kinsoku.el= から無くなっているので定義．

@@ -707,6 +707,13 @@ Mac OS X's ls does not support the ~--dired~ option.
 
 #+end_src
 
+** Disable VIPER
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq viper-mode nil)
+
+#+END_SRC
+
+
 * Global
 
 ** generic-x.el

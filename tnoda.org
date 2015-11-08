@@ -590,11 +590,6 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
   (setq diff-switches "-u")
 #+END_SRC
 
-** =hi-lock-mode= を有効にする．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-hi-lock-mode 1)
-#+END_SRC
-
 ** =C-x F=, =C-x K=, =C-x V=                                  :key:rubikitch:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (find-function-setup-keys)

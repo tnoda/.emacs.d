@@ -2073,6 +2073,11 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 #+END_SRC
 
 ** Python
+*** Yasnippet
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'python-mode-hook 'yas-minor-mode)
+#+END_SRC
 
 *** pdb
 #+BEGIN_SRC emacs-lisp :tangle yes

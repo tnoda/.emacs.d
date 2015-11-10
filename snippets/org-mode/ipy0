@@ -3,9 +3,10 @@
 # key: ipy0
 # binding: direct-keybinding
 # --
-#+begin_src ipython :session
+#+begin_src ipython
   %matplotlib inline
-  import matplotlib.pyplot as P
+  import matplotlib.pyplot as plt
+  plt.style.use('ggplot')
   from numpy.random import randn
   import numpy as np
   from pandas import Series, DataFrame

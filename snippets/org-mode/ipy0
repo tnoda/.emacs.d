@@ -3,6 +3,8 @@
 # key: ipy0
 # binding: direct-keybinding
 # --
+#+PROPERTY: header-args:ipython  :session ipython :exports both
+
 #+begin_src ipython
   %matplotlib inline
   import matplotlib.pyplot as plt

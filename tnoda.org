@@ -1959,10 +1959,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'auto-mode-alist '("\\.md" . gfm-mode))
-  (defun tnoda/gfm-custom ()
-    "gfm-mode-hook"
-    (setq markdown-command (expand-file-name "gfm" tnoda/bin-dir)))
-  (add-hook 'gfm-mode-hook 'tnoda/gfm-custom)
+
 #+END_SRC
 
 *** =<S-tab>= で =markdown-shifttab=.                                   :key:

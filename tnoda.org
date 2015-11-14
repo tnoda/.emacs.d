@@ -188,7 +188,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
 #+END_SRC
 
-*** Apply solarized-dark theme
+*** Color Themes
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package color-theme
     :ensure t
@@ -198,7 +198,9 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
       :config
       (progn
         (color-theme-initialize)
-        (color-theme-solarized-dark))))
+        (color-theme-solarized-dark)))
+    (use-package spacemacs-theme
+      :ensure t))
 
 #+END_SRC
 

@@ -742,6 +742,9 @@ Mac OS X's ls does not support the ~--dired~ option.
   (tnoda/require-or-package-install-from-url
    'sequential-command
    "https://gist.githubusercontent.com/tnoda/49797ef440b7a2166986/raw/sequential-command.el")
+  (use-package sequential-command
+    :ensure t
+    :pin manual)
 
   (define-sequential-command sequential-command:home
     beginning-of-line beginning-of-buffer sequential-command:return)

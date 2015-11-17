@@ -75,6 +75,11 @@
   (add-hook 'emacs-startup-hook 'eshell)
 #+END_SRC
 
+** Expand kill-ring-max to 300
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq kill-ring-max 300)
+#+END_SRC
+
 ** Coding system in Windows settings
 #+BEGIN_SRC emacs-lisp :tangle yes
   (when (eq system-type 'windows-nt)

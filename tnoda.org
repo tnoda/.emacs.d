@@ -878,8 +878,8 @@ Mac OS X's ls does not support the ~--dired~ option.
     :ensure t
     :config
     (auto-save-buffers-enhanced t)
-    (setq auto-save-buffers-enhanced-interval 3))
-
+    (setq auto-save-buffers-enhanced-interval 3)
+    (setq auto-save-buffers-enhanced-quiet-save-p t))
 #+END_SRC
 
 ** sense-region.el                                     :key:rubikitch:

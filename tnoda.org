@@ -2347,9 +2347,10 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 *** ghc
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
   (use-package ghc
     :ensure t
+    :pin melpa-stable
     :config
     (autoload 'ghc-init "ghc" nil t)
     (autoload 'ghc-debug "ghc" nil t)

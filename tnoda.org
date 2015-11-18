@@ -1339,6 +1339,15 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (setq eshell-prompt-function 'tnoda/eshell-prompt-function)
 #+END_SRC
 
+** eshell-z
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package eshell-z
+    :ensure t)
+
+#+END_SRC
+
+
 * Shell-mode
 ** Suppress echo-backs
 #+BEGIN_SRC emacs-lisp :tangle yes

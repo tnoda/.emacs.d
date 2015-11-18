@@ -2801,10 +2801,11 @@ My day really ends at two o'clock in the morning.
     (defadvice org-edit-src-code (before tnoda/auto-save-buffers-toggle activate)
       "Disable auto-save-buffers."
       (setq previous-active-p  auto-save-buffers-enhanced-activity-flag)
-      (setq auto-save-buffers-active-p nil))
+      (setq auto-save-buffers-enhanced-activity-flag nil))
     (defadvice org-edit-src-exit (after tndoa/auto-save-buffers-toggle activate)
       "Recover auto-save-buffers."
       (setq auto-save-buffers-enhanced-activity-flag previous-active-p)))
+
 #+END_SRC
 
 停止しないと，src ブロックを編集している最中に，

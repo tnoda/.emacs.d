@@ -2990,7 +2990,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
            :clock-keep t
            :empty-lines 1
            :kill-buffer t)
-          ("m" "Morning Routine" entry (file "")
+          ("m" "Morning Routine" entry (file+datetree "")
            "* Morning Routine %U\n\n%[~/Dropbox/org/morning_routine.org]"
            :prepend t
            :clock-in t

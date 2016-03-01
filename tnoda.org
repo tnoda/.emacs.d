@@ -3121,7 +3121,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   (add-to-list 'org-latex-default-packages-alist '("" "luatexja" nil))
   (setq org-latex-packages-alist
         '(("" "luatexja-fontspec" nil)
-          ("hiragino-pron" "luatexja-preset" nil)
           ("" "lmodern" nil)
           ("" "listings" nil)
           ("" "color" nil)))

@@ -7,8 +7,8 @@
 ;;;
 ;;; LANG environment variable
 ;;;
-(setenv "LANG" "C")
-(setq system-time-locale "C")
+(setenv "LANG" "en_US.UTF-8")
+(setq system-time-locale "en_US.UTF-8")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

@@ -3018,6 +3018,17 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   (global-set-key (kbd "C-c g") 'org-clock-goto)
 #+END_SRC
 
+** Trello
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package org-trello
+    :ensure t
+    :config
+    (setq org-trello-files
+          (list (expand-file-name "trello.org.gpg" tnoda/org-dropbox-directory))))
+
+#+END_SRC
+
 ** Agenda
 
 *** Agenda files
@@ -3027,7 +3038,8 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
                                 '("main"
                                   "journal"
                                   "projects"
-                                  "habits")))
+                                  "habits"
+                                  "trello")))
 
 #+END_SRC
 
@@ -3232,6 +3244,7 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
   "
   ) org-structure-template-alist)
 #+END_SRC
+
 
 * Ubuntu
 ** Toggle touchpad                                             :key:command:

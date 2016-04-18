@@ -1540,7 +1540,7 @@ Pressing =C-z= toggles between an eshell buffer and another.
 =mail-user-agent= は =simple.el= で，=define-mail-user-agent= は =subr.el= で，それぞれ定義されている．
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'mew t)
+  (require 'mew)
   (require 'simple)
   (setq mail-user-agent 'mew-user-agent)
   (define-mail-user-agent
@@ -2754,7 +2754,7 @@ http://tuhdo.github.io/c-ide.html
 
 ** org-mew.el
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'org-mew t)
+  (require 'org-mew)
 #+END_SRC
 
 ** Common

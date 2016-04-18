@@ -2270,7 +2270,7 @@ https://godoc.org/golang.org/x/tools/oracle
 - http://mattn.kaoriya.net/software/lang/go/20150113141338.htm
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (load (expand-file-name "src/golang.org/x/tools/refactor/rename/rename.el"
+  (load (expand-file-name "src/golang.org/x/tools/refactor/rename/go-rename.el"
                           (getenv "GOPATH")))
   (define-key go-mode-map (kbd "C-c C-r") 'go-rename)
 

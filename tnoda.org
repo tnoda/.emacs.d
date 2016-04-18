@@ -467,7 +467,7 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
 + =calendar-location-name=
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (load "~/.calendar-location.el")
+  (load "~/.calendar-location.el" t)
 #+END_SRC
 
 *** japanese-holidays.el

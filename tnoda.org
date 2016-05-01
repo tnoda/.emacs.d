@@ -180,6 +180,10 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
   (defun tnoda/fontset-setup-ubuntu ()
     (set-face-attribute 'default nil
+                        :family "Inconsolata"
+                        :height 120)
+    (set-face-attribute (frame-parameter nil 'font)
+                        'japanese-jisx0208
                         :family "Ricty"
                         :height 120))
 
@@ -2155,7 +2159,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 ** Golang
 
 *** go-mode/gocode
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (defvar tnoda/gopath (expand-file-name "go" (getenv "HOME")))
   (defvar tnoda/gopath-bin (expand-file-name "bin" tnoda/gopath))
 
@@ -2199,7 +2203,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 #+END_SRC
 
 *** go-eldoc
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package go-eldoc
     :ensure t
     :config
@@ -2208,7 +2212,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 #+END_SRC
 
 *** flycheck
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-hook 'go-mode-hook 'tnoda/turn-on-flycheck-mode)
 
 #+END_SRC
@@ -2217,7 +2221,7 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
 
 https://godoc.org/golang.org/x/tools/cmd/goimports
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq gofmt-command "goimports")
 
 #+END_SRC
@@ -2226,7 +2230,7 @@ https://godoc.org/golang.org/x/tools/cmd/goimports
 
 https://github.com/nsf/gocode/tree/master/emacs-company
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package company-go
     :ensure t
     :init
@@ -2258,7 +2262,7 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_QUOTE
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (load (expand-file-name "src/golang.org/x/tools/cmd/oracle/oracle.el"
                           (getenv "GOPATH")))
   ;; (add-hook 'go-mode-hook 'go-oracle-mode)
@@ -2269,7 +2273,7 @@ https://godoc.org/golang.org/x/tools/oracle
 - http://permalink.gmane.org/gmane.comp.lang.go.general/140050
 - http://mattn.kaoriya.net/software/lang/go/20150113141338.htm
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (load (expand-file-name "src/golang.org/x/tools/refactor/rename/go-rename.el"
                           (getenv "GOPATH")))
   (define-key go-mode-map (kbd "C-c C-r") 'go-rename)

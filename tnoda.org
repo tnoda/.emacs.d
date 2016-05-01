@@ -180,6 +180,10 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
 
   (defun tnoda/fontset-setup-ubuntu ()
     (set-face-attribute 'default nil
+                        :family "Inconsolata"
+                        :height 120)
+    (set-face-attribute (frame-parameter nil 'font)
+                        'japanese-jisx0208
                         :family "Ricty"
                         :height 120))
 

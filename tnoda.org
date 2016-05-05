@@ -1018,18 +1018,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
 #+END_SRC
 
 
-** rainbow-delimiters.el
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package rainbow-delimiters
-    :ensure t
-    :config
-    (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-    (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode))
-
-#+END_SRC
-
-
 ** open-junk-file.el                                       :rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1669,7 +1657,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
     (defun tnoda/clojure-mode-hook ()
       (put-clojure-indent 'for-all 1)     ; for clojure.test.check
       (enable-paredit-mode)
-      (rainbow-delimiters-mode 1)
       (subword-mode 1)
       (yas-minor-mode)
       (flyspell-prog-mode)
@@ -2175,7 +2162,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
         (sense-region-on)))
 
     (add-hook 'before-save-hook 'tnoda/gofmt-before-save)
-    (add-hook 'go-mode-hook 'rainbow-delimiters-mode)
     (add-hook 'go-mode-hook 'turn-on-smartparens-strict-mode)
     (add-hook 'go-mode-hook 'tnoda/increase-line-spacing)
     (add-hook 'go-mode-hook 'subword-mode)

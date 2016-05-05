@@ -219,13 +219,6 @@ Do manually as follows:
   (menu-bar-mode -1)
 #+END_SRC
 
-*** 現在行に色をつける．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (when window-system
-    (global-hl-line-mode 1)
-    (set-face-background 'hl-line "black"))
-#+END_SRC
-
 *** 起動画面を表示しない．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq inhibit-startup-message t)

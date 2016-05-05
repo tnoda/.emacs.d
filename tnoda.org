@@ -203,9 +203,7 @@ Originally retrieved from http://www.emacswiki.org/emacs/FullScreen#toc23, on 20
       :config
       (progn
         (color-theme-initialize)
-        (color-theme-solarized-dark)))
-    (use-package spacemacs-theme
-      :ensure t))
+        (color-theme-solarized-dark))))
 
 #+END_SRC
 

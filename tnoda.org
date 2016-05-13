@@ -1486,8 +1486,8 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 #+BEGIN_SRC sh :tangle no
   cd src
-  curl http://mew.org/Beta/mew-6.7rc1.tar.gz | tar zxf -
-  cd mew-6.7rc1
+  curl http://mew.org/Release/mew-6.7.tar.gz | tar zxf -
+  cd mew-6.7
   ./configure --prefix=/opt/mew --with-emacs=/opt/emacs/bin/emacs
   make
   make install

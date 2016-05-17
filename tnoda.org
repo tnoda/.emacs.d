@@ -2575,6 +2575,19 @@ https://godoc.org/golang.org/x/tools/oracle
                 'comint-next-input)))
 #+END_SRC
 
+** Stan
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package stan-mode
+    :config
+    (add-hook 'stan-mode-hook 'smartparens-strict-mode)
+    (use-package stan-snippets
+      :ensure t
+      :config
+      (add-hook 'stan-mode-hook '(lambda () (yas-minor-mode t)))))
+
+#+END_SRC
+
 
 * Twitter
 

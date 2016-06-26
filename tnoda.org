@@ -3159,7 +3159,6 @@ Retrieved from [[info:org#Breaking%20down%20tasks][info:org#Breaking down tasks]
      (latex . t)
      (org . t)
      (python . t)
-     (stan . t)
      (ruby . t)))
 
 #+END_SRC

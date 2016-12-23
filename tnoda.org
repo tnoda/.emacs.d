@@ -473,7 +473,7 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
     :ensure t
     :config
     (setq calendar-holidays
-          (append japanese-holidays local-holidays other-holidays))
+          (append japanese-holidays holiday-local-holidays holiday-other-holidays))
     (setq mark-holidays-in-calendar t))
 #+END_SRC
 

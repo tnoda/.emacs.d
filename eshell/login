@@ -1,2 +1,2 @@
 (eshell/export "PAGER=")
-(eshell/export "EDITOR=/opt/emacs/bin/emacsclient")
+(eshell/export "EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient")

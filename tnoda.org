@@ -1268,7 +1268,7 @@ on Sep. 2, 2014.
 #+END_SRC
 
 ** sudden-death.el
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
   (use-package sudden-death
     :ensure t)
 

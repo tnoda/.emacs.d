@@ -2054,7 +2054,8 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
     (setq jedi:complete-on-dot t)
     (require 'python)
     (define-key python-mode-map (kbd "M-.") 'jedi:goto-definition)
-    (define-key python-mode-map (kbd "M-,") 'jedi:goto-definition-pop-marker))
+    (define-key python-mode-map (kbd "M-,") 'jedi:goto-definition-pop-marker)
+    (setq python-shell-completion-native nil))
 
   (use-package company-jedi
     :ensure t
@@ -2242,7 +2243,7 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 ** ESS (R)
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package ess-site
     :ensure ess
     :config

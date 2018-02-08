@@ -916,20 +916,6 @@ Mac OS X's ls does not support the ~--dired~ option.
   (global-set-key (kbd "C->") 'goto-last-change-reverse)
 #+END_SRC
 
-** eldoc-extension.el
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package eldoc-extension
-    :ensure t
-    :config
-    (progn
-      (setq eldoc-idle-delay 0.1)
-      (setq eldoc-echo-area-use-multiline-p t)
-      (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-      (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)))
-
-#+END_SRC
-
 ** company-mode
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package company

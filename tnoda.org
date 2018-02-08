@@ -2347,16 +2347,6 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 
-** helm-pydoc
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package helm-pydoc
-    :ensure t
-    :config
-    (define-key python-mode-map (kbd "C-c C-d") 'helm-pydoc))
-
-#+END_SRC
-
 ** helm-descbinds
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package helm-descbinds

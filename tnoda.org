@@ -1263,10 +1263,9 @@ Pressing =C-z= toggles between an eshell buffer and another.
 * SKK
 ** =C-x C-j= で =skk-mode=.                                             :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package ddskk
-    :ensure t
+  (use-package skk
+    :ensure ddskk
     :config
-    (require 'skk)
     (define-key ctl-x-map (kbd "C-j") 'skk-mode))
 
 #+END_SRC

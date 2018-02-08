@@ -893,16 +893,6 @@ Mac OS X's ls does not support the ~--dired~ option.
   (global-unset-key (kbd "M-@"))
 #+END_SRC
 
-** point-undo.el                                              :up:rubikitch:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package point-undo
-    :ensure t
-    :bind (("C-," . point-undo)
-           ("C-." . point-redo)))
-
-#+END_SRC
-
 ** goto-chg.el                                                   :rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes

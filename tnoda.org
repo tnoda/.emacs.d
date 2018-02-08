@@ -1150,39 +1150,6 @@ Use YASnippet as a non-global minor mode.
 
 #+END_SRC
 
-** guide-key
-
-=guide-key= configuration, regrieved from
-http://rubikitch.com/f/140830063637.guide-key.el
-on Sep. 2, 2014.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package guide-key
-    :ensure t
-    :config
-  ;;; guilde-keyを発動させるプレフィクスキー
-    (setq guide-key/guide-key-sequence
-          '("C-x r" "C-x 4"           ;global
-            ;; org-modeではC-c C-xも対象にする
-            (org-mode "C-c C-x")
-            ;; outline-minor-modeではC-c @も対象にする
-            (outline-minor-mode "C-c @")))
-
-  ;;; コマンド名にこれらが含まれている場合はハイライトされる
-    (setq guide-key/highlight-command-regexp "rectangle\\|register\\|org-clock")
-
-  ;;; 1秒後にポップアップされる(デフォルト)
-  ;;; つまり1秒以内に操作すればポップアップされずに実行される
-    (setq guide-key/idle-delay 1.0)
-
-  ;;; 文字の大きさを変更する(正の数で大きく、負の数で小さく)
-    (setq guide-key/text-scale-amount 0)
-
-  ;;; 有効にする
-    (guide-key-mode 1))
-
-#+END_SRC
-
 ** ace-isearch
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package ace-isearch

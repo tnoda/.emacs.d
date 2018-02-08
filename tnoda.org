@@ -2347,55 +2347,6 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 
-** helm-bm                                                       :rubikitch:
-
-*** http://rubikitch.com/2014/11/22/helm-bm/
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package bm
-    :ensure t
-    :bind
-    (("s-[" . bm-previous)
-     ("s-]" . bm-next))
-    :init
-    (setq-default bm-buffer-persistence nil)
-    (setq bm-restore-repository-on-load t)
-    :config
-    (add-hook 'find-file-hook 'bm-buffer-restore)
-    (add-hook 'kill-buffer-hook 'bm-buffer-save)
-    (add-hook 'after-save-hook 'bm-buffer-save)
-    (add-hook 'after-revert-hook 'bm-buffer-restore)
-    (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
-    (add-hook 'kill-emacs-hook '(lambda nil
-                                  (bm-buffer-save-all)
-                                  (bm-repository-save)))
-    (set-face-foreground 'bm-face "darkgreen")
-    (set-face-background 'bm-face "darkorange"))
-
-  (use-package helm-bm
-    :ensure t
-    :config
-    (use-package bm
-      :ensure t)
-    ;; migemoくらいつけようね
-    ;; (push '(migemo) helm-source-bm)
-
-    ;; annotationはあまり使わないので仕切り線で表示件数減るの嫌
-    ;; (setq helm-source-bm (delete '(multiline) helm-source-bm))
-
-    (defun bm-toggle-or-helm ()
-      "2回連続で起動したらhelm-bmを実行させる"
-      (interactive)
-      (bm-toggle)
-      (when (eq last-command 'bm-toggle-or-helm)
-        (helm-bm)))
-    (global-set-key (kbd "s-SPC") 'bm-toggle-or-helm)
-
-    ;;; これがないとemacs -Qでエラーになる。おそらくバグ。
-    (require 'compile))
-
-#+END_SRC
-
 ** helm-gtags
 
 http://tuhdo.github.io/c-ide.html

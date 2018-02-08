@@ -1118,13 +1118,6 @@ Use YASnippet as a non-global minor mode.
 
 #+END_SRC
 
-** sudden-death.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package sudden-death
-    :ensure t)
-
-#+END_SRC
-
 * Eshell
 ** Plan 9 Smart Shell
 #+BEGIN_SRC emacs-lisp :tangle yes

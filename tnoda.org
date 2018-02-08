@@ -1044,15 +1044,6 @@ Mac OS X's ls does not support the ~--dired~ option.
 
 #+END_SRC
 
-** pretty-mode.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package pretty-mode
-    :ensure t
-    :config
-    (global-pretty-mode -1))
-
-#+END_SRC
-
 ** YASnippet
 
 Use YASnippet as a non-global minor mode.

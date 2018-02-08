@@ -985,20 +985,6 @@ Mac OS X's ls does not support the ~--dired~ option.
 #+END_SRC
 
 
-** color-moccur.el                                        :up:key:rubikitch:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package color-moccur
-    :ensure t
-    :bind
-    (("M-s o" . occur-by-moccur)
-     ("M-s O" . moccur))
-    :config
-    (setq moccur-split-edit t))
-
-#+END_SRC
-
-
 ** text-adjust.el                                          :rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes

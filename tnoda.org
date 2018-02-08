@@ -2290,17 +2290,6 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 
-* Twitter
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package twittering-mode
-    :ensure t
-    :config
-    (setq twittering-status-format "%s >\n%T\n")
-    (setq twittering-use-master-password t))
-
-#+END_SRC
-
 * Helm
 
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -58,8 +58,8 @@
 ;;;
 ;;; Org mode
 ;;;
-(use-package org-plus-contrib
-  :ensure t
+(use-package org-src
+  :ensure org-plus-contrib
   :config
   (require 'ob-tangle))
 

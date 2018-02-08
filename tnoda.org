@@ -1145,29 +1145,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
   (set-face-foreground 'eshell-prompt "cyan")
 #+END_SRC
 
-** プロンプトに Git のブランチ名を表示．
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'vc-git)
-  (defun tnoda/eshell-git-branch ()
-    "Return the branch name surrounded by square brackets, 
-  or nil if the current directory is not in a Git repsitory."
-    (let ((branch (vc-git-working-revision (eshell/pwd))))
-      (when (< 0 (length branch))
-        (format "[%s]" branch))))
-  
-  (defun tnoda/eshell-prompt-function ()
-    (mapconcat 'identity
-               (delq nil (list
-                          (abbreviate-file-name (eshell/pwd))
-                          (tnoda/eshell-git-branch)
-                          (if (= 0 (user-uid))
-                              "# "
-                            "$ ")))
-               " "))
-  
-  (setq eshell-prompt-function 'tnoda/eshell-prompt-function)
-#+END_SRC
-
 ** eshell-z
 
 #+BEGIN_SRC emacs-lisp :tangle yes

@@ -1766,26 +1766,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   (add-hook 'gfm-mode-hook 'tnoda/markdown-shifttab-fix)
 #+END_SRC
 
-** Java
-
-*** Set =JAVA_HOME= using =java_home=
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setenv "JAVA_HOME"
-          (let ((ret (shell-command-to-string "/usr/libexec/java_home")))
-            (substring ret 0 (1- (length ret)))))
-
-#+END_SRC
-
-*** Leiningen support
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/java-mode-hook ()
-    (set (make-local-variable 'compile-command) "lein javac")
-    (set (make-local-variable 'compilation-read-command) nil)
-    (define-key java-mode-map (kbd "C-c C-c") 'compile))
-  
-  (add-hook 'java-mode-hook 'tnoda/java-mode-hook)
-#+END_SRC
-
 ** Scala
 
 *** scala-mode2

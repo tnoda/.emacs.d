@@ -467,16 +467,6 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
   (load "~/.calendar-location.el" t)
 #+END_SRC
 
-*** japanese-holidays.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package japanese-holidays
-    :ensure t
-    :config
-    (setq calendar-holidays
-          (append japanese-holidays holiday-local-holidays holiday-other-holidays))
-    (setq mark-holidays-in-calendar t))
-#+END_SRC
-
 ** スクリプトファイルを保存するときには，モードを実行可能に設定する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'after-save-hook
@@ -903,26 +893,6 @@ Mac OS X's ls does not support the ~--dired~ option.
   (global-unset-key (kbd "M-@"))
 #+END_SRC
 
-** popwin.el
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package popwin
-    :ensure t
-    :config
-    (popwin-mode 1))
-
-#+END_SRC
-
-** point-undo.el                                              :up:rubikitch:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package point-undo
-    :ensure t
-    :bind (("C-," . point-undo)
-           ("C-." . point-redo)))
-
-#+END_SRC
-
 ** goto-chg.el                                                   :rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -944,20 +914,6 @@ Mac OS X's ls does not support the ~--dired~ option.
 *** =C->= でカーソルを次の編集場所に進める (=goto-last-change-reverse=). :key:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "C->") 'goto-last-change-reverse)
-#+END_SRC
-
-** eldoc-extension.el
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package eldoc-extension
-    :ensure t
-    :config
-    (progn
-      (setq eldoc-idle-delay 0.1)
-      (setq eldoc-echo-area-use-multiline-p t)
-      (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-      (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)))
-
 #+END_SRC
 
 ** company-mode
@@ -989,17 +945,6 @@ Mac OS X's ls does not support the ~--dired~ option.
        ((((type x)) (:inherit company-tooltip-selection :weight bold))
         (t (:inherit company-tooltip-selection))))))
 #+END_SRC
-
-** col-highlight.el                                              :rubikitch:
-
-Do =M-x column-highlight=, to highlight the corrent column.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package col-highlight
-    :ensure t)
-
-#+END_SRC
-
 
 ** paredit.el
 
@@ -1036,20 +981,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-set-key (kbd "C-x f") 'open-junk-file)
-
-#+END_SRC
-
-
-** color-moccur.el                                        :up:key:rubikitch:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package color-moccur
-    :ensure t
-    :bind
-    (("M-s o" . occur-by-moccur)
-     ("M-s O" . moccur))
-    :config
-    (setq moccur-split-edit t))
 
 #+END_SRC
 
@@ -1103,33 +1034,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
   (setq text-adjust-hankaku-except "？！＠ー〜、，。．")
 #+END_SRC
 
-** hideshow-org.el
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package hideshow-org
-    :ensure t)
-
-#+END_SRC
-
-*** =tnoda/hs-org/minor-mode-activate=.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'hideshow-org)
-  (defun tnoda/hs-org/minor-mode-activate ()
-    "Activate hideshow-org"
-    (interactive)
-    (hs-org/minor-mode 1)
-    (raise-minor-mode-map-alist 'hs-org/minor-mode))
-#+END_SRC
-
-*** 折りたたみ部分をハイライトする =tnoda/highlight-overlay=.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/highlight-overlay (ov)
-    "Self-explanatory!"
-    (overlay-put ov 'display (propertize (format "...") 'face 'highlight)))
-  
-  (setq hs-set-up-overlay 'tnoda/highlight-overlay)
-#+END_SRC
-
 ** smartparens
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package smartparens
@@ -1137,15 +1041,6 @@ Do =M-x column-highlight=, to highlight the corrent column.
     :config
     (require 'smartparens-config)
     (sp-use-paredit-bindings))
-
-#+END_SRC
-
-** pretty-mode.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package pretty-mode
-    :ensure t
-    :config
-    (global-pretty-mode -1))
 
 #+END_SRC
 
@@ -1167,42 +1062,6 @@ Use YASnippet as a non-global minor mode.
     :ensure t
     :config
     (global-set-key (kbd "C-M-%") 'vr/query-replace))
-
-#+END_SRC
-
-** guide-key
-
-=guide-key= configuration, regrieved from
-http://rubikitch.com/f/140830063637.guide-key.el
-on Sep. 2, 2014.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package guide-key
-    :ensure t
-    :config
-  ;;; guilde-keyを発動させるプレフィクスキー
-    (setq guide-key/guide-key-sequence
-          '("C-x r" "C-x 4"           ;global
-            ;; org-modeではC-c C-xも対象にする
-            (org-mode "C-c C-x")
-            ;; outline-minor-modeではC-c @も対象にする
-            (outline-minor-mode "C-c @")))
-
-  ;;; コマンド名にこれらが含まれている場合はハイライトされる
-    (setq guide-key/highlight-command-regexp "rectangle\\|register\\|org-clock")
-
-  ;;; 1秒後にポップアップされる(デフォルト)
-  ;;; つまり1秒以内に操作すればポップアップされずに実行される
-    (setq guide-key/idle-delay 1.0)
-
-  ;;; 下部にキー一覧を表示させる(デフォルトはright)
-    (setq guide-key/popup-window-position 'bottom)
-
-  ;;; 文字の大きさを変更する(正の数で大きく、負の数で小さく)
-    (setq guide-key/text-scale-amount 0)
-
-  ;;; 有効にする
-    (guide-key-mode 1))
 
 #+END_SRC
 
@@ -1236,14 +1095,6 @@ on Sep. 2, 2014.
 
 #+END_SRC
 
-** sr-speedbar
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package sr-speedbar
-    :ensure t)
-
-#+END_SRC
-
 ** flycheck
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package flycheck
@@ -1264,13 +1115,6 @@ on Sep. 2, 2014.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'epa)
   (setq epa-file-encrypt-to user-mail-address)
-
-#+END_SRC
-
-** sudden-death.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package sudden-death
-    :ensure t)
 
 #+END_SRC
 
@@ -1628,19 +1472,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 * Lang
 
-** Emacs Lisp
-
-*** elisp-slime-nav
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package elisp-slime-nav
-    :ensure t
-    :config
-    (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
-      (add-hook hook 'turn-on-elisp-slime-nav-mode)))
-
-#+END_SRC
-
 ** Clojure                                                       :marmalade:
 *** Leiningen has been installed in =~/lein=.
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1933,92 +1764,6 @@ via http://stackoverflow.com/questions/8598116/paredit-curly-brace-matching-in-s
   
   (add-hook 'markdown-mode-hook 'tnoda/markdown-shifttab-fix)
   (add-hook 'gfm-mode-hook 'tnoda/markdown-shifttab-fix)
-#+END_SRC
-
-** Java
-
-*** Set =JAVA_HOME= using =java_home=
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setenv "JAVA_HOME"
-          (let ((ret (shell-command-to-string "/usr/libexec/java_home")))
-            (substring ret 0 (1- (length ret)))))
-
-#+END_SRC
-
-*** Leiningen support
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defun tnoda/java-mode-hook ()
-    (set (make-local-variable 'compile-command) "lein javac")
-    (set (make-local-variable 'compilation-read-command) nil)
-    (define-key java-mode-map (kbd "C-c C-c") 'compile))
-  
-  (add-hook 'java-mode-hook 'tnoda/java-mode-hook)
-#+END_SRC
-
-** Scala
-
-*** scala-mode2
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package scala-mode2
-    :ensure t
-    :config
-    (setq scala-indent:indent-value-expression nil)
-    (setq scala-indent:align-parameters t)
-    (setq scala-indent:align-forms t)
-
-    (require 'smartparens-config)
-
-    (defun tnoda/scala-mode-hook ()
-      (tnoda/increase-line-spacing)
-      (subword-mode 1)
-      (electric-pair-mode -1)
-      (turn-on-smartparens-strict-mode)
-      (setq imenu-generic-expression
-            '((nil "^ *\\(abstract \\|case \\)?\\(class\\|object\\) \\w+\\( extends [^\\{}]+\\)?.*" 0)
-              (nil "^ *\\(override \\|implicit \\)?def .*" 0)
-              (nil "\\( *trait .*\\){" 1))))
-
-    (add-hook 'scala-mode-hook 'tnoda/scala-mode-hook)
-    (add-hook 'scala-mode-hook 'yas-minor-mode-on))
-
-#+END_SRC
-
-*** ENSIME
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package ensime
-    :ensure t
-    :config
-    (setq ensime-sbt-perform-on-save nil)
-    (setq ensime-scaladoc-stdlib-url-base
-          (concat "file://"
-                  (expand-file-name "Documents/Scala/scala-docs-2.11.2/api/scala-library/"
-                                    (getenv "HOME"))))
-    (setq ensime-javadoc-stdlib-url-base
-          (concat "file://"
-                  (expand-file-name "Documents/Java/jdk-8u25-docs/api/"
-                                    (getenv "HOME"))))
-    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
-
-#+END_SRC
-
-*** pretty-mode.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'scala-mode-hook 'turn-on-pretty-mode)
-  (pretty-add-keywords 'scala-mode '(("=>" . (string-to-char "⇒"))
-                                     ("<=" . (string-to-char "≤"))
-                                     (">=" . (string-to-char "≥"))
-                                     ("!=" . (string-to-char "≠"))
-                                     ("->" . (string-to-char "→"))
-                                     ("<-" . (string-to-char "←"))
-                                     ("&&" . (string-to-char "∧"))
-                                     ("||" . (string-to-char "∨"))
-                                     ("\\<compose\\>" . (string-to-char "◦") )))
-  (font-lock-add-keywords
-   'scala-mode
-   '(("\\(!\\)[^=]" (0 (prog1 ()
-                     (compose-region (match-beginning 1)
-                                     (match-end 1)
-                                     (string-to-char "¬")))))))
 #+END_SRC
 
 ** Graphviz
@@ -2545,17 +2290,6 @@ https://godoc.org/golang.org/x/tools/oracle
 #+END_SRC
 
 
-* Twitter
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package twittering-mode
-    :ensure t
-    :config
-    (setq twittering-status-format "%s >\n%T\n")
-    (setq twittering-use-master-password t))
-
-#+END_SRC
-
 * Helm
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2612,74 +2346,6 @@ https://godoc.org/golang.org/x/tools/oracle
 
 #+END_SRC
 
-
-** helm-pydoc
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package helm-pydoc
-    :ensure t
-    :config
-    (define-key python-mode-map (kbd "C-c C-d") 'helm-pydoc))
-
-#+END_SRC
-
-** helm-descbinds
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package helm-descbinds
-    :ensure t
-    :config
-    (helm-descbinds-mode))
-
-#+END_SRC
-
-** helm-bm                                                       :rubikitch:
-
-*** http://rubikitch.com/2014/11/22/helm-bm/
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package bm
-    :ensure t
-    :bind
-    (("s-[" . bm-previous)
-     ("s-]" . bm-next))
-    :init
-    (setq-default bm-buffer-persistence nil)
-    (setq bm-restore-repository-on-load t)
-    :config
-    (add-hook 'find-file-hook 'bm-buffer-restore)
-    (add-hook 'kill-buffer-hook 'bm-buffer-save)
-    (add-hook 'after-save-hook 'bm-buffer-save)
-    (add-hook 'after-revert-hook 'bm-buffer-restore)
-    (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
-    (add-hook 'kill-emacs-hook '(lambda nil
-                                  (bm-buffer-save-all)
-                                  (bm-repository-save)))
-    (set-face-foreground 'bm-face "darkgreen")
-    (set-face-background 'bm-face "darkorange"))
-
-  (use-package helm-bm
-    :ensure t
-    :config
-    (use-package bm
-      :ensure t)
-    ;; migemoくらいつけようね
-    ;; (push '(migemo) helm-source-bm)
-
-    ;; annotationはあまり使わないので仕切り線で表示件数減るの嫌
-    ;; (setq helm-source-bm (delete '(multiline) helm-source-bm))
-
-    (defun bm-toggle-or-helm ()
-      "2回連続で起動したらhelm-bmを実行させる"
-      (interactive)
-      (bm-toggle)
-      (when (eq last-command 'bm-toggle-or-helm)
-        (helm-bm)))
-    (global-set-key (kbd "s-SPC") 'bm-toggle-or-helm)
-
-    ;;; これがないとemacs -Qでエラーになる。おそらくバグ。
-    (require 'compile))
-
-#+END_SRC
 
 ** helm-gtags
 

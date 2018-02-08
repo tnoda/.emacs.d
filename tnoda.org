@@ -893,16 +893,6 @@ Mac OS X's ls does not support the ~--dired~ option.
   (global-unset-key (kbd "M-@"))
 #+END_SRC
 
-** popwin.el
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package popwin
-    :ensure t
-    :config
-    (popwin-mode 1))
-
-#+END_SRC
-
 ** point-undo.el                                              :up:rubikitch:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1184,9 +1174,6 @@ on Sep. 2, 2014.
   ;;; 1秒後にポップアップされる(デフォルト)
   ;;; つまり1秒以内に操作すればポップアップされずに実行される
     (setq guide-key/idle-delay 1.0)
-
-  ;;; 下部にキー一覧を表示させる(デフォルトはright)
-    (setq guide-key/popup-window-position 'bottom)
 
   ;;; 文字の大きさを変更する(正の数で大きく、負の数で小さく)
     (setq guide-key/text-scale-amount 0)

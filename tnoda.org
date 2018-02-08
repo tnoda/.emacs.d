@@ -1472,19 +1472,6 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 * Lang
 
-** Emacs Lisp
-
-*** elisp-slime-nav
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package elisp-slime-nav
-    :ensure t
-    :config
-    (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
-      (add-hook hook 'turn-on-elisp-slime-nav-mode)))
-
-#+END_SRC
-
 ** Clojure                                                       :marmalade:
 *** Leiningen has been installed in =~/lein=.
 #+BEGIN_SRC emacs-lisp :tangle yes

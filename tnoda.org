@@ -1153,6 +1153,14 @@ Pressing =C-z= toggles between an eshell buffer and another.
 
 #+END_SRC
 
+** eshell-git-prompt
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package eshell-git-prompt
+    :ensure t
+    :config
+    (eshell-git-prompt-use-theme 'git-radar))
+
+#+END_SRC
 
 * Shell-mode
 ** Suppress echo-backs

@@ -946,17 +946,6 @@ Mac OS X's ls does not support the ~--dired~ option.
         (t (:inherit company-tooltip-selection))))))
 #+END_SRC
 
-** col-highlight.el                                              :rubikitch:
-
-Do =M-x column-highlight=, to highlight the corrent column.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package col-highlight
-    :ensure t)
-
-#+END_SRC
-
-
 ** paredit.el
 
 #+BEGIN_SRC emacs-lisp :tangle yes

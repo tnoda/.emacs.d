@@ -467,16 +467,6 @@ Thanks to http://d.hatena.ne.jp/tunefs/20130212/p1.
   (load "~/.calendar-location.el" t)
 #+END_SRC
 
-*** japanese-holidays.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package japanese-holidays
-    :ensure t
-    :config
-    (setq calendar-holidays
-          (append japanese-holidays holiday-local-holidays holiday-other-holidays))
-    (setq mark-holidays-in-calendar t))
-#+END_SRC
-
 ** スクリプトファイルを保存するときには，モードを実行可能に設定する．
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'after-save-hook
